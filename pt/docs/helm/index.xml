@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Comandos Helm on Helm</title><link>https://helm.sh/pt/docs/helm/</link><description>Recent content in Comandos Helm on Helm</description><generator>Hugo</generator><language>pt</language><atom:link href="https://helm.sh/pt/docs/helm/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm</title><link>https://helm.sh/pt/docs/helm/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm/</guid><description>&lt;h2 id="helm">helm&lt;/h2>
+&lt;p>O gerenciador de pacotes para o Kubernetes.&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>O gerenciador de pacotes para o Kubernetes.&lt;/p>
+&lt;p>Comandos comuns para o Helm:&lt;/p>
+&lt;ul>
+&lt;li>helm search: busca por Charts&lt;/li>
+&lt;li>helm pull: baixa um Chart em seu diretório local&lt;/li>
+&lt;li>helm install: aplica um Chart no Kubernetes&lt;/li>
+&lt;li>helm list: lista as &lt;em>releases&lt;/em> dos Charts&lt;/li>
+&lt;/ul>
+&lt;p>Variáveis de ambiente:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Nome&lt;/th>
+ &lt;th>Descrição&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>$HELM_CACHE_HOME&lt;/td>
+ &lt;td>configura um local alternativo para armazenamento dos arquivos de cache.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_CONFIG_HOME&lt;/td>
+ &lt;td>configura um local alternativo para armazenamento para as configurações do Helm.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DATA_HOME&lt;/td>
+ &lt;td>configura um local alternativo para armazenamento os dados do Helm.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DEBUG&lt;/td>
+ &lt;td>indica se o Helm rodará ou não em modo debug&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DRIVER&lt;/td>
+ &lt;td>configura o driver de armazenamento backend. Valores usados: configmap, secret, memory, postgres.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DRIVER_SQL_CONNECTION_STRING&lt;/td>
+ &lt;td>configura a string de conexão a ser utilizada pelo driver de armazenamento SQL.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_MAX_HISTORY&lt;/td>
+ &lt;td>configura o número máximo de &lt;em>releases&lt;/em> armazenadas no histórico do helm.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_NAMESPACE&lt;/td>
+ &lt;td>configura o namespace usado para as operações do helm.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_NO_PLUGINS&lt;/td>
+ &lt;td>desabilita os plugins. Configure HELM_NO_PLUGINS=1 para desabilitar os plugins.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_PLUGINS&lt;/td>
+ &lt;td>configura o caminho para o diretório dos plugins.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REGISTRY_CONFIG&lt;/td>
+ &lt;td>configura o caminho para o arquivo de configuração do container registry.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REPOSITORY_CACHE&lt;/td>
+ &lt;td>configura o caminho para o diretório do repositório de cache.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REPOSITORY_CONFIG&lt;/td>
+ &lt;td>configura o caminho para o arquivo de repositórios.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$KUBECONFIG&lt;/td>
+ &lt;td>configura um arquivo de configuração alternativo para o Kubernetes (por padrão &amp;quot;~/.kube/config&amp;quot;).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEAPISERVER&lt;/td>
+ &lt;td>configura o Endpoint de Autenticação do Kubernetes API Server.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBECAFILE&lt;/td>
+ &lt;td>configura o arquivo do certificado de autoridade para o Kubernetes.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEASGROUPS&lt;/td>
+ &lt;td>configura os Grupos que representarão as operações, sendo esta uma lista com itens separados por vírgula.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEASUSER&lt;/td>
+ &lt;td>configura o Nome de Usuário que representará a operação.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBECONTEXT&lt;/td>
+ &lt;td>configura o nó do contexto do kubeconfig.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBETOKEN&lt;/td>
+ &lt;td>configura o Bearer KubeToken usado para autenticação.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>O Helm armazena arquivos de cache, configuração, e dados de acordo com a seguinte ordem:&lt;/p></description></item><item><title>Helm Completion (Preenchimento automático)</title><link>https://helm.sh/pt/docs/helm/helm_completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_completion/</guid><description>&lt;h2 id="helm-completion">helm completion&lt;/h2>
+&lt;p>Gera scripts de preenchimento automático para um shell específico&lt;/p>
+&lt;h3 id="synopsis">Synopsis&lt;/h3>
+&lt;p>Gera scripts de preenchimento automático do Helm para um shell específico.&lt;/p>
+&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para o preenchimento automático
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices &amp;#34;cacheados&amp;#34; no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm/">helm&lt;/a> - Helm, o gerenciador de pacotes para o Kubernetes.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion_bash/">helm completion bash&lt;/a> - gera o script de preenchimento automático para o bash&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion_fish/">helm completion fish&lt;/a> - gera o script de preenchimento automático para o fish&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion_zsh/">helm completion zsh&lt;/a> - gera o script de preenchimento automático para o zsh&lt;/li>
+&lt;/ul></description></item><item><title>Helm Completion Bash</title><link>https://helm.sh/pt/docs/helm/helm_completion_bash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_completion_bash/</guid><description>&lt;h2 id="helm-completion-bash">helm completion bash&lt;/h2>
+&lt;p>Gera scripts de preenchimento automático para o bash&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Gera scripts de preenchimento automático do Helm para o bash shell.&lt;/p>
+&lt;p>Para carregar o script de preenchimento automático na sessão ativa do bash:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>source &amp;lt; (helm completion bash)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para carregar o script para cada nova sessão, execute uma vez:&lt;/p>
+&lt;p>Linux:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion bash &amp;gt; /etc/bash_completion.d/helm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>MacOS:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion bash &amp;gt; /usr/local/etc/bash_completion.d/helm
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Comando&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion bash [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para o preenchimento automático do bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices &amp;#34;cacheados&amp;#34; no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion/">helm completion&lt;/a>	 - gera scripts de preenchimento automático para um shell específico&lt;/li>
+&lt;/ul></description></item><item><title>Helm Completion Fish</title><link>https://helm.sh/pt/docs/helm/helm_completion_fish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_completion_fish/</guid><description>&lt;h2 id="helm-completion-fish">helm completion fish&lt;/h2>
+&lt;p>Gera scripts de preenchimento automático para o fish&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Gera scripts de preenchimento automático do Helm para o fish shell.&lt;/p>
+&lt;p>Para carregar o script de preenchimento automático na sessão ativa do fish:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion fish | source
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para carregar o script para cada nova sessão, execute uma vez:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion fish &amp;gt; ~/.config/fish/completions/helm.fish
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Será necessário iniciar um novo shell para que as modificações tenham efeito.&lt;/p>
+&lt;p>Comando&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion fish [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para o preenchimento automático do fish
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-descriptions desabilita descrições do preenchimento automático
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices &amp;#34;cacheados&amp;#34; no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion/">helm completion&lt;/a>	 - gera scripts de preenchimento automático para um shell específico&lt;/li>
+&lt;/ul></description></item><item><title>Helm Completion Zsh</title><link>https://helm.sh/pt/docs/helm/helm_completion_zsh/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_completion_zsh/</guid><description>&lt;h2 id="helm-completion-zsh">helm completion zsh&lt;/h2>
+&lt;p>Gera scripts de preenchimento automático para o zsh&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Gera scripts de preenchimento automático do Helm para o zsh shell.&lt;/p>
+&lt;p>Para carregar o script de preenchimento automático na sessão ativa do zsh:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>$ source &amp;lt; (helm completion zsh)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Para carregar o script para cada nova sessão, execute uma vez:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>$ helm completion zsh &amp;gt; &amp;#34;${fpath[1]}/_helm&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Comando&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion zsh [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para o preenchimento automático do zsh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-descriptions desabilita descrições do preenchimento automático
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices &amp;#34;cacheados&amp;#34; no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_completion/">helm completion&lt;/a>	 - gera scripts de preenchimento automático para um shell específico&lt;/li>
+&lt;/ul></description></item><item><title>Helm Create</title><link>https://helm.sh/pt/docs/helm/helm_create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_create/</guid><description>&lt;h2 id="helm-create">helm create&lt;/h2>
+&lt;p>Cria um novo Chart com um dado nome&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando cria um diretório para o Chart, bem como os arquivos comuns
+necessários para o Chart.&lt;/p>
+&lt;p>Por exemplo, &lt;code>helm create foo&lt;/code> criará uma estrutura de diretório como:&lt;/p>
+&lt;pre>&lt;code>foo/
+├── .helmignore # Descreve os arquivos a serem ignorados durante o empacotamento do Chart.
+├── Chart.yaml # Informação sobre o seu Chart
+├── values.yaml # Valores padrão para os seus templates
+├── charts/ # Charts que este Chart depende
+└── templates/ # Arquivos de template: deployment, service e outros manifestos
+ └── tests/ # Arquivos de teste
+&lt;/code>&lt;/pre>
+&lt;p>&lt;code>helm create&lt;/code> cria um diretório a partir do argumento passado. Se o diretório não
+existir o helm tentará criá-lo. Se o destino já existir e tiver arquivos dentro
+do diretório, os arquivos conflitantes serão sobrescritos e os demais serão mantidos.&lt;/p></description></item><item><title>Helm Get</title><link>https://helm.sh/pt/docs/helm/helm_get/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get/</guid><description>&lt;h2 id="helm-get">helm get&lt;/h2>
+&lt;p>Baixa informações adicionais de uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando consiste em múltiplos subcomandos utilizados para recuperar informações
+adicionais sobre uma dada &lt;em>release&lt;/em>, incluindo:&lt;/p>
+&lt;ul>
+&lt;li>Os valores utilizados para gerar a &lt;em>release&lt;/em>&lt;/li>
+&lt;li>O arquivo de manifesto gerado&lt;/li>
+&lt;li>As notas advindas do Chart da &lt;em>release&lt;/em>&lt;/li>
+&lt;li>Os &lt;em>hooks&lt;/em> associados a uma &lt;em>release&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para o comando get
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices &amp;#34;cacheados&amp;#34; no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm/">helm&lt;/a> - Helm, o gerenciador de pacotes para o Kubernetes.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get_all/">helm get all&lt;/a>	 - baixa todas as informações de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get_hooks/">helm get hooks&lt;/a>	 - baixa todos os &lt;em>hooks&lt;/em> de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get_manifest/">helm get manifest&lt;/a>	 - baixa o manifesto de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get_notes/">helm get notes&lt;/a>	 - baixa as notas de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get_values/">helm get values&lt;/a>	 - baixa o arquivo de valores de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;/ul></description></item><item><title>Helm Get All</title><link>https://helm.sh/pt/docs/helm/helm_get_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get_all/</guid><description>&lt;h2 id="helm-get-all">helm get all&lt;/h2>
+&lt;p>Baixa toda informação sobre uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando exibe um conjunto de informações, legíveis para o ser humano, sobre
+as notas, &lt;em>hooks&lt;/em>, valores passados e o manifesto gerado para uma dada &lt;em>release&lt;/em>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get all NOME_DA_RELEASE [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para recuperar um manifesto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int recupera uma revisão específica de uma release
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --template string template em go para formatar a saída do comando, ex: {{.Release.Name}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices cacheados no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get/">helm get&lt;/a> - baixa informações adicionais de uma dada release&lt;/li>
+&lt;/ul></description></item><item><title>Helm Get Hooks</title><link>https://helm.sh/pt/docs/helm/helm_get_hooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get_hooks/</guid><description>&lt;h2 id="helm-get-hooks">helm get hooks&lt;/h2>
+&lt;p>Baixa todos os &lt;em>hooks&lt;/em> para uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando recupera os &lt;em>hooks&lt;/em> para uma dada &lt;em>release&lt;/em>.&lt;/p>
+&lt;p>&lt;em>Hooks&lt;/em> são formatados em YAML e separados pelo separador YAML '---\n'.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get hooks NOME_DA_RELEASE [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para recuperar um manifesto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int recupera uma revisão específica de uma release
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices cacheados no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get/">helm get&lt;/a> - baixa informações adicionais de uma dada release&lt;/li>
+&lt;/ul></description></item><item><title>Helm Get Manifest</title><link>https://helm.sh/pt/docs/helm/helm_get_manifest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get_manifest/</guid><description>&lt;h2 id="helm-get-manifest">helm get manifest&lt;/h2>
+&lt;p>Baixa o manifesto de uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando recupera o manifesto gerado de uma dada &lt;em>release&lt;/em>.&lt;/p>
+&lt;p>Um manifesto é a representação dos recursos do Kubernetes em um arquivo YAML, o qual
+foi gerado a partir do Chart da &lt;em>release&lt;/em> em questão. Se o Chart depender de outros Charts,
+os recursos Kubernetes das dependências também serão incluídos no manifesto.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get manifest NOME_DA_RELEASE [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para recuperar um manifesto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int recupera uma revisão específica de uma release
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices cacheados no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm/">helm&lt;/a> - Helm, o gerenciador de pacotes para o Kubernetes.&lt;/li>
+&lt;/ul></description></item><item><title>Helm Get Notes</title><link>https://helm.sh/pt/docs/helm/helm_get_notes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get_notes/</guid><description>&lt;h2 id="helm-get-notes">helm get notes&lt;/h2>
+&lt;p>Baixa as notas de uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando exibe as notas de um Chart para uma dada &lt;em>release&lt;/em>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get notes NOME_DA_RELEASE [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help ajuda para recuperar um manifesto
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int recupera uma revisão específica de uma release
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices cacheados no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get/">helm get&lt;/a> - baixa informações adicionais de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;/ul></description></item><item><title>Helm Get Values</title><link>https://helm.sh/pt/docs/helm/helm_get_values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_get_values/</guid><description>&lt;h2 id="helm-get-values">helm get values&lt;/h2>
+&lt;p>Baixa o arquivo com os valores de uma dada &lt;em>release&lt;/em>&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando recupera o arquivo com os valores utilizados em uma dada &lt;em>release&lt;/em>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get values NOME_DA_RELEASE [argumentos]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções">Opções&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -a, --all exibe todos os valores (computados)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help ajuda para recuperar os valores
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format exibe a saída em um formato específico. Formatos: table, json, yaml (padrão table)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int recupera uma revisão específica de uma release
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opções-gerais">Opções gerais&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug exibe uma saída verbosa
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help exibe ajuda para um comando do helm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string o endereço e porta do Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray o grupo que representará essa operação, esse argumento pode ser repetido para indicar múltiplos grupos
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string o usuário que representará essa operação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-ca-file string caminho para o certificado para conexão com o Kubernetes API server
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string nome do contexto do kubeconfig a ser usado
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string bearer token usado para autenticação
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string caminho para o arquivo kubeconfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string namespace para essa requisição
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string caminho para o arquivo de configuração do registry (padrão &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string caminho para os índices cacheados no repositório (padrão &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string caminho para o arquivo path to the file containing repository names and URLs (padrão &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="veja-também">Veja Também&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/pt/docs/helm/helm_get/">helm get&lt;/a> - baixa informações adicionais de uma dada &lt;em>release&lt;/em>&lt;/li>
+&lt;/ul></description></item><item><title>Helm Install</title><link>https://helm.sh/pt/docs/helm/helm_install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/helm/helm_install/</guid><description>&lt;h2 id="helm-install">helm install&lt;/h2>
+&lt;p>Instala um Chart&lt;/p>
+&lt;h3 id="sinopse">Sinopse&lt;/h3>
+&lt;p>Esse comando instala um 
+&lt;a href="https://helm.sh/pt/docs/glossary/#chart-archive">&lt;em>Chart Archive&lt;/em>&lt;/a>.&lt;/p>
+&lt;p>O argumento de instalação deve ser uma referência a um Chart, ou um caminho para
+um Chart empacotado, ou um caminho para um Chart descompactado ou uma URL.&lt;/p>
+&lt;p>Para sobrescrever os valores em um Chart use tanto o argumento &lt;code>--values&lt;/code> indicando
+um arquivo &lt;code>yaml&lt;/code> para os valores ou o argumento &lt;code>--set&lt;/code> passando os valores através
+da linha de comando. Para forçar um valor passado no formato string use o argumento
+&lt;code>--set-string&lt;/code>. No caso de valores grandes considere utilizar o argumento &lt;code>--set-file&lt;/code>
+ao invés de &lt;code>--values&lt;/code> ou &lt;code>--set&lt;/code>, para ler um único grande valor a partir de um
+arquivo.&lt;/p></description></item></channel></rss>

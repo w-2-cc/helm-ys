@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chart 模板指南 on Helm</title><link>https://helm.sh/zh/docs/chart_template_guide/</link><description>Recent content in Chart 模板指南 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/chart_template_guide/index.xml" rel="self" type="application/rss+xml"/><item><title>从这里开始吧</title><link>https://helm.sh/zh/docs/chart_template_guide/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/getting_started/</guid><description>&lt;p>指南的该部分，我们会创建一个chart并添加第一个模板。创建的chart会在后续指南中用到。&lt;/p>
+&lt;p>接下来，让我们简单看一下Helm chart。&lt;/p>
+&lt;h2 id="charts">Charts&lt;/h2>
+&lt;p>如
+&lt;a href="https://helm.sh/zh/docs/topics/charts" target="_blank">Charts 指南&lt;/a>所述， Helm chart的结构如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>mychart/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>templates/&lt;/code> 目录包括了模板文件。当Helm评估chart时，会通过模板渲染引擎将所有文件发送到&lt;code>templates/&lt;/code>目录中。
+然后收集模板的结果并发送给Kubernetes。&lt;/p>
+&lt;p>&lt;code>values.yaml&lt;/code> 文件也导入到了模板。这个文件包含了chart的 &lt;em>默认值&lt;/em> 。这些值会在用户执行&lt;code>helm install&lt;/code> 或 &lt;code>helm upgrade&lt;/code>时被覆盖。&lt;/p>
+&lt;p>&lt;code>Chart.yaml&lt;/code> 文件包含了该chart的描述。你可以从模板中访问它。&lt;code>charts/&lt;/code>目录 &lt;em>可以&lt;/em> 包含其他的chart(称之为 &lt;em>子chart&lt;/em>)。
+指南稍后我们会看到当涉及模板渲染时这些是如何工作的。&lt;/p>
+&lt;h2 id="入门-chart">入门 Chart&lt;/h2>
+&lt;p>在本指南中我们会创建一个名为&lt;code>mychart&lt;/code>的chart，然后会在chart中创建一些模板。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm create mychart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Creating mychart
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="快速查看-mycharttemplates">快速查看 &lt;code>mychart/templates/&lt;/code>&lt;/h3>
+&lt;p>如果你看看 &lt;code>mychart/templates/&lt;/code> 目录，会注意到一些文件已经存在了：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>NOTES.txt&lt;/code>: chart的&amp;quot;帮助文本&amp;quot;。这会在你的用户执行&lt;code>helm install&lt;/code>时展示给他们。&lt;/li>
+&lt;li>&lt;code>deployment.yaml&lt;/code>: 创建Kubernetes
+
+&lt;a href="https://kubernetes.io/docs/user-guide/deployments/" target="_blank">工作负载&lt;/a>的基本清单&lt;/li>
+&lt;li>&lt;code>service.yaml&lt;/code>: 为你的工作负载创建一个
+&lt;a href="https://kubernetes.io/docs/user-guide/services/" target="_blank">service终端&lt;/a>基本清单。&lt;/li>
+&lt;li>&lt;code>_helpers.tpl&lt;/code>: 放置可以通过chart复用的模板辅助对象&lt;/li>
+&lt;/ul>
+&lt;p>然后我们要做的是... &lt;em>把它们全部删掉！&lt;/em> 这样我们就可以从头开始学习我们的教程。我们在开始时会创造自己的&lt;code>NOTES.txt&lt;/code>和&lt;code>_helpers.tpl&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> rm -rf mychart/templates/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>编制生产环境级别的chart时，有这些chart的基础版本会很有用。因此在日常编写中，你可能不想删除它们。&lt;/p>
+&lt;h2 id="第一个模板">第一个模板&lt;/h2>
+&lt;p>第一个创建的模板是&lt;code>ConfigMap&lt;/code>。Kubernetes中，配置映射只是用于存储配置数据的对象。其他组件，比如pod，可以访问配置映射中的数据。&lt;/p>
+&lt;p>因为配置映射是基础资源，对我们来说是很好的起点。&lt;/p></description></item><item><title>内置对象</title><link>https://helm.sh/zh/docs/chart_template_guide/builtin_objects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/builtin_objects/</guid><description>&lt;p>对象可以通过模板引擎传递到模板中。 当然你的代码也可以传递对象。（我们在使用&lt;code>with&lt;/code>和&lt;code>range&lt;/code>语句时，会看到示例）。有几种方式可以在模板中创建新对象，比如说我们后面会看到的&lt;code>tuple&lt;/code>功能。&lt;/p>
+&lt;p>对象可以是非常简单的:仅有一个值。或者可以包含其他对象或方法。比如，&lt;code>Release&lt;/code>对象可以包含其他对象（比如：&lt;code>Release.Name&lt;/code>）和&lt;code>Files&lt;/code>对象有一组方法。&lt;/p>
+&lt;p>在上一部分中，我们用&lt;code>{{ .Release.Name }}&lt;/code>在模板中插入版本名称。&lt;code>Release&lt;/code>是你可以在模板中访问的顶层对象之一。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>Release&lt;/code>： &lt;code>Release&lt;/code>对象描述了版本发布本身。包含了以下对象：
+&lt;ul>
+&lt;li>&lt;code>Release.Name&lt;/code>： release名称&lt;/li>
+&lt;li>&lt;code>Release.Namespace&lt;/code>： 版本中包含的命名空间(如果manifest没有覆盖的话)&lt;/li>
+&lt;li>&lt;code>Release.IsUpgrade&lt;/code>： 如果当前操作是升级或回滚的话，该值将被设置为&lt;code>true&lt;/code>&lt;/li>
+&lt;li>&lt;code>Release.IsInstall&lt;/code>： 如果当前操作是安装的话，该值将被设置为&lt;code>true&lt;/code>&lt;/li>
+&lt;li>&lt;code>Release.Revision&lt;/code>： 此次修订的版本号。安装时是1，每次升级或回滚都会自增&lt;/li>
+&lt;li>&lt;code>Release.Service&lt;/code>： 该service用来渲染当前模板。Helm里始终&lt;code>Helm&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>Values&lt;/code>： &lt;code>Values&lt;/code>对象是从&lt;code>values.yaml&lt;/code>文件和用户提供的文件传进模板的。默认为空&lt;/li>
+&lt;li>&lt;code>Chart&lt;/code>： &lt;code>Chart.yaml&lt;/code>文件内容。 &lt;code>Chart.yaml&lt;/code>里的所有数据在这里都可以可访问的。比如
+&lt;code>{{ .Chart.Name }}-{{ .Chart.Version }}&lt;/code> 会打印出 &lt;code>mychart-0.1.0&lt;/code>
+&lt;ul>
+&lt;li>在
+&lt;a href="https://helm.sh/zh/docs/topics/charts#Chart-yaml-%e6%96%87%e4%bb%b6" target="_blank">Chart 指南&lt;/a> 中列出了可获得属性&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>Files&lt;/code>： 在chart中提供访问所有的非特殊文件的对象。你不能使用它访问&lt;code>Template&lt;/code>对象，只能访问其他文件。
+请查看这个
+&lt;a href="https://helm.sh/zh/docs/chart_template_guide/accessing_files" target="_blank">文件访问&lt;/a>部分了解更多信息
+&lt;ul>
+&lt;li>&lt;code>Files.Get&lt;/code> 通过文件名获取文件的方法。 （&lt;code>.Files.Getconfig.ini&lt;/code>）&lt;/li>
+&lt;li>&lt;code>Files.GetBytes&lt;/code> 用字节数组代替字符串获取文件内容的方法。 对图片之类的文件很有用&lt;/li>
+&lt;li>&lt;code>Files.Glob&lt;/code> 用给定的shell glob模式匹配文件名返回文件列表的方法&lt;/li>
+&lt;li>&lt;code>Files.Lines&lt;/code> 逐行读取文件内容的方法。迭代文件中每一行时很有用&lt;/li>
+&lt;li>&lt;code>Files.AsSecrets&lt;/code> 使用Base 64编码字符串返回文件体的方法&lt;/li>
+&lt;li>&lt;code>Files.AsConfig&lt;/code> 使用YAML格式返回文件体的方法&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>Capabilities&lt;/code>： 提供关于Kubernetes集群支持功能的信息
+&lt;ul>
+&lt;li>&lt;code>Capabilities.APIVersions&lt;/code> 是一个版本列表&lt;/li>
+&lt;li>&lt;code>Capabilities.APIVersions.Has $version&lt;/code> 说明集群中的版本 (比如,&lt;code>batch/v1&lt;/code>) 或是资源 (比如, &lt;code>apps/v1/Deployment&lt;/code>) 是否可用&lt;/li>
+&lt;li>&lt;code>Capabilities.KubeVersion&lt;/code> 和&lt;code>Capabilities.KubeVersion.Version&lt;/code> 是Kubernetes的版本号&lt;/li>
+&lt;li>&lt;code>Capabilities.KubeVersion.Major&lt;/code> Kubernetes的主版本&lt;/li>
+&lt;li>&lt;code>Capabilities.KubeVersion.Minor&lt;/code> Kubernetes的次版本&lt;/li>
+&lt;li>&lt;code>Capabilities.HelmVersion&lt;/code> 包含Helm版本详细信息的对象，和 &lt;code>helm version&lt;/code> 的输出一致&lt;/li>
+&lt;li>&lt;code>Capabilities.HelmVersion.Version&lt;/code> 是当前Helm语义格式的版本&lt;/li>
+&lt;li>&lt;code>Capabilities.HelmVersion.GitCommit&lt;/code> Helm的git sha1值&lt;/li>
+&lt;li>&lt;code>Capabilities.HelmVersion.GitTreeState&lt;/code> 是Helm git树的状态&lt;/li>
+&lt;li>&lt;code>Capabilities.HelmVersion.GoVersion&lt;/code> 是使用的Go编译器版本&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>Template&lt;/code>： 包含当前被执行的当前模板信息
+&lt;ul>
+&lt;li>&lt;code>Template.Name&lt;/code>: 当前模板的命名空间文件路径 (e.g. &lt;code>mychart/templates/mytemplate.yaml&lt;/code>)&lt;/li>
+&lt;li>&lt;code>Template.BasePath&lt;/code>: 当前chart模板目录的路径 (e.g. &lt;code>mychart/templates&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>内置的值都是以大写字母开始。 这是符合Go的命名惯例。当你创建自己的名称时，可以按照团队约定自由设置。
+就像很多你在 
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a> 中看到的chart，其团队选择使用首字母小写将本地名称与内置对象区分开，本指南中我们也遵循该惯例。&lt;/p></description></item><item><title>Values 文件</title><link>https://helm.sh/zh/docs/chart_template_guide/values_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/values_files/</guid><description>&lt;p>在上一部分我们了解了Helm模板提供的内置对象。其中一个是&lt;code>Values&lt;/code>对象。该对象提供了传递值到chart的方法，&lt;/p>
+&lt;p>其内容来自于多个位置：&lt;/p>
+&lt;ul>
+&lt;li>chart中的&lt;code>values.yaml&lt;/code>文件&lt;/li>
+&lt;li>如果是子chart，就是父chart中的&lt;code>values.yaml&lt;/code>文件&lt;/li>
+&lt;li>使用&lt;code>-f&lt;/code>参数(&lt;code>helm install -f myvals.yaml ./mychart&lt;/code>)传递到 &lt;code>helm install&lt;/code> 或
+&lt;code>helm upgrade&lt;/code>的values文件&lt;/li>
+&lt;li>使用&lt;code>--set&lt;/code> (比如&lt;code>helm install --set foo=bar ./mychart&lt;/code>)传递的单个参数&lt;/li>
+&lt;/ul>
+&lt;p>以上列表有明确顺序：默认使用&lt;code>values.yaml&lt;/code>，可以被父chart的&lt;code>values.yaml&lt;/code>覆盖，继而被用户提供values文件覆盖，
+最后会被&lt;code>--set&lt;/code>参数覆盖，优先级为&lt;code>values.yaml&lt;/code>最低，&lt;code>--set&lt;/code>参数最高。&lt;/p>
+&lt;p>values文件是普通的YAML文件。现在编辑&lt;code>mychart/values.yaml&lt;/code>然后编辑配置映射ConfigMap模板。&lt;/p>
+&lt;p>删除&lt;code>values.yaml&lt;/code>中的默认内容，仅设置一个参数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">favoriteDrink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>coffee&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在可以在模板中使用它：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.favoriteDrink }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意最后一行，&lt;code>favoriteDrink&lt;/code>是&lt;code>Values&lt;/code>的一个属性: &lt;code>{{ .Values.favoriteDrink }}&lt;/code>。&lt;/p>
+&lt;p>看看是如何渲染的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm install geared-marsupi ./mychart --dry-run --debug
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">install.go:158: [debug] Original chart version: &amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">install.go:175: [debug] CHART PATH: /home/bagratte/src/playground/mychart
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#a00;background-color:#faa">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a00;background-color:#faa">&lt;/span>&lt;span style="color:#aaa">NAME: geared-marsupi
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">LAST DEPLOYED: Wed Feb 19 23:21:13 2020
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">NAMESPACE: default
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">STATUS: pending-install
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">REVISION: 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">TEST SUITE: None
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">USER-SUPPLIED VALUES:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">{}
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#a00;background-color:#faa">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a00;background-color:#faa">&lt;/span>&lt;span style="color:#aaa">COMPUTED VALUES:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">favoriteDrink: coffee
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#a00;background-color:#faa">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a00;background-color:#faa">&lt;/span>&lt;span style="color:#aaa">HOOKS:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">MANIFEST:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">---
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">#&lt;/span> Source: mychart/templates/configmap.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">apiVersion: v1
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">kind: ConfigMap
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">metadata:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> name: geared-marsupi-configmap
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">data:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> myvalue: &amp;#34;Hello World&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> drink: coffee
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于默认的&lt;code>values.yaml&lt;/code>文件中设置了&lt;code>favoriteDrink&lt;/code>的值为&lt;code>coffee&lt;/code>，则这个显示在了模板中。
+可以在调用&lt;code>helm install&lt;/code>时设置&lt;code>--set&lt;/code>，很容易就能覆盖这个值。&lt;/p></description></item><item><title>模板函数和流水线</title><link>https://helm.sh/zh/docs/chart_template_guide/functions_and_pipelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/functions_and_pipelines/</guid><description>&lt;p>到目前为止，我们已经知道了如何将信息传到模板中。 但是传入的信息并不能被修改。
+有时我们希望以一种更有用的方式来转换所提供的数据。&lt;/p>
+&lt;p>让我们从一个最佳实践开始：可以通过调用模板指令中的&lt;code>quote&lt;/code>函数把&lt;code>.Values&lt;/code>对象中的字符串属性用引号引起来，然后放到模板中。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>quote .Values.favorite.drink }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>quote .Values.favorite.food }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板函数的语法是 &lt;code>functionName arg1 arg2...&lt;/code>。在上面的代码片段中，&lt;code>quote .Values.favorite.drink&lt;/code>调用了&lt;code>quote&lt;/code>函数并传递了一个参数(&lt;code>.Values.favorite.drink&lt;/code>)。&lt;/p>
+&lt;p>Helm 有超过60个可用函数。其中有些通过
+&lt;a href="https://godoc.org/text/template" target="_blank">Go模板语言&lt;/a>本身定义。其他大部分都是
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">Sprig 模板库&lt;/a>。我们可以在示例看到其中很多函数。&lt;/p>
+&lt;blockquote>
+&lt;p>当我们讨论&amp;quot;Helm模板语言&amp;quot;时，感觉它是Helm专属的，实际上他是Go模板语言、一些额外的函数和用于
+向模板暴露某些对象的装饰器组合而成的。很多Go模板的资料也有助于你学习模板。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="管道符">管道符&lt;/h2>
+&lt;p>模板语言其中一个强大功能是 &lt;strong>管道&lt;/strong> 概念。借鉴UNIX中的概念，管道符是将一系列的模板语言紧凑地将多个流式处理结果合并的工具。换句话说，管道符是按顺序完成一系列任务的方式。
+现在用管道符重写上述示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.favorite.drink | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.favorite.food | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个示例中，并不是调用&lt;code>quote 参数&lt;/code>，而是倒置了命令。使用管道符(&lt;code>|&lt;/code>)将参数“发送”给函数：
+&lt;code>.Values.favorite.drink | quote&lt;/code>。使用管道符可以将很多函数链接在一起：&lt;/p></description></item><item><title>模板函数列表</title><link>https://helm.sh/zh/docs/chart_template_guide/function_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/function_list/</guid><description>&lt;p>Helm 包含了很多可以在模板中利用的模板函数。以下列出了具体分类：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="#cryptographic-and-security-functions">Cryptographic and Security&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#date-functions">Date&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#dictionaries-and-dict-functions">Dictionaries&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#encoding-functions">Encoding&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#file-path-functions">File Path&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#kubernetes-and-chart-functions">Kubernetes and Chart&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#logic-and-flow-control-functions">Logic and Flow Control&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#lists-and-list-functions">Lists&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#math-functions">Math&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#float-math-functions">Float Math&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#network-functions">Network&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#reflection-functions">Reflection&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#regular-expressions">Regular Expressions&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#semantic-version-functions">Semantic Versions&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#string-functions">String&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#type-conversion-functions">Type Conversion&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#url-functions">URL&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#uuid-functions">UUID&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="logic-and-flow-control-functions">Logic and Flow Control Functions&lt;/h2>
+&lt;p>Helm 包括了需要逻辑和流控制函数，包括
+&lt;a href="#and">and&lt;/a>,
+&lt;a href="#coalesce">coalesce&lt;/a>, 
+&lt;a href="#default">default&lt;/a>,
+
+&lt;a href="#empty">empty&lt;/a>, 
+&lt;a href="#eq">eq&lt;/a>,
+&lt;a href="#fail">fail&lt;/a>, 
+&lt;a href="#ge">ge&lt;/a>, 
+&lt;a href="#gt">gt&lt;/a>, 
+&lt;a href="#le">le&lt;/a>, 
+&lt;a href="#lt">lt&lt;/a>,
+
+&lt;a href="#ne">ne&lt;/a>, 
+&lt;a href="#not">not&lt;/a>, and 
+&lt;a href="#or">or&lt;/a>。&lt;/p>
+&lt;h3 id="and">and&lt;/h3>
+&lt;p>返回两个参数的and布尔值。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>and .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="or">or&lt;/h3>
+&lt;p>返回两个参数的or布尔值。会返回第一个非空参数或最后一个参数。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>or .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="not">not&lt;/h3>
+&lt;p>返回参数的布尔求反。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>not .Arg&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="eq">eq&lt;/h3>
+&lt;p>返回参数的布尔等式（比如， Arg1 == Arg2）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>eq .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ne">ne&lt;/h3>
+&lt;p>返回参数的布尔非等式（比如 Arg1 != Arg2）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>ne .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="lt">lt&lt;/h3>
+&lt;p>如果第一参数小于第二参数，返回布尔真。否则返回假（比如， Arg1 &amp;lt; Arg2）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>lt .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="le">le&lt;/h3>
+&lt;p>如果第一参数小于等于第二参数，返回布尔真，否则返回假（比如， Arg1 &amp;lt;= Arg2）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>le .Arg1 .Arg2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="gt">gt&lt;/h3>
+&lt;p>如果第一参数大于第二参数，返回布尔真，否则返回假（比如， Arg1 &amp;gt; Arg2）。&lt;/p></description></item><item><title>流控制</title><link>https://helm.sh/zh/docs/chart_template_guide/control_structures/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/control_structures/</guid><description>&lt;p>控制结构(在模板语言中称为&amp;quot;actions&amp;quot;)提供给你和模板作者控制模板迭代流的能力。
+Helm的模板语言提供了以下控制结构：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>if&lt;/code>/&lt;code>else&lt;/code>， 用来创建条件语句&lt;/li>
+&lt;li>&lt;code>with&lt;/code>， 用来指定范围&lt;/li>
+&lt;li>&lt;code>range&lt;/code>， 提供&amp;quot;for each&amp;quot;类型的循环&lt;/li>
+&lt;/ul>
+&lt;p>除了这些之外，还提供了一些声明和使用命名模板的关键字：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>define&lt;/code> 在模板中声明一个新的命名模板&lt;/li>
+&lt;li>&lt;code>template&lt;/code> 导入一个命名模板&lt;/li>
+&lt;li>&lt;code>block&lt;/code> 声明一种特殊的可填充的模板块&lt;/li>
+&lt;/ul>
+&lt;p>该部分，我们会讨论关于&lt;code>if&lt;/code>，&lt;code>with&lt;/code>，和 &lt;code>range&lt;/code>。其他部分会在该指南的“命名模板”部分说明。&lt;/p>
+&lt;h2 id="ifelse">If/Else&lt;/h2>
+&lt;p>第一个控制结构是在按照条件在一个模板中包含一个块文本。即&lt;code>if&lt;/code>/&lt;code>else&lt;/code>块。&lt;/p>
+&lt;p>基本的条件结构看起来像这样：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{&lt;span style="color:#bbb"> &lt;/span>if PIPELINE }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Do something&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>else if OTHER PIPELINE }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Do something else&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>else }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Default case&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意我们讨论的是 &lt;em>管道&lt;/em> 而不是值。这样做的原因是要清楚地说明控制结构可以执行整个管道，而不仅仅是计算一个值。&lt;/p>
+&lt;p>如果是以下值时，管道会被设置为 &lt;em>false&lt;/em>：&lt;/p>
+&lt;ul>
+&lt;li>布尔false&lt;/li>
+&lt;li>数字0&lt;/li>
+&lt;li>空字符串&lt;/li>
+&lt;li>&lt;code>nil&lt;/code> (空或null)&lt;/li>
+&lt;li>空集合(&lt;code>map&lt;/code>, &lt;code>slice&lt;/code>, &lt;code>tuple&lt;/code>, &lt;code>dict&lt;/code>, &lt;code>array&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;p>在所有其他条件下，条件都为true。&lt;/p>
+&lt;p>让我们先在配置映射中添加一个简单的条件。如果饮品是coffee会添加另一个配置：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.favorite.drink | default &amp;#34;tea&amp;#34; | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.favorite.food | upper | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>if eq .Values.favorite.drink &amp;#34;coffee&amp;#34; }}mug: &amp;#34;true&amp;#34;{{ end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于我们在最后一个例子中注释了&lt;code>drink: coffee&lt;/code>，输出中就不会包含&lt;code>mug: &amp;quot;true&amp;quot;&lt;/code>标识。但如果将这行添加到&lt;code>values.yaml&lt;/code>
+文件中，输入就会是这样：&lt;/p></description></item><item><title>变量</title><link>https://helm.sh/zh/docs/chart_template_guide/variables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/variables/</guid><description>&lt;p>函数、管道符、对象和控制结构都可以控制，我们转向很多编程语言中更基本的思想之一：变量。
+在模板中，很少被使用。但是我们可以使用变量简化代码，并更好地使用&lt;code>with&lt;/code>和&lt;code>range&lt;/code>。&lt;/p>
+&lt;p>在之前的例子中，我们看到下面的代码会失败：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- with .Values.favorite }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.drink | default &amp;#34;tea&amp;#34; | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.food | upper | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">release&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Release.Name&lt;/code> 不在&lt;code>with&lt;/code>块的限制范围内。解决作用域问题的一种方法是将对象分配给可以不考虑当前作用域而访问的变量。&lt;/p>
+&lt;p>Helm模板中，变量是对另一个对象的命名引用。遵循&lt;code>$name&lt;/code>变量的格式且指定了一个特殊的赋值运算符：&lt;code>:=&lt;/code>。
+我们可以使用针对&lt;code>Release.Name&lt;/code>的变量重写上述内容。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- $relname := .Release.Name -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- with .Values.favorite }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.drink | default &amp;#34;tea&amp;#34; | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.food | upper | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">release&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>$relname }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意在&lt;code>with&lt;/code>块开始之前，赋值&lt;code>$relname := .Release.Name&lt;/code>。
+现在在&lt;code>with&lt;/code>块中，&lt;code>$relname&lt;/code>变量仍会执行版本名称。&lt;/p></description></item><item><title>命名模板</title><link>https://helm.sh/zh/docs/chart_template_guide/named_templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/named_templates/</guid><description>&lt;p>此时需要越过模板，开始创建其他内容了。该部分我们会看到如何在一个文件中定义
+&lt;em>命名模板&lt;/em>，并在其他地方使用。&lt;em>命名模板&lt;/em> (有时称作一个 &lt;em>部分&lt;/em> 或一个
+&lt;em>子模板&lt;/em>)仅仅是在文件内部定义的模板，并使用了一个名字。有两种创建方式和几种不同的使用方法。&lt;/p>
+&lt;p>在
+&lt;a href="https://helm.sh/zh/docs/chart_template_guide/control_structures" target="_blank">流控制&lt;/a>部分，
+我们介绍了三种声明和管理模板的方法：&lt;code>define&lt;/code>，&lt;code>template&lt;/code>，和&lt;code>block&lt;/code>。在这部分，我们将使用这三种操作并介绍一种特殊用途的
+&lt;code>include&lt;/code>方法，类似于&lt;code>template&lt;/code>操作。&lt;/p>
+&lt;p>命名模板时要记住一个重要细节：&lt;strong>模板名称是全局的&lt;/strong>。如果您想声明两个相同名称的模板，哪个最后加载就使用哪个。
+因为在子chart中的模板和顶层模板一起编译，命名时要注意 &lt;em>chart特定名称&lt;/em>。&lt;/p>
+&lt;p>一个常见的命名惯例是用chart名称作为模板前缀：&lt;code>{{ define &amp;quot;mychart.labels&amp;quot; }}&lt;/code>。使用特定chart名称作为前缀可以避免可能因为
+两个不同chart使用了相同名称的模板而引起的冲突。&lt;/p>
+&lt;p>这个规则同样适用于chart的不同版本。如果有 &lt;code>mychart&lt;/code> 的 &lt;code>1.0.0&lt;/code>版本以一种方式定义了模板， &lt;code>mychart&lt;/code> 的 &lt;code>2.0.0&lt;/code>
+版本修改了已有的命名模板，那就会使用最后加载的版本。也可以在chart名称中添加版本来解决这个问题：
+&lt;code>{{ define &amp;quot;mychart.v1.labels&amp;quot; }}&lt;/code> 和 &lt;code>{{ define &amp;quot;mychart.v2.labels&amp;quot; }}&lt;/code>。&lt;/p>
+&lt;h2 id="局部的和_文件">局部的和&lt;code>_&lt;/code>文件&lt;/h2>
+&lt;p>目前为止，我们已经使用了单个文件，且单个文件中包含了单个模板。但Helm的模板语言允许你创建命名的嵌入式模板，
+这样就可以在其他位置按名称访问。&lt;/p>
+&lt;p>在编写模板细节之前，文件的命名惯例需要注意：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>templates/&lt;/code>中的大多数文件被视为包含Kubernetes清单&lt;/li>
+&lt;li>&lt;code>NOTES.txt&lt;/code>是个例外&lt;/li>
+&lt;li>命名以下划线(&lt;code>_&lt;/code>)开始的文件则假定 &lt;em>没有&lt;/em> 包含清单内容。这些文件不会渲染为Kubernetes对象定义，但在其他chart模板中都可用。&lt;/li>
+&lt;/ul>
+&lt;p>这些文件用来存储局部和辅助对象，实际上当我们第一次创建&lt;code>mychart&lt;/code>时，会看到一个名为&lt;code>_helpers.tpl&lt;/code>的文件，这个文件是模板局部的默认位置。&lt;/p>
+&lt;h2 id="用define和template声明和使用模板">用&lt;code>define&lt;/code>和&lt;code>template&lt;/code>声明和使用模板&lt;/h2>
+&lt;p>&lt;code>define&lt;/code>操作允许我们在模板文件中创建一个命名模板，语法如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;MY.NAME&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># body of template here&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>比如我们可以定义一个模板封装Kubernetes的标签：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;mychart.labels&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">labels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">generator&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">date&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>now | htmlDate }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在我们将模板嵌入到了已有的配置映射中，然后使用&lt;code>template&lt;/code>包含进来：&lt;/p></description></item><item><title>在模板内部访问文件</title><link>https://helm.sh/zh/docs/chart_template_guide/accessing_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/accessing_files/</guid><description>&lt;p>在上一节中，我们研究了几种创建和访问模板的方法。这样可以很容易从一个模板导入到另一个模板中。
+但有时想导入的是不是模板的文件并注入其内容，而无需通过模板渲染发送内容。&lt;/p>
+&lt;p>Helm 提供了通过&lt;code>.Files&lt;/code>对象访问文件的方法。不过，在我们使用模板示例之前，有些事情需要注意：&lt;/p>
+&lt;ul>
+&lt;li>可以添加额外的文件到chart中。虽然这些文件会被绑定。但是要小心，由于Kubernetes对象的限制，Chart必须小于1M。&lt;/li>
+&lt;li>通常处于安全考虑，一些文件无法通过&lt;code>.Files&lt;/code>对象访问：
+&lt;ul>
+&lt;li>无法访问&lt;code>templates/&lt;/code>中的文件&lt;/li>
+&lt;li>无法访问使用&lt;code>.helmignore&lt;/code>排除的文件&lt;/li>
+&lt;li>helm应用
+&lt;a href="https://helm.sh/zh/docs/chart_template_guide/subcharts_and_globals" target="_blank">subchart&lt;/a>之外的文件，包括父级中的，不能被访问的&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Chart不能保留UNIX模式信息，因此当文件涉及到&lt;code>.Files&lt;/code>对象时，文件级权限不会影响文件的可用性。&lt;/li>
+&lt;/ul>
+&lt;!-- (see https://github.com/jonschlinkert/markdown-toc) -->
+&lt;!-- toc -->
+&lt;ul>
+&lt;li>
+&lt;a href="#basic-example">基本示例&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#path-helpers">Path辅助对象&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#glob-patterns">全局模式&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#configmap-and-secrets-utility-functions">ConfigMap和密钥的实用功能&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#encoding">编码&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#lines">文件行&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;!-- tocstop -->
+&lt;h2 id="basic-example">Basic example&lt;/h2>
+&lt;p>先不管警告，我们来写一个读取三个文件到配置映射ConfigMap的模板。开始之前，我们会在chart中添加三个文件，
+直接放到&lt;code>mychart/&lt;/code>目录中。&lt;/p>
+&lt;p>&lt;code>config1.toml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>message = Hello from config &lt;span style="color:#f60">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>config2.toml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>message = This is config &lt;span style="color:#f60">2&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>config3.toml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>message = Goodbye from config &lt;span style="color:#f60">3&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>每个都是简单的TOML文件（类似于windows老式的INI文件）。我们知道这些文件的名称，因此我们使用&lt;code>range&lt;/code>功能遍历它们并将它们的内容注入到我们的ConfigMap中。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- $files := .Files }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- range tuple &amp;#34;config1.toml&amp;#34; &amp;#34;config2.toml&amp;#34; &amp;#34;config3.toml&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">. }}&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>|-&lt;span style="color:#c30;font-style:italic">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#c30;font-style:italic"> {{ $files.Get . }}&lt;/span>&lt;span style="color:#bbb"> 
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个配置映射使用了之前章节讨论过的技术。比如，我们创建了一个&lt;code>$files&lt;/code>变量来引用&lt;code>.Files&lt;/code>对象。我们也使用了&lt;code>tuple&lt;/code>方法创建了一个可遍历的文件列表。
+然后我们打印每个文件的名字(&lt;code>{{ . }}: |-&lt;/code>)，然后通过&lt;code>{{ $files.Get . }}&lt;/code>打印文件内容。&lt;/p></description></item><item><title>创建一个NOTES.txt文件</title><link>https://helm.sh/zh/docs/chart_template_guide/notes_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/notes_files/</guid><description>&lt;p>该部分会介绍为chart用户提供说明的Helm工具。在&lt;code>helm install&lt;/code> 或 &lt;code>helm upgrade&lt;/code>命令的最后，Helm会打印出对用户有用的信息。
+使用模板可以高度自定义这部分信息。&lt;/p>
+&lt;p>要在chart添加安装说明，只需创建&lt;code>templates/NOTES.txt&lt;/code>文件即可。该文件是纯文本，但会像模板一样处理，
+所有正常的模板函数和对象都是可用的。&lt;/p>
+&lt;p>让我们创建一个简单的&lt;code>NOTES.txt&lt;/code>文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>Thank you for installing {{ .Chart.Name }}.&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>Your release is named {{ .Release.Name }}.&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">To learn more about the release, try&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>$ helm status {{ .Release.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>$ helm get all {{ .Release.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在如果我们执行&lt;code>helm install rude-cardinal ./mychart&lt;/code> 会在底部看到：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">RESOURCES&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>==&amp;gt; v1/Secret&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>NAME TYPE DATA AGE&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>rude-cardinal-secret Opaque 1 0s&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>==&amp;gt; v1/ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>NAME DATA AGE&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>rude-cardinal-configmap 3 0s&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">NOTES&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>Thank you for installing mychart.&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>Your release is named rude-cardinal.&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">To learn more about the release, try&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>$ helm status rude-cardinal&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>$ helm get all rude-cardinal&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>NOTES.txt&lt;/code>这种方式是给用户提供关于如何使用新安装的chart细节信息的好方法。尽管并不是必需的，强烈建议创建一个&lt;code>NOTES.txt&lt;/code>文件。&lt;/p></description></item><item><title>子chart和全局值</title><link>https://helm.sh/zh/docs/chart_template_guide/subcharts_and_globals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/subcharts_and_globals/</guid><description>&lt;p>到目前为止，我们只使用了一个chart。但chart可以使用依赖，称为 &lt;em>子chart&lt;/em>，且有自己的值和模板。
+该章节我们会创建一个子chart并能看到访问模板中的值的不同方式。&lt;/p>
+&lt;p>在深入研究代码之前，需要了解一些应用的子chart的重要细节：&lt;/p>
+&lt;ol>
+&lt;li>子chart被认为是“独立的”，意味着子chart从来不会显示依赖它的父chart。&lt;/li>
+&lt;li>因此，子chart无法访问父chart的值。&lt;/li>
+&lt;li>父chart可以覆盖子chart的值。&lt;/li>
+&lt;li>Helm有一个 &lt;em>全局值&lt;/em> 的概念，所有的chart都可以访问。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>这些限制不一定都适用于提供标准化辅助功能的 
+&lt;a href="https://helm.sh/zh/docs/topics/library_charts" target="_blank">library charts&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>浏览本节的示例之后，这些概念会变得更加清晰。&lt;/p>
+&lt;h2 id="创建子chart">创建子chart&lt;/h2>
+&lt;p>为了做这些练习，我们可以从本指南开始时创建的&lt;code>mychart/&lt;/code>开始，并在其中添加一个新的chart。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> &lt;span style="color:#366">cd&lt;/span> mychart/charts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm create mysubchart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Creating mysubchart
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> rm -rf mysubchart/templates/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意，和以前一样，我们删除了所有的基本模板，然后从头开始，在这个指南中，我们聚焦于模板如何工作，而不是管理依赖。
+但
+&lt;a href="https://helm.sh/zh/docs/topics/charts" target="_blank">Chart指南&lt;/a>提供了更多子chart运行的信息。&lt;/p>
+&lt;h2 id="在子chart中添加值和模板">在子chart中添加值和模板&lt;/h2>
+&lt;p>下一步，为&lt;code>mysubchart&lt;/code>创建一个简单的模板和values文件。&lt;code>mychart/charts/mysubchart&lt;/code>应该已经有一个&lt;code>values.yaml&lt;/code>。
+设置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">dessert&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>cake&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>下一步，在&lt;code>mychart/charts/mysubchart/templates/configmap.yaml&lt;/code>中创建一个新的配置映射模板：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-cfgmap2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">dessert&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.dessert }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>因为每个子chart都是 &lt;em>独立的chart&lt;/em>，可以单独测试&lt;code>mysubchart&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm install --generate-name --dry-run --debug mychart/charts/mysubchart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">SERVER: &amp;#34;localhost:44134&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">CHART PATH: /Users/mattbutcher/Code/Go/src/helm.sh/helm/_scratch/mychart/charts/mysubchart
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">NAME: newbie-elk
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">TARGET NAMESPACE: default
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">CHART: mysubchart 0.1.0
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">MANIFEST:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">---
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">#&lt;/span> Source: mysubchart/templates/configmap.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">apiVersion: v1
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">kind: ConfigMap
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">metadata:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> name: newbie-elk-cfgmap2
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">data:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> dessert: cake
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="用父chart的值来覆盖">用父chart的值来覆盖&lt;/h2>
+&lt;p>原始chart，&lt;code>mychart&lt;/code>现在是&lt;code>mysubchart&lt;/code>的 &lt;em>父&lt;/em>。这种关系是基于&lt;code>mysubchart&lt;/code>在&lt;code>mychart/charts&lt;/code>中这一事实。&lt;/p></description></item><item><title>.helmignore 文件</title><link>https://helm.sh/zh/docs/chart_template_guide/helm_ignore_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/helm_ignore_file/</guid><description>&lt;p>&lt;code>.helmignore&lt;/code> 文件用来指定你不想包含在你的helm chart中的文件。&lt;/p>
+&lt;p>如果该文件存在，&lt;code>helm package&lt;/code> 命令会在打包应用时忽略所有在&lt;code>.helmignore&lt;/code>文件中匹配的文件。&lt;/p>
+&lt;p>这有助于避免不需要的或敏感文件及目录添加到你的helm chart中。&lt;/p>
+&lt;p>&lt;code>.helmignore&lt;/code> 文件支持Unix shell的全局匹配，相对路径匹配，以及反向匹配（以！作为前缀）。每行只考虑一种模式。&lt;/p>
+&lt;p>这里是一个&lt;code>.helmignore&lt;/code>文件示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># comment&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match any file or path named .helmignore&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.helmignore
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match any file or path named .git&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match any text file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>*.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match only directories named mydir&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mydir/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match only text files in the top-level directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/*.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match only the file foo.txt in the top-level directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/foo.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match any file named ab.txt, ac.txt, or ad.txt&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>a&lt;span style="color:#555">[&lt;/span>b-d&lt;span style="color:#555">]&lt;/span>.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic"># Match any file under subdir matching temp*&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>*/temp*
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>*/*/temp*
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>temp?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>一些值得注意的和.gitignore不同之处：&lt;/p></description></item><item><title>调试模板</title><link>https://helm.sh/zh/docs/chart_template_guide/debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/debugging/</guid><description>&lt;p>调试模板可能很棘手，因为渲染后的模板发送给了Kubernetes API server，可能会以格式化以外的原因拒绝YAML文件。&lt;/p>
+&lt;p>以下命令有助于调试：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>helm lint&lt;/code> 是验证chart是否遵循最佳实践的首选工具。&lt;/li>
+&lt;li>&lt;code>helm template --debug&lt;/code> 在本地测试渲染chart模板。&lt;/li>
+&lt;li>&lt;code>helm install --dry-run --debug&lt;/code>：我们已经看到过这个技巧了，这是让服务器渲染模板的好方法，然后返回生成的清单文件。&lt;/li>
+&lt;li>&lt;code>helm get manifest&lt;/code>: 这是查看安装在服务器上的模板的好方法。&lt;/li>
+&lt;/ul>
+&lt;p>当你的YAML文件解析失败，但你想知道生成了什么，检索YAML一个简单的方式是注释掉模板中有问题的部分，
+然后重新运行 &lt;code>helm install --dry-run --debug&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#09f;font-style:italic"># some: problem section&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#09f;font-style:italic"># {{ .Values.foo | quote }}&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上内容会被渲染同时返回完整的注释：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v2&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#09f;font-style:italic"># some: problem section&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#09f;font-style:italic"># &amp;#34;bar&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样就提供了一种快速查看没有被YAML错误解析阻塞的生成内容的方式。&lt;/p></description></item><item><title>下一步</title><link>https://helm.sh/zh/docs/chart_template_guide/wrapping_up/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/wrapping_up/</guid><description>&lt;p>本指南旨在为chart开发者提供对如何使用Helm模板语言的强大理解能力。该模板聚焦于模板开发的技术层面。&lt;/p>
+&lt;p>但涉及到chart的实际日常开发时，很多内容本指南并没有覆盖到。这里有一些有用的文档链接帮助你创建新的chart:&lt;/p>
+&lt;ul>
+&lt;li>CNCF的 
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a> 是chart不可或缺的资源。&lt;/li>
+&lt;li>Kubernetes 
+&lt;a href="https://kubernetes.io/docs/home/" target="_blank">文档&lt;/a> 提供各种能用到的资源种类的详细案例，从配置映射和密钥到
+DaemonSet和工作负载。&lt;/li>
+&lt;li>Helm的
+&lt;a href="https://helm.sh/zh/docs/topics/charts" target="_blank">Chart指南&lt;/a> 阐述了使用chart的工作流。&lt;/li>
+&lt;li>Helm的
+&lt;a href="https://helm.sh/zh/docs/topics/charts_hooks" target="_blank">Chart钩子指南&lt;/a> 说明了如何创建生命周期的钩子。&lt;/li>
+&lt;li>Helm的
+&lt;a href="https://helm.sh/zh/docs/howto/charts_tips_and_tricks/" target="_blank">Chart提示和技巧&lt;/a>
+提供了编写chart时的一些有用提示。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/Masterminds/sprig" target="_blank">Sprig 文档&lt;/a> 提供了超过60个模板函数。&lt;/li>
+&lt;li>
+&lt;a href="https://godoc.org/text/template" target="_blank">Go 模板文档&lt;/a> 说明了模板语法的细节。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/databus23/schelm" target="_blank">Schelm 工具&lt;/a> 用于调试chart的辅助工具。&lt;/li>
+&lt;/ul>
+&lt;p>有时候从有经验的开发者那里问问题和获取答案更加容易。最佳方式是访问 
+&lt;a href="https://kubernetes.slack.com" target="_blank">Kubernetes
+Slack&lt;/a>的Helm频道：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="https://kubernetes.slack.com/messages/helm-users" target="_blank">#helm-users&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://kubernetes.slack.com/messages/helm-dev" target="_blank">#helm-dev&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://kubernetes.slack.com/messages/charts" target="_blank">#charts&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>最后，如果你找到了文档中的错误或疏漏，想推荐一些新内容，或者想做一些贡献，请访问
+&lt;a href="https://github.com/helm/helm-www" target="_blank">Helm 项目&lt;/a>。&lt;/p></description></item><item><title>附录： YAML技术</title><link>https://helm.sh/zh/docs/chart_template_guide/yaml_techniques/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/yaml_techniques/</guid><description>&lt;p>本指南大部分都聚焦于编写模板语言。这里，我们要看看YAML格式。作为模板作者，YAML有一些有用的特性
+使我们的模板不易出错，更易阅读。&lt;/p>
+&lt;h2 id="标量和集合">标量和集合&lt;/h2>
+&lt;p>根据 
+&lt;a href="https://yaml.org/spec/1.2/spec.html" target="_blank">YAML 规范&lt;/a>，有两种集合类型和很多标量类型。&lt;/p>
+&lt;p>两种集合类型是map和sequence：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">map&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">one&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">1&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">two&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">2&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">three&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">3&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">sequence&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- one&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- two&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- three&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>标量值是单个值，（与集合相反）&lt;/p>
+&lt;h3 id="yaml中的标量类型">YAML中的标量类型&lt;/h3>
+&lt;p>在Helm内部的YAML语言中，一个标量值的数据类型是由一组复杂的规则决定的，包含了资源定义的Kubernetes模式。
+但在推断类型时，以下规则往往是正确的。&lt;/p>
+&lt;p>如果整型或浮点型数字没有引号，通常被视为数字类型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">count&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">1&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">size&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">2.34&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是如果被引号引起来，会被当做字符串：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">count&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;1&amp;#34;&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># &amp;lt;-- string, not int&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">size&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#39;2.34&amp;#39;&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># &amp;lt;-- string, not float&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>布尔函数也是如此：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">isGood&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># bool&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">answer&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;true&amp;#34;&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># string&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>空字符串是 &lt;code>null&lt;/code> （不是 &lt;code>nil&lt;/code>）。&lt;/p>
+&lt;p>注意 &lt;code>port: &amp;quot;80&amp;quot;&lt;/code>是合法的YAML，可以通过模板引擎和YAML解释器传值，但是如果Kubernetes希望&lt;code>port&lt;/code>是整型，就会失败。&lt;/p>
+&lt;p>在一些场景中，可以使用YAML节点标签强制推断特定类型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">coffee&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;yes, please&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">age&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#099">!!str&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">21&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#099">!!int&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;80&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如上所示，&lt;code>!!str&lt;/code>告诉解释器&lt;code>age&lt;/code>是一个字符串，即使它看起来像是整型。即使&lt;code>port&lt;/code>被引号括起来，也会被视为int。&lt;/p></description></item><item><title>附录：Go 数据类型和模板</title><link>https://helm.sh/zh/docs/chart_template_guide/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_template_guide/data_types/</guid><description>&lt;p>Helm 模板语言是用强类型Go编程语言实现的。 因此，模板中的变量是 &lt;em>有类型的&lt;/em>。大多数情况下，变量将作为以下类型之一显示：&lt;/p>
+&lt;ul>
+&lt;li>string: 文本字符串&lt;/li>
+&lt;li>bool: &lt;code>true&lt;/code> 或 &lt;code>false&lt;/code>&lt;/li>
+&lt;li>int: 整型值（包含8位，16位，32位，和64有符号和无符号整数）&lt;/li>
+&lt;li>float64: 64位浮点数(也有8位，16位，32位类型)&lt;/li>
+&lt;li>字节切片(&lt;code>[]byte&lt;/code>)，一般用于保存（可能的）二进制数据&lt;/li>
+&lt;li>struct: 有属性和方法的对象&lt;/li>
+&lt;li>上述某种类型的切片(索引列表)&lt;/li>
+&lt;li>字符串键map (&lt;code>map[string]interface{}&lt;/code>) 值是上述某种类型&lt;/li>
+&lt;/ul>
+&lt;p>Go里面有很多其他类型，有时你需要在模板里转换。调试对象类型最简便的方式是在模板中传递给&lt;code>printf &amp;quot;%t&amp;quot;&lt;/code>，这样会打印类型。
+也可以使用 &lt;code>typeOf&lt;/code> 和 &lt;code>kindOf&lt;/code> 函数。&lt;/p></description></item></channel></rss>

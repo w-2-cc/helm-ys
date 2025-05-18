@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on 헬름</title><link>https://helm.sh/ko/blog/</link><description>Recent content in Blog on 헬름</description><generator>Hugo</generator><language>ko</language><lastBuildDate>Tue, 12 Nov 2024 04:17:39 +0200</lastBuildDate><atom:link href="https://helm.sh/ko/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>헬름 차트 저장소 지원 중단 업데이트</title><link>https://helm.sh/ko/blog/charts-repo-deprecation/</link><pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/charts-repo-deprecation/</guid><description>&lt;p>2019 년에 헬름 v2 지원 타임 라인 및 수명 종료 계획이 발표되었을 때 
+&lt;a href="https://github.com/helm/charts" target="_blank">helm/charts GitHub 저장소&lt;/a>의 
+&lt;a href="https://github.com/helm/charts#deprecation-timeline" target="_blank">지원 중단&lt;/a>도 발표되었다. 지원 중단의 주된 이유는 
+&lt;a href="https://github.com/helm/charts/blob/master/OWNERS" target="_blank">저장소 관리자&lt;/a>의 유지 관리가 크게 증가했기 때문이다. 지난 몇 년 동안 유지 관리중인 차트 수가 100 개 이하에서 300 개 이상으로 증가하여 저장소에 대한 풀 요청 및 업데이트가 이에 상응하게 증가했다. 안타깝게도 검토 및 유지 관리 작업을 자동화하려는 많은 노력에도 불구하고 관리자의 유지 관리 시간은 단축되지 않았다.&lt;/p>
+&lt;p>지원 중단을 발표했을 때 우리는 helm/charts repo를 유지하는 데 사용했던 도구와 지침도 공유하기 시작했다. 자체 저장소를 호스팅하고 유지하려는 사람들을 위해 이제 다음 도구를 사용하여 프로세스를 간소화 할 수 있다.&lt;/p></description></item><item><title>Stable 및 Incubator 차트를 위한 새로운 공간</title><link>https://helm.sh/ko/blog/new-location-stable-incubator-charts/</link><pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/new-location-stable-incubator-charts/</guid><description>&lt;p>
+&lt;a href="https://helm.sh/ko/blog/helm-turns-five/" target="_blank">이전에 발표한 것과 같이&lt;/a>, stable 및 incubator 저장소가 새로운 공간으로 이동하게 된다.
+이 게시물은 새로운 위치에 대한 업데이트를 제공하고 그것을 사용하는 방법을 제공한다.&lt;/p>
+&lt;p>&lt;em>&lt;strong>중요한 참고사항:&lt;/strong> 이는 2019 년에 발표된 stable 및 incubator 저장소의 오래된 타임 라인에 영향을 주지 않는다.
+2020 년 11 월 13 일에 stable 및 incubator 차트 저장소는 개발이 끝나고 아카이브가 된다.
+많은 차트가 커뮤니티에서 관리하는 다른 저장소로 이동했음을 알 수 있다.
+
+&lt;a href="https://artifacthub.io/" target="_blank">아티팩트 허브&lt;/a>에서 확인할 수 있다.
+노후화에 대한 자세한 정보는 향후 블로그 게시물 및 커뮤니케이션에서 이어질 예정이다.&lt;/em>&lt;/p></description></item><item><title>헬름 5주년과 깃헙으로부터의 차트 선물</title><link>https://helm.sh/ko/blog/helm-turns-five/</link><pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/helm-turns-five/</guid><description>&lt;figure>&lt;img src="https://helm.sh/blog/images/happy-5th.png"
+ alt="헬름의 5번째 생일 축하">
+&lt;/figure>
+
+&lt;p>5년 전, Deis(그 후 마이크로스프트에 인수됨)의 해커톤에서 헬름이 탄생했다.&lt;/p></description></item><item><title>헬름 허브의 아티팩트 허브로의 이동</title><link>https://helm.sh/ko/blog/helm-hub-moving-to-artifact-hub/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/helm-hub-moving-to-artifact-hub/</guid><description>&lt;p>오늘 헬름 허브가 
+&lt;a href="https://artifacthub.io/" target="_blank">아티팩트 허브&lt;/a>로 이동한다. 즉, 헬름 허브로 이동하면 아티팩트 허브로 리다이렉션된다.&lt;/p>
+&lt;h2 id="이것은-무엇을-의미하는가">이것은 무엇을 의미하는가?&lt;/h2>
+&lt;p>헬름 허브를 검색하거나 헬름 허브에서 차트 목록을 조회할 때 의문이 들지도 모르겠다. 무슨 차이가 있는걸까?&lt;/p>
+&lt;p>아티팩트 허브에서는 헬름 허브에서 조회된 것과 동일한 차트 목록이 모두 조회된다. 더 빠른 검색을 제공하며 
+&lt;a href="https://en.wikipedia.org/wiki/Faceted_search" target="_blank">국면 검색&lt;/a>을 포함한다. 이전과 비슷한 방식으로 차트를 검색할 수 있다. 검색은 헬름 CLI에서도 계속 작동한다.&lt;/p>
+&lt;p>아티팩트 허브에는 차트를 검색하는 것 외에도 많은 기능이 있다. 차트가 업데이트되면 이메일 또는 웹훅을 통해 알림을 받을 수 있다. 다른 아티팩트를 찾고 관련 아티팩트를 볼 수 있다. 아티팩트 허브에는 헬름 허브보다도 많은 것을 제공한다.&lt;/p></description></item><item><title>헬름 v2 사용중단 타임라인</title><link>https://helm.sh/ko/blog/helm-v2-deprecation-timeline/</link><pubDate>Wed, 12 Aug 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/helm-v2-deprecation-timeline/</guid><description>&lt;p>&lt;em>
+&lt;a href="https://www.jabberwocky.com/carroll/walrus.html" target="_blank">루이스 캐롤에게 고개를 끄덕이며...&lt;/a>&lt;/em>&lt;/p>
+&lt;pre>&lt;code>“때가 되었습니다,” 메인테이너(maintainers)는 말한다,
+ “소프트웨어의 운명에 대하여 이야기하기 위해:
+업그레이드와 -- 헬름 v3의 출시와 --
+ 버그의 수정 -- 그리고 k8s. --”
+&lt;/code>&lt;/pre>
+&lt;p>헬름 v3는 
+&lt;a href="https://helm.sh/blog/helm-3-released/">2019년 11월에 출시되었으며&lt;/a>, 커뮤니티의 요구에 부응하여 헬름을 계속 발전시켜온 커뮤니티의 노력의 결과입니다. 간소화된 클라이언트 단독 사용환경, 새로운 보안 관점, 쿠버네티스 API와의 더욱 긴밀한 연계를 통하여 헬름 v3는 쿠버네티스에 대한 운영 테스트 패키지 관리 기능을 계속 제공합니다. 그리고 
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/">졸업한 CNCF 프로젝트&lt;/a>인 헬름은 클라우드 네이티브 생태계의 핵심부분입니다.&lt;/p>
+&lt;p>운영 환경에 주(major) 버전 변경사항을 반영하려면 시간이 필요하다는 것을 우리도 인지하고 있다. 헬름 메인테이너(maintainer)는 2020년 5월까지 헬름 v2에 대한 버그픽스(
+&lt;a href="https://helm.sh/blog/covid-19-extending-helm-v2-bug-fixes/">2020년 8월로 연장됨&lt;/a>), 2020년 11월까지 헬름 v2에 대한 보안패치를 제공하기로 했다. 그리고 이제 버그픽스 창은 닫힙니다. 
+&lt;a href="https://github.com/helm/helm/releases/tag/v2.16.10" target="_blank">헬름 v2.16.10&lt;/a>은 최종 버그픽스 릴리스이며 2.17.0은 
+&lt;a href="https://github.com/helm/helm/issues/8346" target="_blank">다운로드 위치가 변경&lt;/a>되어 나올 것이다.&lt;/p></description></item><item><title>헬름의 CNCF 졸업을 축하하며</title><link>https://helm.sh/ko/blog/celebrating-helms-cncf-graduation/</link><pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/celebrating-helms-cncf-graduation/</guid><description>&lt;p>&lt;img alt="../images/helmgraduation.png" src="https://helm.sh/blog/images/helmgraduation.png">&lt;/p>
+&lt;p>오늘 헬름이 
+&lt;a href="https://www.cncf.io/announcement/2020/04/30/cloud-native-computing-foundation-announces-helm-graduation/" target="_blank">CNCF 사다리의 마지막 단계에 도달한 것&lt;/a>을 보게 되어 기쁘다. 헬름은 
+&lt;a href="https://www.cncf.io/projects/" target="_blank">CNCF 프로젝트&lt;/a>의 인큐베이팅 단계에서 졸업 단계로 이동하여, 쿠버네티스 등 다른 선택된 프로젝트들과 나란히 서게 되었다.&lt;/p>
+&lt;p>헬름은 작은 스타트업 Deis의 해커톤 프로젝트로 소박하게 시작되었는데, 우리의 작은 아기가 완전히 성인으로 성장한 것처럼 기분이 정말 좋다. 그리고 우리는 지난 5년 동안 코딩, 커뮤니티, 조직 정책에 대해 많은 것을 배웠다. 그러나 이것이 우리가 헬름의 졸업을 축하하는 주요 이유는 아니다.&lt;/p>
+&lt;p>헬름 프로젝트를 시작하고 몇 달 후, 우리는 쿠버네티스의 하위 프로젝트가 되었다. 그게 2016년 초였는데, 얼마 지나지 않아 사이드 프로젝트 수준이 아닌 쿠버네티스 생태계의 패키지 관리자로 자리매김하게 되었다. 쿠버네티스는 복잡성을 감추지 않고 SRE 및 DevOps 스토리에 집중했지만, 헬름은 다른 접근 방식을 취했다. 2016년 2월 회의에서 
+&lt;a href="https://twitter.com/michellenoorali" target="_blank">Michelle Noorali&lt;/a>는 화이트 보드에 다음과 같은 문구를 썼다. &amp;quot;5분만에 0에서 도파민까지&amp;quot; 이것이 우리 헬름의 만트라였다. 새로운 사용자를 쿠버네티스에 더 쉽게 접근하게 할 수 있다고 보았다. 우리가 옳았다면, 사용자는 헬름을 설치하고 몇 분 내로 운영 수준의 규격품 구성요소들을 설치할 수 있을 것이다.&lt;/p></description></item><item><title>COVID-19: 헬름 v2 버그 수정 확장</title><link>https://helm.sh/ko/blog/covid-19-extending-helm-v2-bug-fixes/</link><pubDate>Fri, 03 Apr 2020 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/covid-19-extending-helm-v2-bug-fixes/</guid><description>&lt;p>전 세계가 전염병에 맞서 싸우기 위해 힘을 모으는 것처럼 헬름 유지관리자들도, 개발 및 운영 일정이 조정되는 시기에도 최대 수요로 작동하는 주요 시스템을 유지보수하는 사용자들에게, 도움을 주는 역할을 잘 수행하고 있는지 점검하고자 한다.&lt;/p>
+&lt;p>헬름 v3가 2019년 11월에 출시되었을 때, 원래의 약속은 6개월 동안 헬름 v2 버그 수정을 제공하겠다는 것이었다. 버그 수정은 2020년 5월 13일에 종료되고, 그 후로 6개월 간 보안 수정이 예정되어 있었다. 감염병 예방이 우선이라는 전제 하에, 헬름 v2 버그 수정을 2020년 8월 13일까지 3개월 연장하여 헬름 사용자들이 커뮤니티의 가장 필요한 요구 사항에 대응할 계획이다.&lt;/p></description></item><item><title>KubeCon + CloudNativeCon NA 2019 에서의 헬름</title><link>https://helm.sh/ko/blog/2019-11-15-helm-at-cloudnativecon/</link><pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/2019-11-15-helm-at-cloudnativecon/</guid><description>&lt;p>다음 주에는 연례행사인 
+&lt;a href="https://events19.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2019/" target="_blank">KubeCon 과 CloudNativeCon 이 북미에서&lt;/a> 열린다. 헬름 프로젝트 및 유지관리자들은 몇 가지를 준비하고 있고 여러분을 초대하고 싶다.&lt;/p>
+&lt;p>헬름 관련으로는 유지관리자 트랙 세션이 2개 있으며, 
+&lt;a href="https://sched.co/UajI" target="_blank">&lt;em>헬름 소개&lt;/em>&lt;/a> 및 
+&lt;a href="https://sched.co/Uagg" target="_blank">&lt;em>헬름 3 심층 분석&lt;/em>&lt;/a>에 초점을 둔 내용이다. 헬름을 처음 사용하거나, 사용해야 하는 이유와 방법에 관심이 있는 사람은 &lt;em>헬름 소개&lt;/em> 세션에 참석해보자. 
+&lt;a href="https://helm.sh/blog/helm-3-released/" target="_blank">최근 출시된 헬름 3&lt;/a>가 궁금한 사용자는 &lt;em>헬름 3 심층 분석&lt;/em> 세션이 적당할 것 같다. 관심을 가질 법한 주변 사람들에게도 널리 알려주자.&lt;/p>
+&lt;p>올해는 헬름 프로젝트가 자체 프로젝트만의 독립된 부스를 가지는 첫 해이기도 하다! 헬름 유지관리자와 얘기를 나누고 싶거나 프로젝트에 대해 질문이 있다면 부스를 방문하여, 정기적으로 프로젝트를 진행하는 사람들을 만나보도록 하자.&lt;/p></description></item><item><title>Helm 3.0.0 출시!</title><link>https://helm.sh/ko/blog/helm-3-released/</link><pubDate>Wed, 13 Nov 2019 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/blog/helm-3-released/</guid><description>&lt;p>헬름 팀은 헬름 3의 첫번째 안정적 릴리스를 발표하게 된 것을 자랑스럽게 생각한다.&lt;/p>
+&lt;p>헬름 3는 CLI 도구의 최신 주(major) 릴리스이다. 헬름 2의 성공을 기반으로, 헬름 3도 진화하는 생태계의 요구에 계속 부응하고 있다.&lt;/p>
+&lt;p>헬름 3의 내부 구현은 헬름 2와는 상당히 다르게 변경되었다. 가장 눈에 띄는 변화는 틸러(Tiller)가 제거된 것이다. 다만 새 릴리스에서 다른 변경사항들도 확인해두는 게 좋다. 커뮤니티의 의견과 요구사항에 따라 다양한 새로운 기능들이 추가되었다. 일부 기능은 헬름 2와 호환되지 않는 방식으로, 더 이상 사용되지 않거나 리팩토링되었다. OCI 지원을 포함하는 일부 실험적 기능도 도입되었다.&lt;/p></description></item></channel></rss>

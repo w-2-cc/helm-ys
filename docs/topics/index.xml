@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Topics on Helm</title><link>https://helm.sh/docs/topics/</link><description>Recent content in Topics on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/topics/index.xml" rel="self" type="application/rss+xml"/><item><title>Charts</title><link>https://helm.sh/docs/topics/charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/charts/</guid><description>&lt;p>Helm uses a packaging format called &lt;em>charts&lt;/em>. A chart is a collection of files
+that describe a related set of Kubernetes resources. A single chart might be
+used to deploy something simple, like a memcached pod, or something complex,
+like a full web app stack with HTTP servers, databases, caches, and so on.&lt;/p>
+&lt;p>Charts are created as files laid out in a particular directory tree. They can be
+packaged into versioned archives to be deployed.&lt;/p></description></item><item><title>Chart Hooks</title><link>https://helm.sh/docs/topics/charts_hooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/charts_hooks/</guid><description>&lt;p>Helm provides a &lt;em>hook&lt;/em> mechanism to allow chart developers to intervene at
+certain points in a release's life cycle. For example, you can use hooks to:&lt;/p>
+&lt;ul>
+&lt;li>Load a ConfigMap or Secret during install before any other charts are loaded.&lt;/li>
+&lt;li>Execute a Job to back up a database before installing a new chart, and then
+execute a second job after the upgrade in order to restore data.&lt;/li>
+&lt;li>Run a Job before deleting a release to gracefully take a service out of
+rotation before removing it.&lt;/li>
+&lt;/ul>
+&lt;p>Hooks work like regular templates, but they have special annotations that cause
+Helm to utilize them differently. In this section, we cover the basic usage
+pattern for hooks.&lt;/p></description></item><item><title>Chart Tests</title><link>https://helm.sh/docs/topics/chart_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/chart_tests/</guid><description>&lt;p>A chart contains a number of Kubernetes resources and components that work
+together. As a chart author, you may want to write some tests that validate that
+your chart works as expected when it is installed. These tests also help the
+chart consumer understand what your chart is supposed to do.&lt;/p>
+&lt;p>A &lt;strong>test&lt;/strong> in a helm chart lives under the &lt;code>templates/&lt;/code> directory and is a job
+definition that specifies a container with a given command to run. The container
+should exit successfully (exit 0) for a test to be considered a success. The job
+definition must contain the helm test hook annotation: &lt;code>helm.sh/hook: test&lt;/code>.&lt;/p></description></item><item><title>Library Charts</title><link>https://helm.sh/docs/topics/library_charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/library_charts/</guid><description>&lt;p>A library chart is a type of 
+&lt;a href="https://helm.sh/docs/topics/charts/">Helm chart&lt;/a>
+that defines chart primitives or definitions which can be shared by Helm
+templates in other charts. This allows users to share snippets of code that can
+be re-used across charts, avoiding repetition and keeping charts
+
+&lt;a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank">DRY&lt;/a>.&lt;/p>
+&lt;p>The library chart was introduced in Helm 3 to formally recognize common or
+helper charts that have been used by chart maintainers since Helm 2. By
+including it as a chart type, it provides:&lt;/p></description></item><item><title>Helm Provenance and Integrity</title><link>https://helm.sh/docs/topics/provenance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/provenance/</guid><description>&lt;p>Helm has provenance tools which help chart users verify the integrity and origin
+of a package. Using industry-standard tools based on PKI, GnuPG, and
+well-respected package managers, Helm can generate and verify signature files.&lt;/p>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Integrity is established by comparing a chart to a provenance record. Provenance
+records are stored in &lt;em>provenance files&lt;/em>, which are stored alongside a packaged
+chart. For example, if a chart is named &lt;code>myapp-1.2.3.tgz&lt;/code>, its provenance file
+will be &lt;code>myapp-1.2.3.tgz.prov&lt;/code>.&lt;/p></description></item><item><title>The Chart Repository Guide</title><link>https://helm.sh/docs/topics/chart_repository/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/chart_repository/</guid><description>&lt;p>This section explains how to create and work with Helm chart repositories. At a
+high level, a chart repository is a location where packaged charts can be stored
+and shared.&lt;/p>
+&lt;p>The distributed community Helm chart repository is located at
+
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a> and welcomes
+participation. But Helm also makes it possible to create and run your own chart
+repository. This guide explains how to do so. If you are considering creating a
+chart repository, you may want to consider using an
+
+&lt;a href="https://helm.sh/docs/topics/registries/">OCI registry&lt;/a> instead.&lt;/p></description></item><item><title>Use OCI-based registries</title><link>https://helm.sh/docs/topics/registries/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/registries/</guid><description>&lt;p>Beginning in Helm 3, you can use container registries with 
+&lt;a href="https://www.opencontainers.org/" target="_blank">OCI&lt;/a> support to store and share chart packages. Beginning in Helm v3.8.0, OCI support is enabled by default.&lt;/p>
+&lt;h2 id="oci-support-prior-to-v380">OCI support prior to v3.8.0&lt;/h2>
+&lt;p>OCI support graduated from experimental to general availability with Helm v3.8.0. In prior versions of Helm, OCI support behaved differently. If you were using OCI support prior to Helm v3.8.0, its important to understand what has changed with different versions of Helm.&lt;/p></description></item><item><title>Helm Architecture</title><link>https://helm.sh/docs/topics/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/architecture/</guid><description>&lt;h1 id="helm-architecture">Helm Architecture&lt;/h1>
+&lt;p>This document describes the Helm architecture at a high level.&lt;/p>
+&lt;h2 id="the-purpose-of-helm">The Purpose of Helm&lt;/h2>
+&lt;p>Helm is a tool for managing Kubernetes packages called &lt;em>charts&lt;/em>. Helm can do the
+following:&lt;/p>
+&lt;ul>
+&lt;li>Create new charts from scratch&lt;/li>
+&lt;li>Package charts into chart archive (tgz) files&lt;/li>
+&lt;li>Interact with chart repositories where charts are stored&lt;/li>
+&lt;li>Install and uninstall charts into an existing Kubernetes cluster&lt;/li>
+&lt;li>Manage the release cycle of charts that have been installed with Helm&lt;/li>
+&lt;/ul>
+&lt;p>For Helm, there are three important concepts:&lt;/p></description></item><item><title>Advanced Helm Techniques</title><link>https://helm.sh/docs/topics/advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/advanced/</guid><description>&lt;p>This section explains various advanced features and techniques for using Helm.
+The information in this section is intended for &amp;quot;power users&amp;quot; of Helm that wish
+to do advanced customization and manipulation of their charts and releases. Each
+of these advanced features comes with their own tradeoffs and caveats, so each
+one must be used carefully and with deep knowledge of Helm. Or in other words,
+remember the 
+&lt;a href="https://en.wikipedia.org/wiki/With_great_power_comes_great_responsibility" target="_blank">Peter Parker
+principle&lt;/a>&lt;/p>
+&lt;h2 id="post-rendering">Post Rendering&lt;/h2>
+&lt;p>Post rendering gives chart installers the ability to manually manipulate,
+configure, and/or validate rendered manifests before they are installed by Helm.
+This allows users with advanced configuration needs to be able to use tools like
+
+&lt;a href="https://kustomize.io" target="_blank">&lt;code>kustomize&lt;/code>&lt;/a> to apply configuration changes without the
+need to fork a public chart or requiring chart maintainers to specify every last
+configuration option for a piece of software. There are also use cases for
+injecting common tools and side cars in enterprise environments or analysis of
+the manifests before deployment.&lt;/p></description></item><item><title>Kubernetes Distribution Guide</title><link>https://helm.sh/docs/topics/kubernetes_distros/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/kubernetes_distros/</guid><description>&lt;p>Helm should work with any 
+&lt;a href="https://github.com/cncf/k8s-conformance" target="_blank">conformant version of
+Kubernetes&lt;/a> (whether
+
+&lt;a href="https://www.cncf.io/certification/software-conformance/" target="_blank">certified&lt;/a> or not).&lt;/p>
+&lt;p>This document captures information about using Helm in specific Kubernetes
+environments. Please contribute more details about any distros (sorted
+alphabetically) if desired.&lt;/p>
+&lt;h2 id="aks">AKS&lt;/h2>
+&lt;p>Helm works with 
+&lt;a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm" target="_blank">Azure Kubernetes
+Service&lt;/a>.&lt;/p>
+&lt;h2 id="dcos">DC/OS&lt;/h2>
+&lt;p>Helm has been tested and is working on Mesospheres DC/OS 1.11 Kubernetes
+platform, and requires no additional configuration.&lt;/p>
+&lt;h2 id="eks">EKS&lt;/h2>
+&lt;p>Helm works with Amazon Elastic Kubernetes Service (Amazon EKS):
+
+&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/helm.html" target="_blank">Using Helm with Amazon
+EKS&lt;/a>.&lt;/p></description></item><item><title>Role-based Access Control</title><link>https://helm.sh/docs/topics/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/rbac/</guid><description>&lt;p>In Kubernetes, granting roles to a user or an application-specific service
+account is a best practice to ensure that your application is operating in the
+scope that you have specified. Read more about service account permissions 
+&lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions" target="_blank">in
+the official Kubernetes
+docs&lt;/a>.&lt;/p>
+&lt;p>From Kubernetes 1.6 onwards, Role-based Access Control is enabled by default.
+RBAC allows you to specify which types of actions are permitted depending on the
+user and their role in your organization.&lt;/p></description></item><item><title>The Helm Plugins Guide</title><link>https://helm.sh/docs/topics/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/plugins/</guid><description>&lt;p>A Helm plugin is a tool that can be accessed through the &lt;code>helm&lt;/code> CLI, but which
+is not part of the built-in Helm codebase.&lt;/p>
+&lt;p>Existing plugins can be found on 
+&lt;a href="https://helm.sh/docs/community/related/#helm-plugins">related&lt;/a> section or by searching
+
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">GitHub&lt;/a>.&lt;/p>
+&lt;p>This guide explains how to use and create plugins.&lt;/p>
+&lt;h2 id="an-overview">An Overview&lt;/h2>
+&lt;p>Helm plugins are add-on tools that integrate seamlessly with Helm. They provide
+a way to extend the core feature set of Helm, but without requiring every new
+feature to be written in Go and added to the core tool.&lt;/p></description></item><item><title>Migrating Helm v2 to v3</title><link>https://helm.sh/docs/topics/v2_v3_migration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/v2_v3_migration/</guid><description>&lt;p>This guide shows how to migrate Helm v2 to v3. Helm v2 needs to be installed
+and managing releases in one or more clusters.&lt;/p>
+&lt;h2 id="overview-of-helm-3-changes">Overview of Helm 3 Changes&lt;/h2>
+&lt;p>The full list of changes from Helm 2 to 3 are documented in the 
+&lt;a href="https://v3.helm.sh/docs/faq/#changes-since-helm-2" target="_blank">FAQ
+section&lt;/a>. The following is a
+summary of some of those changes that a user should be aware of before and
+during migration:&lt;/p>
+&lt;ol>
+&lt;li>Removal of Tiller:
+&lt;ul>
+&lt;li>Replaces client/server with client/library architecture (&lt;code>helm&lt;/code> binary
+only)&lt;/li>
+&lt;li>Security is now on per user basis (delegated to Kubernetes user cluster
+security)&lt;/li>
+&lt;li>Releases are now stored as in-cluster secrets and the release object
+metadata has changed&lt;/li>
+&lt;li>Releases are persisted on a release namespace basis and not in the Tiller
+namespace anymore&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Chart repository updated:
+&lt;ul>
+&lt;li>&lt;code>helm search&lt;/code> now supports both local repository searches and making search
+queries against Artifact Hub&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Chart apiVersion bumped to &amp;quot;v2&amp;quot; for following specification changes:
+&lt;ul>
+&lt;li>Dynamically linked chart dependencies moved to &lt;code>Chart.yaml&lt;/code>
+(&lt;code>requirements.yaml&lt;/code> removed and requirements --&amp;gt; dependencies)&lt;/li>
+&lt;li>Library charts (helper/common charts) can now be added as dynamically
+linked chart dependencies&lt;/li>
+&lt;li>Charts have a &lt;code>type&lt;/code> metadata field to define the chart to be of an
+&lt;code>application&lt;/code> or &lt;code>library&lt;/code> chart. It is application by default which means
+it is renderable and installable&lt;/li>
+&lt;li>Helm 2 charts (apiVersion=v1) are still installable&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>XDG directory specification added:
+&lt;ul>
+&lt;li>Helm home removed and replaced with XDG directory specification for storing
+configuration files&lt;/li>
+&lt;li>No longer need to initialize Helm&lt;/li>
+&lt;li>&lt;code>helm init&lt;/code> and &lt;code>helm home&lt;/code> removed&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Additional changes:
+&lt;ul>
+&lt;li>Helm install/set-up is simplified:
+&lt;ul>
+&lt;li>Helm client (helm binary) only (no Tiller)&lt;/li>
+&lt;li>Run-as-is paradigm&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>local&lt;/code> or &lt;code>stable&lt;/code> repositories are not set-up by default&lt;/li>
+&lt;li>&lt;code>crd-install&lt;/code> hook removed and replaced with &lt;code>crds&lt;/code> directory in chart
+where all CRDs defined in it will be installed before any rendering of the
+chart&lt;/li>
+&lt;li>&lt;code>test-failure&lt;/code> hook annotation value removed, and &lt;code>test-success&lt;/code>
+deprecated. Use &lt;code>test&lt;/code> instead&lt;/li>
+&lt;li>Commands removed/replaced/added:
+&lt;ul>
+&lt;li>delete --&amp;gt; uninstall : removes all release history by default
+(previously needed &lt;code>--purge&lt;/code>)&lt;/li>
+&lt;li>fetch --&amp;gt; pull&lt;/li>
+&lt;li>home (removed)&lt;/li>
+&lt;li>init (removed)&lt;/li>
+&lt;li>install: requires release name or &lt;code>--generate-name&lt;/code> argument&lt;/li>
+&lt;li>inspect --&amp;gt; show&lt;/li>
+&lt;li>reset (removed)&lt;/li>
+&lt;li>serve (removed)&lt;/li>
+&lt;li>template: &lt;code>-x&lt;/code>/&lt;code>--execute&lt;/code> argument renamed to &lt;code>-s&lt;/code>/&lt;code>--show-only&lt;/code>&lt;/li>
+&lt;li>upgrade: Added argument &lt;code>--history-max&lt;/code> which limits the maximum number
+of revisions saved per release (0 for no limit)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Helm 3 Go library has undergone a lot of changes and is incompatible with
+the Helm 2 library&lt;/li>
+&lt;li>Release binaries are now hosted on &lt;code>get.helm.sh&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="migration-use-cases">Migration Use Cases&lt;/h2>
+&lt;p>The migration use cases are as follows:&lt;/p></description></item><item><title>Deprecated Kubernetes APIs</title><link>https://helm.sh/docs/topics/kubernetes_apis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/kubernetes_apis/</guid><description>&lt;p>Kubernetes is an API-driven system and the API evolves over time to reflect the
+evolving understanding of the problem space. This is common practice across
+systems and their APIs. An important part of evolving APIs is a good deprecation
+policy and process to inform users of how changes to APIs are implemented. In
+other words, consumers of your API need to know in advance and in what release
+an API will be removed or changed. This removes the element of surprise and
+breaking changes to consumers.&lt;/p></description></item><item><title>Helm Version Support Policy</title><link>https://helm.sh/docs/topics/version_skew/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/version_skew/</guid><description>&lt;p>This document describes the maximum version skew supported between Helm and
+Kubernetes.&lt;/p>
+&lt;h2 id="supported-versions">Supported Versions&lt;/h2>
+&lt;p>Helm versions are expressed as &lt;code>x.y.z&lt;/code>, where &lt;code>x&lt;/code> is the major version, &lt;code>y&lt;/code> is
+the minor version, and &lt;code>z&lt;/code> is the patch version, following 
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">Semantic
+Versioning&lt;/a> terminology.&lt;/p>
+&lt;p>The Helm project maintains a release branch for the most recent minor release.
+Applicable fixes, including security fixes, are cherry-picked into the release
+branch, depending on severity and feasibility. More details can be found in
+
+&lt;a href="https://helm.sh/docs/topics/release_policy/">Helm's release policy&lt;/a>.&lt;/p></description></item><item><title>Permissions management for SQL storage backend</title><link>https://helm.sh/docs/topics/permissions_sql_storage_backend/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/permissions_sql_storage_backend/</guid><description>&lt;p>This document aims to provide guidance to users for setting up and managing
+permissions when using the SQL storage backend.&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>To handle permissions, Helm leverages the RBAC feature of Kubernetes. When using
+the SQL storage backend, Kubernetes' roles can't be used to determine whether or
+not an user can access a given resource. This document shows how to create and
+manage these permissions.&lt;/p>
+&lt;h2 id="initialization">Initialization&lt;/h2>
+&lt;p>The first time the Helm CLI will make connect to your database, the client will
+make sure that it was previously initialized. If it is not, it will take care of
+the necessary setup automatically. This initialization requires admin privileges
+on the public schema, or at least to be able to:&lt;/p></description></item><item><title>Release schedule policy</title><link>https://helm.sh/docs/topics/release_policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/topics/release_policy/</guid><description>&lt;p>For the benefit of its users, Helm defines and announces release dates in
+advance. This document describes the policy governing Helm's release schedule.&lt;/p>
+&lt;h2 id="release-calendar">Release calendar&lt;/h2>
+&lt;p>A public calendar showing the upcoming Helm releases can be found 
+&lt;a href="https://helm.sh/calendar/release" target="_blank">here&lt;/a>.&lt;/p>
+&lt;h2 id="semantic-versioning">Semantic versioning&lt;/h2>
+&lt;p>Helm versions are expressed as &lt;code>x.y.z&lt;/code>, where &lt;code>x&lt;/code> is the major version, &lt;code>y&lt;/code> is
+the minor version, and &lt;code>z&lt;/code> is the patch version, following 
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">Semantic
+Versioning&lt;/a> terminology.&lt;/p>
+&lt;h2 id="patch-releases">Patch releases&lt;/h2>
+&lt;p>Patch releases provide users with bug fixes and security fixes. They do not
+contain new features.&lt;/p></description></item></channel></rss>

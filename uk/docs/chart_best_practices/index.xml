@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Найкращі практики on Helm</title><link>https://helm.sh/uk/docs/chart_best_practices/</link><description>Recent content in Найкращі практики on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/chart_best_practices/index.xml" rel="self" type="application/rss+xml"/><item><title>Загальні домовленості</title><link>https://helm.sh/uk/docs/chart_best_practices/conventions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/conventions/</guid><description>&lt;p>Ця частина Посібника з найкращих практик пояснює загальні домовленості.&lt;/p>
+&lt;h2 id="chart-names">Назви чартів&lt;/h2>
+&lt;p>Назви чартів повинні складатися з літер нижнього регістру та цифр. Слова &lt;em>можуть&lt;/em> бути розділені дефісами (-):&lt;/p>
+&lt;p>Приклади:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>drupal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nginx-lego
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aws-cluster-autoscaler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>У назвах чартів не можна використовувати великі літери та підкреслення. Також не слід використовувати крапки.&lt;/p>
+&lt;h2 id="version-numbers">Номери версій&lt;/h2>
+&lt;p>По можливості, Helm використовує 
+&lt;a href="https://semver.org" target="_blank">SemVer 2&lt;/a> для позначення номерів версій. (Зверніть увагу, що теґи Docker-образів не завжди відповідають SemVer і тому вважаються невдалим винятком з правила.)&lt;/p></description></item><item><title>Значення</title><link>https://helm.sh/uk/docs/chart_best_practices/values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/values/</guid><description>&lt;p>Ця частина посібника з найкращих практик охоплює використання значень. Ми надаємо рекомендації щодо структурування та використання значень, зосереджуючись на дизайні файлу &lt;code>values.yaml&lt;/code> чарту.&lt;/p>
+&lt;h2 id="naming-conventions">Домовленості щодо назв&lt;/h2>
+&lt;p>Назви змінних повинні починатися з малої літери, а слова мають розділятися верблюжим регістром (camelCase):&lt;/p>
+&lt;p>Правильно:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chickenNoodleSoup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Неправильно:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">Chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># початкова велика літера може конфліктувати з вбудованими змінними&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chicken-noodle-soup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># не використовуйте дефіси в назвах&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Зверніть увагу, що всі вбудовані змінні Helm починаються з великої літери, щоб їх легко було відрізнити від користувацьких значень: &lt;code>.Release.Name&lt;/code>, &lt;code>.Capabilities.KubeVersion&lt;/code>.&lt;/p></description></item><item><title>Шаблони</title><link>https://helm.sh/uk/docs/chart_best_practices/templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/templates/</guid><description>&lt;p>Ця частина посібника з найкращих практик фокусується на шаблонах.&lt;/p>
+&lt;h2 id="structure-of-templates">Структура &lt;code>templates/&lt;/code>&lt;/h2>
+&lt;p>Теку &lt;code>templates/&lt;/code> слід структурувати наступним чином:&lt;/p>
+&lt;ul>
+&lt;li>Файли шаблонів повинні мати розширення &lt;code>.yaml&lt;/code>, якщо вони генерують YAML-вихід. Розширення &lt;code>.tpl&lt;/code> можна використовувати для файлів шаблонів, які не генерують форматований контент.&lt;/li>
+&lt;li>Імена файлів шаблонів повинні використовувати дефіси (&lt;code>my-example-configmap.yaml&lt;/code>), а не camelCase.&lt;/li>
+&lt;li>Кожне визначення ресурсу повинно бути у власному файлі шаблону.&lt;/li>
+&lt;li>Імена файлів шаблонів повинні відображати тип ресурсу в імені. Наприклад, &lt;code>foo-pod.yaml&lt;/code>, &lt;code>bar-svc.yaml&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="names-of-defined-templates">Імена визначених шаблонів&lt;/h2>
+&lt;p>Визначені шаблони (шаблони, створені всередині директиви &lt;code>{{ define }}&lt;/code>) є глобально доступними. Це означає, що чарт і всі його субчарти матимуть доступ до всіх шаблонів, створених з &lt;code>{{ define }}&lt;/code>.&lt;/p></description></item><item><title>Залежності</title><link>https://helm.sh/uk/docs/chart_best_practices/dependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/dependencies/</guid><description>&lt;p>Цей розділ посібника охоплює найкращі практики для &lt;code>залежностей&lt;/code>, оголошених у &lt;code>Chart.yaml&lt;/code>.&lt;/p>
+&lt;h2 id="versions">Версії&lt;/h2>
+&lt;p>По можливості використовуйте діапазони версій замість привʼязки до точної версії. Рекомендоване стандартне значення — це використання відповідності на рівні патчу:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Це буде відповідати версії &lt;code>1.2.3&lt;/code> та будь-яким патчам для цього випуску. Іншими словами, &lt;code>~1.2.3&lt;/code> є еквівалентом &lt;code>&amp;gt;= 1.2.3, &amp;lt; 1.3.0&lt;/code>.&lt;/p>
+&lt;p>Для повної синтаксичної відповідності версій див. 
+&lt;a href="https://github.com/Masterminds/semver#checking-version-constraints" target="_blank">документацію semver&lt;/a>.&lt;/p>
+&lt;h3 id="prereleases-versions">Попередні версії&lt;/h3>
+&lt;p>Вищезгадані обмеження версій не будуть відповідати попереднім версіям. Наприклад, &lt;code>version: ~1.2.3&lt;/code> буде відповідати &lt;code>version: ~1.2.4&lt;/code>, але не &lt;code>version: ~1.2.3-1&lt;/code>. Наступне забезпечує відповідність як попередніх версій, так і на рівні патчу:&lt;/p></description></item><item><title>Мітки та Анотації</title><link>https://helm.sh/uk/docs/chart_best_practices/labels/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/labels/</guid><description>&lt;p>Цей розділ посібника з найкращих практик обговорює найкращі практики для використання міток та анотацій у вашому чарті.&lt;/p>
+&lt;h2 id="is-it-a-label-or-an-annotation">Це мітка чи анотація?&lt;/h2>
+&lt;p>Елемент метаданих слід вважати міткою за таких умов:&lt;/p>
+&lt;ul>
+&lt;li>Він використовується Kubernetes для ідентифікації цього ресурсу&lt;/li>
+&lt;li>Він корисний для експонування операторам з метою запиту системи.&lt;/li>
+&lt;/ul>
+&lt;p>Наприклад, рекомендується використовувати &lt;code>helm.sh/chart: NAME-VERSION&lt;/code> як мітку, щоб оператори могли зручно знаходити всі екземпляри конкретного чарту.&lt;/p>
+&lt;p>Якщо елемент метаданих не використовується для запитів, його слід встановити як анотацію.&lt;/p></description></item><item><title>Pods та PodTemplates</title><link>https://helm.sh/uk/docs/chart_best_practices/pods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/pods/</guid><description>&lt;p>Цей розділ посібника з найкращих практик обговорює форматування частин Pod та PodTemplate у маніфестах чарту.&lt;/p>
+&lt;p>Наступний (неповний) список ресурсів використовує PodTemplates:&lt;/p>
+&lt;ul>
+&lt;li>Deployment&lt;/li>
+&lt;li>ReplicationController&lt;/li>
+&lt;li>ReplicaSet&lt;/li>
+&lt;li>DaemonSet&lt;/li>
+&lt;li>StatefulSet&lt;/li>
+&lt;/ul>
+&lt;h2 id="images">Образи&lt;/h2>
+&lt;p>Образи контейнера повинні використовувати фіксовану мітку або SHA образу. Не слід використовувати мітки &lt;code>latest&lt;/code>, &lt;code>head&lt;/code>, &lt;code>canary&lt;/code> або інші мітки, які призначені для &amp;quot;плаваючих&amp;quot; версій.&lt;/p>
+&lt;p>Образи &lt;em>можуть&lt;/em> бути визначені у файлі &lt;code>values.yaml&lt;/code>, щоб спростити заміну образів.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.redisImage | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Образи та мітка &lt;em>можуть&lt;/em> бути визначені в &lt;code>values.yaml&lt;/code> як два окремих поля:&lt;/p></description></item><item><title>Custom Resource Definitions</title><link>https://helm.sh/uk/docs/chart_best_practices/custom_resource_definitions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/custom_resource_definitions/</guid><description>&lt;p>Цей розділ посібника з найкращих практик розглядає створення та використання обʼєктів Custom Resource Definition (CRD).&lt;/p>
+&lt;p>При роботі з CRD важливо розрізняти два різні аспекти:&lt;/p>
+&lt;ul>
+&lt;li>Існує декларація CRD. Це YAML файл, який має &lt;code>kind: CustomResourceDefinition&lt;/code>.&lt;/li>
+&lt;li>Потім є ресурси, які &lt;em>використовують&lt;/em> CRD. Наприклад, якщо CRD визначає &lt;code>foo.example.com/v1&lt;/code>, будь-який ресурс, який має &lt;code>apiVersion: example.com/v1&lt;/code> і &lt;code>kind: Foo&lt;/code>, є ресурсом, що використовує цей CRD.&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-a-crd-declaration-before-using-the-resource">Встановлення декларації CRD перед використанням ресурсу&lt;/h2>
+&lt;p>Helm оптимізований для швидкого завантаження якомога більшої кількості ресурсів у Kubernetes. За дизайном Kubernetes може обробити цілий набір маніфестів і активувати їх усі (це називається циклом узгодження).&lt;/p></description></item><item><title>Role-Based Access Control</title><link>https://helm.sh/uk/docs/chart_best_practices/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_best_practices/rbac/</guid><description>&lt;p>Цей розділ посібника з найкращих практик розглядає створення та форматування ресурсів RBAC у маніфестах чарту.&lt;/p>
+&lt;p>Ресурси RBAC це:&lt;/p>
+&lt;ul>
+&lt;li>ServiceAccount (обмежений простором імен)&lt;/li>
+&lt;li>Role (обмежений простором імен)&lt;/li>
+&lt;li>ClusterRole&lt;/li>
+&lt;li>RoleBinding (обмежений простором імен)&lt;/li>
+&lt;li>ClusterRoleBinding&lt;/li>
+&lt;/ul>
+&lt;h2 id="yaml-configuration">Конфігурація YAML&lt;/h2>
+&lt;p>Конфігурація RBAC та ServiceAccount повинна здійснюватися під окремими ключами. Це окремі речі. Розділення цих двох концепцій у YAML знімає неоднозначність і робить це ясніше.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">rbac&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Вказує, чи повинні бути створені ресурси RBAC&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serviceAccount&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Вказує, чи повинен бути створений ServiceAccount&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Імʼя ServiceAccount для використання.&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Якщо не вказано і create дорівнює true, імʼя генерується за допомогою шаблону fullname&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Цю структуру можна розширити для складніших чартів, які потребують кількох ServiceAccount.&lt;/p></description></item></channel></rss>

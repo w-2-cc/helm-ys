@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Шаблони чартів on Helm</title><link>https://helm.sh/uk/docs/chart_template_guide/</link><description>Recent content in Шаблони чартів on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/chart_template_guide/index.xml" rel="self" type="application/rss+xml"/><item><title>Початок роботи</title><link>https://helm.sh/uk/docs/chart_template_guide/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/getting_started/</guid><description>&lt;p>У цьому розділі посібника ми створимо чарт і додамо перший шаблон. Чарт, який ми створимо тут, буде використовуватися протягом усього цього посібника.&lt;/p>
+&lt;p>Щоб розпочати, давайте коротко ознайомимося з чартом Helm.&lt;/p>
+&lt;h2 id="charts">Чарти&lt;/h2>
+&lt;p>Як описано в 
+&lt;a href="../../topics/charts">Посібнику з чартів&lt;/a>, чарти Helm мають таку структуру:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>mychart/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Тека &lt;code>templates/&lt;/code> призначена для файлів шаблонів. Коли Helm обробляє чарт, він передає всі файли з теки&lt;code>templates/&lt;/code> до механізму рендерингу шаблонів. Потім збирає результати цих шаблонів і передає їх до Kubernetes.&lt;/p></description></item><item><title>Вбудовані обʼєкти</title><link>https://helm.sh/uk/docs/chart_template_guide/builtin_objects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/builtin_objects/</guid><description>&lt;p>Обʼєкти передаються в шаблон з рушія обробки шаблонів. І ваш код може передавати обʼєкти далі (ми побачимо приклади, коли розглянемо оператори &lt;code>with&lt;/code> та &lt;code>range&lt;/code>). Є навіть кілька способів створити нові обʼєкти всередині ваших шаблонів, як, наприклад, з функцією &lt;code>tuple&lt;/code>, яку ми розглянемо пізніше.&lt;/p>
+&lt;p>Обʼєкти можуть бути простими та мати лише одне значення. Або вони можуть містити інші обʼєкти чи функції. Наприклад, обʼєкт &lt;code>Release&lt;/code> містить кілька обʼєктів (наприклад, &lt;code>Release.Name&lt;/code>), а обʼєкт &lt;code>Files&lt;/code> має кілька функцій.&lt;/p></description></item><item><title>Файли значень</title><link>https://helm.sh/uk/docs/chart_template_guide/values_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/values_files/</guid><description>&lt;p>У попередньому розділі ми розглянули вбудовані обʼєкти, які пропонують шаблони Helm. Один з вбудованих обʼєктів — це &lt;code>Values&lt;/code>. Цей обʼєкт надає доступ до значень, переданих у шаблон. Його вміст походить з кількох джерел:&lt;/p>
+&lt;ul>
+&lt;li>Файл &lt;code>values.yaml&lt;/code> у шаблоні&lt;/li>
+&lt;li>Якщо це субшаблон, файл &lt;code>values.yaml&lt;/code> батьківського шаблону&lt;/li>
+&lt;li>Файл значень передається в &lt;code>helm install&lt;/code> або &lt;code>helm upgrade&lt;/code> з прапорцем &lt;code>-f&lt;/code> (&lt;code>helm install -f myvals.yaml ./mychart&lt;/code>)&lt;/li>
+&lt;li>Окремі параметри передаються з &lt;code>--set&lt;/code> (наприклад, &lt;code>helm install --set foo=bar ./mychart&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;p>Наведений вище список розташований у порядку специфічності: &lt;code>values.yaml&lt;/code> є стандартним, яке може бути перевизначене файлом &lt;code>values.yaml&lt;/code> батьківського шаблону, який, своєю чергою, може бути перевизначений файлом значень, наданим користувачем, який, своєю чергою, може бути перевизначений параметрами &lt;code>--set&lt;/code>.&lt;/p></description></item><item><title>Функції шаблонів та конвеєри</title><link>https://helm.sh/uk/docs/chart_template_guide/functions_and_pipelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/functions_and_pipelines/</guid><description>&lt;p>Дотепер ми бачили, як розміщувати інформацію в шаблоні. Але ця інформація розміщується в шаблоні без змін. Іноді ми хочемо перетворити надані дані таким чином, щоб вони були більш корисними для нас.&lt;/p>
+&lt;p>Почнемо з найкращої практики: коли вставляємо рядки з об’єкта &lt;code>.Values&lt;/code> у шаблон, ми повинні обов’язково обгорнути ці рядки в лапки. Ми можемо зробити це, викликавши функцію &lt;code>quote&lt;/code> в директиві шаблону:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}-configmap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">myvalue&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>quote .Values.favorite.drink }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>quote .Values.favorite.food }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Функції шаблонів дотримуються синтаксису &lt;code>functionName arg1 arg2...&lt;/code>. У наведеному вище фрагменті &lt;code>quote .Values.favorite.drink&lt;/code> викликає функцію &lt;code>quote&lt;/code> і передає їй один аргумент.&lt;/p></description></item><item><title>Список функцій шаблонів</title><link>https://helm.sh/uk/docs/chart_template_guide/function_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/function_list/</guid><description>&lt;p>Helm містить багато функцій шаблонів, якими ви можете скористатися у шаблонах. Вони перераховані тут і розбиті на наступні категорії:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="#cryptographic-and-security-functions">Криптографія та безпека&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#date-functions">Дата&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#dictionaries-and-dict-functions">Словники&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#encoding-functions">Кодування&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#file-path-functions">Шлях до файлу&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#kubernetes-and-chart-functions">Kubernetes та чарти&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#logic-and-flow-control-functions">Логіка та керування потоком&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#lists-and-list-functions">Списки&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#math-functions">Математичні функції&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#float-math-functions">Математичні обчислення з комою&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#network-functions">Мережа&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#reflection-functions">Аналіз&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#regular-expressions">Регулярні вирази&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#semantic-version-functions">Семантичні версії&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#string-functions">Рядки&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#type-conversion-functions">Перетворення типів&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#url-functions">URL&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#uuid-functions">UUID&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="logic-and-flow-control-functions">Логічні функції та функції керування потоком&lt;/h2>
+&lt;p>Helm містить численні логічні та контрольні функції, включаючи 
+&lt;a href="#and">and&lt;/a>, 
+&lt;a href="#coalesce">coalesce&lt;/a>, 
+&lt;a href="#default">default&lt;/a>, 
+&lt;a href="#empty">empty&lt;/a>, 
+&lt;a href="#eq">eq&lt;/a>, 
+&lt;a href="#fail">fail&lt;/a>, 
+&lt;a href="#ge">ge&lt;/a>, 
+&lt;a href="#gt">gt&lt;/a>, 
+&lt;a href="#le">le&lt;/a>, 
+&lt;a href="#lt">lt&lt;/a>, 
+&lt;a href="#ne">ne&lt;/a>, 
+&lt;a href="#not">not&lt;/a>, 
+&lt;a href="#or">or&lt;/a>, і 
+&lt;a href="#required">required&lt;/a>.&lt;/p>
+&lt;h3 id="and">and&lt;/h3>
+&lt;p>Повертає логічне AND для двох або більше аргументів (перший пустий аргумент або останній аргумент).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>and .Arg1 .Arg2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="or">or&lt;/h3>
+&lt;p>Повертає логічне OR для двох або більше аргументів (перший непустий аргумент або останній аргумент).&lt;/p></description></item><item><title>Керування потоком</title><link>https://helm.sh/uk/docs/chart_template_guide/control_structures/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/control_structures/</guid><description>&lt;p>Структури керування (називаються &amp;quot;діями&amp;quot; в термінології шаблонів) надають вам, автору шаблонів, можливість контролювати потік генерації шаблону. Мова шаблонів Helm надає такі структури керування:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>if&lt;/code>/&lt;code>else&lt;/code> для створення умовних блоків&lt;/li>
+&lt;li>&lt;code>with&lt;/code> для визначення області видимості&lt;/li>
+&lt;li>&lt;code>range&lt;/code>, який надає цикл &amp;quot;for each&amp;quot;&lt;/li>
+&lt;/ul>
+&lt;p>Окрім цих, є кілька дій для оголошення та використання іменованих сегментів шаблону:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>define&lt;/code> оголошує новий іменований шаблон всередині вашого шаблону&lt;/li>
+&lt;li>&lt;code>template&lt;/code> імплементує іменований шаблон&lt;/li>
+&lt;li>&lt;code>block&lt;/code> оголошує спеціальний тип заповнювальної області шаблону&lt;/li>
+&lt;/ul>
+&lt;p>У цьому розділі ми розглянемо &lt;code>if&lt;/code>, &lt;code>with&lt;/code> та &lt;code>range&lt;/code>. Інші дії будуть розглянуті в розділі &amp;quot;Іменовані шаблони&amp;quot; пізніше в цьому посібнику.&lt;/p></description></item><item><title>Змінні</title><link>https://helm.sh/uk/docs/chart_template_guide/variables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/variables/</guid><description>&lt;p>Маючи функції, конвеєри, обʼєкти та структури управління, ми можемо перейти до однієї з основних ідей у багатьох мовах програмування: змінних. У шаблонах вони використовуються рідше. Але ми побачимо, як їх можна використовувати для спрощення коду та для кращого використання &lt;code>with&lt;/code> і &lt;code>range&lt;/code>.&lt;/p>
+&lt;p>У попередньому прикладі ми побачили, що цей код не працює:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- with .Values.favorite }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.drink | default &amp;#34;tea&amp;#34; | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.food | upper | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">release&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Release.Name&lt;/code> не знаходиться в межах області видимості, обмеженої блоком &lt;code>with&lt;/code>. Один зі способів обійти проблеми з областю видимості — присвоїти обʼєкти змінним, до яких можна отримати доступ без врахування поточної області видимості.&lt;/p></description></item><item><title>Іменовані шаблони</title><link>https://helm.sh/uk/docs/chart_template_guide/named_templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/named_templates/</guid><description>&lt;p>Пора перейти від одного шаблону до створення інших. У цьому розділі ми побачимо, як визначити &lt;em>іменовані шаблони&lt;/em> в одному файлі, а потім використовувати їх в інших місцях. &lt;em>Іменований шаблон&lt;/em> (іноді його називають &lt;em>частковим&lt;/em> або &lt;em>підшаблоном&lt;/em>) — це просто шаблон, визначений у файлі, якому надали імʼя. Ми розглянемо два способи створення таких шаблонів і кілька способів їх використання.&lt;/p>
+&lt;p>У розділі 
+&lt;a href="https://helm.sh/uk/docs/chart_template_guide/control_structures/">Керування потоком&lt;/a> ми представили три дії для оголошення та управління шаблонами: &lt;code>define&lt;/code>, &lt;code>template&lt;/code> і &lt;code>block&lt;/code>. У цьому розділі ми розглянемо ці три дії, а також введемо спеціальну функцію &lt;code>include&lt;/code>, яка працює подібно до дії &lt;code>template&lt;/code>.&lt;/p></description></item><item><title>Доступ до файлів всередині шаблонів</title><link>https://helm.sh/uk/docs/chart_template_guide/accessing_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/accessing_files/</guid><description>&lt;p>У попередньому розділі ми розглянули кілька способів створення та доступу до іменованих шаблонів. Це полегшує імпорт одного шаблону в інший шаблон. Але іноді корисно імплементувати &lt;em>файл, який не є шаблоном&lt;/em> і вбудувати його вміст без використання рендерера шаблонів.&lt;/p>
+&lt;p>Helm надає доступ до файлів через обʼєкт &lt;code>.Files&lt;/code>. Перш ніж переходити до прикладів шаблонів, є кілька моментів, які слід врахувати:&lt;/p>
+&lt;ul>
+&lt;li>Можна додавати додаткові файли до вашого Helm чарту. Ці файли будуть упаковані. Але будьте обережні. Чарти мають бути меншими за 1М через обмеження зберігання обʼєктів Kubernetes.&lt;/li>
+&lt;li>Деякі файли не можна отримати через обʼєкт &lt;code>.Files&lt;/code>, зазвичай з міркувань безпеки.
+&lt;ul>
+&lt;li>Файли в &lt;code>templates/&lt;/code> не можна отримати.&lt;/li>
+&lt;li>Файли, виключені за допомогою &lt;code>.helmignore&lt;/code>, не можна отримати.&lt;/li>
+&lt;li>Файли поза Helm-застосукном 
+&lt;a href="https://helm.sh/uk/docs/chart_template_guide/subcharts_and_globals/">subchart&lt;/a>, включаючи файли батьківського чарту, не можна отримати.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Чарти не зберігають інформацію про режим UNIX, тому дозволи на рівні файлу не вплинуть на доступність файлу в обʼєкті &lt;code>.Files&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;!-- (see https://github.com/jonschlinkert/markdown-toc) -->
+&lt;!-- toc -->
+&lt;ul>
+&lt;li>
+&lt;a href="#basic-example">Базовий приклад&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#path-helpers">Помічники оброки шляхів&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#glob-patterns">Шаблони Glob&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#configmap-and-secrets-utility-functions">Утиліти для ConfigMap і Secrets&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#encoding">Кодування&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#lines">Рядки&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;!-- tocstop -->
+&lt;h2 id="basic-example">Базовий приклад&lt;/h2>
+&lt;p>З урахуванням цих застережень, напишемо шаблон, який читає три файли в наш ConfigMap. Для початку додамо три файли до чарту, розміщуючи всі три безпосередньо в теці &lt;code>mychart/&lt;/code>.&lt;/p></description></item><item><title>Створення файлу NOTES.txt</title><link>https://helm.sh/uk/docs/chart_template_guide/notes_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/notes_files/</guid><description>&lt;p>У цьому розділі ми розглянемо інструмент Helm для надання інструкцій користувачам вашого чарту. Після виконання &lt;code>helm install&lt;/code> або &lt;code>helm upgrade&lt;/code> Helm може вивести блок корисної інформації для користувачів. Цю інформацію можна налаштувати за допомогою шаблонів.&lt;/p>
+&lt;p>Щоб додати нотатки по установці до вашого чарту, просто створіть файл &lt;code>templates/NOTES.txt&lt;/code>. Цей файл є звичайним текстовим файлом, але обробляється як шаблон і має всі звичайні функції та обʼєкти шаблонів.&lt;/p>
+&lt;p>Створимо простий файл &lt;code>NOTES.txt&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>Дякуємо за встановлення {{ .Chart.Name }}.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Ваш реліз називається {{ .Release.Name }}.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Щоб дізнатися більше про реліз, спробуйте:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $ helm status {{ .Release.Name }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $ helm get all {{ .Release.Name }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Тепер, якщо ми виконаємо &lt;code>helm install rude-cardinal ./mychart&lt;/code>, ми побачимо це повідомлення внизу:&lt;/p></description></item><item><title>Субчарти та глобальні значення</title><link>https://helm.sh/uk/docs/chart_template_guide/subcharts_and_globals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/subcharts_and_globals/</guid><description>&lt;p>До цього моменту ми працювали тільки з одним чартом. Але чарти можуть мати залежності, які називаються &lt;em>субчартами&lt;/em>, що також мають свої власні значення і шаблони. У цьому розділі ми створимо субчарт і розглянемо різні способи доступу до значень зсередини шаблонів.&lt;/p>
+&lt;p>Перед тим, як перейти до коду, є кілька важливих деталей, які слід знати про субчарти:&lt;/p>
+&lt;ol>
+&lt;li>Субчарт вважається &amp;quot;автономним&amp;quot;, що означає, що субчарт ніколи не може прямо залежати від батьківського чарту.&lt;/li>
+&lt;li>Тому субчарт не може отримувати доступ до значень свого пращура.&lt;/li>
+&lt;li>Батьківський чарт може перевизначати значення для субчартів.&lt;/li>
+&lt;li>Helm має концепцію &lt;em>глобальних значень&lt;/em>, які можуть бути доступні всім чартам.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Ці обмеження не завжди застосовуються до 
+&lt;a href="https://helm.sh/uk/docs/topics/library_charts/">бібліотечних чартів&lt;/a>, які розроблені для надання стандартної функціональності.&lt;/p></description></item><item><title>Файл .helmignore</title><link>https://helm.sh/uk/docs/chart_template_guide/helm_ignore_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/helm_ignore_file/</guid><description>&lt;p>Файл &lt;code>.helmignore&lt;/code> використовується для вказівки файлів, які не слід включати у ваш Helm чарт.&lt;/p>
+&lt;p>Якщо цей файл існує, команда &lt;code>helm package&lt;/code> ігноруватиме всі файли, які відповідають шаблону, зазначеному у файлі &lt;code>.helmignore&lt;/code>, під час упаковки вашого застосунку.&lt;/p>
+&lt;p>Це може допомогти уникнути додавання непотрібних або конфіденційних файлів або тек у ваш Helm чарт.&lt;/p>
+&lt;p>Файл &lt;code>.helmignore&lt;/code> підтримує глобальний збіх Unix shell, відносний збіг шляхів та заперечення (з префіксом !). Розглядається лише один шаблон на рядок.&lt;/p></description></item><item><title>Виправлення помилок у шаблонах</title><link>https://helm.sh/uk/docs/chart_template_guide/debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/debugging/</guid><description>&lt;p>Виправлення помилок у шаблонах може бути складним, оскільки відрендерені шаблони надсилаються на сервер API Kubernetes, який може відхиляти YAML-файли з інших причин, окрім форматування.&lt;/p>
+&lt;p>Є кілька команд, які можуть допомогти в процесі налагодження:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>helm lint&lt;/code> є вашим основним інструментом для перевірки того, чи ваш чарт відповідає найкращим практикам.&lt;/li>
+&lt;li>&lt;code>helm template --debug&lt;/code> дозволяє тестувати рендеринг шаблонів чарту локально.&lt;/li>
+&lt;li>&lt;code>helm install --dry-run --debug&lt;/code> також рендерить ваш чарт локально без його встановлення, але також перевіряє, чи конфліктують ресурси вже з запущеними на кластері. Налаштування &lt;code>--dry-run=server&lt;/code> додатково виконає будь-які &lt;code>lookup&lt;/code> у вашому чарті на сервері.&lt;/li>
+&lt;li>&lt;code>helm get manifest&lt;/code>: Це хороший спосіб побачити, які шаблони встановлені на сервері.&lt;/li>
+&lt;/ul>
+&lt;p>Коли ваш YAML не проходить перевірку, але ви хочете побачити, що було згенеровано, простий спосіб отримати YAML — закоментувати проблемний розділ у шаблоні, а потім повторно запустити &lt;code>helm install --dry-run --debug&lt;/code>:&lt;/p></description></item><item><title>Наступні кроки</title><link>https://helm.sh/uk/docs/chart_template_guide/wrapping_up/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/wrapping_up/</guid><description>&lt;p>Цей посібник має на меті надати вам, розробнику чартів, глибоке розуміння того, як використовувати мову шаблонів Helm. Посібник зосереджений на технічних аспектах розробки шаблонів.&lt;/p>
+&lt;p>Але є багато аспектів практичного щоденного розроблення чартів, які цей посібник не охоплює. Ось кілька корисних вказівок на іншу документацію, яка допоможе вам у створенні нових чартів:&lt;/p>
+&lt;ul>
+&lt;li>CNCF 
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a> є незамінним джерелом чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://kubernetes.io/docs/home/" target="_blank">Документація Kubernetes&lt;/a> надає детальні приклади різних ресурсів, які ви можете використовувати, від ConfigMaps і Secrets до DaemonSets і Deployments.&lt;/li>
+&lt;li>Посібник 
+&lt;a href="../../topics/charts/">Чарти Helm&lt;/a> пояснює робочий процес використання чартів.&lt;/li>
+&lt;li>Посібник 
+&lt;a href="../../topics/charts_hooks/">Хуки чартів Helm&lt;/a> пояснює, як створювати хук для життєвого циклу.&lt;/li>
+&lt;li>Стаття 
+&lt;a href="../../howto/charts_tips_and_tricks/">Поради та підказки для розробки чартів&lt;/a> надає кілька корисних порад для написання чартів.&lt;/li>
+&lt;li>Документація 
+&lt;a href="https://github.com/Masterminds/sprig" target="_blank">Sprig&lt;/a> описує більше ніж шістдесят функцій шаблонів.&lt;/li>
+&lt;li>Документація 
+&lt;a href="https://godoc.org/text/template" target="_blank">Go templates&lt;/a> детально пояснює синтаксис шаблонів.&lt;/li>
+&lt;li>Інструмент 
+&lt;a href="https://github.com/databus23/schelm" target="_blank">Schelm&lt;/a> є корисною утилітою для налагодження чартів.&lt;/li>
+&lt;/ul>
+&lt;p>Іноді легше поставити кілька запитань і отримати відповіді від досвідчених розробників. Найкраще місце для цього — канали Helm у 
+&lt;a href="https://kubernetes.slack.com" target="_blank">Slack Kubernetes&lt;/a>:&lt;/p></description></item><item><title>Додаток: Техніки YAML</title><link>https://helm.sh/uk/docs/chart_template_guide/yaml_techniques/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/yaml_techniques/</guid><description>&lt;p>Більшість цього посібника зосереджена на написанні мови шаблонів. Тут ми розглянемо формат YAML. YAML має кілька корисних функцій, які ми, як автори шаблонів, можемо використовувати для того, щоб зробити наші шаблони менш схильними до помилок і легшими для читання.&lt;/p>
+&lt;h2 id="scalars-and-collections">Масиви та Колекції&lt;/h2>
+&lt;p>Згідно зі 
+&lt;a href="https://yaml.org/spec/1.2/spec.html" target="_blank">специфікацією YAML&lt;/a>, існують два типи колекцій та багато типів скалярів.&lt;/p>
+&lt;p>Два типи колекцій — це map та послідовності:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">map&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">one&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">1&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">two&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">2&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">three&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">3&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">sequence&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- one&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- two&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- three&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Скалярні значення – це окремі значення (на відміну від колекцій).&lt;/p></description></item><item><title>Додаток: Типи даних Go та шаблони</title><link>https://helm.sh/uk/docs/chart_template_guide/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/chart_template_guide/data_types/</guid><description>&lt;p>Мова шаблонів Helm реалізована мовою програмування Go, яка має сувору типізацію. З цієї причини змінні в шаблонах мають &lt;em>типи&lt;/em>. Здебільшого змінні будуть представлені одним із наступних типів:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>string&lt;/code>: Рядок тексту&lt;/li>
+&lt;li>&lt;code>bool&lt;/code>: значення &lt;code>true&lt;/code> або &lt;code>false&lt;/code>&lt;/li>
+&lt;li>&lt;code>int&lt;/code>: Ціле число (існують також 8, 16, 32 і 64-бітні знакові та беззнакові варіанти)&lt;/li>
+&lt;li>&lt;code>float64&lt;/code>: 64-бітне число з плаваючою комою (також є 8, 16 та 32-бітні різновиди)&lt;/li>
+&lt;li>&lt;code>byte slice&lt;/code> (&lt;code>[]byte&lt;/code>): Масив байтів, часто використовується для зберігання (можливо) бінарних даних&lt;/li>
+&lt;li>&lt;code>struct&lt;/code>: Обʼєкт із властивостями та методами&lt;/li>
+&lt;li>&lt;code>slice&lt;/code>: Список з індексами одного з попередніх типів&lt;/li>
+&lt;li>&lt;code>map&lt;/code>: Map з ключами-рядками (&lt;code>map[string]interface{}&lt;/code>), де значенням є один із попередніх типів&lt;/li>
+&lt;/ul>
+&lt;p>Існує багато інших типів у Go, і іноді вам доведеться конвертувати між ними в шаблонах. Найпростіший спосіб налагодження типу обʼєкта — передати його через &lt;code>printf &amp;quot;%T&amp;quot;&lt;/code> у шаблоні, що виведе тип. Також корисно ознайомитись із функціями &lt;code>typeOf&lt;/code> та &lt;code>kindOf&lt;/code>.&lt;/p></description></item></channel></rss>

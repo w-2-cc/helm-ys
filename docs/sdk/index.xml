@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go SDK on Helm</title><link>https://helm.sh/docs/sdk/</link><description>Recent content in Go SDK on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://helm.sh/docs/sdk/gosdk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/sdk/gosdk/</guid><description>&lt;p>Helm's Go SDK enables custom software to leverage Helm charts and Helm's functionality for managing Kubernetes software deployment
+(In fact, the Helm CLI is effectively just one such tool!)&lt;/p>
+&lt;p>Currently, the SDK has been functionally separated from the Helm CLI.
+And the SDK can (and is) used by standalone tooling.
+The Helm project has committed to API stability for the SDK.
+As a warning, the SDK has some rough edges remaining from the initial work to separate the CLI and the SDK. Which the Helm project aims to improve and over time.&lt;/p></description></item><item><title>Examples</title><link>https://helm.sh/docs/sdk/examples/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/sdk/examples/</guid><description>&lt;p>This document runs though a series of examples of using the Helm SDK.
+Intended to document various SDK functionalities.&lt;/p>
+&lt;p>The final example shows &lt;code>main.go&lt;/code> driver (
+&lt;a href="#driver">link&lt;/a>). That runs the below actions and includes necessary helper functions.&lt;/p>
+&lt;p>The code for the examples lives in the 
+&lt;a href="https://github.com/helm/helm-www/tree/main/sdkexamples" target="_blank">helm/helm-www/sdkexamples/&lt;/a> directory.
+And is intended to be fully functional.&lt;/p>
+&lt;h2 id="actions">Actions&lt;/h2>
+&lt;h3 id="install-action">Install Action&lt;/h3>
+&lt;p>This example installs the given chart/release, for the given version and values:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">package&lt;/span> main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">import&lt;/span> (
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;context&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;log&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/action&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/chart/loader&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/cli&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/downloader&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/getter&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">func&lt;/span> &lt;span style="color:#c0f">runInstall&lt;/span>(ctx context.Context, logger &lt;span style="color:#555">*&lt;/span>log.Logger, settings &lt;span style="color:#555">*&lt;/span>cli.EnvSettings, releaseName &lt;span style="color:#078;font-weight:bold">string&lt;/span>, chartRef &lt;span style="color:#078;font-weight:bold">string&lt;/span>, chartVersion &lt;span style="color:#078;font-weight:bold">string&lt;/span>, releaseValues &lt;span style="color:#069;font-weight:bold">map&lt;/span>[&lt;span style="color:#078;font-weight:bold">string&lt;/span>]&lt;span style="color:#069;font-weight:bold">interface&lt;/span>{}) &lt;span style="color:#078;font-weight:bold">error&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	actionConfig, err &lt;span style="color:#555">:=&lt;/span> &lt;span style="color:#c0f">initActionConfig&lt;/span>(settings, logger)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;failed to init action config: %w&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient &lt;span style="color:#555">:=&lt;/span> action.&lt;span style="color:#c0f">NewInstall&lt;/span>(actionConfig)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient.DryRunOption = &lt;span style="color:#c30">&amp;#34;none&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient.ReleaseName = releaseName
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient.Namespace = settings.&lt;span style="color:#c0f">Namespace&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient.Version = chartVersion
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	registryClient, err &lt;span style="color:#555">:=&lt;/span> &lt;span style="color:#c0f">newRegistryClientTLS&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		settings,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		logger,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		installClient.CertFile,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		installClient.KeyFile,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		installClient.CaFile,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		installClient.InsecureSkipTLSverify,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		installClient.PlainHTTP)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;failed to created registry client: %w&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	installClient.&lt;span style="color:#c0f">SetRegistryClient&lt;/span>(registryClient)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	chartPath, err &lt;span style="color:#555">:=&lt;/span> installClient.ChartPathOptions.&lt;span style="color:#c0f">LocateChart&lt;/span>(chartRef, settings)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">return&lt;/span> err
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	providers &lt;span style="color:#555">:=&lt;/span> getter.&lt;span style="color:#c0f">All&lt;/span>(settings)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	chart, err &lt;span style="color:#555">:=&lt;/span> loader.&lt;span style="color:#c0f">Load&lt;/span>(chartPath)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">return&lt;/span> err
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#09f;font-style:italic">// Check chart dependencies to make sure all are present in /charts
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> chartDependencies &lt;span style="color:#555">:=&lt;/span> chart.Metadata.Dependencies; chartDependencies &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">:=&lt;/span> action.&lt;span style="color:#c0f">CheckDependencies&lt;/span>(chart, chartDependencies); err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			err = fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;failed to check chart dependencies: %w&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#069;font-weight:bold">if&lt;/span> !installClient.DependencyUpdate {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				&lt;span style="color:#069;font-weight:bold">return&lt;/span> err
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			manager &lt;span style="color:#555">:=&lt;/span> &lt;span style="color:#555">&amp;amp;&lt;/span>downloader.Manager{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				Out: logger.&lt;span style="color:#c0f">Writer&lt;/span>(),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				ChartPath: chartPath,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				Keyring: installClient.ChartPathOptions.Keyring,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				SkipUpdate: &lt;span style="color:#069;font-weight:bold">false&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				Getters: providers,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				RepositoryConfig: settings.RepositoryConfig,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				RepositoryCache: settings.RepositoryCache,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				Debug: settings.Debug,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				RegistryClient: installClient.&lt;span style="color:#c0f">GetRegistryClient&lt;/span>(),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">:=&lt;/span> manager.&lt;span style="color:#c0f">Update&lt;/span>(); err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				&lt;span style="color:#069;font-weight:bold">return&lt;/span> err
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			&lt;span style="color:#09f;font-style:italic">// Reload the chart with the updated Chart.lock file.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span>			&lt;span style="color:#069;font-weight:bold">if&lt;/span> chart, err = loader.&lt;span style="color:#c0f">Load&lt;/span>(chartPath); err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>				&lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;failed to reload chart after repo update: %w&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>			}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	release, err &lt;span style="color:#555">:=&lt;/span> installClient.&lt;span style="color:#c0f">RunWithContext&lt;/span>(ctx, chart, releaseValues)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		&lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;failed to run install: %w&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	logger.&lt;span style="color:#c0f">Printf&lt;/span>(&lt;span style="color:#c30">&amp;#34;release created:\n%+v&amp;#34;&lt;/span>, &lt;span style="color:#555">*&lt;/span>release)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	&lt;span style="color:#069;font-weight:bold">return&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+
+&lt;h3 id="upgrade-action">Upgrade Action&lt;/h3>
+&lt;p>This example upgrades the given release, with the given chart, version and values:&lt;/p></description></item></channel></rss>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>How-to on Helm</title><link>https://helm.sh/docs/howto/</link><description>Recent content in How-to on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/howto/index.xml" rel="self" type="application/rss+xml"/><item><title>Chart Development Tips and Tricks</title><link>https://helm.sh/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>This guide covers some of the tips and tricks Helm chart developers have learned
+while building production-quality charts.&lt;/p>
+&lt;h2 id="know-your-template-functions">Know Your Template Functions&lt;/h2>
+&lt;p>Helm uses 
+&lt;a href="https://godoc.org/text/template" target="_blank">Go templates&lt;/a> for templating your
+resource files. While Go ships several built-in functions, we have added many
+others.&lt;/p>
+&lt;p>First, we added all of the functions in the 
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">Sprig
+library&lt;/a>, except &lt;code>env&lt;/code> and &lt;code>expandenv&lt;/code>, for security reasons.&lt;/p>
+&lt;p>We also added two special template functions: &lt;code>include&lt;/code> and &lt;code>required&lt;/code>. The
+&lt;code>include&lt;/code> function allows you to bring in another template, and then pass the
+results to other template functions.&lt;/p></description></item><item><title>Syncing Your Chart Repository</title><link>https://helm.sh/docs/howto/chart_repository_sync_example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/howto/chart_repository_sync_example/</guid><description>&lt;p>&lt;em>Note: This example is specifically for a Google Cloud Storage (GCS) bucket
+which serves a chart repository.&lt;/em>&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Install the 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil" target="_blank">gsutil&lt;/a> tool. &lt;em>We
+rely heavily on the gsutil rsync functionality&lt;/em>&lt;/li>
+&lt;li>Be sure to have access to the Helm binary&lt;/li>
+&lt;li>&lt;em>Optional: We recommend you set 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page" target="_blank">object
+versioning&lt;/a>
+on your GCS bucket in case you accidentally delete something.&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h2 id="set-up-a-local-chart-repository-directory">Set up a local chart repository directory&lt;/h2>
+&lt;p>Create a local directory like we did in 
+&lt;a href="https://helm.sh/docs/topics/chart_repository/">the chart repository guide&lt;/a>, and place your packaged charts in that
+directory.&lt;/p></description></item><item><title>Chart Releaser Action to Automate GitHub Page Charts</title><link>https://helm.sh/docs/howto/chart_releaser_action/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/howto/chart_releaser_action/</guid><description>&lt;p>This guide describes how to use 
+&lt;a href="https://github.com/marketplace/actions/helm-chart-releaser" target="_blank">Chart Releaser
+Action&lt;/a> to automate
+releasing charts through GitHub pages. Chart Releaser Action is a GitHub Action
+workflow to turn a GitHub project into a self-hosted Helm chart repo, using
+
+&lt;a href="https://github.com/helm/chart-releaser" target="_blank">helm/chart-releaser&lt;/a> CLI tool.&lt;/p>
+&lt;h2 id="repository-changes">Repository Changes&lt;/h2>
+&lt;p>Create a Git repository under your GitHub organization. You could give the name
+of the repository as &lt;code>helm-charts&lt;/code>, though other names are also acceptable. The
+sources of all the charts can be placed under the &lt;code>main&lt;/code> branch. The charts
+should be placed under &lt;code>/charts&lt;/code> directory at the top-level of the directory
+tree.&lt;/p></description></item></channel></rss>

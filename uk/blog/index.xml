@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Helm</title><link>https://helm.sh/uk/blog/</link><description>Recent content in Blog on Helm</description><generator>Hugo</generator><language>uk</language><lastBuildDate>Fri, 08 Nov 2024 19:10:05 +0200</lastBuildDate><atom:link href="https://helm.sh/uk/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Helm на KubeCon/CloudNativeCon SLC</title><link>https://helm.sh/uk/blog/kubecon-slc/</link><pubDate>Thu, 07 Nov 2024 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/blog/kubecon-slc/</guid><description>&lt;p>&lt;img alt="Логотип KubeCon / CloudNativeCon" src="https://helm.sh/uk/blog/kubecon-slc/kubecon.png">&lt;/p>
+&lt;p>Helm буде присутній на KubeCon / CloudNativeCon North America в Солт-Лейк-Сіті. Щодня під час основної частини конференції відбуватимуться різні події, зокрема:&lt;/p>
+&lt;ul>
+&lt;li>Середа:
+&lt;ul>
+&lt;li>Присутність на стенді в павільйоні проєктів з 3:15pm до 8pm.&lt;/li>
+&lt;li>О 7pm MST ми плануємо наживо зробити реліз.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Четвер:
+&lt;ul>
+&lt;li>Присутність на стенді в павільйоні проєктів з 1:45pm до 5pm.&lt;/li>
+&lt;li>Сесія: 
+&lt;a href="https://kccncna2024.sched.com/event/1howt" target="_blank">Contribfest: Helm 4: Наступне покоління менеджера пакетів для Kubernetes&lt;/a>&lt;/li>
+&lt;li>Сесія: 
+&lt;a href="https://kccncna2024.sched.com/event/1hoxU" target="_blank">Шлях до Helm 4&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Пʼятниця:
+&lt;ul>
+&lt;li>З 12:30pm до 2:30pm у павільйоні проєктів&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>Якщо ви хочете поспілкуватися з мейнтейнером, щоб дізнатися більше про Helm або залишити свої відгуки, павільйон проєктів — це ідеальне місце для цього. Якщо вас цікавить Helm v4, сесія &amp;quot;Шлях до Helm 4&amp;quot; надасть огляд. А якщо ви хочете зробити свій перший внесок у Helm, сесія Contribfest стане гарним стартом.&lt;/p></description></item></channel></rss>

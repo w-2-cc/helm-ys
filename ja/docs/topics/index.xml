@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>トピック on Helm</title><link>https://helm.sh/ja/docs/topics/</link><description>Recent content in トピック on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/docs/topics/index.xml" rel="self" type="application/rss+xml"/><item><title>チャートのテスト</title><link>https://helm.sh/ja/docs/topics/chart_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/chart_tests/</guid><description>&lt;p>チャートには、連携して動作するいくつかの Kubernetes リソースとコンポーネントが含まれています。
+チャートの作成者は、チャートがインストールされたときにチャートが期待どおりに機能することを検証するテストを作成することができます。
+これらのテストは、
+チャートの利用者がチャートで何をするかを理解するのにも役立ちます。&lt;/p>
+&lt;p>Helm チャートの &lt;strong>テスト&lt;/strong> は、&lt;code>templates/&lt;/code> ディレクトリの下にあり、
+実行する特定のコマンドを含むコンテナーを指定するジョブ定義です。
+テストが成功したと見なされるには、コンテナが正常に終了 (exit 0) する必要があります。
+ジョブ定義には、helm テストフックアノテーション &lt;code>helm.sh/hook: test&lt;/code> が含まれている必要があります。&lt;/p>
+&lt;p>テストの例:&lt;/p>
+&lt;ul>
+&lt;li>values.yaml ファイルの構成が適切に挿入されたことを確認する
+&lt;ul>
+&lt;li>正しいユーザー名とパスワードが機能することを確認する&lt;/li>
+&lt;li>正しくないユーザー名とパスワードが機能しないことを確認する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>サービスが稼働しており、正しく負荷分散されていることを確認する&lt;/li>
+&lt;li>など&lt;/li>
+&lt;/ul>
+&lt;p>コマンド &lt;code>helm test &amp;lt;リリース名&amp;gt;&lt;/code> を使用して、リリースの Helm で事前定義されたテストを実行できます。チャートの利用者にとって、これはチャート (またはアプリケーション) のリリースが期待どおりに機能することを正常性チェックする優れた方法です。&lt;/p>
+&lt;h2 id="テストの例">テストの例&lt;/h2>
+&lt;p>以下は、mariadb チャートの例における Helm テストポッド定義の例です。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>mariadb/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> README.md
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/tests/test-mariadb-connection.yaml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>wordpress/templates/tests/test-mariadb-connection.yaml&lt;/code> の内容&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>batch/v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Job&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ .Release.Name }}-credentials-test&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">annotations&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">&amp;#34;helm.sh/hook&amp;#34;: &lt;/span>test&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">spec&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">template&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">spec&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">containers&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>main&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.image }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">env&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MARIADB_HOST&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>template &amp;#34;mariadb.fullname&amp;#34; . }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MARIADB_PORT&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;3306&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_NAME&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;&amp;#34; .Values.mariadb.mariadbDatabase | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_USER&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;&amp;#34; .Values.mariadb.mariadbUser | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_PASSWORD&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">valueFrom&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">secretKeyRef&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>template &amp;#34;mariadb.fullname&amp;#34; . }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">key&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>mariadb-password&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#c30">&amp;#34;sh&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;-c&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$WORDPRESS_DATABASE_USER --password=$WORDPRESS_DATABASE_PASSWORD&amp;#34;&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">restartPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Never&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="リリースでテストスイートを実行する手順">リリースでテストスイートを実行する手順&lt;/h2>
+&lt;ol>
+&lt;li>&lt;code>$ helm install quirky-walrus mariadb --namespace default&lt;/code>&lt;/li>
+&lt;li>&lt;code>$ helm test quirky-walrus&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>NAME: quirky-walrus
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LAST DEPLOYED: Mon Feb 13 13:50:43 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>NAMESPACE: default
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>STATUS: deployed
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>REVISION: 0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>TEST SUITE: quirky-walrus-credentials-test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last Started: Mon Feb 13 13:51:07 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last Completed: Mon Feb 13 13:51:18 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Phase: Succeeded
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="メモ">メモ&lt;/h2>
+&lt;ul>
+&lt;li>単一の yaml ファイルで必要なだけテストを定義するか、
+&lt;code>templates/&lt;/code> ディレクトリ内の複数の yaml ファイルに分散することができます&lt;/li>
+&lt;li>より分離するために、テストスイートを &lt;code>&amp;lt;chart-name&amp;gt;/templates/tests/&lt;/code> のような
+&lt;code>tests/&lt;/code> ディレクトリの下にネストすることができます&lt;/li>
+&lt;li>テストは 
+&lt;a href="https://helm.sh/docs/charts_hooks/">Helm フック&lt;/a>であるため、
+&lt;code>helm.sh/hook-weight&lt;/code> や &lt;code>helm.sh/hook-delete-policy&lt;/code> などのアノテーションをテストリソースで使用できます&lt;/li>
+&lt;/ul></description></item><item><title>Helm アーキテクチャ</title><link>https://helm.sh/ja/docs/topics/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/architecture/</guid><description>&lt;h1 id="kubernetes-helm-アーキテクチャ">Kubernetes Helm アーキテクチャ&lt;/h1>
+&lt;p>このドキュメントでは、Helm アーキテクチャの概要について説明します。&lt;/p>
+&lt;h2 id="helm-の目的">Helm の目的&lt;/h2>
+&lt;p>Helm は、&lt;em>チャート&lt;/em> と呼ばれる Kubernetes パッケージを管理するためのツールです。
+Helm は次のことができます。&lt;/p>
+&lt;ul>
+&lt;li>最初から新しいチャートを作成する&lt;/li>
+&lt;li>チャートをチャートアーカイブ (tgz) ファイルにパッケージ化する&lt;/li>
+&lt;li>チャートが保存されているチャートリポジトリを操作する&lt;/li>
+&lt;li>チャートを既存の Kubernetes クラスターにインストールおよびアンインストールする&lt;/li>
+&lt;li>Helm でインストールされたチャートのリリースサイクルを管理する&lt;/li>
+&lt;/ul>
+&lt;p>Helm には、3つの重要な概念があります。&lt;/p>
+&lt;ol>
+&lt;li>&lt;em>チャート&lt;/em> は、Kubernetes アプリケーションのインスタンスを作成するために必要な
+情報のバンドルです&lt;/li>
+&lt;li>&lt;em>コンフィグ&lt;/em> には、リリース可能なオブジェクトを作成するためにパッケージ化された
+チャートにマージできる構成情報が含まれています&lt;/li>
+&lt;li>&lt;em>リリース&lt;/em> は、特定の &lt;em>コンフィグ&lt;/em> と組み合わせた &lt;em>チャート&lt;/em> の
+実行中のインスタンスです&lt;/li>
+&lt;/ol>
+&lt;h2 id="コンポーネント">コンポーネント&lt;/h2>
+&lt;p>Helm は、2つの異なる部分に実装される実行可能ファイルです。&lt;/p>
+&lt;p>&lt;strong>Helm クライアント&lt;/strong> は、エンドユーザー向けのコマンドラインクライアントです。
+クライアントは次のことを担当します。&lt;/p>
+&lt;ul>
+&lt;li>ローカルチャート開発&lt;/li>
+&lt;li>リポジトリの管理&lt;/li>
+&lt;li>リリースの管理&lt;/li>
+&lt;li>Helm ライブラリとのインターフェース
+&lt;ul>
+&lt;li>インストールするチャートを送信する&lt;/li>
+&lt;li>既存のリリースのアップグレードまたはアンインストールの要求&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Helm ライブラリ&lt;/strong> は、すべての Helm 操作を実行するためのロジックを提供します。
+Kubernetes API サーバーとインターフェースし、次の機能を提供します。&lt;/p>
+&lt;ul>
+&lt;li>チャートと構成を組み合わせてリリースを構築する&lt;/li>
+&lt;li>チャートを Kubernetes にインストールし、後続のリリースオブジェクトを提供する&lt;/li>
+&lt;li>Kubernetes との対話によるチャートのアップグレードとアンインストール&lt;/li>
+&lt;/ul>
+&lt;p>スタンドアロンの Helm ライブラリは Helm ロジックをカプセル化しているため、
+さまざまなクライアントが活用できます。&lt;/p></description></item><item><title>高度な Helm のテクニック</title><link>https://helm.sh/ja/docs/topics/advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/advanced/</guid><description>&lt;p>このセクションでは、Helm を使用するためのさまざまな高度な機能とテクニックについて説明します。
+このセクションの情報は、チャートとリリースの高度なカスタマイズと操作を行いたい
+Helm の「パワーユーザー」を対象としています。
+これらの高度な機能にはそれぞれ独自のトレードオフと警告があり、
+Helm の深い知識を駆使して慎重に使用する必要があります。
+言い換えれば、
+&lt;a href="https://en.wikipedia.org/wiki/With_great_power_comes_great_responsibility" target="_blank">ピーター・パーカーの原則&lt;/a>
+を覚えておいてください&lt;/p>
+&lt;h2 id="ポストレンダリング">ポストレンダリング&lt;/h2>
+&lt;p>ポストレンダリングにより、チャートインストーラーは、Helm によってインストールされる前に、
+レンダリングされたマニフェストを手動で操作、構成、または検証することができます。
+これにより、高度な構成を持つユーザーは、
+&lt;a href="https://kustomize.io" target="_blank">&lt;code>kustomize&lt;/code>&lt;/a> などのツールを使用して、
+パブリックチャートをフォークしたり、
+チャートのメンテナーがソフトウェアの最後の構成オプションをすべて指定したりする必要なく、
+構成の変更を適用できます。
+エンタープライズ環境での一般的なツールやサイドカーの注入、
+展開前のマニフェストの分析のユースケースもあります。&lt;/p>
+&lt;h3 id="前提条件">前提条件&lt;/h3>
+&lt;ul>
+&lt;li>Helm 3.1+&lt;/li>
+&lt;/ul>
+&lt;h3 id="使い方">使い方&lt;/h3>
+&lt;p>ポストレンダラーは、STDIN でレンダリングされた Kubernetes マニフェストを受け入れ、
+STDOUT で有効な Kubernetes マニフェストを返す任意の実行可能ファイルです。
+失敗した場合は、0 以外の終了コードを返します。
+これは、2つのコンポーネント間の唯一の &amp;quot;API&amp;quot; です。
+これにより、ポストレンダリングプロセスで実行できる操作に大きな柔軟性がもたらされます。&lt;/p>
+&lt;p>ポストレンダラーは、&lt;code>install&lt;/code>、&lt;code>upgrade&lt;/code>、および &lt;code>template&lt;/code> で使用できます。
+ポストレンダラーを使用するには、
+使用するレンダラー実行可能ファイルへのパスで &lt;code>--post-renderer&lt;/code> フラグを使用します。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ helm install mychart stable/wordpress --post-renderer ./path/to/executable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>パスにセパレータが含まれていない場合は、$PATH で検索されます。
+それ以外の場合は、相対パスが完全修飾パスに解決されます。&lt;/p>
+&lt;p>複数のポストレンダラーを使用したい場合は、それらをすべてスクリプトで呼び出すか、
+ビルドしたバイナリツールで一緒に呼び出します。
+bash では、これは &lt;code>renderer1 | renderer2 | renderer3&lt;/code> のように単純です。&lt;/p>
+&lt;p>&lt;code>kustomize&lt;/code> をポストレンダラーとして使用する例は
+
+&lt;a href="https://github.com/thomastaylor312/advanced-helm-demos/tree/master/post-render" target="_blank">here&lt;/a>で見ることができます。&lt;/p>
+&lt;h3 id="警告事項">警告事項&lt;/h3>
+&lt;p>ポストレンダラーを使用する際には、いくつかの重要なことを覚えておく必要があります。
+その中でも最も重要なのは、ポストレンダラーを使用する場合、
+そのリリースを変更するすべての人は、ビルドを再現可能にするために、同じレンダラーを使用 &lt;strong>しなければならない&lt;/strong> ということです。
+この機能は、ユーザーが使用しているレンダラーを切り替えたり、
+レンダラーの使用を停止したりできるように意図的に構築されていますが、
+これは偶発的な変更やデータの損失を避けるために意図的に行う必要があります。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Introduction on Helm</title><link>https://helm.sh/fr/docs/intro/</link><description>Recent content in Introduction on Helm</description><generator>Hugo</generator><language>fr</language><atom:link href="https://helm.sh/fr/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>Guide de démarrage rapide</title><link>https://helm.sh/fr/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/fr/docs/intro/quickstart/</guid><description>&lt;p>Ce guide explique comment commencer rapidement à utiliser Helm.&lt;/p>
+&lt;h2 id="conditions-préalables">Conditions préalables&lt;/h2>
+&lt;p>Les conditions préalables suivantes sont requises pour une utilisation correcte et sécurisé de Helm :&lt;/p>
+&lt;ol>
+&lt;li>Posséder un cluster Kubernetes.&lt;/li>
+&lt;li>Décider des configurations de sécurité à appliquer à votre installation, si vous en avez.&lt;/li>
+&lt;li>Installation et configuration de Helm.&lt;/li>
+&lt;/ol>
+&lt;h3 id="installer-kubernetes-ou-avoir-accès-à-un-cluster">Installer Kubernetes ou avoir accès à un cluster&lt;/h3>
+&lt;ul>
+&lt;li>Vous devez avoir installé Kubernetes. Pour la dernière release de Helm, nous recommandons la dernière version stable de Kubernetes, qui est dans la plupart des cas la deuxième release mineure la plus récente.&lt;/li>
+&lt;li>Vous devriez également avoir une copie locale configurée de &lt;code>kubectl&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>Lisez la 
+&lt;a href="https://helm.sh/docs/topics/version_skew/" target="_blank">Politique de prise en charge de la version Helm&lt;/a> pour connaitre la différence de version maximal pris en charge entre Helm et Kubernetes.&lt;/p></description></item><item><title>Installation de Helm</title><link>https://helm.sh/fr/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/fr/docs/intro/install/</guid><description>&lt;p>Ce guide vous explique comment installer la CLI (Interface de Ligne de Commande) Helm. Helm peut être installé soit à partir des sources, ou à partir des releases binaires pré-construites.&lt;/p>
+&lt;h2 id="depuis-le-projet-helm">Depuis le projet Helm&lt;/h2>
+&lt;p>Nous vous proposons deux méthodes pour récupérer et installer Helm. Voici les méthodes officielles pour obtenir les releases de l'application. En plus de cela, la communauté Helm
+fournit des méthodes pour installer Helm via différents gestionnaires de packages. L'installation via ces méthodes peut être trouvée ci-dessous.&lt;/p></description></item><item><title>Utilisation de Helm</title><link>https://helm.sh/fr/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/fr/docs/intro/using_helm/</guid><description>&lt;p>Ce guide explique les bases de l'utilisation de Helm pour gérer les packages sur votre cluster Kubernetes. Nous partons du principe que vous avez déjà 
+&lt;a href="https://helm.sh/fr/docs/intro/install/">installé&lt;/a> le client Helm.&lt;/p>
+&lt;p>Si vous souhaitez simplement exécuter quelques commandes rapides, vous pouvez commencer par le 
+&lt;a href="https://helm.sh/fr/docs/intro/quickstart/">Guide de démarrage rapide&lt;/a>. Ce chapitre couvre les différentes commandes Helm et explique comment les utiliser.&lt;/p>
+&lt;h2 id="trois-grands-concepts">Trois grands concepts&lt;/h2>
+&lt;p>Un &lt;em>Chart&lt;/em> est un package Helm. Il contient toutes les définitions des ressources nécessaires pour exécuter une application, un outil ou un service à l'intérieur d'un cluster Kubernetes. Voyez cela comme l'équivalent Kubernetes d'une formule pour Homebrew, d'un dpkg pour Apt , ou d'un fichier RPM pour Yum.&lt;/p></description></item><item><title>Cheat Sheet</title><link>https://helm.sh/fr/docs/intro/cheatsheet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/fr/docs/intro/cheatsheet/</guid><description>&lt;p>La cheatsheet d'Helm contient toutes les commandes nécessaires pour gérer une application avec Helm.&lt;/p>
+&lt;hr>
+&lt;h3 id="base">Base&lt;/h3>
+&lt;p>Chart:&lt;/p>
+&lt;ul>
+&lt;li>Il s'agit du nom de votre chart dans le cas où il aurait été téléchargé ou décompressé.&lt;/li>
+&lt;li>Il s'agit du &amp;lt;repo_name&amp;gt;/&amp;lt;chart_name&amp;gt; dans le cas où le répertoire a été ajouté mais que le chart n'a pas été téléchargé.&lt;/li>
+&lt;li>Il s'agit de l'URL/chemin absolu vers le chart.&lt;/li>
+&lt;/ul>
+&lt;p>Name:&lt;/p>
+&lt;ul>
+&lt;li>C'est le nom que vous souhaitez donner à votre installation du Chart Helm.&lt;/li>
+&lt;/ul>
+&lt;p>Release:&lt;/p></description></item></channel></rss>

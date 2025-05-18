@@ -1,0 +1,1642 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>헬름 명령어 on 헬름</title><link>https://helm.sh/ko/docs/helm/</link><description>Recent content in 헬름 명령어 on 헬름</description><generator>Hugo</generator><language>ko</language><atom:link href="https://helm.sh/ko/docs/helm/index.xml" rel="self" type="application/rss+xml"/><item><title>helm</title><link>https://helm.sh/ko/docs/helm/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm/</guid><description>&lt;h2 id="helm">helm&lt;/h2>
+&lt;p>쿠버네티스를 위한 헬름 패키지 매니저&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>쿠버네티스 패키지 매니저&lt;/p>
+&lt;p>일반적으로 사용되는 헬름 작업:&lt;/p>
+&lt;ul>
+&lt;li>helm search: 차트를 검색&lt;/li>
+&lt;li>helm pull: 확인하려는 로컬 디렉토리에 차트를 다운로드&lt;/li>
+&lt;li>helm install: 쿠버네티스에 차트 업로드&lt;/li>
+&lt;li>helm list: 차트 릴리스 리스트 표시&lt;/li>
+&lt;/ul>
+&lt;p>환경 변수:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Name&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>$HELM_CACHE_HOME&lt;/td>
+ &lt;td>캐시된 파일을 저장할 대체 위치를 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_CONFIG_HOME&lt;/td>
+ &lt;td>헬름 설정을 저장할 대체 위치를 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DATA_HOME&lt;/td>
+ &lt;td>헬름 데이터를 저장할 대체 위치를 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DEBUG&lt;/td>
+ &lt;td>헬름이 디버그 모드에서 실행 중인지 여부 표시&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DRIVER&lt;/td>
+ &lt;td>백엔드 스토리지 드라이버 설정. 값 : configmap, secret, memory, postgres&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_DRIVER_SQL_CONNECTION_STRING&lt;/td>
+ &lt;td>SQL 스토리지 드라이버가 사용해야 하는 연결 문자열 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_MAX_HISTORY&lt;/td>
+ &lt;td>헬름 릴리스 내역의 최대 수 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_NAMESPACE&lt;/td>
+ &lt;td>헬름 작업에 사용되는 네임스페이스 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_NO_PLUGINS&lt;/td>
+ &lt;td>플러그인 비활성화. 비활성화 하기 위해 HELM_NO_PLUGINS=1 로 지정.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_PLUGINS&lt;/td>
+ &lt;td>플러그인 디렉토리에 대한 경로 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REGISTRY_CONFIG&lt;/td>
+ &lt;td>레지스트리 구성 파일의 경로를 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REPOSITORY_CACHE&lt;/td>
+ &lt;td>저장소 캐시 디렉토리에 대한 경로 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_REPOSITORY_CONFIG&lt;/td>
+ &lt;td>레포지토리 파일의 경로 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$KUBECONFIG&lt;/td>
+ &lt;td>대체 쿠버네티스 설정 파일 지정 (기본값 &amp;quot;~/.kube/config&amp;quot;)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEAPISERVER&lt;/td>
+ &lt;td>인증을 위한 쿠버네티스 API 서버의 엔트포인트 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEASGROUPS&lt;/td>
+ &lt;td>작업을 가장(impersonation)할 사용자 이름 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBEASUSER&lt;/td>
+ &lt;td>쉼표로 구분된 목록을 사용하여, 작업을 가장할 그룹 지정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBECONTEXT&lt;/td>
+ &lt;td>kubeconfig 컨텍스트의 이름 설정&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>$HELM_KUBETOKEN&lt;/td>
+ &lt;td>인증에 사용되는 베어러(Bearer) KubeToken 설정&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>헬름은 다음 설정 순서를 기반으로 캐시, 설정 정보, 데이터를 저장한다:&lt;/p></description></item><item><title>Helm Completion</title><link>https://helm.sh/ko/docs/helm/helm_completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_completion/</guid><description>&lt;h2 id="helm-completion">helm completion&lt;/h2>
+&lt;p>지정될 셸에 대한 자동 스크립트 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>지정된 셸의 헬름에 대한 자동 완성 스크립트를 생성한다.&lt;/p>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm completion 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에-상속된-옵션">부모 명령어에 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업할 그룹 지정. 플래그를 반복하여 여러 그룹 지정도 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성에 대한 파일 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시 된 저장소 색인이 포함된 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm/">helm&lt;/a>	 - 쿠버네티스 용 헬름 패키지 관리자&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion_bash/">helm completion bash&lt;/a>	 - bash 용 자동 완성 스크립트 생성&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion_fish/">helm completion fish&lt;/a>	 - fish 용 자동 완성 스크립트 생성&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion_zsh/">helm completion zsh&lt;/a>	 - zsh 용 자동 완성 스크립트 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Completion - bash</title><link>https://helm.sh/ko/docs/helm/helm_completion_bash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_completion_bash/</guid><description>&lt;h2 id="helm-completion-bash">helm completion bash&lt;/h2>
+&lt;p>bash에 대한 자동 완성 스크립트 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>bash 셸의 헬름에 대한 자동 완성 스크립트를 생성한다.&lt;/p>
+&lt;p>현재 셸 세션에서 완성 기능을 로드하려면:&lt;/p>
+&lt;pre>&lt;code>source &amp;lt;(helm completion bash)
+&lt;/code>&lt;/pre>
+&lt;p>새로운 세션마다 완성 기능을 로드하려면 다음 작업을 한 번 실행한다:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Linux:&lt;/p>
+&lt;pre>&lt;code>helm completion bash &amp;gt; /etc/bash_completion.d/helm
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;li>
+&lt;p>MacOS:&lt;/p>
+&lt;pre>&lt;code>helm completion bash &amp;gt; /usr/local/etc/bash_completion.d/helm
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm completion bash 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에-상속된-옵션들">부모 명령어에 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.config/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 참이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 참이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세 표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion/">helm completion&lt;/a>	 - 지정된 셸에 대한 자동 완성 스크립트 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-14-sep-2020">Auto generated by spf13/cobra on 14-Sep-2020&lt;/h6></description></item><item><title>Helm Completion - fish</title><link>https://helm.sh/ko/docs/helm/helm_completion_fish/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_completion_fish/</guid><description>&lt;h2 id="helm-completion-fish">helm completion fish&lt;/h2>
+&lt;p>fish에 대한 자동 완성 스크립트 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>fish 셸의 헬름에 대한 자동 완성 스크립트를 생성한다.&lt;/p>
+&lt;p>현재 셸 세션에서 completion 기능을 로드하려면:&lt;/p>
+&lt;pre>&lt;code>helm completion fish | source
+&lt;/code>&lt;/pre>
+&lt;p>모든 새 세션에서 completion 기능을 로드하려면 다음 작업을 한 번 실행한다:&lt;/p>
+&lt;pre>&lt;code>helm completion fish &amp;gt; ~/.config/fish/completions/helm.fish
+&lt;/code>&lt;/pre>
+&lt;p>이 설정을 적용하려면 새 셸을 시작해야 한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion fish [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm completion fish 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-descriptions completion 세부 정보 비활성화
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에-상속된-옵션">부모 명령어에 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업할 그룹 지정. 플래그를 반복하여 여러 그룹 지정도 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성에 대한 파일 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시 된 저장소 색인이 포함된 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion/">helm completion&lt;/a>	 - 지정된 셸에 대한 자동 완성 스크립트 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Completion - zsh</title><link>https://helm.sh/ko/docs/helm/helm_completion_zsh/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_completion_zsh/</guid><description>&lt;h2 id="helm-completion-zsh">helm completion zsh&lt;/h2>
+&lt;p>zsh에 대한 자동 완성 스크립트 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>zsh 셸의 헬름에 대한 자동 완성 스크립트를 생성한다.&lt;/p>
+&lt;p>현재 셸 세션에서 완성 기능을 로드하려면:&lt;/p>
+&lt;pre>&lt;code>source &amp;lt;(helm completion zsh)
+&lt;/code>&lt;/pre>
+&lt;p>새로운 세션마다 완성 기능을 로드하려면 다음 작업을 한 번 실행한다:&lt;/p>
+&lt;pre>&lt;code>helm completion zsh &amp;gt; &amp;quot;${fpath[1]}/_helm&amp;quot;
+&lt;/code>&lt;/pre>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm completion zsh [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm completion zsh 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에-상속된-옵션들">부모 명령어에 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.config/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 참이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 참이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세 표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_completion/">helm completion&lt;/a>	 - 지정된 셸에 대한 자동 완성 스크립트 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-14-sep-2020">Auto generated by spf13/cobra on 14-Sep-2020&lt;/h6></description></item><item><title>Helm Create</title><link>https://helm.sh/ko/docs/helm/helm_create/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_create/</guid><description>&lt;h2 id="helm-create">helm create&lt;/h2>
+&lt;p>주어진 이름으로 새로운 차트를 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 차트에 사용되는 공통 파일 및 디렉토리와 함께
+차트 디렉토리를 만든다.&lt;/p>
+&lt;p>예를 들어, 'helm create foo' 는 다음과 같은 디렉토리
+구조를 생성한다:&lt;/p>
+&lt;pre>&lt;code>foo/
+├── .helmignore # 헬름 차트를 패키징할 때 무시할 패턴 포함
+├── Chart.yaml # 차트에 대한 정보
+├── values.yaml # 템플릿의 기본값
+├── charts/ # 이 차트가 의존하는 차트
+└── templates/ # 템플릿 파일
+ └── tests/ # 테스트 파일
+&lt;/code>&lt;/pre>
+&lt;p>'helm create' 는 인수로 경로를 받는다. 지정된 경로에 디렉토리가
+존재하지 않으면 헬름은 디렉토리를 생성하려고 시도할 것이다.
+지정된 대상이 있고 해당 디렉토리에 파일이 있으면 충돌하는 파일을
+덮어 쓰지만 다른 파일은 그대로 둔다.&lt;/p></description></item><item><title>Helm Dependency</title><link>https://helm.sh/ko/docs/helm/helm_dependency/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_dependency/</guid><description>&lt;h2 id="helm-dependency">helm dependency&lt;/h2>
+&lt;p>차트의 종속성을 관리&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>차트의 종속성을 관리한다.&lt;/p>
+&lt;p>헬름 차트는 종속성을 'charts/' 에 저장한다. 차트 개발자의 경우
+모든 종속성을 선언하는 'Chart.yaml' 에서 종속성을 관리하는 것이
+더 쉬운 경우가 많다.&lt;/p>
+&lt;p>종속성 명령은 해당 파일에서 작동하므로 원하는 종속성과
+'charts/' 디렉토리에 저장된 실제 종속성을 쉽게
+동기화 할 수 있다.&lt;/p>
+&lt;p>예를 들어 이 Chart.yaml 은 두 가지 종속성을 선언한다.&lt;/p>
+&lt;pre>&lt;code># Chart.yaml
+dependencies:
+- name: nginx
+ version: &amp;quot;1.2.3&amp;quot;
+ repository: &amp;quot;https://example.com/charts&amp;quot;
+- name: memcached
+ version: &amp;quot;3.2.1&amp;quot;
+ repository: &amp;quot;https://another.example.com/charts&amp;quot;
+&lt;/code>&lt;/pre>
+&lt;p>'name' 은 차트의 이름이어야 한다. 여기서 해당 이름은 해당 차트의
+'Chart.yaml' 파일에 있는 이름과 일치해야 한다.&lt;/p></description></item><item><title>Helm Dependency Build</title><link>https://helm.sh/ko/docs/helm/helm_dependency_build/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_dependency_build/</guid><description>&lt;h2 id="helm-dependency-build">helm dependency build&lt;/h2>
+&lt;p>Chart.lock 파일을 기반으로 charts/ 디렉토리를 다시 빌드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>Chart.lock 파일에서 charts/ 디렉토리를 빌드한다.&lt;/p>
+&lt;p>빌드는 잠금파일에 지정된 상태에 대한 차트의 종속성을 재구성하는데
+사용된다. 이것은 'helm dependency update' 처럼
+종속성을 다시 재협상하지 않는다.&lt;/p>
+&lt;p>잠금 파일이 없으면 'helm dependency build'는
+'helm dependency update'의 동작을 미러링합니다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm dependency build CHART [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm dependency build 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 공개 키를 포함하는 키링 (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 서명과 비교하여 패키지 확인
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_dependency/">helm dependency&lt;/a>	 - 차트의 종속성을 관리&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Dependency List</title><link>https://helm.sh/ko/docs/helm/helm_dependency_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_dependency_list/</guid><description>&lt;h2 id="helm-dependency-list">helm dependency list&lt;/h2>
+&lt;p>주어진 차트에 대한 종속성을 나열&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>차트에 선언된 모든 종속성을 나열한다.&lt;/p>
+&lt;p>이것은 차트 아카이브 및 차트 디렉토리를 입력으로 사용할수 있다.
+차트의 내용은 변경되지 않는다.&lt;/p>
+&lt;p>차트를 로드할 수 없는 경우 오류가 발생한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm dependency list CHART [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm dependency list 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_dependency/">helm dependency&lt;/a>	 - 차트의 종속성을 관리&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Dependency Update</title><link>https://helm.sh/ko/docs/helm/helm_dependency_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_dependency_update/</guid><description>&lt;h2 id="helm-dependency-update">helm dependency update&lt;/h2>
+&lt;p>Chart.yaml 의 내용에 따라 charts/ 업데이트&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>Chart.yaml 을 미러링하도록 온-디스크 종속성을 업데이트한다.&lt;/p>
+&lt;p>이 명령은 'Chart.yaml' 에 표현된 필수 차트가 'charts/' 에
+있고 허용 가능한 버전인지를 확인한다. 종속성을 충족하는 최신 차트를
+풀다운(pull down)하고 이전 종속성을 정리한다.&lt;/p>
+&lt;p>업데이트가 성공하면 종속성을 정확한 버전으로 다시
+빌드하는데 사용할 수 있는 잠금파일이 생성된다.&lt;/p>
+&lt;p>종속성은 'Chart.yaml' 에 표시할 필요가 없다. 따라서 업데이트 명령은
+차트가 (a)Chart.yaml 파일에 있지만, (b)잘못된 버전이 아니면
+차트를 제거하지 않는다.&lt;/p></description></item><item><title>Helm Env</title><link>https://helm.sh/ko/docs/helm/helm_env/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_env/</guid><description>&lt;h2 id="helm-env">helm env&lt;/h2>
+&lt;p>헬름 클라이언트 환경변수 정보&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>Env 는 헬름에서 사용 중인 모든 환경변수 정보를 출력한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm env [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help env 에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 표준 오류를 로그 및 파일로 표시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get</title><link>https://helm.sh/ko/docs/helm/helm_get/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get/</guid><description>&lt;h2 id="helm-get">helm get&lt;/h2>
+&lt;p>명명된 릴리스의 확장 정보 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 다음을 포함하여 릴리스에 대한 확장 정보를 가져오는 데 사용할 수 있는
+여러가지 하위 명령으로 구성된다.&lt;/p>
+&lt;ul>
+&lt;li>릴리스 생성에 사용되는 값&lt;/li>
+&lt;li>생성된 매니페스트 파일&lt;/li>
+&lt;li>릴리스 차트에서 제공하는 노트&lt;/li>
+&lt;li>릴리스와 관련된 훅(hooks)&lt;/li>
+&lt;/ul>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help get 에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get_all/">helm get all&lt;/a>	 - 명명된 릴리스에 대한 모든 정보 다운로드&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get_hooks/">helm get hooks&lt;/a>	 - 명명된 릴리스에 대한 모든 훅 다운로드&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get_manifest/">helm get manifest&lt;/a>	 - 명명된 릴리스에 대한 매니페스트 다운로드&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get_notes/">helm get notes&lt;/a>	 - 명명된 릴리스에 대한 노트 다운로드&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get_values/">helm get values&lt;/a>	 - 명명된 릴리스에 대한 값 파일 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get All</title><link>https://helm.sh/ko/docs/helm/helm_get_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get_all/</guid><description>&lt;h2 id="helm-get-all">helm get all&lt;/h2>
+&lt;p>명명된 릴리스에 대한 모든 정보 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 지정한 릴리스에서 노트, 훅, 제공된 값 및 생성된
+매니페스트 파일에 대한 정보를 사람이 읽을 수 있는 콜렉션으로 출력한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get all RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help all 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 리비전으로 명명된 릴리스 가져오기
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --template string 출력 형식 지정을 위한 go 템플릿. 예: {{.Release.Name}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get/">helm get&lt;/a>	 - 명명된 릴리스의 확장 정보 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get Hooks</title><link>https://helm.sh/ko/docs/helm/helm_get_hooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get_hooks/</guid><description>&lt;h2 id="helm-get-hooks">helm get hooks&lt;/h2>
+&lt;p>명명된 릴리스에 대한 모든 훅 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 지정한 릴리스에 대한 훅을 다운로드한다.&lt;/p>
+&lt;p>훅은 YAML로 형식이며 YAML '---\n' 구분자로 구분된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get hooks RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help hooks 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 리비전으로 명명된 릴리스 가져오기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get/">helm get&lt;/a>	 - 명명된 릴리스의 확장 정보 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get Manifest</title><link>https://helm.sh/ko/docs/helm/helm_get_manifest/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get_manifest/</guid><description>&lt;h2 id="helm-get-manifest">helm get manifest&lt;/h2>
+&lt;p>명명된 릴리스에 대한 매니페스트 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 지정한 릴리스에 대해 생성된 매니페스트를 가져온다.&lt;/p>
+&lt;p>매니페스트는 이 릴리스의 차트에서 생성된 쿠버네티스
+리소스를 YAML 로 인코딩한 표현이다. 차트가 다른
+차트에 종속된 경우 해당 리소스도 매니페스트에 포함된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get manifest RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help manifest 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 리비전으로 명명된 릴리스 가져오기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get/">helm get&lt;/a>	 - 명명된 릴리스의 확장 정보 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get Notes</title><link>https://helm.sh/ko/docs/helm/helm_get_notes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get_notes/</guid><description>&lt;h2 id="helm-get-notes">helm get notes&lt;/h2>
+&lt;p>명명된 릴리스에 대한 노트 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 명명된 릴리스의 차트에서 제공하는 노트를 보여준다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get notes RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help notes 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 리비전으로 명명된 릴리스 가져오기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get/">helm get&lt;/a>	 - 명명된 릴리스의 확장 정보 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Get Values</title><link>https://helm.sh/ko/docs/helm/helm_get_values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_get_values/</guid><description>&lt;h2 id="helm-get-values">helm get values&lt;/h2>
+&lt;p>명명된 릴리스에 대한 값 파일 다운로드&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 주어진 릴리스에 대한 값 파일을 다운로드한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm get values RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -a, --all 모든 (계산 된) 값 덤프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help values 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format 지정한 형식으로 출력을 표시. 허용되는 값: table, json, yaml (기본값 table)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 리비전으로 명명된 릴리스 가져오기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가한다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준오류(stderr)로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity 이 기준점 이상일 때 표준오류(stderr)로 로그가 출력된다 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_get/">helm get&lt;/a>	 - 명명된 릴리스의 확장 정보 다운로드&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm History</title><link>https://helm.sh/ko/docs/helm/helm_history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_history/</guid><description>&lt;h2 id="helm-history">helm history&lt;/h2>
+&lt;p>릴리스 히스토리를 가져온다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>History 명령어는 주어진 릴리즈에 대한 리비젼 기록을 출력한다.&lt;/p>
+&lt;p>기본 최대 256개 리비전이 반환된다. '--max' 설정은 반환되는
+리비젼 목록의 최대 길이를 지정한다.&lt;/p>
+&lt;p>릴리스 기록은 형식이 지정된 테이블의 형태로 출력된다. 예:&lt;/p>
+&lt;pre>&lt;code>$ helm history angry-bird
+REVISION UPDATED STATUS CHART APP VERSION DESCRIPTION
+1 Mon Oct 3 10:15:13 2016 superseded alpine-0.1.0 1.0 Initial install
+2 Mon Oct 3 10:15:13 2016 superseded alpine-0.1.0 1.0 Upgraded successfully
+3 Mon Oct 3 10:15:13 2016 superseded alpine-0.1.0 1.0 Rolled back to 2
+4 Mon Oct 3 10:15:13 2016 deployed alpine-0.1.0 1.0 Upgraded successfully
+&lt;/code>&lt;/pre>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm history RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help history 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --max int 기록에 포함할 최대 리비젼 수 (기본값 256개)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format 지정된 형식으로 출력. 허용되는 값: table, json, yaml (기본값 table)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="see-also">SEE ALSO&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Install</title><link>https://helm.sh/ko/docs/helm/helm_install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_install/</guid><description>&lt;h2 id="helm-install">helm install&lt;/h2>
+&lt;p>차트를 설치한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 차트 아카이브를 설치한다.&lt;/p>
+&lt;p>install 인수는 차트 참조, 패키지 된 차트 경로,
+압축 해제 된 차트 디렉토리 경로 또는 URL 이어야한다.&lt;/p>
+&lt;p>차트의 값을 재정의하려면 '--values' 플래그를 사용하고 파일을 전달하거나
+'--set' 플래그를 사용하고 명령 줄에서 구성을 전달하고
+문자열 값에 '--set-string' 을 사용한다.
+값이 커서 '--values' 도 '--set' 도 사용하지 않으려면
+'--set-file' 을 사용하여 파일에서 하나의 큰 값을 읽도록 하자.&lt;/p>
+&lt;pre>&lt;code>$ helm install -f myvalues.yaml myredis ./redis
+&lt;/code>&lt;/pre>
+&lt;p>또는&lt;/p></description></item><item><title>Helm Lint</title><link>https://helm.sh/ko/docs/helm/helm_lint/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_lint/</guid><description>&lt;h2 id="helm-lint">helm lint&lt;/h2>
+&lt;p>이슈가 발생하지 않을지 차트를 검토한다&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 차트 경로를 받아 해당 차트가 올바른
+형식(well-formed)인지 검증하는 일련의 테스트를 실행한다.&lt;/p>
+&lt;p>만약 린터(linter)가 차트 설치 실패를 일으킬만한 사항을 발견하면,
+[ERROR] 메세지를 발생시킬 것이다. 컨벤션이나 권장사항을 위반한 이슈를 발견하면,
+[WARNING] 메세지를 발생시킬 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm lint PATH [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help lint 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set stringArray 명령 줄에 값을 설정 (쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=값1,키2=값2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set-file stringArray 명령 줄을 통해 지정된 각 파일에서 값을 설정 (쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=값1,키2=값2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set-string stringArray 명령 줄에서 STRING 값 설정 (쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=값1,키2=값2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --strict 검토 경고(lint warning)시 실패로 판정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -f, --values strings YAML 파일 또는 URL 에 값 지정 (여러 개 지정 가능)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --with-subcharts 하위 차트 의존성 검토
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header true이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 로그를 표준 오류로로 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 오류로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-14-sep-2020">Auto generated by spf13/cobra on 14-Sep-2020&lt;/h6></description></item><item><title>Helm List</title><link>https://helm.sh/ko/docs/helm/helm_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_list/</guid><description>&lt;h2 id="helm-list">helm list&lt;/h2>
+&lt;p>릴리스를 나열한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 지정된 네임 스페이스에 대한 모든 릴리스를 나열헌다 (네임 스페이스가 지정되지 않은 경우 현재 네임 스페이스 컨텍스트 사용).&lt;/p>
+&lt;p>기본적으로는, 배포되었거나 실패한 릴리스만 나열한다.
+'--uninstalled' 및 '--all' 과 같은 플래그는 이 동작을 변경한다.
+이러한 플래그는 '--uninstalled --failed' 와 같이 결합 할 수 있다.&lt;/p>
+&lt;p>기본적으로, 항목은 알파벳순으로 정렬된다. 출시 날짜별로 정렬하려면 '-d' 플래그를
+사용하자.&lt;/p>
+&lt;p>--filter 플래그가 제공되면 필터로 처리된다.
+필터는 릴리스 목록에 적용되는 정규식 (Perl 호환 가능)이다.
+오직 필터와 일치하는 항목만 반환된다.&lt;/p></description></item><item><title>Helm Package</title><link>https://helm.sh/ko/docs/helm/helm_package/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_package/</guid><description>&lt;h2 id="helm-package">helm package&lt;/h2>
+&lt;p>차트 디렉토리를 차트 아카이브로 패키징&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트를, 버전이 지정된 차트 아카이브 파일로 패키징한다.
+경로가 지정되면 차트(Chart.yaml 파일을 포함해야 함)에 대한 그 경로를 찾은 다음
+해당 디렉토리를 패키징한다.&lt;/p>
+&lt;p>버전이 지정된 차트 아카이브는 헬름 패키지 저장소에서 사용된다.&lt;/p>
+&lt;p>차트에 서명하려면 &lt;code>--sign&lt;/code> 플래그를 사용하자. 대부분의 경우,
+'--keyring path/to/secret/keys' 와 '--key keyname' 도 지정해야 할 것이다.&lt;/p>
+&lt;p>$ helm package --sign ./mychart --key mykey --keyring ~/.gnupg/secring.gpg&lt;/p>
+&lt;p>'--keyring' 을 지정하지 않았고 별다른 설정을 하지 않은 환경이라면
+헬름은 보통 공개 키링을 기본값으로 사용한다.&lt;/p></description></item><item><title>Helm Plugin</title><link>https://helm.sh/ko/docs/helm/helm_plugin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_plugin/</guid><description>&lt;h2 id="helm-plugin">helm plugin&lt;/h2>
+&lt;p>헬름 플러그인 설치, 나열, 제거&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>클라이언트 측 헬름 플러그인을 관리한다.&lt;/p>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm plugin 명령어의 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어로부터-상속된-옵션">부모 명령어로부터 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 자세한 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업을 가장(impersonate)하기 위한 그룹. 이 플래그를 반복하여 여러 그룹을 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업을 가장할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 전달자(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청의 네임스페이스 범위
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인을 포함하는 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 이 포함된 파일 경로(기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm/">helm&lt;/a>	 - 쿠버네티스용 헬름 패키지 관리자&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin_install/">helm plugin install&lt;/a>	 - 하나 이상의 헬름 플러그인 설치&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin_list/">helm plugin list&lt;/a>	 - 설치된 헬름 플러그인 나열&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin_uninstall/">helm plugin uninstall&lt;/a>	 - 하나 이상의 헬름 플러그인 제거&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin_update/">helm plugin update&lt;/a>	 - 하나 이상의 헬름 플러그인 업데이트&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Plugin Install</title><link>https://helm.sh/ko/docs/helm/helm_plugin_install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_plugin_install/</guid><description>&lt;h2 id="helm-plugin-install">helm plugin install&lt;/h2>
+&lt;p>하나 이상의 헬름 플러그인을 설치한다.&lt;/p>
+&lt;h3 id="synopsis">Synopsis&lt;/h3>
+&lt;p>이 명령을 사용하면 URL에서 VCS 저장소 또는 로컬 경로로 플러그인을 설치할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm plugin install [options] &amp;lt;path|url&amp;gt;... [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm plugin install 명령어의 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 버전을 강제로 지정. 지정하지 않으면 최신 버전을 설치
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어로부터-상속된-옵션">부모 명령어로부터 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 자세한 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업을 가장(impersonate)하기 위한 그룹. 이 플래그를 반복하여 여러 그룹을 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업을 가장할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 전달자(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청의 네임스페이스 범위
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인을 포함하는 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 이 포함된 파일 경로(기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin/">helm plugin&lt;/a>	 - 헬름 플러그인 설치, 나열, 제거&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Plugin List</title><link>https://helm.sh/ko/docs/helm/helm_plugin_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_plugin_list/</guid><description>&lt;h2 id="helm-plugin-list">helm plugin list&lt;/h2>
+&lt;p>설치된 헬름 플러그인 나열&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>설치된 헬름 플러그인을 나열한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm plugin list [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm plugin list 명령어의 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어로부터-상속된-옵션">부모 명령어로부터 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 자세한 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업을 가장(impersonate)하기 위한 그룹. 이 플래그를 반복하여 여러 그룹을 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업을 가장할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 전달자(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청의 네임스페이스 범위
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인을 포함하는 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 이 포함된 파일 경로(기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin/">helm plugin&lt;/a>	 - 헬름 플러그인 설치, 나열, 제거&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Plugin Uninstall</title><link>https://helm.sh/ko/docs/helm/helm_plugin_uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_plugin_uninstall/</guid><description>&lt;h2 id="helm-plugin-uninstall">helm plugin uninstall&lt;/h2>
+&lt;p>하나 이상의 헬름 플러그인을 제거&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>하나 이상의 헬름 플러그인을 제거한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm plugin uninstall &amp;lt;plugin&amp;gt;... [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm plugin uninstall 명령어의 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어로부터-상속된-옵션">부모 명령어로부터 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 자세한 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업을 가장(impersonate)하기 위한 그룹. 이 플래그를 반복하여 여러 그룹을 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업을 가장할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 전달자(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청의 네임스페이스 범위
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인을 포함하는 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 이 포함된 파일 경로(기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin/">helm plugin&lt;/a>	 - 헬름 플러그인 설치, 나열, 제거&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Plugin Update</title><link>https://helm.sh/ko/docs/helm/helm_plugin_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_plugin_update/</guid><description>&lt;h2 id="helm-plugin-update">helm plugin update&lt;/h2>
+&lt;p>하나 이상의 헬름 플러그인 업데이트&lt;/p>
+&lt;h3 id="synopsis">Synopsis&lt;/h3>
+&lt;p>하나 이상의 헬름 플러그인을 업데이트한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm plugin update &amp;lt;plugin&amp;gt;... [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm plugin update 명령어의 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어로부터-상속된-옵션">부모 명령어로부터 상속된 옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 자세한 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업을 가장(impersonate)하기 위한 그룹. 이 플래그를 반복하여 여러 그룹을 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업을 가장할 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용할 전달자(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청의 네임스페이스 범위
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인을 포함하는 파일 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 이 포함된 파일 경로(기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_plugin/">helm plugin&lt;/a>	 - 헬름 플러그인 설치, 나열, 제거&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Pull</title><link>https://helm.sh/ko/docs/helm/helm_pull/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_pull/</guid><description>&lt;h2 id="helm-pull">helm pull&lt;/h2>
+&lt;p>저장소에서 차트를 다운로드하고 (선택적으로) 로컬 디렉터리에 압축 해제&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>패키지 저장소에서 패키지를 검색하고 로컬로 다운로드 한다.&lt;/p>
+&lt;p>이는 검사, 수정 또는 리패키지를 위하여 패키지를 가져올 때 유용하다. 또한
+설치하지 않고 차트의 암호화 검증을 수행하는 데 사용할
+수도 있다.&lt;/p>
+&lt;p>다운로드 후 차트를 풀 수 있는 옵션이 있다. 그러면 차트에 대한
+디렉터리가 생성되고 해당 디렉터리에 압축이 해제된다.&lt;/p>
+&lt;p>--verify 플래그가 지정된 경우, 요청된 차트에는 출처 파일이 있어야 하며 확인 프로세스를
+통과해야 한다. 프로세스 중 어느 부분에서라도 실패할 경우 오류가 발생할 수 있으며,
+차트가 로컬에 저장되지 않는다.&lt;/p></description></item><item><title>Helm Repo</title><link>https://helm.sh/ko/docs/helm/helm_repo/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo/</guid><description>&lt;h2 id="helm-repo">helm repo&lt;/h2>
+&lt;p>차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 차트 저장소와 상호작용하는 여러 하위명령으로 구성된다.&lt;/p>
+&lt;p>차트 저장소를 추가, 제거, 나열, 색인화 하는데 사용될 수 있다.&lt;/p>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm repo 에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo_add/">helm repo add&lt;/a>	 - 차트 저장소 추가&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo_index/">helm repo index&lt;/a>	 - 패키지 된 차트를 포함하는 디렉터리에 인덱스 파일 생성&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo_list/">helm repo list&lt;/a>	 - 차트 저장소 나열&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo_remove/">helm repo remove&lt;/a>	 - 하나 이상의 차트 저장소 제거&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo_update/">helm repo update&lt;/a>	 - 차트 저장소에서 로컬로 사용 가능한 차트 정보 업데이트&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Repo Add</title><link>https://helm.sh/ko/docs/helm/helm_repo_add/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo_add/</guid><description>&lt;h2 id="helm-repo-add">helm repo add&lt;/h2>
+&lt;p>차트 저장소를 추가&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>차트 저장소를 추가한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm repo add [NAME] [URL] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --allow-deprecated-repos 기본적으로, 이 명령은 영구적으로 삭제된 공식 저장소를 추가하는 것을 허용하지 않으며, 이 옵션을 통해 해당 동작을 비활성화.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --ca-file string 이 CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string 이 SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --force-update 레포지터리가 이미 있는 경우 교체(덮어쓰기)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help helm repo add 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --insecure-skip-tls-verify 저장소에 대한 TLS 인증서 검사 건너뛰기
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string 이 SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-update 무시. 이전에는, 강제 업데이트를 비활성화하기 위해 사용. force-update 에 의해 향후 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 차트 저장소 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo/">helm repo&lt;/a>	 - 차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Repo Index</title><link>https://helm.sh/ko/docs/helm/helm_repo_index/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo_index/</guid><description>&lt;h2 id="helm-repo-index">helm repo index&lt;/h2>
+&lt;p>패키지된 차트를 포함하는 디렉터리에 인덱스 파일을 생성&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>현재 디렉터리를 읽고 찾은 차트를 기반으로 색인 파일을 생성한다.&lt;/p>
+&lt;p>이 도구는 차트 저장소에 대한 'index.yaml' 파일을 만드는데 사용된다.
+차트에 대한 절대 URL을 설정하려면 '--url' 플래그를 사용하자.&lt;/p>
+&lt;p>생성된 인덱스를 기존 인덱스 파일과 병합하려면, '--merge' 플래그를 사용하자.
+이 경우 현재 디렉터리에 있는 차트가 기존 인덱스에 병합되고
+로컬차트가 기존차트보다 우선한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm repo index [DIR] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm repo index 명령어의 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --merge string 생성된 색인을 주어진 색인에 병합
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --url string 차트 저장소의 url
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo/">helm repo&lt;/a>	 - 차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Repo List</title><link>https://helm.sh/ko/docs/helm/helm_repo_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo_list/</guid><description>&lt;h2 id="helm-repo-list">helm repo list&lt;/h2>
+&lt;p>차트 저장소 나열&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>차트 저장소를 나열한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm repo list [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm repo list 명령어의 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format 지정된 형식으로 출력. 허용되는 값: table, json, yaml (기본값 table)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo/">helm repo&lt;/a>	 - 차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Repo Remove</title><link>https://helm.sh/ko/docs/helm/helm_repo_remove/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo_remove/</guid><description>&lt;h2 id="helm-repo-remove">helm repo remove&lt;/h2>
+&lt;p>하나 이상의 차트 저장소 제거&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>하나 이상의 차트 저장소를 제거한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm repo remove [REPO1 [REPO2 ...]] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm repo remove 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo/">helm repo&lt;/a>	 - 차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Repo Update</title><link>https://helm.sh/ko/docs/helm/helm_repo_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_repo_update/</guid><description>&lt;h2 id="helm-repo-update">helm repo update&lt;/h2>
+&lt;p>차트 저장소에서 로컬로 사용 가능한 차트의 정보를 업데이트한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>업데이트 명령어는 각 차트 레포지터리에서 차트에 대한 최신 정보를 가져온다.
+정보는 'helm search' 와 같은 명령에서 사용되는 것과 같이 로컬에 캐싱된다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm repo update [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm repo update 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_repo/">helm repo&lt;/a>	 - 차트 저장소 추가, 나열, 제거, 업데이트, 색인 생성&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Rollback</title><link>https://helm.sh/ko/docs/helm/helm_rollback/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_rollback/</guid><description>&lt;h2 id="helm-rollback">helm rollback&lt;/h2>
+&lt;p>릴리스를 이전 리비젼으로 롤백한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령은 릴리스를 이전 리비젼으로 롤백한다.&lt;/p>
+&lt;p>rollback 명령어의 첫 번째 인수는 릴리스의 이름이고,
+두 번째 인수는 리비젼(버전) 번호이다.
+이 인수를 생략하면 바로 이전 릴리스로 롤백 된다.&lt;/p>
+&lt;p>리비젼 번호를 보려면 'helm history RELEASE' 를 실행하자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm rollback &amp;lt;RELEASE&amp;gt; [REVISION] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --cleanup-on-fail 롤백이 실패할 때 이 롤백에서 생성된 새 리소스의 삭제를 허용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --dry-run 롤백 모의 실행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --force 필요한 경우 삭제/재작성을 통해 리소스를 강제로 업데이트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help rollback 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --history-max int 릴리스 당 저장되는 최대 리비젼 수를 제한. 제한이 없는 경우는 0을 사용 (default 10)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-hooks 롤백 중 훅 실행 방지
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --recreate-pods 해당되는 경우 리소스에 대해 파드 재시작 수행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --timeout duration 개별 쿠버네티스 작업(예: 훅에 대한 작업)을 기다리는 시간 (기본값 5m0s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --wait 설정된 경우, 릴리스를 성공으로 표시하기 전에 모든 파드, PVC, 서비스, 디플로이먼트, 스테이트풀셋, 레플리카셋의 최소 파드 수가 Ready 상태가 될 때까지 대기. --timeout 만큼 대기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Search</title><link>https://helm.sh/ko/docs/helm/helm_search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_search/</guid><description>&lt;h2 id="helm-search">helm search&lt;/h2>
+&lt;p>차트에서 키워드 검색&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>검색은 추가 한 헬름 허브 및 저장소를 포함하여 저장할 수있는
+다양한 위치에서 Helm 차트를 검색하는 기능을 제공한다.
+search 하위 명령을 사용하여 차트의 다른 위치를 검색한다.&lt;/p>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm search 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_search_hub/">helm search hub&lt;/a>	 - 헬름 허브 또는 모노큘러 인스턴스에서 차트 검색&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_search_repo/">helm search repo&lt;/a>	 - 차트에서 키워드에 대한 저장소 검색&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Search Hub</title><link>https://helm.sh/ko/docs/helm/helm_search_hub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_search_hub/</guid><description>&lt;h2 id="helm-search-hub">helm search hub&lt;/h2>
+&lt;p>헬름 허브 또는 모노큘러 인스턴스에서 차트 검색&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>헬름 차트에 대한 헬름 허브 또는 모노큘러 인스턴스를 검색한다.&lt;/p>
+&lt;p>헬름허브는 공개적으로 사용 가능한 분산 형 차트에 대한
+중앙 집중식 검색을 제공한다. 헬름 프로젝트에서 관리한다.
+
+&lt;a href="https://hub.helm.sh" target="_blank">https://hub.helm.sh&lt;/a>에서 방문 할 수 있다.&lt;/p>
+&lt;p>모노큘러(Monocular)는 여러 헬름 차트 저장소에서 차트를
+검색 할 수있는 웹 기반 애플리케이션이다. 헬름 허브를 구동하는 코드베이스이다.
+
+&lt;a href="https://github.com/helm/monocular" target="_blank">https://github.com/helm/monocular&lt;/a>에서 찾을 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm search hub [keyword] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --endpoint string 차트에 대해 질의할 모노큘러 인스턴스 (기본값 &amp;#34;https://hub.helm.sh&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help helm search hub 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --max-col-width uint 출력 테이블의 최대 열 너비 (기본값 50)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format 지정된 형식으로 출력. 허용되는 값: table, json, yaml (기본값 table)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_search/">helm search&lt;/a>	 - 차트에서 키워드 검색&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Search Repo</title><link>https://helm.sh/ko/docs/helm/helm_search_repo/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_search_repo/</guid><description>&lt;h2 id="helm-search-repo">helm search repo&lt;/h2>
+&lt;p>차트에서 키워드에 대한 저장소 검색&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>검색은 시스템에 구성된 모든 저장소를 읽고 일치하는
+항목을 찾는다. 이러한 저장소 검색은 시스템에
+저장된 메타 데이터를 사용한다.&lt;/p>
+&lt;p>찾은 차트의 최신 안정 버전을 표시한다.
+--devel 플래그를 지정하면 출력에 시험판 버전이 포함된다.
+버전 제약을 사용하여 검색하려면 --version 을 사용하자.&lt;/p>
+&lt;p>예:&lt;/p>
+&lt;pre>&lt;code># 키워드 &amp;quot;nginx&amp;quot; 와 일치하는 안정적인 릴리스 버전 검색
+$ helm search repo nginx
+
+# 시험판 버전을 포함하여 키워드 &amp;quot;nginx&amp;quot; 와 일치하는 리릴스 버전 검색
+$ helm search repo nginx --devel
+
+# 주 버전이 1인 nginx-ingress 의 최신 안정 릴리스 검색
+$ helm search repo nginx-ingress --version ^1.0.0
+&lt;/code>&lt;/pre>
+&lt;p>저장소는 'helm repo' 명령어로 관리된다.&lt;/p></description></item><item><title>Helm Show</title><link>https://helm.sh/ko/docs/helm/helm_show/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_show/</guid><description>&lt;h2 id="helm-show">helm show&lt;/h2>
+&lt;p>차트의 정보를 보여준다&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트에 대한 정보를 표시하는 여러 하위 명령어들로 구성된다&lt;/p>
+&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help show 에 대한 도움말
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show_all/">helm show all&lt;/a>	 - 차트의 모든 정보를 표시&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show_chart/">helm show chart&lt;/a>	 - 차트의 정의를 표시&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show_readme/">helm show readme&lt;/a>	 - 차트의 README 파일을 표시&lt;/li>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show_values/">helm show values&lt;/a>	 - 차트의 값을 표시&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Show All</title><link>https://helm.sh/ko/docs/helm/helm_show_all/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_show_all/</guid><description>&lt;h2 id="helm-show-all">helm show all&lt;/h2>
+&lt;p>차트의 모든 정보를 표시한다&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트(디렉터리, 파일 또는 URL)를 검사하고 모든 내용을
+보여준다. (values.yaml, Charts.yaml, README)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm show all [CHART] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --ca-file string CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --devel 개발 버전도 사용. 버전 &amp;#39;&amp;gt;0.0.0-0&amp;#39;에 해당하며 --version 이 설정되면 무시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help all 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 확인에 사용되는 공개 키의 위치 (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 요청된 차트를 찾을 수 있는 차트 저장소 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repo string 요청된 차트를 찾을 수 있는 차트 저장소 URL
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 요청된 차트를 찾을 수 있는 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 설치하기 전에 패키지 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 설치할 정확한 차트의 버전을 지정. 만약 지정하지 않을 경우 최신 버전 지정
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show/">helm show&lt;/a>	 - 차트의 정보를 표시&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Show Chart</title><link>https://helm.sh/ko/docs/helm/helm_show_chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_show_chart/</guid><description>&lt;h2 id="helm-show-chart">helm show chart&lt;/h2>
+&lt;p>차트의 정의를 보여준다&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트(디렉터리, 파일 또는 URL)를 검사하고 Charts.yaml 파일의 내용을 보여준다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm show chart [CHART] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --ca-file string CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --devel 개발 버전도 사용. 버전 &amp;#39;&amp;gt;0.0.0-0&amp;#39;에 해당하며 --version 이 설정되면 무시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help chart 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 확인에 사용되는 공개 키의 위치 (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 요청된 차트를 찾을 수 있는 차트 저장소 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repo string 요청된 차트를 찾을 수 있는 차트 저장소 URL
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 요청된 차트를 찾을 수 있는 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 설치하기 전에 패키지 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 설치할 정확한 차트의 버전을 지정. 만약 지정하지 않을 경우 최신 버전 지정
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show/">helm show&lt;/a>	 - 차트의 정보를 표시&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Show Readme</title><link>https://helm.sh/ko/docs/helm/helm_show_readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_show_readme/</guid><description>&lt;h2 id="helm-show-readme">helm show readme&lt;/h2>
+&lt;p>차트의 README 파일을 표시&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트(디렉터리, 파일 또는 URL)을 검사하고 README 파일의 내용을
+보여준다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm show readme [CHART] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --ca-file string CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --devel 개발 버전도 사용. 버전 &amp;#39;&amp;gt;0.0.0-0&amp;#39;과 동등하다. --version 이 지정되면, 이것은 무시된다
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help readme 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 확인에 사용되는 공개 키의 위치 (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 요청된 차트를 찾을 수 있는 차트 저장소 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repo string 요청된 차트를 찾을 수 있는 차트 저장소 URL
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 요청된 차트를 찾을 수 있는 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 설치하기 전에 패키지 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 설치할 정확한 차트의 버전을 지정. 만약 지정하지 않을 경우 최신 버전 지정
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show/">helm show&lt;/a>	 - 차트의 정보를 표시&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Show Values</title><link>https://helm.sh/ko/docs/helm/helm_show_values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_show_values/</guid><description>&lt;h2 id="helm-show-values">helm show values&lt;/h2>
+&lt;p>차트의 값을 표시&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 차트(디렉터리, 파일 또는 URL)를 검사하고, values.yaml 파일의 내용을 보여준다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm show values [CHART] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --ca-file string CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --devel 개발 버전도 사용. 버전 &amp;#39;&amp;gt;0.0.0-0&amp;#39;에 해당하며 --version 이 설정되면 무시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help values 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 확인에 사용되는 공개 키의 위치 (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 요청된 차트를 찾을 수 있는 차트 저장소 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repo string 요청된 차트를 찾을 수 있는 차트 저장소 URL
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 요청된 차트를 찾을 수 있는 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 설치하기 전에 패키지 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 설치할 정확한 차트의 버전을 지정. 만약 지정하지 않을 경우 최신 버전 지정
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 참이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/helm_show/">helm show&lt;/a>	 - 차트의 정보를 표시&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Status</title><link>https://helm.sh/ko/docs/helm/helm_status/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_status/</guid><description>&lt;h2 id="helm-status">helm status&lt;/h2>
+&lt;p>명명된 릴리스의 상태를 표시한다&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 명명된 릴리스의 상태를 표시한다.
+상태는 다음으로 구성된다:&lt;/p>
+&lt;ul>
+&lt;li>마지막 배포 시간&lt;/li>
+&lt;li>릴리스가 있는 k8s 네임스페이스&lt;/li>
+&lt;li>릴리스의 상태 (가능한 값: unknown, deployed, uninstalled, superseded, failed, uninstalling, pending-install, pending-upgrade or pending-rollback)
+이 릴리스를 구성하는, 종류(kind)로 정렬된 리소스 목록&lt;/li>
+&lt;li>해당되는 경우, 마지막 테스트 스위트(test suite) 수행에 관한 세부 정보&lt;/li>
+&lt;li>차트에서 제공하는 추가적인 참고 사항&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm status RELEASE_NAME [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm status 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -o, --output format 지정된 형식으로 결과를 표시한다. 허용되는 값: table, json, yaml (기본값 table)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --revision int 지정하면, 해당 리비전의 명명된 릴리스 상태를 표시한다
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일 대신 표준 출력으로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Template</title><link>https://helm.sh/ko/docs/helm/helm_template/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_template/</guid><description>&lt;h2 id="helm-template">helm template&lt;/h2>
+&lt;p>로컬에서 템플릿을 렌더링 한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>차트 템플릿을 로컬에서 렌더링하고 그 결과를 표시한다.&lt;/p>
+&lt;p>일반적으로 클러스터 내에서 조회되거나 검색되는 모든 값은 로컬에서 즉흥적으로 사용(faked)된다.
+또한 차트 유효성에 대한 서버 측 테스트 (예 : API 지원 여부)가 수행되지는
+않는다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm template [NAME] [CHART] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -a, --api-versions stringArray Capabilities.APIVersions에 사용되는 쿠버네티스 API 버전
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --atomic 설정된 경우, 설치 프로세스는 실패할 경우에 대하여 설치본을 삭제. --atomic 을 사용하면 --wait 플래그도 자동으로 설정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --ca-file string 이 CA 번들을 사용하여 HTTPS 사용 서버의 인증서를 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --cert-file string 이 SSL 인증서 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --create-namespace 릴리스 네임스페이스가 없는 경우 생성
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --dependency-update 차트를 설치하기 전에 헬름 종속성 업데이트 실행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --description string 사용자 정의 설명 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --devel 개발버전으로도 사용 가능. 버전 &amp;#39;&amp;gt;0.0.0.0&amp;#39; 에 해당하며, --version 이 설정되어 있을 경우 무시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --disable-openapi-validation 설정된 경우, 설치 프로세스는 쿠버네티스 OpenAPI 스키마에 대해 렌더링 된 템플릿의 유효성 검사 미수행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --dry-run 모의 설치
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -g, --generate-name 이름 생성 (후에 NAME 매개변수 생략)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help template 명령어에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --include-crds 템플릿 출력에 CRD 포함 CRD
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --insecure-skip-tls-verify 차트 다운로드를 위한 TLS 인증서 검사 건너뛰기
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --is-upgrade Release.IsInstall 대신 .Release.IsUpgrade 를 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --key-file string 이 SSL 키 파일을 사용하여 HTTPS 클라이언트 식별
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 검증에 사용되는 공개키의 위치 지정(기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --name-template string 릴리스 이름을 지정 시 사용되는 템플릿 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-hooks 설치 중 훅 실행 방지
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --output-dir string 실행된 템플릿을 표준 출력 대신 지정된 아웃풋 디렉터리의 파일에 작성
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --password string 요청된 차트를 찾을 수 있는 차트 저장소의 비밀번호
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --post-renderer postrenderer 포스트 렌더링에 사용될 실행 파일의 경로. $PATH 에 있으면 바이너리가 사용. 그렇지 않을 경우 주어진 경로에서 실행 파일을 탐색 (기본값 exec)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --release-name 아웃풋 디렉터리에 릴리스 이름 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --render-subchart-notes 설정된 경우, 상위차트와 함께 하위차트의 메모를 렌더링
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --replace 해당 이름이 기록에 남아있는 삭제된 릴리스인 경우에만 주어진 이름을 재사용. 운영 환경에서는 권장되지 않음
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repo string 요청된 차트를 찾을 수 있는 차트 저장소 URL
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set stringArray 명령 줄에서 값 설정(쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=값1,키2=값2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set-file stringArray 명령 줄을 통해 지정된 각 파일에서 값 설정(쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=경로1,키2=경로2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --set-string stringArray 명령 줄에서 STRING 값 설정(쉼표로 여러 값 또는 개별 값을 지정 가능: 키1=값1,키2=값2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -s, --show-only stringArray 주어진 템플릿에서 렌더링 된 매니페스트만을 표시
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-crds 설정된 경우, CRD 미설치. 기본적으로 CRD는 아직 없는 경우 설치됨.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --timeout duration 개별 쿠버네티스 작업(예: 훅에 대한 작업)을 기다리는 시간 (기본값 5m0s)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --username string 요청 된 차트를 찾을 수 있는 차트 저장소 사용자 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --validate 현재 가리키는 쿠버네티스 클러스터에 대해 매니페스트의 유효성을 검사. 이는 설치시 수행되는 것과 동일
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -f, --values strings YAML 파일 또는 URL 에 값 지정 (여러 개를 지정 가능)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --verify 사용하기 전에 패키지 확인
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --version string 사용할 정확한 차트 버전 지정. 지정하지 않을 경우 최신 버전 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --wait 설정된 경우, 릴리스를 성공으로 표시하기 전에 모든 파드, PVC, 서비스, 디플로이먼트, 스테이트풀셋, 레플리카셋의 최소 파드가 Ready 상태가 될때까지 대기. --timeout 만큼 대기
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="함께-보기">함께 보기&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Test</title><link>https://helm.sh/ko/docs/helm/helm_test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_test/</guid><description>&lt;h2 id="helm-test">helm test&lt;/h2>
+&lt;p>릴리스에 대하여 테스트를 수행한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>test 명령어는 릴리스에 대한 테스트를 실행한다.&lt;/p>
+&lt;p>이 명령어가 받는 인수는 배포된 릴리스의 이름이다.
+실행할 테스트는 설치된 차트에 정의되어 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm test [RELEASE] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help helm test 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logs 테스트 파드에서 로그를 덤프 (모든 테스트가 완료된 후 정리 전에 실행)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --timeout duration 개별 쿠버네티스 작업(예: 훅에 대한 작업)을 기다리는 시간 제한 (기본값 5m0s)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-group stringArray 작업에 관해 제시할 그룹. 플래그를 여러 번 사용하여 여러 그룹 지정 가능
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-as-user string 작업에 관해 제시할 사용자명
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 이 요청에 대한 네임스페이스 스코프
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="see-also">SEE ALSO&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-29-oct-2020">Auto generated by spf13/cobra on 29-Oct-2020&lt;/h6></description></item><item><title>Helm Uninstall</title><link>https://helm.sh/ko/docs/helm/helm_uninstall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_uninstall/</guid><description>&lt;h2 id="helm-uninstall">helm uninstall&lt;/h2>
+&lt;p>릴리스 언인스톨&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 릴리스 이름을 사용하여 릴리스를 언인스톨한다.&lt;/p>
+&lt;p>차트의 마지막 릴리스 및 릴리스 내역과 관련된 모든 리소스를 제거하여
+나중에 사용할 수 있도록 해제한다.&lt;/p>
+&lt;p>실제 언인스톨은 하지 않고 릴리스가 언인스톨되는 것을 확인해보려면
+'--dry-run' 플래그를 사용하자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm uninstall RELEASE_NAME [...] [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --description string 사용자 정의 설명 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --dry-run 언인스톨 시뮬레이션
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -h, --help uninstall 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keep-history 모든 관련 리소스를 제거하고 릴리스를 삭제로 표시하지만 릴리스 내역은 유지
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --no-hooks 언인스톨 중 훅(hook) 실행 방지
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --timeout duration 개별 쿠버네티스 작업(예: 훅(hook)을 위한 작업)을 기다리는 시간 (기본값 5m0s)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="상위-명령에서-상속된-옵션들">상위 명령에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일처럼 표준 오류로도 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 문자열 전달 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 이 값이 비어있지 않을 경우, 이 값에 지정된 디렉토리에 로그 파일 쓰기 수행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 이 값이 비어있지 않을 경우, 이 값에 지정된 파일명으로 로그 파일 쓰기 수행
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가 바이트이며 값이 0일 경우 최대 파일크기 제한 없음(기본 값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 출력으로 표시 (기본값 : true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두사를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그 파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 상세 로그레벨 수준
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링 된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-11-may-2020">Auto generated by spf13/cobra on 11-May-2020&lt;/h6></description></item><item><title>Helm Upgrade</title><link>https://helm.sh/ko/docs/helm/helm_upgrade/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_upgrade/</guid><description>&lt;h2 id="helm-upgrade">helm upgrade&lt;/h2>
+&lt;p>릴리스를 업그레이드한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>이 명령어는 릴리스를 새 버전의 차트로 업그레이드한다.&lt;/p>
+&lt;p>업그레이드 시 사용되는 인수는 릴리스 및 차트여야 한다.
+차트의 인수는 차트 참조('example/mariadb'), 차트 디렉터리 경로,
+패키지 차트 또는 정규화된 URL 중 하나일 수 있다.
+차트 참조 시 '--version' 플래그가 설정되지 않았을 경우 최신 버전이 지정된다.&lt;/p>
+&lt;p>차트의 값을 재정의하려면 '--values' 플래그를 사용하고 파일을
+전달하거나 '--set' 플래그를 사용하고 명령 줄에서 구성을 전달하고,
+문자열 값을 강제하려면 '--set-string' 을 사용한다. 값이 큰 경우
+'--value'나 '--set' 대신
+'--set-file'을 사용하여 파일에서 하나의 큰 값을 읽을 수도 있다.&lt;/p></description></item><item><title>Helm Verify</title><link>https://helm.sh/ko/docs/helm/helm_verify/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_verify/</guid><description>&lt;h2 id="helm-verify">helm verify&lt;/h2>
+&lt;p>주어진 경로의 차트가 서명되었고, 유효한지 확인한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>주어진 차트에 유효한 출처(provenance) 파일이 있는지를 검증한다.&lt;/p>
+&lt;p>출처 파일은 차트가 변조되지 않았으며 신뢰할 수 있는 공급자가
+패키징했다는 암호화 검증을 제공한다.&lt;/p>
+&lt;p>이 명령어는 로컬 차트를 검증하는데 사용될 수 있다. 다른 여러 명령어는
+동일한 유효성 검사를 실행하는 '--verify' 플래그를 제공한다. 서명된 패키지를 생성하기 위해서는
+'helm package --sign' 명령어를 사용하자.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>helm verify PATH [flags]
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="옵션">옵션&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> -h, --help verify 에 대한 도움말
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --keyring string 공개 키를 포함하는 키링(keyring) (기본값 &amp;#34;~/.gnupg/pubring.gpg&amp;#34;)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="부모-명령어에서-상속된-옵션들">부모 명령어에서 상속된 옵션들&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span> --add-dir-header 이 값이 true이면, 헤더에 파일 디렉토리를 추가
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --alsologtostderr 파일 및 표준오류로 로그 출력
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --debug 장황한(verbose) 출력 활성화
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-apiserver string 쿠버네티스 API 서버의 주소 및 포트
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-context string 사용할 kubeconfig 컨텍스트 이름
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kube-token string 인증에 사용될 베어러(bearer) 토큰
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --kubeconfig string kubeconfig 파일 경로
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-backtrace-at traceLocation 로깅 시 N 행에 걸친 스택 추적 내용을 표시 (기본값 :0)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-dir string 값을 지정하면, 지정한 디렉토리에 로그 파일 기록
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file string 값을 지정하면, 지정한 로그 파일 사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --log-file-max-size uint 로그파일이 증가할 수 있는 최대 크기 지정. 단위는 메가바이트이다. 값이 0이면, 최대 파일크기는 무제한. (기본값 1800)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --logtostderr 로그를 파일이 아닌 표준 오류로 표시 (기본값 true)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -n, --namespace string 요청에 대한 네임스페이스 지정
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --registry-config string 레지스트리 구성 파일에 대한 경로 (기본값 &amp;#34;~/.config/helm/registry.json&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-cache string 캐시된 저장소 색인이 포함된 파일의 경로 (기본값 &amp;#34;~/.cache/helm/repository&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --repository-config string 저장소 이름 및 URL 을 포함하는 파일 경로 (기본값 &amp;#34;~/.config/helm/repositories.yaml&amp;#34;)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-headers 이 값이 true이면, 로그파일에서 헤더 접두어를 미사용
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --skip-log-headers 이 값이 true이면, 로그파일을 열 때 헤더 제외
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --stderrthreshold severity stderr로 로그가 변경될 수 있는 최저 임계점 (기본값 2)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> -v, --v Level 로그 수준 상세표시 레벨
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> --vmodule moduleSpec 파일로 필터링된 로깅을 위한 패턴=N 설정의 쉼표로 구분된 리스트
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="참조">참조&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;a href="https://helm.sh/ko/docs/helm/">helm&lt;/a>	 - 쿠버네티스에 대한 헬름 패키지 매니저.&lt;/li>
+&lt;/ul>
+&lt;h6 id="auto-generated-by-spf13cobra-on-14-sep-2020">Auto generated by spf13/cobra on 14-Sep-2020&lt;/h6></description></item><item><title>Helm Version</title><link>https://helm.sh/ko/docs/helm/helm_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/helm/helm_version/</guid><description>&lt;h2 id="helm-version">helm version&lt;/h2>
+&lt;p>클라이언트 버전 정보를 출력한다.&lt;/p>
+&lt;h3 id="개요">개요&lt;/h3>
+&lt;p>헬름의 버전을 표시한다.&lt;/p>
+&lt;p>이 명령어는 헬름 버전을 특정 형식으로 출력한다.
+출력결과는 대략 다음과 같을 것이다.&lt;/p>
+&lt;p>version.BuildInfo{Version:&amp;quot;v3.2.1&amp;quot;, GitCommit:&amp;quot;fe51cd1e31e6a202cba7dead9552a6d418ded79a&amp;quot;, GitTreeState:&amp;quot;clean&amp;quot;, GoVersion:&amp;quot;go1.13.10&amp;quot;}&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Version 은 릴리스의 유의적(semantic) 버전이다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GitCommit 은 이 버전이 빌드된 커밋의 SHA 값이다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GitTreeState 는 이 바이너리를 빌드할 때 로컬 코드 변경이 없었으면 &amp;quot;clean&amp;quot; 이고,
+로컬에서 수정된 코드로 빌드한 바이너리이면 &amp;quot;dirty&amp;quot; 이다.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GoVersion 은 헬름을 컴파일할 때 사용된 Go 버전이다.
+--template 플래그를 사용하면 템플릿에서 다음 속성을
+사용할 수 있다:&lt;/p></description></item></channel></rss>

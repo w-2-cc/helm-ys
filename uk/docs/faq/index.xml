@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Часті питання on Helm</title><link>https://helm.sh/uk/docs/faq/</link><description>Recent content in Часті питання on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/faq/index.xml" rel="self" type="application/rss+xml"/><item><title>Зміни з часів Helm 2</title><link>https://helm.sh/uk/docs/faq/changes_since_helm2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/faq/changes_since_helm2/</guid><description>&lt;h2 id="changes-since-helm-2">Зміни з часів Helm 2&lt;/h2>
+&lt;p>Ось вичерпний список усіх основних змін, введених у Helm 3.&lt;/p>
+&lt;h3 id="removal-of-tiller">Видалення Tiller&lt;/h3>
+&lt;p>Під час циклу розробки Helm 2 ми впровадили Tiller. Tiller відігравав важливу роль для команд, що працюють на спільному кластері — він дозволяв кільком різним операторам взаємодіяти з одним і тим же набором релізів.&lt;/p>
+&lt;p>З увімкненим контролем доступу на основі ролей (RBAC) у Kubernetes 1.6, контроль доступу до Tiller у випадках операційної діяльності став важчим у керуванні. Через велику кількість можливих політик безпеки наше ставлення полягало в тому, щоб забезпечити стандартну дозвільну конфігурацію. Це дозволяло новачкам почати експериментувати з Helm і Kubernetes без необхідності заглиблюватися в керування безпекою. На жаль, ця дозвільна конфігурація могла надавати користувачеві широкий спектр дозволів, які йому не були надані. DevOps і SRE доводилося вивчати додаткові оперативні кроки при встановленні Tiller в мультиорендний кластер.&lt;/p></description></item><item><title>Встановлення</title><link>https://helm.sh/uk/docs/faq/installing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/faq/installing/</guid><description>&lt;h2 id="installing">Встановлення&lt;/h2>
+&lt;h3 id="why-aren-t-there-native-packages-of-helm-for-fedora-and-other-linux-distros">Чому немає рідних пакетів Helm для Fedora та інших дистрибутивів Linux?&lt;/h3>
+&lt;p>Проєкт Helm не підтримує пакети для операційних систем та середовищ. Спільнота Helm може надати рідні пакети, і якщо проєкт Helm дізнається про них, вони будуть вказані. Саме так почалася та була вказана формула Homebrew. Якщо ви зацікавлені в підтримці пакета, ми будемо раді цьому.&lt;/p>
+&lt;h3 id="why-do-you-provide-a-curl-bash-script">Чому ви надаєте скрипт &lt;code>curl ...|bash&lt;/code>?&lt;/h3>
+&lt;p>У нашому репозиторії є скрипт (&lt;code>scripts/get-helm-3&lt;/code>), який можна виконати як &lt;code>curl ..|bash&lt;/code> скрипт. Передача захищена HTTPS, а скрипт проводить деякий аудит пакетів, які він завантажує. Проте скрипт має всі звичайні небезпеки будь-якого скрипта оболонки.&lt;/p></description></item><item><title>Видалення</title><link>https://helm.sh/uk/docs/faq/uninstalling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/faq/uninstalling/</guid><description>&lt;h2 id="uninstalling">Видалення&lt;/h2>
+&lt;h3 id="i-want-to-uninstall-my-local-helm-where-are-all-of-its-files">Я хочу видалити свій локальний Helm. Де зберігаються всі його файли?&lt;/h3>
+&lt;p>Разом з бінарним файлом &lt;code>helm&lt;/code>, Helm зберігає деякі файли в наступних розташуваннях:&lt;/p>
+&lt;ul>
+&lt;li>$XDG_CACHE_HOME&lt;/li>
+&lt;li>$XDG_CONFIG_HOME&lt;/li>
+&lt;li>$XDG_DATA_HOME&lt;/li>
+&lt;/ul>
+&lt;p>Наступна таблиця показує стандартні теки для кожного з цих розташувань, за операційними системами:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Операційна система&lt;/th>
+ &lt;th>Шлях до кешу&lt;/th>
+ &lt;th>Шлях до конфігурацій&lt;/th>
+ &lt;th>Шлях до даних&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Linux&lt;/td>
+ &lt;td>&lt;code>$HOME/.cache/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.config/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.local/share/helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>macOS&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Caches/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Preferences/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Windows&lt;/td>
+ &lt;td>&lt;code>%TEMP%\helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Усунення несправностей</title><link>https://helm.sh/uk/docs/faq/troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/faq/troubleshooting/</guid><description>&lt;h2 id="troubleshooting">Усунення несправностей&lt;/h2>
+&lt;h3 id="i-am-getting-a-warning-about-unable-to-get-an-update-from-the-stable-chart-repository">Я отримую попередження про &amp;quot;Не вдалося отримати оновлення з репозиторію чартів 'stable'&amp;quot;&lt;/h3>
+&lt;p>Запустіть &lt;code>helm repo list&lt;/code>. Якщо він показує ваш репозиторій &lt;code>stable&lt;/code>, який вказує на URL &lt;code>storage.googleapis.com&lt;/code>, вам потрібно оновити цей репозиторій. 13 листопада 2020 року репозиторій Helm Charts 
+&lt;a href="https://github.com/helm/charts#deprecation-timeline" target="_blank">перестав підтримуватися&lt;/a> після річного періоду відмови від обслуговування. Архів доступний за адресою &lt;code>https://charts.helm.sh/stable&lt;/code>, але більше не отримуватиме оновлень.&lt;/p>
+&lt;p>Ви можете виконати наступну команду для виправлення репозиторію:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo add stable https://charts.helm.sh/stable --force-update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Те ж саме стосується репозиторію &lt;code>incubator&lt;/code>, для якого є архів за адресою 
+&lt;a href="https://charts.helm.sh/incubator" target="_blank">https://charts.helm.sh/incubator&lt;/a>. Ви можете виконати наступну команду для його відновлення:&lt;/p></description></item></channel></rss>

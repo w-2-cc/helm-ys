@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Helm</title><link>https://helm.sh/ja/</link><description>Recent content on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/index.xml" rel="self" type="application/rss+xml"/><item><title>クイックスタートガイド</title><link>https://helm.sh/ja/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/quickstart/</guid><description>&lt;p>このガイドでは、Helm をすぐに使い始める方法について説明します。&lt;/p>
+&lt;h2 id="前提条件">前提条件&lt;/h2>
+&lt;p>Helm を正しく安全に使用するには、
+次の前提条件が必要です。&lt;/p>
+&lt;ol>
+&lt;li>Kubernetes クラスター&lt;/li>
+&lt;li>インストールに適用するセキュリティ構成がある場合は、それを決定する&lt;/li>
+&lt;li>Helm のインストールと構成&lt;/li>
+&lt;/ol>
+&lt;h3 id="kubernetes-をインストールするかクラスターにアクセスする">Kubernetes をインストールするか、クラスターにアクセスする&lt;/h3>
+&lt;ul>
+&lt;li>Kubernetes がインストールされている必要があります。
+Helm の最新リリースには、Kubernetesの最新の安定リリースをお勧めします。
+これは、ほとんどの場合、2番目に新しいマイナーリリースです。&lt;/li>
+&lt;li>ローカルに設定された &lt;code>kubectl&lt;/code> のコピーも必要です。&lt;/li>
+&lt;/ul>
+&lt;p>注: 1.6 より前のバージョンの Kubernetes では、ロールベースのアクセス制御 (RBAC) のサポートが制限されているか、
+サポートされていません。&lt;/p>
+&lt;h2 id="helm-のインストール">Helm のインストール&lt;/h2>
+&lt;p>Helm クライアントのバイナリリリースをダウンロードします。&lt;code>homebrew&lt;/code> のようなツールを使うか、
+
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">公式リリースページ&lt;/a> を見ることができます。&lt;/p>
+&lt;p>詳細またはその他のオプションについては、
+
+&lt;a href="https://helm.sh/ja/docs/intro/install/">インストールガイド&lt;/a> を参照してください。&lt;/p>
+&lt;h2 id="helm-チャートリポジトリを初期化する">Helm チャートリポジトリを初期化する&lt;/h2>
+&lt;p>Helm の準備ができたら、チャートリポジトリを追加できます。
+ポピュラーな開始場所の1つは、公式の Helm Stable チャートです。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo add stable https://charts.helm.sh/stable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>これがインストールされると、インストールできるチャートを一覧表示できるようになります。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">helm search repo stable
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">NAME CHART VERSION APP VERSION DESCRIPTION
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/acs-engine-autoscaler 2.2.2 2.1.1 DEPRECATED Scales worker nodes within agent pools
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/aerospike 0.2.8 v4.5.0.5 A Helm chart for Aerospike in Kubernetes
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/airflow 4.1.0 1.10.4 Airflow is a platform to programmatically autho...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/ambassador 4.1.0 0.81.0 A Helm chart for Datawire Ambassador
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">#&lt;/span> ... and many more
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="サンプルチャートをインストールする">サンプルチャートをインストールする&lt;/h2>
+&lt;p>チャートをインストールするには、&lt;code>helm install&lt;/code> コマンドを実行します。
+Helm には、チャートを見つけてインストールする方法がいくつかありますが、最も簡単なのは、
+公式の &lt;code>stable&lt;/code> チャートの1つを使用することです。&lt;/p></description></item><item><title>チャート開発のヒントとコツ</title><link>https://helm.sh/ja/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>このガイドでは、
+Helm チャート開発者がプロダクション品質のチャートを構築する際に学んだヒントやコツを紹介しています。&lt;/p>
+&lt;h2 id="テンプレートの関数を知る">テンプレートの関数を知る&lt;/h2>
+&lt;p>Helm はリソースファイルのテンプレートに 
+&lt;a href="https://godoc.org/text/template" target="_blank">Go テンプレート&lt;/a>を使用します。
+Go にはいくつかの組み込み機能がありますが、
+他にも多くの機能が追加されています。&lt;/p>
+&lt;p>まず、
+
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">Sprig ライブラリ&lt;/a>の関数をすべて追加しました。&lt;/p>
+&lt;p>また、&lt;code>include&lt;/code> と &lt;code>required&lt;/code> の2つの特別なテンプレート関数を追加しました。
+&lt;code>include&lt;/code> 関数では、別のテンプレートを持ち込んで、
+その結果を他のテンプレート関数に渡すことができます。&lt;/p>
+&lt;p>例えば、このテンプレートスニペットは &lt;code>mytpl&lt;/code> というテンプレートを含み、
+その結果を小文字にして二重引用符で囲んでいます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>include &amp;#34;mytpl&amp;#34; . | lower | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>required&lt;/code> 関数では、テンプレートレンダリングに必要な特定の値のエントリを宣言することができます。
+値が空の場合、テンプレートのレンダリングは
+ユーザーが送信したエラーメッセージで失敗します。&lt;/p>
+&lt;p>以下の &lt;code>required&lt;/code> 関数の例は、.Values.who のエントリが必須であることを宣言し、
+そのエントリが見つからない場合に
+エラーメッセージを表示します。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>required &amp;#34;A valid .Values.who entry required!&amp;#34; .Values.who }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="文字列を引用する整数を引用しない">文字列を引用する、整数を引用しない&lt;/h2>
+&lt;p>文字列データを扱う際には、文字列をそのままにしておくよりも、
+引用符で囲んだ方が安全です。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.MyName | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>しかし、整数で作業するときは &lt;em>値を引用しないでください&lt;/em>。
+これは多くの場合、Kubernetes 内部で parse エラーを引き起こす可能性があります。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.Port }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>この注意事項は、たとえそれが整数を表す場合でも、
+文字列であることが予想される env 変数の値には適用されません。&lt;/p></description></item><item><title>一般的な慣習</title><link>https://helm.sh/ja/docs/chart_best_practices/conventions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/conventions/</guid><description>&lt;p>ベストプラクティスガイドのこの部分では一般的な慣習について説明します。&lt;/p>
+&lt;h2 id="チャート名">チャート名&lt;/h2>
+&lt;p>チャート名は英小文字と数字である必要があります。単語はダッシュ（-）で区切ることも &lt;em>できます&lt;/em> 。&lt;/p>
+&lt;p>例:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>drupal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nginx-lego
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aws-cluster-autoscaler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>英大文字とアンダースコアは両方ともチャート名に用いることはできません。ドットもチャート名には使わないべきです。&lt;/p>
+&lt;h2 id="バージョン数">バージョン数&lt;/h2>
+&lt;p>可能ならばどこであっても、Helm はバージョン数を表現するために 
+&lt;a href="https://semver.org" target="_blank">SemVer 2&lt;/a> を使います。（Docker イメージタグは SemVer に従う必要がないことに注意してください。またこれは残念ながら規約の例外とみなされています。）&lt;/p>
+&lt;p>SemVer バージョンが Kubernetes ラベルに保存されるとき、私たちは慣習的に文字 &lt;code>+&lt;/code> を文字 &lt;code>_&lt;/code> に置き換えます。これはラベルで &lt;code>+&lt;/code> が値を表さないようにするためです。&lt;/p>
+&lt;h2 id="yaml-のフォーマット">YAML のフォーマット&lt;/h2>
+&lt;p>YAML ファイルは &lt;em>2 つのスペース&lt;/em> でインデントされるべきです（そしてタブは使いません）。&lt;/p>
+&lt;h2 id="単語-helm-と-chart-の使い方">単語 Helm と Chart の使い方&lt;/h2>
+&lt;p>単語 &lt;em>Helm&lt;/em> および &lt;em>helm&lt;/em> の使い方についていくつかの慣習があります。&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>Helm&lt;/em> はプロジェクト全体を表します。&lt;/li>
+&lt;li>&lt;code>helm&lt;/code> はクライアントサイドのコマンドを表します。&lt;/li>
+&lt;li>用語 &lt;code>chart&lt;/code> を大文字化する必要はありません。なぜならそれは固有名詞ではないためです。&lt;/li>
+&lt;li>しかし、ファイル名はケース・センシティブであるため &lt;code>Chart.yaml&lt;/code> は大文字化する必要があります。&lt;/li>
+&lt;/ul>
+&lt;p>迷ったときは、 &lt;em>Helm&lt;/em> （大文字の 'H' を含む）を使いましょう。&lt;/p></description></item><item><title>開発者ガイド</title><link>https://helm.sh/ja/docs/community/developers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/developers/</guid><description>&lt;p>このガイドでは、Helmで開発するための環境をセットアップする方法について説明します。&lt;/p>
+&lt;h2 id="必要な環境">必要な環境&lt;/h2>
+&lt;ul>
+&lt;li>Goの最新バージョン&lt;/li>
+&lt;li>kubectlおよびKubernetesクラスター (optional)&lt;/li>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h2 id="helmをビルドする">Helmをビルドする&lt;/h2>
+&lt;p>Makeを使用してプログラムを構築します。最も簡単な方法は次のとおりです:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意: &lt;code>$GOPATH/src/helm.sh/helm&lt;/code> のパスにて実行されていない場合、このコマンドは失敗します。 また、&lt;code>build&lt;/code>
+が関連するパッケージが見つけられないため、&lt;code>helm.sh&lt;/code>ディレクトリをシンボリックリンクにしてはいけません。&lt;/p>
+&lt;p>このコマンドは必要に応じて依存関係をインストールし、&lt;code>vendor/&lt;/code>ツリーを再ビルドしたのち、configurationを検証します。 その後に&lt;code>helm&lt;/code>をコンパイルして&lt;code>bin/helm&lt;/code>に配置します。&lt;/p>
+&lt;p>Helmをローカルで実行するには、&lt;code>bin/helm&lt;/code>を実行してください。&lt;/p>
+&lt;ul>
+&lt;li>Helmは、macOSおよびAlpineを含んだほとんどのLinuxディストリビューションで動作することが知られています。&lt;/li>
+&lt;/ul>
+&lt;h2 id="テストの実行">テストの実行&lt;/h2>
+&lt;p>すべてのテスト(&lt;code>vendor/&lt;/code>のテストを除く)を実行するには、&lt;code>make test&lt;/code>を実行してください。 前提条件として、
+&lt;a href="https://golangci-lint.run" target="_blank">golangci-lint&lt;/a>
+をインストールする必要があります 。&lt;/p>
+&lt;h2 id="コントリビューションガイドライン">コントリビューションガイドライン&lt;/h2>
+&lt;p>私たちはコントリビューションを歓迎します。 このプロジェクトは、（a)
+コードの品質を高く保ち（b）プロジェクトの一貫性を保ち（c）コントリビューションがオープンソースの法的要件に従うことを保証するため、いくつかのガイドラインを設定しました。
+私たちの目的はコントリビューターに負担をかけることではなく、ユーザーが利益を得ることができるようにエレガントで高品質なオープンソースコードを構築することです。&lt;/p>
+&lt;p>CONTRIBUTINGガイドを読み、理解していることを確認してください。&lt;/p>
+&lt;p>
+&lt;a href="https://github.com/helm/helm/blob/main/CONTRIBUTING.md" target="_blank">https://github.com/helm/helm/blob/main/CONTRIBUTING.md&lt;/a>&lt;/p>
+&lt;h3 id="コードの構造">コードの構造&lt;/h3>
+&lt;p>Helmプロジェクトのコードは、以下のように構成されています。&lt;/p>
+&lt;ul>
+&lt;li>個々のプログラムは&lt;code>cmd/&lt;/code>にあります。&lt;code>cmd/&lt;/code>内のコードはライブラリ再利用を目的として設計されていません。&lt;/li>
+&lt;li>共有ライブラリは&lt;code>pkg/&lt;/code>にあります。&lt;/li>
+&lt;li>&lt;code>scripts/&lt;/code>ディレクトリには多数のユーティリティスクリプトがあります。これらのほとんどはCI/CDパイプラインによって使用されます。&lt;/li>
+&lt;/ul>
+&lt;p>Goの依存関係管理は流動的であり、Helmのライフサイクルの過程で変更される可能性があります。 依存関係を手動で管理 &lt;em>しない&lt;/em> ことをお勧めします。 その代わりに、プロジェクトの&lt;code>Makefile&lt;/code>に依存して管理を行うことをお勧めします。
+Helm 3では、Goバージョン1.13以降を使用することをお勧めします。&lt;/p>
+&lt;h3 id="ドキュメントの作成">ドキュメントの作成&lt;/h3>
+&lt;p>Helm 3以降、ドキュメントは独自のリポジトリに移動されました。 新しい機能を作成する場合は付属のドキュメントを作成して、
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a>にsubmitしてください。&lt;/p>
+&lt;p>例外: 
+&lt;a href="https://helm.sh/docs/helm/" target="_blank">Helm CLI output (英語)&lt;/a> は &lt;code>helm&lt;/code> のバイナリ自体から生成されます。
+このoutputを生成する方法については
+&lt;a href="https://github.com/helm/helm-www#updating-the-helm-cli-reference-docs" target="_blank">Updating the Helm CLI Reference Docs&lt;/a>
+をご覧ください。 翻訳された場合、CLI出力は生成されず&lt;code>/content/&amp;lt;lang&amp;gt;/docs/helm&lt;/code>に生成されます。&lt;/p>
+&lt;h3 id="git-規約">Git 規約&lt;/h3>
+&lt;p>バージョン管理システムにはGitを使用しています。
+&lt;code>main&lt;/code>ブランチは現在の開発候補の中心です。 リリースにはタグが付けられます。&lt;/p>
+&lt;p>GitHubのPull Requests（PRs）を介してコードの変更を受け付けています。 これを行うためのワークフローの一例は次のとおりです。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>$GOPATH/src&lt;/code> に移動して &lt;code>mkdir helm.sh; cd helm.sh&lt;/code> を実行し、 &lt;code>github.com/helm/helm&lt;/code>
+のリポジトリを&lt;code>git clone&lt;/code> します。&lt;/li>
+&lt;li>リポジトリをあなたのGitHubアカウントにフォークします&lt;/li>
+&lt;li>あなたのリポジトリを&lt;code>$GOPATH/src/helm.sh/helm&lt;/code>のリモートとして追加します。&lt;/li>
+&lt;li>新しい作業ブランチ (&lt;code>git checkout -b feat/my-feature&lt;/code>) 作成し、そのブランチで作業を行います。&lt;/li>
+&lt;li>レビューの準備ができましたら、あなたのブランチをGitHubにプッシュして新しいプルリクエストを開いてください。&lt;/li>
+&lt;/ol>
+&lt;p>Git commit messagesに関しては
+&lt;a href="https://karma-runner.github.io/0.13/dev/git-commit-msg.html" target="_blank">Semantic Commit Messages&lt;/a>
+に従います
+:&lt;/p></description></item><item><title>Helm のインストール</title><link>https://helm.sh/ja/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/install/</guid><description>&lt;p>このガイドでは、Helm CLI のインストール方法を示します。Helm はソースから、またはビルド済みのバイナリリリースから
+インストールできます。&lt;/p>
+&lt;h2 id="helm-プロジェクトから">Helm プロジェクトから&lt;/h2>
+&lt;p>Helm プロジェクトは、Helm をフェッチしてインストールする2つの方法を提供します。
+これらは Helm リリースを取得するための公式の方法です。さらに、Helm コミュニティは、
+さまざまなパッケージマネージャーを通じて Helm をインストールする方法を提供しています。
+これらの方法によるインストールは、公式の方法の下にあります。&lt;/p>
+&lt;h3 id="バイナリリリースから">バイナリリリースから&lt;/h3>
+&lt;p>Helm のすべての 
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">リリース&lt;/a> は、さまざまな OS のバイナリリリースを提供します。
+これらのバイナリバージョンは、手動でダウンロードして
+インストールできます。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">任意のバージョン&lt;/a>をダウンロードします&lt;/li>
+&lt;li>ダウンロードしたパッケージを展開します (&lt;code>tar -zxvf helm-v3.0.0-linux-amd64.tar.gz&lt;/code>)&lt;/li>
+&lt;li>展開したディレクトリで &lt;code>helm&lt;/code> バイナリを見つけ、
+目的の場所に移動します (&lt;code>mv linux-amd64/helm /usr/local/bin/helm&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;p>そこから、クライアントを実行し、
+&lt;a href="https://helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository" target="_blank">Stable リポジトリを追加&lt;/a>できるはずです: &lt;code>helm help&lt;/code> を参考&lt;/p>
+&lt;p>&lt;strong>注&lt;/strong>: Helm 自動テストは、GitHub Actions のビルドとリリース中にのみLinux AMD64 に対して実行されます。
+他の OS のテストは、
+対象の OS の Helm を要求するコミュニティの責任の元で行われています。&lt;/p>
+&lt;h3 id="スクリプトから">スクリプトから&lt;/h3>
+&lt;p>Helm に、最新バージョンの Helm を自動的に取得して
+
+&lt;a href="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" target="_blank">ローカルにインストールする&lt;/a>
+インストーラースクリプトが追加されました。&lt;/p>
+&lt;p>そのスクリプトをフェッチして、ローカルで実行できます。
+十分に文書化されているため、実行する前にそれを読んで何が行われているかを理解できます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> chmod &lt;span style="color:#f60">700&lt;/span> get_helm.sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> ./get_helm.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>もちろん、
+最新版で実施したい場合は、
+&lt;code>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash&lt;/code> を使用できます。&lt;/p></description></item><item><title>値</title><link>https://helm.sh/ja/docs/chart_best_practices/values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/values/</guid><description>&lt;p>ベストプラクティスガイドのこの部分では、値の設定方法を解説します。
+チャートの&lt;code>values.yaml&lt;/code>の書き方に重点を置いて、値を構造化して利用するおすすめの方法を解説します。&lt;/p>
+&lt;h2 id="命名規則">命名規則&lt;/h2>
+&lt;p>変数名は小文字で始める必要があります。また、単語はキャメルケースで区切ってください。&lt;/p>
+&lt;p>正しい書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chickenNoodleSoup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>正しくない書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">Chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># 最初を大文字にすると予約語と衝突することがあります&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chicken-noodle-soup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># ハイフンは使わないでください&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>ユーザー定義のパラメータと区別しやすくするため、Helmの全ての予約語は大文字で始まります。
+例) &lt;code>.Release.Name&lt;/code>, &lt;code>.Capabilities.KubeVersion&lt;/code>&lt;/p>
+&lt;h2 id="フラットネスト構造の値">フラット・ネスト構造の値&lt;/h2>
+&lt;p>YAMLは柔軟な形式なので、値を深くネストすることも、フラットにすることもできます。&lt;/p>
+&lt;p>ネスト:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">server&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>nginx&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">80&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>フラット:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">serverName&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>nginx&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serverPort&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">80&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>ほとんどの場合、ネストよりフラットな方が好まれます。フラットな方がテンプレートの開発者・ユーザーがよりシンプルに理解できるからです。&lt;/p>
+&lt;p>ネストされた値を安全に扱うためには、全ての階層で値をチェックする必要があります。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>{{ if .Values.server }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {{ default &amp;#34;none&amp;#34; .Values.server.name }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{ end }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>ネストされた全ての階層では値が存在するかをチェックする必要があります。
+その一方でフラット構成の場合、このようなチェックをせずにテンプレートを読みやすく、使いやすくすることができます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>{{ default &amp;#34;none&amp;#34; .Values.serverName }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>関連する変数が多数あり、そのうちの少なくとも1つが必須の変数である場合は、
+読みやすさを向上させるためにネストされた値を使うことがあります。&lt;/p>
+&lt;h2 id="型の明確化">型の明確化&lt;/h2>
+&lt;p>YAMLの型強制ルールは直感に反することがあります。例えば &lt;code>foo: false&lt;/code>と
+&lt;code>foo: &amp;quot;false&amp;quot;&lt;/code>は同じではありません。&lt;code>foo: 12345678&lt;/code> のように大きな整数は、
+科学的表記に変換される場合があります。&lt;/p></description></item><item><title>Helm の使い方</title><link>https://helm.sh/ja/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/using_helm/</guid><description>&lt;p>このガイドでは、Helm を使用して Kubernetes クラスタ上のパッケージを管理する基本について説明します。
+Helm クライアントが既に 
+&lt;a href="https://helm.sh/ja/docs/intro/install/">インストール済み&lt;/a> であると
+想定しています。&lt;/p>
+&lt;p>いくつかのクイックコマンドを実行したいだけの場合は、
+
+&lt;a href="https://helm.sh/ja/docs/intro/quickstart/">クイックスタートガイド&lt;/a> から始めてください。
+この章では、Helm コマンドの詳細について説明し、Helm の使用方法を説明します。&lt;/p>
+&lt;h2 id="3つの大きな概念">3つの大きな概念&lt;/h2>
+&lt;p>&lt;em>チャート&lt;/em> は Helm パッケージです。
+これには、Kubernetes クラスタ内でアプリケーション、ツール、またはサービスを実行するために必要なすべてのリソース定義が含まれています。
+Kubernetes に置ける Homebrew の式、Apt dpkg、
+または Yum RPM ファイルに相当するようなものと考えてください。&lt;/p>
+&lt;p>&lt;em>リポジトリ&lt;/em> は、チャートを収集して共有できる場所です。
+Perl の 
+&lt;a href="https://www.cpan.org" target="_blank">CPAN アーカイブ&lt;/a> や 
+&lt;a href="https://src.fedoraproject.org/" target="_blank">Fedora パッケージデータベース&lt;/a>に似ていますが、
+Kubernetes パッケージが対象です。&lt;/p>
+&lt;p>&lt;em>リリース&lt;/em> は、Kubernetes クラスタで実行されているチャートのインスタンスです。
+多くの場合、1つのチャートを同じクラスターに何度もインストールできます。
+そして、それがインストールされるたびに、新しい &lt;em>リリース&lt;/em> が作成されます。
+MySQL チャートを考えてみましょう。クラスターで2つのデータベースを実行する場合は、そのチャートを2回インストールできます。
+それぞれに独自の &lt;em>リリース&lt;/em> があり、次に独自の &lt;em>リリース名&lt;/em> が付けられます。&lt;/p>
+&lt;p>これらの概念を念頭に置いて、Helm を次のように説明できます。&lt;/p>
+&lt;p>Helm は &lt;em>チャート&lt;/em> を Kubernetes にインストールし、インストールごとに新しい &lt;em>リリース&lt;/em> を作成します。
+また、新しいチャートを見つけるには、Helm チャート &lt;em>リポジトリ&lt;/em> を検索できます。&lt;/p>
+&lt;h2 id="helm-search-チャートを見つける">'helm search': チャートを見つける&lt;/h2>
+&lt;p>Helm には強力な検索コマンドが付属しています。
+2つの異なるタイプのソースの検索に使用できます。&lt;/p></description></item><item><title>チャートのテスト</title><link>https://helm.sh/ja/docs/topics/chart_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/chart_tests/</guid><description>&lt;p>チャートには、連携して動作するいくつかの Kubernetes リソースとコンポーネントが含まれています。
+チャートの作成者は、チャートがインストールされたときにチャートが期待どおりに機能することを検証するテストを作成することができます。
+これらのテストは、
+チャートの利用者がチャートで何をするかを理解するのにも役立ちます。&lt;/p>
+&lt;p>Helm チャートの &lt;strong>テスト&lt;/strong> は、&lt;code>templates/&lt;/code> ディレクトリの下にあり、
+実行する特定のコマンドを含むコンテナーを指定するジョブ定義です。
+テストが成功したと見なされるには、コンテナが正常に終了 (exit 0) する必要があります。
+ジョブ定義には、helm テストフックアノテーション &lt;code>helm.sh/hook: test&lt;/code> が含まれている必要があります。&lt;/p>
+&lt;p>テストの例:&lt;/p>
+&lt;ul>
+&lt;li>values.yaml ファイルの構成が適切に挿入されたことを確認する
+&lt;ul>
+&lt;li>正しいユーザー名とパスワードが機能することを確認する&lt;/li>
+&lt;li>正しくないユーザー名とパスワードが機能しないことを確認する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>サービスが稼働しており、正しく負荷分散されていることを確認する&lt;/li>
+&lt;li>など&lt;/li>
+&lt;/ul>
+&lt;p>コマンド &lt;code>helm test &amp;lt;リリース名&amp;gt;&lt;/code> を使用して、リリースの Helm で事前定義されたテストを実行できます。チャートの利用者にとって、これはチャート (またはアプリケーション) のリリースが期待どおりに機能することを正常性チェックする優れた方法です。&lt;/p>
+&lt;h2 id="テストの例">テストの例&lt;/h2>
+&lt;p>以下は、mariadb チャートの例における Helm テストポッド定義の例です。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>mariadb/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> README.md
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/tests/test-mariadb-connection.yaml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>wordpress/templates/tests/test-mariadb-connection.yaml&lt;/code> の内容&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>batch/v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Job&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ .Release.Name }}-credentials-test&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">annotations&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">&amp;#34;helm.sh/hook&amp;#34;: &lt;/span>test&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">spec&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">template&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">spec&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">containers&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>main&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.image }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">env&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MARIADB_HOST&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>template &amp;#34;mariadb.fullname&amp;#34; . }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MARIADB_PORT&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;3306&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_NAME&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;&amp;#34; .Values.mariadb.mariadbDatabase | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_USER&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;&amp;#34; .Values.mariadb.mariadbUser | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>WORDPRESS_DATABASE_PASSWORD&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">valueFrom&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">secretKeyRef&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>template &amp;#34;mariadb.fullname&amp;#34; . }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">key&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>mariadb-password&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#c30">&amp;#34;sh&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;-c&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;mysql --host=$MARIADB_HOST --port=$MARIADB_PORT --user=$WORDPRESS_DATABASE_USER --password=$WORDPRESS_DATABASE_PASSWORD&amp;#34;&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">restartPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Never&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="リリースでテストスイートを実行する手順">リリースでテストスイートを実行する手順&lt;/h2>
+&lt;ol>
+&lt;li>&lt;code>$ helm install quirky-walrus mariadb --namespace default&lt;/code>&lt;/li>
+&lt;li>&lt;code>$ helm test quirky-walrus&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>NAME: quirky-walrus
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LAST DEPLOYED: Mon Feb 13 13:50:43 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>NAMESPACE: default
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>STATUS: deployed
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>REVISION: 0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>TEST SUITE: quirky-walrus-credentials-test
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last Started: Mon Feb 13 13:51:07 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last Completed: Mon Feb 13 13:51:18 2019
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Phase: Succeeded
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="メモ">メモ&lt;/h2>
+&lt;ul>
+&lt;li>単一の yaml ファイルで必要なだけテストを定義するか、
+&lt;code>templates/&lt;/code> ディレクトリ内の複数の yaml ファイルに分散することができます&lt;/li>
+&lt;li>より分離するために、テストスイートを &lt;code>&amp;lt;chart-name&amp;gt;/templates/tests/&lt;/code> のような
+&lt;code>tests/&lt;/code> ディレクトリの下にネストすることができます&lt;/li>
+&lt;li>テストは 
+&lt;a href="https://helm.sh/docs/charts_hooks/">Helm フック&lt;/a>であるため、
+&lt;code>helm.sh/hook-weight&lt;/code> や &lt;code>helm.sh/hook-delete-policy&lt;/code> などのアノテーションをテストリソースで使用できます&lt;/li>
+&lt;/ul></description></item><item><title>テンプレート</title><link>https://helm.sh/ja/docs/chart_best_practices/templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/templates/</guid><description>&lt;p>ベストプラクティスガイドのこの部分では、テンプレートについて焦点を合わせます。&lt;/p>
+&lt;h2 id="templatesの構造">&lt;code>templates/&lt;/code>の構造&lt;/h2>
+&lt;p>&lt;code>templates/&lt;/code>ディレクトリは次のように構造化されるべきです:&lt;/p>
+&lt;ul>
+&lt;li>テンプレートファイルは、YAMLを出力するのであれば、&lt;code>.yaml&lt;/code>の拡張子をつけるべきです。
+&lt;code>.tpl&lt;/code>拡張子はフォーマットされない内容を出力するテンプレートファイルに使用することができます。&lt;/li>
+&lt;li>テンプレートファイルの名前はキャメルケースではなく、ハイフン区切り（&lt;code>my-example-configmap.yaml&lt;/code>）
+で命名すべきです。&lt;/li>
+&lt;li>それぞれのリソース定義は、テンプレートファイル毎に独立したものにすべきです。&lt;/li>
+&lt;li>テンプレートファイルの名前は、そのリソースの種類を名前に含めるべきです。e.g.
+&lt;code>foo-pod.yaml&lt;/code>, &lt;code>bar-svc.yaml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="定義されたテンプレートの名前">定義されたテンプレートの名前&lt;/h2>
+&lt;p>定義されたテンプレート（&lt;code>{{ define }} &lt;/code>ディレクティブの中に作られたテンプレート）は
+グローバルにアクセス可能です。つまり、チャートとそのサブチャート全てが、&lt;code>{{ define }}&lt;/code>
+で作成されたテンプレートにアクセスすることができます。&lt;/p>
+&lt;p>そのため、&lt;em>定義されたテンプレート名は全て、名前空間を含んでいるべきです。&lt;/em>&lt;/p>
+&lt;p>正しい書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;nginx.fullname&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{/* ... */}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>正しくない書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;fullname&amp;#34; -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{/* ... */}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>新しいチャートは常に、自動的にテンプレート名をベストプラクティスに応じて定義するため、
+&lt;code>helm create&lt;/code>コマンド経由で作成することを強く推奨します。&lt;/p>
+&lt;h2 id="テンプレートのフォーマット">テンプレートのフォーマット&lt;/h2>
+&lt;p>テンプレートは &lt;em>二つのスペース&lt;/em> でインデントするべきです。（タブではなく）&lt;/p>
+&lt;p>テンプレートディレクティブは、中括弧の開始の後と終わりの前にスペースを入れるべきです。&lt;/p>
+&lt;p>正しい書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>{{ .foo }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{ print &amp;#34;foo&amp;#34; }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{- print &amp;#34;bar&amp;#34; -}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>正しくない書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>{{.foo}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{print &amp;#34;foo&amp;#34;}}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>{{-print &amp;#34;bar&amp;#34;-}}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可能な場合、テンプレートはスペースを詰めるべきです:&lt;/p></description></item><item><title>プロジェクトの歴史</title><link>https://helm.sh/ja/docs/community/history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/history/</guid><description>&lt;p>Helm は 
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/" target="_blank">CNCF の Graduated プロジェクト&lt;/a>です。&lt;/p>
+&lt;p>Helm は、現在 
+&lt;a href="https://github.com/helm/helm-classic" target="_blank">Helm Classic&lt;/a> として知られているものとして始まりました。
+これは、2015年に開始され、
+最初の KubeCon で導入された Deis プロジェクトです。&lt;/p>
+&lt;p>2016 年 1 月、プロジェクトは Kubernetes Deployment Manager と呼ばれる GCS ツールと統合され、
+プロジェクトは 
+&lt;a href="https://kubernetes.io" target="_blank">Kubernetes&lt;/a> の下に移動されました。
+コードベースの統合の結果、
+Helm 2.0 がその年の後半にリリースされました。
+Helm 2 で生き残った Deployment Manager の主要な機能はサーバー側のコンポーネントで、
+最終的な Helm 2.0 リリースでは DM から Tiller に名前が変更されました。&lt;/p>
+&lt;p>Helm は、2018 年 6 月に Kubernetes サブプロジェクトから本格的な CNCF プロジェクトに昇格しました。
+Helm はトップレベルの管理組織を形成し、
+Monocular、Helm Chart Repo、Chart Museum、そして後に Helm Hub など、
+いくつかのプロジェクトが Helm プロジェクトに組み込まれました。&lt;/p>
+&lt;p>Helm 3 の開発サイクルが始まると、Tiller が削除され、
+Helm はクライアントツールであるという当初のビジョンに近づきました。
+ただし、Helm 3 は引き続き Kubernetes クラスター内のリリースを追跡しているため、
+チームが共同で Helm リリースのセットで作業することができます。Helm 3 は 2019 年 11 月にリリースされました。&lt;/p></description></item><item><title>依存関係</title><link>https://helm.sh/ja/docs/chart_best_practices/dependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/dependencies/</guid><description>&lt;p>このセクションでは、&lt;code>Chart.yaml&lt;/code>に宣言された&lt;code>依存関係&lt;/code>のベストプラクティスについて
+解説します。&lt;/p>
+&lt;h2 id="バージョン">バージョン&lt;/h2>
+&lt;p>可能であれば、正確なバージョンを固定するよりバージョンの範囲を使用してください。デフォルト
+では、パッチレベルのバージョンマッチを使用することが推奨されています:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>これはバージョン&lt;code>1.2.3&lt;/code>とそのバッチバージョンにマッチします。つまり、
+&lt;code>~1.2.3&lt;/code>は&lt;code>&amp;gt;= 1.2.3, &amp;lt; 1.3.0&lt;/code>と同等になります。&lt;/p>
+&lt;p>完全なバージョンマッチのシンタックスについては、
+&lt;a href="https://github.com/Masterminds/semver#checking-version-constraints" target="_blank">semver
+documentation&lt;/a>
+を参照してください。&lt;/p>
+&lt;h3 id="プレリリースバージョン">プレリリースバージョン&lt;/h3>
+&lt;p>上記のバージョンの制約は、プレリリースバージョンにはマッチしません。
+例えば、&lt;code>version: ~1.2.3&lt;/code>は&lt;code>version: ~1.2.4&lt;/code>にマッチしますが、&lt;code>version: ~1.2.3-1&lt;/code>
+にはマッチしません。
+以下はパッチレベルのマッチングだけでなく、プレリリースにも対応します:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3-0&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="リポジトリurl">リポジトリURL&lt;/h3>
+&lt;p>可能であれば、&lt;code>https://&lt;/code>のリポジトリURLを使用し、その後、&lt;code>http://&lt;/code>のURLを使用してください。&lt;/p>
+&lt;p>リポジトリが、そのインデックスファイルに追加されている場合、リポジトリの名前がURLの別名
+として使われます。&lt;code>alias:&lt;/code>もしくは&lt;code>@&lt;/code>の後に、リポジトリ名を付けて利用してください。&lt;/p>
+&lt;p>ファイルのURL（&lt;code>file://...&lt;/code>）は固定されたデプロイパイプラインによって組み立てられた
+チャートのための&amp;quot;特殊なケース&amp;quot;と考えられます。&lt;/p>
+&lt;p>
+&lt;a href="https://helm.sh/docs/topics/plugins/#downloader-plugins">downloader plugins&lt;/a>を使用する場合、
+URLのスキームはプラグインに固有になります。注意としては、チャートの利用者はその依存関係を
+ビルドもしくは更新するために、スキームをサポートするプラグインをインストールする必要があります。&lt;/p>
+&lt;p>&lt;code>repository&lt;/code>フィールドが空白の場合、Helmは依存関係の管理操作を行うことができません。
+その場合、Helmはその依存関係が&lt;code>name&lt;/code>で指定した名前と同じ名前の、
+&lt;code>charts&lt;/code>フォルダーのサブディレクトリにあると推測します。&lt;/p>
+&lt;h2 id="コンディションとタグ">コンディションとタグ&lt;/h2>
+&lt;p>&lt;em>任意の&lt;/em> 依存関係には、コンディションもしくはタグを追加するべきです。&lt;/p>
+&lt;p>コンディションの好ましい書き方:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">condition&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>somechart.enabled&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>ここでは&lt;code>somechart&lt;/code>が依存関係のあるチャートの名前です。&lt;/p>
+&lt;p>複数のサブチャート（依存関係）が共に任意もしくは取り替え可能な機能
+を提供する場合、これらのチャートは同じタグを共有するべきです。&lt;/p>
+&lt;p>例えば、&lt;code>nginx&lt;/code>と&lt;code>memcached&lt;/code>の両方がチャート内で、メインアプリケーション用に
+パフォーマンスの最適化を提供している場合、そして、その機能を使用する際、その両方が
+必要になる場合、このようなタグのセクションを含めるべきでしょう:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">tags&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- webaccelerator&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>これにより、利用者はその機能のオンとオフを一つのタグで切り替えることができます。&lt;/p></description></item><item><title>Helm ドキュメントの国際化</title><link>https://helm.sh/ja/docs/community/localization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/localization/</guid><description>&lt;p>このガイドでは Helm ドキュメントをどのように国際化するかを説明します。&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>翻訳への貢献にはドキュメントへの貢献と同様のプロセスを用います。翻訳は 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a> git リポジトリへの
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">プルリクエスト&lt;/a>によって供給され、プルリクエストはウェブサイトの管理チームによってレビューされます。&lt;/p>
+&lt;h3 id="2文字言語コード">2文字言語コード&lt;/h3>
+&lt;p>ドキュメントは 
+&lt;a href="https://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank">ISO 639-1
+標準&lt;/a> 言語コードによって管理されます。例えば、韓国語の2文字コードは &lt;code>ko&lt;/code> です。&lt;/p>
+&lt;p>コンテンツや設定でこの言語コードが使われます。3つ例を示します。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>content&lt;/code> ディレクトリ内で言語コードがサブディレクトリとして存在し、国際化されたコンテンツがそれぞれのディレクトリに入っています。&lt;/li>
+&lt;li>&lt;code>i18n&lt;/code> ディレクトリはそれぞれの言語について、ウェブサイトで使用されるフレーズについての設定ファイルを保有しています。それらのファイルは &lt;code>[LANG]&lt;/code> がその言語の2文字コードとなるような &lt;code>[LANG].toml&lt;/code> というパターンで命名されています。&lt;/li>
+&lt;li>トップレベルの &lt;code>config.toml&lt;/code> ファイルではナビゲーションやその他の詳細が言語コードごとに管理されています。&lt;/li>
+&lt;/ul>
+&lt;p>言語コード &lt;code>en&lt;/code> を持つ英語が、デフォルトの言語および翻訳元として用いられます。&lt;/p>
+&lt;h3 id="フォークブランチ変更プルリクエスト">フォーク、ブランチ、変更、プルリクエスト&lt;/h3>
+&lt;p>翻訳に貢献するために、まずは Github の 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www リポジトリ&lt;/a>の
+&lt;a href="https://help.github.com/ja/github/getting-started-with-github/fork-a-repo" target="_blank">フォークを作る&lt;/a>ことから始めましょう。あなたはまずあなたのフォークに変更をコミットすることから始めるでしょう。&lt;/p>
+&lt;p>初期状態であなたのフォークは &lt;code>main&lt;/code> として知られるデフォルトブランチに設定されているでしょう。あなたの変更を開発するあるいはプルリクエストを作成するためにブランチを使用してください。もしブランチについて不慣れなら
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-branches" target="_blank">それらについて Github ドキュメントで読む&lt;/a>ことができます。&lt;/p>
+&lt;p>ブランチを作成出来たら、翻訳を追加したり、コンテンツを国際化したりしましょう。&lt;/p>
+&lt;p>注：helm は 
+&lt;a href="https://developercertificate.org/" target="_blank">Developers Certificate of
+Origin&lt;/a> を利用しています。すべてのコミットは署名されている必要があります。コミットを作成する際に &lt;code>-s&lt;/code> か &lt;code>--signoff&lt;/code> フラグを用いることで、あなたの Git に設定されている名前とメールアドレスを用いてコミットに署名することができます。詳細については 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md#sign-your-work" target="_blank">CONTRIBUTING.md&lt;/a> をご覧ください。&lt;/p>
+&lt;p>準備ができたら、
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">プルリクエスト&lt;/a> を作成し、helm-www リポジトリに反映しましょう。&lt;/p>
+&lt;p>作成されたプルリクエストは管理者によってレビューされます。その過程についての詳細は 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md&lt;/a> を参照してください。&lt;/p>
+&lt;h2 id="コンテンツの翻訳">コンテンツの翻訳&lt;/h2>
+&lt;p>全ての Helm コンテンツを国際化するのは大きな仕事です。小さなことから初めて大丈夫です。時間をかけて翻訳を拡大することができます。&lt;/p>
+&lt;h3 id="新たな言語を開始する">新たな言語を開始する&lt;/h3>
+&lt;p>新たな言語を開始するには以下の最低要件が必要です。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>_index.md&lt;/code> ファイルを含む &lt;code>content/[LANG]/docs&lt;/code> ディレクトリを追加する。これはドキュメントランディングページの最上位です。&lt;/li>
+&lt;li>&lt;code>i18n&lt;/code> ディレクトリに &lt;code>[LANG].toml&lt;/code> ファイルを作成する。まずは開始地点として &lt;code>en.toml&lt;/code> ファイルをコピーすることができます。&lt;/li>
+&lt;li>新たな言語を公開するため、&lt;code>config.toml&lt;/code> ファイルにその言語のセクションを追加する。既に存在する言語のセクションを開始地点とすることができます。&lt;/li>
+&lt;/ul>
+&lt;h3 id="翻訳">翻訳&lt;/h3>
+&lt;p>翻訳されたコンテンツは &lt;code>content/[LANG]/docs&lt;/code> ディレクトリ内に存在する必要があります。それらは英語ソースと同じURLを持ちます。例えば、イントロダクションを韓国語に翻訳するなら以下のように英語ソースをコピーすると便利です。&lt;/p></description></item><item><title>ラベルとアノテーション</title><link>https://helm.sh/ja/docs/chart_best_practices/labels/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/labels/</guid><description>&lt;p>ベストプラクティスのこの部分では、チャートの中でラベルとアノテーションを使用する際の
+ベストプラクティスについて議論します。&lt;/p>
+&lt;h2 id="ラベルかアノテーションか">ラベルかアノテーションか？&lt;/h2>
+&lt;p>メタデータの項目は以下の条件でラベルにすべきです:&lt;/p>
+&lt;ul>
+&lt;li>リソースを特定するためにKubernetesによって使用される場合&lt;/li>
+&lt;li>システムに問い合わせをする目的でオペレータに公開すると便利な場合&lt;/li>
+&lt;/ul>
+&lt;p>例えば、オペレータが特定のチャートの全てのインスタンスを便利に見つけられるように、
+ラベルとして&lt;code>helm.sh/chart: NAME-VERSION&lt;/code>を使うことを推奨します。&lt;/p>
+&lt;p>メタデータの項目が問い合わせの目的で使用されない場合、代わりにアノテーションを
+使うべきでしょう。&lt;/p>
+&lt;p>Helmフックは常にアノテーションです。&lt;/p>
+&lt;h2 id="標準的なラベル">標準的なラベル&lt;/h2>
+&lt;p>次のテーブルはHelmチャートが使う、共通のラベルを定義しています。Helmそれ自体は
+特定のラベルが存在することを必要としません。RECとマークされたラベルは使用を推奨され、
+グローバルな一貫性のためにチャートに記述される &lt;em>べき&lt;/em> です。
+OPTとマークされた項目は任意です。これらは慣用句として、あるいは一般的に使用されているもの
+ではありますが、業務上頻繁に使用されるものではありません。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>名前&lt;/th>
+ &lt;th>ステータス&lt;/th>
+ &lt;th>説明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/name&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>これはアプリ全体を反映した名前であるべきです。一般的には&lt;code>{{ template &amp;quot;name&amp;quot; . }}&lt;/code>がこのために使われるでしょう。これは多くのKubernetesマニフェストで使用されるものであり、Helm特有のものではありません。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>helm.sh/chart&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>これはチャート名とバージョンにすべきです: &lt;code>{{ .Chart.Name }}-{{ .Chart.Version | replace &amp;quot;+&amp;quot; &amp;quot;_&amp;quot; }}&lt;/code>.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/managed-by&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>これは常に&lt;code>{{ .Release.Service }}&lt;/code>に設定するべきです。Helmで管理されているものを全て見つけるために使用されます。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/instance&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>これは&lt;code>{{ .Release.Name }}&lt;/code>にすべきです。 これは、同じアプリケーションの異なるインスタンスを区別するのに役立ちます。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/version&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>アプリのバージョンで、&lt;code>{{ .Chart.AppVersion }}&lt;/code>に設定できます。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/component&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>これはアプリケーション内の違った役割示す共通のラベルです。例、 &lt;code>app.kubernetes.io/component: frontend&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/part-of&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>　複数のチャートとソフトウェアが一体となって一つのアプリケーションを構成している場合のラベル。例えば、ウェブサイトを生成するデータベースとアプリケーションソフトウェアなど。これは、対応するトップレベルのアプリケーションにも設定することができます。&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>Kubernetesの&lt;code>app.kubernetes.io&lt;/code>プレフィックスが付いたラベルについて、
+
+&lt;a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/" target="_blank">Kubernetes
+documentation&lt;/a>でより詳細な情報を見つけることができます。&lt;/p></description></item><item><title>PodとPodテンプレート</title><link>https://helm.sh/ja/docs/chart_best_practices/pods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/pods/</guid><description>&lt;p>ベストプラクティスのこの部分では、チャートマニフェストの、PodとPodテンプレート部分の
+フォーマットについて説明します。&lt;/p>
+&lt;p>以下のリソースのリスト（非網羅的）がPodテンプレートを使用します:&lt;/p>
+&lt;ul>
+&lt;li>Deployment&lt;/li>
+&lt;li>ReplicationController&lt;/li>
+&lt;li>ReplicaSet&lt;/li>
+&lt;li>DaemonSet&lt;/li>
+&lt;li>StatefulSet&lt;/li>
+&lt;/ul>
+&lt;h2 id="イメージ">イメージ&lt;/h2>
+&lt;p>コンテナイメージは固定されたタグ、もしくはイメージのSHAを使用するべきです。イメージは&lt;code>latest&lt;/code>,
+&lt;code>head&lt;/code>,&lt;code>canary&lt;/code>タグや、その他&amp;quot;浮いている&amp;quot;タグは使用するべきではありません。&lt;/p>
+&lt;p>イメージは、簡単に入れ替えられるように、&lt;code>values.yaml&lt;/code>に定義しても &lt;em>良い&lt;/em>
+でしょう。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.redisImage | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>イメージとタグは、それぞれ別のフィールドとして&lt;code>values.yaml&lt;/code>に定義しても &lt;em>良い&lt;/em> でしょう:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ .Values.redisImage }}:{{ .Values.redisTag }}&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="imagepullpolicy">ImagePullPolicy&lt;/h2>
+&lt;p>&lt;code>helm create&lt;/code>はデフォルトで以下のようにして、&lt;code>deployment.yaml&lt;/code>の
+&lt;code>imagePullPolicy&lt;/code>を&lt;code>IfNotPresent&lt;/code>に設定します:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">imagePullPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.image.pullPolicy }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>そして、&lt;code>values.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">pullPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>IfNotPresent&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>同様に、Kubernetesは&lt;code>imagePullPolicy&lt;/code>が定義されていない場合、デフォルトで&lt;code>IfNotPresent&lt;/code>に
+設定します。&lt;code>IfNotPresent&lt;/code>以外の値が必要な場合、単純に&lt;code>values.yaml&lt;/code>の値を必要な値に更新
+してください。&lt;/p>
+&lt;h2 id="podテンプレートはselectorを宣言するべき">Podテンプレートはselectorを宣言するべき&lt;/h2>
+&lt;p>全てのPodテンプレートセクションはselectorを指定するべきです。例えば:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">selector&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">matchLabels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">app.kubernetes.io/name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MyName&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">template&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">labels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">app.kubernetes.io/name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MyName&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>これはセットとPodの関係を作るため、良い慣習です。&lt;/p>
+&lt;p>しかし、Deploymentのようなセットでは、これはさらに重要になります。これがないと、
+&lt;em>全ての&lt;/em> ラベルのセットが一致するPodを選択するために使用され、もし、バージョンやリリース日のように、
+変化するラベルを使用していた場合、これが壊れることになります。&lt;/p></description></item><item><title>カスタムリソース定義</title><link>https://helm.sh/ja/docs/chart_best_practices/custom_resource_definitions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_best_practices/custom_resource_definitions/</guid><description>&lt;p>このセクションでは、カスタムリソース定義オブジェクトの作成と使用方法について説明します。&lt;/p>
+&lt;p>カスタムリソース定義（CRD）を扱う場合、2つの異なる要素を区別することが重要です。&lt;/p>
+&lt;ul>
+&lt;li>CRDの宣言。これはkindが&lt;code>CustomResourceDefinition&lt;/code>であるYAMLファイルです。&lt;/li>
+&lt;li>CRDを &lt;em>使用する&lt;/em> リソース。例えばCRDが&lt;code>foo.example.com/v1&lt;/code>を定義するとします。&lt;code>apiVersion: example.com/v1&lt;/code>と kind&lt;code>Foo&lt;/code>を持つすべてのリソースは、そのCRDを使用するリソースです。&lt;/li>
+&lt;/ul>
+&lt;h2 id="リソースを使用する前にcrdをインストールする">リソースを使用する前にCRDをインストールする&lt;/h2>
+&lt;p>HelmはKubernetesにできるだけ多くのリソースを高速にデプロイできるように最適化されています。Kubernetesは設計上、マニフェストのセット全体を取得し、それらをすべてオンラインにすることができます（これは reconciliation loop と呼ばれます）。&lt;/p>
+&lt;p>しかしCRDは違います。&lt;/p>
+&lt;p>CRDを使用する場合は、そのCRDを使用するリソースを利用する前にCRDをインストールしておく必要があります。そして、CRDの登録には数秒かかる場合があります。&lt;/p>
+&lt;h3 id="方法1helmに任せる">方法1：&lt;code>helm&lt;/code>に任せる&lt;/h3>
+&lt;p>Helm 3の登場により、元々使われていた&lt;code>crd-install&lt;/code>フックは削除され、よりシンプルな方法が採用されました。チャートにCRDを保存しておくための&lt;code>crds&lt;/code>という特別なディレクトリができました。これらのCRDはテンプレート化されていませんが、チャートの&lt;code>helm install&lt;/code>を実行するとデフォルトでインストールされます。CRDがすでに存在する場合、警告とともにスキップされます。CRDのインストール手順をスキップしたい場合は、&lt;code>--skip-crds&lt;/code>フラグを渡すことができます。&lt;/p>
+&lt;h4 id="注意事項および説明">注意事項（および説明）&lt;/h4>
+&lt;p>現時点では、Helmを使用してCRDをアップグレードまたは削除することはサポートされていません。これは、意図しないデータ損失の危険性があるため、コミュニティで多くの議論が行われた結果の決定です。さらにCRDとそのライフサイクルの処理方法については、まだコミュニティ内でどうすべきか決まっていません。今後、Helmはこれらのユースケースのサポートを追加する予定です。&lt;/p>
+&lt;p>&lt;code>helm install&lt;/code>および&lt;code>helm upgrade&lt;/code>の&lt;code>--dry-run&lt;/code>フラグはCRDではサポートされていません。ドライランの目的は、チャートの出力をサーバーに送信した場合に実際に機能することを検証することです。しかし、CRDはサーバーの動作を変更するものです。HelmはドライランでCRDをインストールできないため、ディスカバリークライアントはそのカスタムリソース（CR）について認識できず、検証は失敗します。代わりに、CRDを独自のチャートに移行するか、&lt;code>helm template&lt;/code>を使用できます。&lt;/p>
+&lt;p>CRDのサポートに関する議論で考慮すべきもう1つの重要な点は、テンプレートのレンダリング方法です。Helm 2で使用されていた&lt;code>crd-install&lt;/code>メソッドの明確な欠点の1つは、利用できるAPIが変化するため（CRDは実際にKubernetesクラスターに使用可能な新たなAPIを追加しています）チャートを適切に検証できないことでした。チャートがCRDをインストールした場合、&lt;code>helm&lt;/code>は有効なAPIバージョンのセットを操作できなくなります。これはCRDのテンプレート化のサポートを削除した理由でもあります。CRDをインストールする新しい方法&lt;code>crds&lt;/code>により、&lt;code>helm&lt;/code>がクラスターの現在の状態の適切な情報を持っていることを保証できるようになりました。&lt;/p>
+&lt;h3 id="方法2チャートを分離する">方法2：チャートを分離する&lt;/h3>
+&lt;p>もう1つの方法は、CRDをチャートに配置し、そのCRDを使用するリソースを &lt;em>別の&lt;/em> チャートに配置することです。&lt;/p>
+&lt;p>この方法では各チャートを個別にインストールする必要があります。しかし、このワークフローはクラスターの管理者アクセス権を持つクラスター管理者にとってより役立つ場合があります。&lt;/p></description></item><item><title>Helm アーキテクチャ</title><link>https://helm.sh/ja/docs/topics/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/architecture/</guid><description>&lt;h1 id="kubernetes-helm-アーキテクチャ">Kubernetes Helm アーキテクチャ&lt;/h1>
+&lt;p>このドキュメントでは、Helm アーキテクチャの概要について説明します。&lt;/p>
+&lt;h2 id="helm-の目的">Helm の目的&lt;/h2>
+&lt;p>Helm は、&lt;em>チャート&lt;/em> と呼ばれる Kubernetes パッケージを管理するためのツールです。
+Helm は次のことができます。&lt;/p>
+&lt;ul>
+&lt;li>最初から新しいチャートを作成する&lt;/li>
+&lt;li>チャートをチャートアーカイブ (tgz) ファイルにパッケージ化する&lt;/li>
+&lt;li>チャートが保存されているチャートリポジトリを操作する&lt;/li>
+&lt;li>チャートを既存の Kubernetes クラスターにインストールおよびアンインストールする&lt;/li>
+&lt;li>Helm でインストールされたチャートのリリースサイクルを管理する&lt;/li>
+&lt;/ul>
+&lt;p>Helm には、3つの重要な概念があります。&lt;/p>
+&lt;ol>
+&lt;li>&lt;em>チャート&lt;/em> は、Kubernetes アプリケーションのインスタンスを作成するために必要な
+情報のバンドルです&lt;/li>
+&lt;li>&lt;em>コンフィグ&lt;/em> には、リリース可能なオブジェクトを作成するためにパッケージ化された
+チャートにマージできる構成情報が含まれています&lt;/li>
+&lt;li>&lt;em>リリース&lt;/em> は、特定の &lt;em>コンフィグ&lt;/em> と組み合わせた &lt;em>チャート&lt;/em> の
+実行中のインスタンスです&lt;/li>
+&lt;/ol>
+&lt;h2 id="コンポーネント">コンポーネント&lt;/h2>
+&lt;p>Helm は、2つの異なる部分に実装される実行可能ファイルです。&lt;/p>
+&lt;p>&lt;strong>Helm クライアント&lt;/strong> は、エンドユーザー向けのコマンドラインクライアントです。
+クライアントは次のことを担当します。&lt;/p>
+&lt;ul>
+&lt;li>ローカルチャート開発&lt;/li>
+&lt;li>リポジトリの管理&lt;/li>
+&lt;li>リリースの管理&lt;/li>
+&lt;li>Helm ライブラリとのインターフェース
+&lt;ul>
+&lt;li>インストールするチャートを送信する&lt;/li>
+&lt;li>既存のリリースのアップグレードまたはアンインストールの要求&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Helm ライブラリ&lt;/strong> は、すべての Helm 操作を実行するためのロジックを提供します。
+Kubernetes API サーバーとインターフェースし、次の機能を提供します。&lt;/p>
+&lt;ul>
+&lt;li>チャートと構成を組み合わせてリリースを構築する&lt;/li>
+&lt;li>チャートを Kubernetes にインストールし、後続のリリースオブジェクトを提供する&lt;/li>
+&lt;li>Kubernetes との対話によるチャートのアップグレードとアンインストール&lt;/li>
+&lt;/ul>
+&lt;p>スタンドアロンの Helm ライブラリは Helm ロジックをカプセル化しているため、
+さまざまなクライアントが活用できます。&lt;/p></description></item><item><title>高度な Helm のテクニック</title><link>https://helm.sh/ja/docs/topics/advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/topics/advanced/</guid><description>&lt;p>このセクションでは、Helm を使用するためのさまざまな高度な機能とテクニックについて説明します。
+このセクションの情報は、チャートとリリースの高度なカスタマイズと操作を行いたい
+Helm の「パワーユーザー」を対象としています。
+これらの高度な機能にはそれぞれ独自のトレードオフと警告があり、
+Helm の深い知識を駆使して慎重に使用する必要があります。
+言い換えれば、
+&lt;a href="https://en.wikipedia.org/wiki/With_great_power_comes_great_responsibility" target="_blank">ピーター・パーカーの原則&lt;/a>
+を覚えておいてください&lt;/p>
+&lt;h2 id="ポストレンダリング">ポストレンダリング&lt;/h2>
+&lt;p>ポストレンダリングにより、チャートインストーラーは、Helm によってインストールされる前に、
+レンダリングされたマニフェストを手動で操作、構成、または検証することができます。
+これにより、高度な構成を持つユーザーは、
+&lt;a href="https://kustomize.io" target="_blank">&lt;code>kustomize&lt;/code>&lt;/a> などのツールを使用して、
+パブリックチャートをフォークしたり、
+チャートのメンテナーがソフトウェアの最後の構成オプションをすべて指定したりする必要なく、
+構成の変更を適用できます。
+エンタープライズ環境での一般的なツールやサイドカーの注入、
+展開前のマニフェストの分析のユースケースもあります。&lt;/p>
+&lt;h3 id="前提条件">前提条件&lt;/h3>
+&lt;ul>
+&lt;li>Helm 3.1+&lt;/li>
+&lt;/ul>
+&lt;h3 id="使い方">使い方&lt;/h3>
+&lt;p>ポストレンダラーは、STDIN でレンダリングされた Kubernetes マニフェストを受け入れ、
+STDOUT で有効な Kubernetes マニフェストを返す任意の実行可能ファイルです。
+失敗した場合は、0 以外の終了コードを返します。
+これは、2つのコンポーネント間の唯一の &amp;quot;API&amp;quot; です。
+これにより、ポストレンダリングプロセスで実行できる操作に大きな柔軟性がもたらされます。&lt;/p>
+&lt;p>ポストレンダラーは、&lt;code>install&lt;/code>、&lt;code>upgrade&lt;/code>、および &lt;code>template&lt;/code> で使用できます。
+ポストレンダラーを使用するには、
+使用するレンダラー実行可能ファイルへのパスで &lt;code>--post-renderer&lt;/code> フラグを使用します。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ helm install mychart stable/wordpress --post-renderer ./path/to/executable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>パスにセパレータが含まれていない場合は、$PATH で検索されます。
+それ以外の場合は、相対パスが完全修飾パスに解決されます。&lt;/p>
+&lt;p>複数のポストレンダラーを使用したい場合は、それらをすべてスクリプトで呼び出すか、
+ビルドしたバイナリツールで一緒に呼び出します。
+bash では、これは &lt;code>renderer1 | renderer2 | renderer3&lt;/code> のように単純です。&lt;/p>
+&lt;p>&lt;code>kustomize&lt;/code> をポストレンダラーとして使用する例は
+
+&lt;a href="https://github.com/thomastaylor312/advanced-helm-demos/tree/master/post-render" target="_blank">here&lt;/a>で見ることができます。&lt;/p>
+&lt;h3 id="警告事項">警告事項&lt;/h3>
+&lt;p>ポストレンダラーを使用する際には、いくつかの重要なことを覚えておく必要があります。
+その中でも最も重要なのは、ポストレンダラーを使用する場合、
+そのリリースを変更するすべての人は、ビルドを再現可能にするために、同じレンダラーを使用 &lt;strong>しなければならない&lt;/strong> ということです。
+この機能は、ユーザーが使用しているレンダラーを切り替えたり、
+レンダラーの使用を停止したりできるように意図的に構築されていますが、
+これは偶発的な変更やデータの損失を避けるために意図的に行う必要があります。&lt;/p></description></item><item><title>Appendix: Go データ型とテンプレート</title><link>https://helm.sh/ja/docs/chart_template_guide/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_template_guide/data_types/</guid><description>&lt;p>Helm テンプレート言語は、厳密に型指定された Go プログラミング言語で実装されています。
+そのため、テンプレートの変数は &lt;em>typed&lt;/em> です。
+ほとんどの場合、変数は次のタイプのいずれかとして公開されます。&lt;/p>
+&lt;ul>
+&lt;li>string: テキストの文字列&lt;/li>
+&lt;li>bool: &lt;code>true&lt;/code> または &lt;code>false&lt;/code>&lt;/li>
+&lt;li>int: 整数値
+(これの8、16、32、および 64 ビットの符号付きおよび符号なし変数もあります)&lt;/li>
+&lt;li>float64: 64 ビットの浮動小数点値
+(これには 8、16、32 ビットの種類もあります)&lt;/li>
+&lt;li>バイトスライス (&lt;code>[]byte&lt;/code>)。バイナリデータを (潜在的に) 保持するためによく使用されます&lt;/li>
+&lt;li>struct: プロパティとメソッドを持つオブジェクト&lt;/li>
+&lt;li>前のタイプのいずれかのスライス (インデックス付きリスト)&lt;/li>
+&lt;li>文字列キー付きマップ (&lt;code>map[string]interface{}&lt;/code>) 値は
+前のタイプの1つです&lt;/li>
+&lt;/ul>
+&lt;p>Go には他にも多くのタイプがあり、テンプレートでそれらの間で変換する必要がある場合があります。
+オブジェクトのタイプをデバッグする最も簡単な方法は、
+テンプレートで &lt;code>printf &amp;quot;%t&amp;quot;&lt;/code> を介してオブジェクトを渡すことです。
+これにより、タイプが出力されます。&lt;code>typeOf&lt;/code> および &lt;code>kindOf&lt;/code> 関数も参照してください。&lt;/p></description></item></channel></rss>

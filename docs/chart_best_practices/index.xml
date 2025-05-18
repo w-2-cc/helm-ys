@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Best Practices on Helm</title><link>https://helm.sh/docs/chart_best_practices/</link><description>Recent content in Best Practices on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/chart_best_practices/index.xml" rel="self" type="application/rss+xml"/><item><title>General Conventions</title><link>https://helm.sh/docs/chart_best_practices/conventions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/conventions/</guid><description>&lt;p>This part of the Best Practices Guide explains general conventions.&lt;/p>
+&lt;h2 id="chart-names">Chart Names&lt;/h2>
+&lt;p>Chart names must be lower case letters and numbers. Words &lt;em>may&lt;/em> be separated
+with dashes (-):&lt;/p>
+&lt;p>Examples:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>drupal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nginx-lego
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aws-cluster-autoscaler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Neither uppercase letters nor underscores can be used in chart names. Dots
+should not be used in chart names.&lt;/p>
+&lt;h2 id="version-numbers">Version Numbers&lt;/h2>
+&lt;p>Wherever possible, Helm uses 
+&lt;a href="https://semver.org" target="_blank">SemVer 2&lt;/a> to represent version
+numbers. (Note that Docker image tags do not necessarily follow SemVer, and are
+thus considered an unfortunate exception to the rule.)&lt;/p></description></item><item><title>Values</title><link>https://helm.sh/docs/chart_best_practices/values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/values/</guid><description>&lt;p>This part of the best practices guide covers using values. In this part of the
+guide, we provide recommendations on how you should structure and use your
+values, with focus on designing a chart's &lt;code>values.yaml&lt;/code> file.&lt;/p>
+&lt;h2 id="naming-conventions">Naming Conventions&lt;/h2>
+&lt;p>Variable names should begin with a lowercase letter, and words should be
+separated with camelcase:&lt;/p>
+&lt;p>Correct:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chickenNoodleSoup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Incorrect:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">Chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># initial caps may conflict with built-ins&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chicken-noodle-soup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># do not use hyphens in the name&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Note that all of Helm's built-in variables begin with an uppercase letter to
+easily distinguish them from user-defined values: &lt;code>.Release.Name&lt;/code>,
+&lt;code>.Capabilities.KubeVersion&lt;/code>.&lt;/p></description></item><item><title>Templates</title><link>https://helm.sh/docs/chart_best_practices/templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/templates/</guid><description>&lt;p>This part of the Best Practices Guide focuses on templates.&lt;/p>
+&lt;h2 id="structure-of-templates">Structure of &lt;code>templates/&lt;/code>&lt;/h2>
+&lt;p>The &lt;code>templates/&lt;/code> directory should be structured as follows:&lt;/p>
+&lt;ul>
+&lt;li>Template files should have the extension &lt;code>.yaml&lt;/code> if they produce YAML output.
+The extension &lt;code>.tpl&lt;/code> may be used for template files that produce no formatted
+content.&lt;/li>
+&lt;li>Template file names should use dashed notation (&lt;code>my-example-configmap.yaml&lt;/code>),
+not camelcase.&lt;/li>
+&lt;li>Each resource definition should be in its own template file.&lt;/li>
+&lt;li>Template file names should reflect the resource kind in the name. e.g.
+&lt;code>foo-pod.yaml&lt;/code>, &lt;code>bar-svc.yaml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="names-of-defined-templates">Names of Defined Templates&lt;/h2>
+&lt;p>Defined templates (templates created inside a &lt;code>{{ define }} &lt;/code> directive) are
+globally accessible. That means that a chart and all of its subcharts will have
+access to all of the templates created with &lt;code>{{ define }}&lt;/code>.&lt;/p></description></item><item><title>Dependencies</title><link>https://helm.sh/docs/chart_best_practices/dependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/dependencies/</guid><description>&lt;p>This section of the guide covers best practices for &lt;code>dependencies&lt;/code> declared in
+&lt;code>Chart.yaml&lt;/code>.&lt;/p>
+&lt;h2 id="versions">Versions&lt;/h2>
+&lt;p>Where possible, use version ranges instead of pinning to an exact version. The
+suggested default is to use a patch-level version match:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will match version &lt;code>1.2.3&lt;/code> and any patches to that release. In other
+words, &lt;code>~1.2.3&lt;/code> is equivalent to &lt;code>&amp;gt;= 1.2.3, &amp;lt; 1.3.0&lt;/code>&lt;/p>
+&lt;p>For the complete version matching syntax, please see the 
+&lt;a href="https://github.com/Masterminds/semver#checking-version-constraints" target="_blank">semver
+documentation&lt;/a>.&lt;/p></description></item><item><title>Labels and Annotations</title><link>https://helm.sh/docs/chart_best_practices/labels/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/labels/</guid><description>&lt;p>This part of the Best Practices Guide discusses the best practices for using
+labels and annotations in your chart.&lt;/p>
+&lt;h2 id="is-it-a-label-or-an-annotation">Is it a Label or an Annotation?&lt;/h2>
+&lt;p>An item of metadata should be a label under the following conditions:&lt;/p>
+&lt;ul>
+&lt;li>It is used by Kubernetes to identify this resource&lt;/li>
+&lt;li>It is useful to expose to operators for the purpose of querying the system.&lt;/li>
+&lt;/ul>
+&lt;p>For example, we suggest using &lt;code>helm.sh/chart: NAME-VERSION&lt;/code> as a label so that
+operators can conveniently find all of the instances of a particular chart to
+use.&lt;/p></description></item><item><title>Pods and PodTemplates</title><link>https://helm.sh/docs/chart_best_practices/pods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/pods/</guid><description>&lt;p>This part of the Best Practices Guide discusses formatting the Pod and
+PodTemplate portions in chart manifests.&lt;/p>
+&lt;p>The following (non-exhaustive) list of resources use PodTemplates:&lt;/p>
+&lt;ul>
+&lt;li>Deployment&lt;/li>
+&lt;li>ReplicationController&lt;/li>
+&lt;li>ReplicaSet&lt;/li>
+&lt;li>DaemonSet&lt;/li>
+&lt;li>StatefulSet&lt;/li>
+&lt;/ul>
+&lt;h2 id="images">Images&lt;/h2>
+&lt;p>A container image should use a fixed tag or the SHA of the image. It should not
+use the tags &lt;code>latest&lt;/code>, &lt;code>head&lt;/code>, &lt;code>canary&lt;/code>, or other tags that are designed to be
+&amp;quot;floating&amp;quot;.&lt;/p>
+&lt;p>Images &lt;em>may&lt;/em> be defined in the &lt;code>values.yaml&lt;/code> file to make it easy to swap out
+images.&lt;/p></description></item><item><title>Custom Resource Definitions</title><link>https://helm.sh/docs/chart_best_practices/custom_resource_definitions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/custom_resource_definitions/</guid><description>&lt;p>This section of the Best Practices Guide deals with creating and using Custom
+Resource Definition objects.&lt;/p>
+&lt;p>When working with Custom Resource Definitions (CRDs), it is important to
+distinguish two different pieces:&lt;/p>
+&lt;ul>
+&lt;li>There is a declaration of a CRD. This is the YAML file that has the kind
+&lt;code>CustomResourceDefinition&lt;/code>&lt;/li>
+&lt;li>Then there are resources that &lt;em>use&lt;/em> the CRD. Say a CRD defines
+&lt;code>foo.example.com/v1&lt;/code>. Any resource that has &lt;code>apiVersion: example.com/v1&lt;/code> and
+kind &lt;code>Foo&lt;/code> is a resource that uses the CRD.&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-a-crd-declaration-before-using-the-resource">Install a CRD Declaration Before Using the Resource&lt;/h2>
+&lt;p>Helm is optimized to load as many resources into Kubernetes as fast as possible.
+By design, Kubernetes can take an entire set of manifests and bring them all
+online (this is called the reconciliation loop).&lt;/p></description></item><item><title>Role-Based Access Control</title><link>https://helm.sh/docs/chart_best_practices/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/chart_best_practices/rbac/</guid><description>&lt;p>This part of the Best Practices Guide discusses the creation and formatting of
+RBAC resources in chart manifests.&lt;/p>
+&lt;p>RBAC resources are:&lt;/p>
+&lt;ul>
+&lt;li>ServiceAccount (namespaced)&lt;/li>
+&lt;li>Role (namespaced)&lt;/li>
+&lt;li>ClusterRole&lt;/li>
+&lt;li>RoleBinding (namespaced)&lt;/li>
+&lt;li>ClusterRoleBinding&lt;/li>
+&lt;/ul>
+&lt;h2 id="yaml-configuration">YAML Configuration&lt;/h2>
+&lt;p>RBAC and ServiceAccount configuration should happen under separate keys. They
+are separate things. Splitting these two concepts out in the YAML disambiguates
+them and makes this clearer.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">rbac&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Specifies whether RBAC resources should be created&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serviceAccount&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Specifies whether a ServiceAccount should be created&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># The name of the ServiceAccount to use.&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># If not set and create is true, a name is generated using the fullname template&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This structure can be extended for more complex charts that require multiple
+ServiceAccounts.&lt;/p></description></item></channel></rss>

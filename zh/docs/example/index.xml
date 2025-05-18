@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>集成开发 on Helm</title><link>https://helm.sh/zh/docs/example/</link><description>Recent content in 集成开发 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/example/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://helm.sh/zh/docs/example/golang/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/example/golang/</guid><description>&lt;h1 id="基于go语言的集成开发示例">基于GO语言的集成开发示例&lt;/h1>
+&lt;h2 id="环境">环境&lt;/h2>
+&lt;ul>
+&lt;li>go version 1.20.x&lt;/li>
+&lt;li>helm v3&lt;/li>
+&lt;li>kubernetes 1.24.x&lt;/li>
+&lt;/ul>
+&lt;h2 id="示例">示例&lt;/h2>
+&lt;h3 id="增加仓库">增加仓库&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">package&lt;/span> kubestore
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">import&lt;/span> (
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c30">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/cli&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/getter&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c30">&amp;#34;helm.sh/helm/v3/pkg/repo&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#c30">&amp;#34;kube-store-operator/commons/logger&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">// 添加一个仓库地址
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">// Helm 的添加仓库地就是将【仓库名+仓库地址】写到一个本地的repositories.yaml文件中
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span>&lt;span style="color:#069;font-weight:bold">func&lt;/span> &lt;span style="color:#c0f">add&lt;/span>(entry &lt;span style="color:#555">*&lt;/span>repo.Entry) &lt;span style="color:#078;font-weight:bold">error&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> settings &lt;span style="color:#555">:=&lt;/span> cli.&lt;span style="color:#c0f">New&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> repoFile &lt;span style="color:#555">:=&lt;/span> settings.RepositoryConfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 加载仓库配置文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> repositories, err &lt;span style="color:#555">:=&lt;/span> repo.&lt;span style="color:#c0f">LoadFile&lt;/span>(repoFile)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 如果文件不存在
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#069;font-weight:bold">if&lt;/span> err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 创建一个新的仓库配置对象
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> repositories = repo.&lt;span style="color:#c0f">NewFile&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 检查要添加的仓库是否已存在
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#069;font-weight:bold">if&lt;/span> repositories.&lt;span style="color:#c0f">Has&lt;/span>(entry.Name) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;仓库 %s 已存在&amp;#34;&lt;/span>, entry.Name)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 添加仓库信息到仓库配置
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> repositories.&lt;span style="color:#c0f">Add&lt;/span>(entry)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// 保存更新后的仓库配置到文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#069;font-weight:bold">if&lt;/span> err = repositories.&lt;span style="color:#c0f">WriteFile&lt;/span>(repoFile, &lt;span style="color:#f60">0644&lt;/span>); err &lt;span style="color:#555">!=&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#069;font-weight:bold">return&lt;/span> fmt.&lt;span style="color:#c0f">Errorf&lt;/span>(&lt;span style="color:#c30">&amp;#34;无法保存仓库配置文件：%s&amp;#34;&lt;/span>, err)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> logger.&lt;span style="color:#c0f">Debugf&lt;/span>(&lt;span style="color:#c30">&amp;#34;成功添加仓库地址：%s。&amp;#34;&lt;/span>, entry.Name)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#069;font-weight:bold">return&lt;/span> &lt;span style="color:#069;font-weight:bold">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;blockquote>
+&lt;p>此功能相当于: helm repo add 仓库名 
+&lt;a href="https://xxx.com" target="_blank">https://xxx.com&lt;/a>&lt;/p></description></item></channel></rss>

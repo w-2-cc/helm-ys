@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Вступ on Helm</title><link>https://helm.sh/uk/docs/intro/</link><description>Recent content in Вступ on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>Швидкий старт</title><link>https://helm.sh/uk/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/intro/quickstart/</guid><description>&lt;p>У цьому посібнику ви дізнаєтеся, як швидко почати користуватися Helm.&lt;/p>
+&lt;h2 id="prerequisites">Попередні умови&lt;/h2>
+&lt;p>Для успішного та належного використання Helm потрібні наступні умови.&lt;/p>
+&lt;ol>
+&lt;li>Кластер Kubernetes&lt;/li>
+&lt;li>Визначення, які конфігурації безпеки застосувати до вашої інсталяції, якщо такі є&lt;/li>
+&lt;li>Встановлення та налаштування Helm.&lt;/li>
+&lt;/ol>
+&lt;h3 id="install-kubernetes-or-have-access-to-a-cluster">Встановлення Kubernetes або доступ до кластера&lt;/h3>
+&lt;ul>
+&lt;li>У вас повинен бути встановлений Kubernetes. Для останньої версії Helm ми рекомендуємо використовувати останню стабільну версію Kubernetes, що в більшості випадків є передостанньою мінорною версією.&lt;/li>
+&lt;li>У вас також має бути локально налаштована копія &lt;code>kubectl&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>Дивіться 
+&lt;a href="https://helm.sh/uk/docs/topics/version_skew/">Політику підтримки версій Helm&lt;/a> щодо максимальної підтримуваної різниці версій між Helm і Kubernetes.&lt;/p></description></item><item><title>Встановлення Helm</title><link>https://helm.sh/uk/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/intro/install/</guid><description>&lt;p>Цей посібник показує, як встановити Helm CLI. Helm можна встановити або з джерела, або з попередньо зібраних бінарних релізів.&lt;/p>
+&lt;h2 id="from-the-helm-project">Від проєкту Helm&lt;/h2>
+&lt;p>Проєкт Helm надає два способи отримання та встановлення Helm. Це офіційні методи отримання релізів Helm. Крім того, спільнота Helm пропонує методи встановлення Helm через різні менеджери пакетів. Встановлення через ці методи можна знайти нижче офіційних методів.&lt;/p>
+&lt;h3 id="from-the-binary-releases">З бінарних релізів&lt;/h3>
+&lt;p>Кожен 
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">реліз&lt;/a> Helm надає бінарні релізи для різних операційних систем. Ці бінарні версії можна завантажити та встановити вручну.&lt;/p></description></item><item><title>Використання Helm</title><link>https://helm.sh/uk/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/intro/using_helm/</guid><description>&lt;p>Цей посібник пояснює основи використання Helm для керування пакетами у вашому кластері Kubernetes. Передбачається, що ви вже 
+&lt;a href="https://helm.sh/uk/docs/intro/install/">встановили&lt;/a> клієнт Helm.&lt;/p>
+&lt;p>Якщо вас цікавить лише виконання кількох швидких команд, можливо, ви захочете почати з 
+&lt;a href="https://helm.sh/uk/docs/intro/quickstart/">Посібника зі швидкого старту&lt;/a>. У цьому розділі розглядаються особливості команд Helm та пояснюється, як використовувати Helm.&lt;/p>
+&lt;h2 id="three-big-concepts">Три головні концепції&lt;/h2>
+&lt;p>&lt;em>Chart&lt;/em> — це пакет Helm. Він містить усі необхідні визначення ресурсів для запуску застосунку, інструменту або сервісу всередині кластера Kubernetes. Думайте про це як про еквівалент формули Homebrew, пакету Apt dpkg або файлу Yum RPM для Kubernetes.&lt;/p></description></item><item><title>Шпаргалка</title><link>https://helm.sh/uk/docs/intro/cheatsheet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/intro/cheatsheet/</guid><description>&lt;p>Підказка Helm з усіма необхідними командами для керування програмою через Helm.&lt;/p>
+&lt;hr>
+&lt;h3 id="basic-interpretations-context">Основні інтерпретації/контекст&lt;/h3>
+&lt;p>&lt;strong>Chart (Чарт):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Це назва вашого чарту у випадку, якщо його було завантаженла та розпаковано.&lt;/li>
+&lt;li>Це &lt;code>&amp;lt;repo_name&amp;gt;/&amp;lt;chart_name&amp;gt;&lt;/code>, якщо репозиторій був доданий, але чарт не завантажений.&lt;/li>
+&lt;li>Це URL/Абсолютний шлях до чарту.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Name (Назва):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Це назва, яку ви хочете надати вашій поточній установці Helm-чарту.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Release (Реліз):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Це назва, яку ви присвоїли екземпляру установки.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Revision (Версія):&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Це значення з команди Helm history.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Repo-name (Назва репозиторію):&lt;/strong>&lt;/p></description></item></channel></rss>

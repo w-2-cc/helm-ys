@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>介绍 on Helm</title><link>https://helm.sh/zh/docs/intro/</link><description>Recent content in 介绍 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>快速入门指南</title><link>https://helm.sh/zh/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/intro/quickstart/</guid><description>&lt;p>本指南介绍如何快速开始使用Helm。&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;p>想成功和正确地使用Helm，需要以下前置条件。&lt;/p>
+&lt;ol>
+&lt;li>一个 Kubernetes 集群&lt;/li>
+&lt;li>确定你安装版本的安全配置&lt;/li>
+&lt;li>安装和配置Helm。&lt;/li>
+&lt;/ol>
+&lt;h3 id="安装或者使用现有的kubernetes集群">安装或者使用现有的Kubernetes集群&lt;/h3>
+&lt;ul>
+&lt;li>使用Helm，需要一个Kubernetes集群。对于Helm的最新版本，我们建议使用Kubernetes的最新稳定版，
+在大多数情况下，它是倒数第二个次版本。&lt;/li>
+&lt;li>您也应该有一个本地的 &lt;code>kubectl&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>查看Helm和对应支持的Kubernetes版本，您可以参考 
+&lt;a href="https://helm.sh/zh/docs/topics/version_skew/" target="_blank">Helm
+版本支持策略&lt;/a>。&lt;/p>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;p>您可以通过 &lt;code>homebrew&lt;/code> 下载二进制Helm client安装包，也可以通过github下载 
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">github 官方发布页面&lt;/a>&lt;/p>
+&lt;p>除此之外的更多安装方式详见 
+&lt;a href="https://helm.sh/zh/docs/intro/install" target="_blank">安装指南&lt;/a>。&lt;/p>
+&lt;h2 id="初始化">初始化&lt;/h2>
+&lt;p>当您已经安装好了Helm之后，您可以添加一个chart 仓库。从
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact
+Hub&lt;/a>中查找有效的Helm chart仓库。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo add bitnami https://charts.bitnami.com/bitnami
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当添加完成，您将可以看到可以被您安装的charts列表：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm search repo bitnami
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">NAME 	CHART VERSION	APP VERSION 	DESCRIPTION
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">bitnami/bitnami-common 	0.0.9 	0.0.9 	DEPRECATED Chart with custom templates used in ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">bitnami/airflow 	8.0.2 	2.0.0 	Apache Airflow is a platform to programmaticall...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">bitnami/apache 	8.2.3 	2.4.46 	Chart for Apache HTTP Server
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">bitnami/aspnet-core 	1.2.3 	3.1.9 	ASP.NET Core is an open-source framework create...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">#&lt;/span> ... and many more
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="安装chart示例">安装Chart示例&lt;/h2>
+&lt;p>您可以通过&lt;code>helm install&lt;/code> 命令安装chart。 Helm可以通过多种途径查找和安装chart，
+但最简单的是安装官方的&lt;code>bitnami&lt;/code> charts。&lt;/p></description></item><item><title>安装Helm</title><link>https://helm.sh/zh/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/intro/install/</guid><description>&lt;p>该指南展示了如何安装Helm CLI。Helm可以用源码或构建的二进制版本安装。&lt;/p>
+&lt;h2 id="用helm项目安装">用Helm项目安装&lt;/h2>
+&lt;p>Helm项目提供了两种获取和安装Helm的方式。这是官方提供的获取Helm发布版本的方法。另外，
+Helm社区提供了通过不同包管理器安装Helm的方法。这些方法可以在下面的官方方法之后看到。&lt;/p>
+&lt;h3 id="用二进制版本安装">用二进制版本安装&lt;/h3>
+&lt;p>每个Helm
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">版本&lt;/a>都提供了各种操作系统的二进制版本，这些版本可以手动下载和安装。&lt;/p>
+&lt;ol>
+&lt;li>下载
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">需要的版本&lt;/a>&lt;/li>
+&lt;li>解压(&lt;code>tar -zxvf helm-v3.0.0-linux-amd64.tar.gz&lt;/code>)&lt;/li>
+&lt;li>在解压目录中找到&lt;code>helm&lt;/code>程序，移动到需要的目录中(&lt;code>mv linux-amd64/helm /usr/local/bin/helm&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;p>然后就可以执行客户端程序并
+&lt;a href="https://helm.sh/zh/docs/intro/quickstart/#%e5%88%9d%e5%a7%8b%e5%8c%96" target="_blank">添加稳定仓库&lt;/a>: &lt;code>helm help&lt;/code>.&lt;/p>
+&lt;p>&lt;strong>注意&lt;/strong> 针对Linux AMD64，Helm的自动测试只有在GitHub Actions构建和发布时才会执行。测试其他操作系统是社区针对系统问题请求Helm的责任。&lt;/p>
+&lt;h3 id="使用脚本安装">使用脚本安装&lt;/h3>
+&lt;p>Helm现在有个安装脚本可以自动拉取最新的Helm版本并在
+&lt;a href="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" target="_blank">本地安装&lt;/a>。&lt;/p>
+&lt;p>您可以获取这个脚本并在本地执行。它良好的文档会让您在执行之前知道脚本都做了什么。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> chmod &lt;span style="color:#f60">700&lt;/span> get_helm.sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> ./get_helm.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果想直接执行安装，运行&lt;code>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash&lt;/code>。&lt;/p>
+&lt;h2 id="通过包管理器安装">通过包管理器安装&lt;/h2>
+&lt;p>Helm社区提供了通过操作系统包管理器安装Helm的方式。但Helm项目不支持且不认为是可信的第三方。&lt;/p>
+&lt;h3 id="使用homebrew-macos">使用Homebrew (macOS)&lt;/h3>
+&lt;p>Helm社区成员贡献了一种在Homebrew构建Helm的方案，这个方案通常是最新的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">brew install helm
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(注意：还有一个emacs-helm的方案，当然这是另一个项目了。)&lt;/p>
+&lt;h3 id="使用chocolatey-windows">使用Chocolatey (Windows)&lt;/h3>
+&lt;p>Helm社区成员贡献了一个
+&lt;a href="https://chocolatey.org/packages/kubernetes-helm" target="_blank">Helm包&lt;/a>在
+&lt;a href="https://chocolatey.org/" target="_blank">Chocolatey&lt;/a>中构建，
+包通常是最新的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">choco install kubernetes-helm
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用scoop-windows">使用Scoop (Windows)&lt;/h3>
+&lt;p>Helm社区成员贡献了一个针对 
+&lt;a href="https://scoop.sh" target="_blank">Scoop&lt;/a> 的
+&lt;a href="https://github.com/ScoopInstaller/Main/blob/master/bucket/helm.json" target="_blank">Helm包&lt;/a>，该包通常是最新的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">scoop install helm
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用winget-windows">使用Winget (Windows)&lt;/h3>
+&lt;p>Helm社区成员贡献了一个针对 
+&lt;a href="https://learn.microsoft.com/en-us/windows/package-manager/" target="_blank">Winget&lt;/a> 的
+&lt;a href="https://github.com/microsoft/winget-pkgs/tree/master/manifests/h/Helm/Helm" target="_blank">Helm包&lt;/a>，该包通常是最新的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">winget install Helm.Helm
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用apt-debianubuntu">使用Apt (Debian/Ubuntu)&lt;/h3>
+&lt;p>Helm社区成员贡献了针对Apt的一个
+&lt;a href="https://helm.baltorepo.com/stable/debian/" target="_blank">Helm包&lt;/a>，包通常是最新的。&lt;/p></description></item><item><title>使用Helm</title><link>https://helm.sh/zh/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/intro/using_helm/</guid><description>&lt;p>本指南介绍了使用 Helm 来管理 Kubernetes 集群上的软件包的基础知识。在这之前，假定您已经
+
+&lt;a href="https://helm.sh/zh/docs/intro/install" target="_blank">安装&lt;/a>了 Helm 客户端。&lt;/p>
+&lt;p>如果您仅对运行一些快速命令感兴趣，则不妨从
+&lt;a href="https://helm.sh/zh/docs/intro/quickstart" target="_blank">快速入门指南&lt;/a>开始。本章包含了
+Helm 命令的详细说明，并解释如何使用 Helm。&lt;/p>
+&lt;h2 id="三大概念">三大概念&lt;/h2>
+&lt;p>&lt;em>Chart&lt;/em> 代表着 Helm 包。它包含在 Kubernetes 集群内部运行应用程序，工具或服务所需的所有资源定义。你可以把它看作是
+Homebrew formula，Apt dpkg，或 Yum RPM 在Kubernetes 中的等价物。&lt;/p>
+&lt;p>&lt;em>Repository（仓库）&lt;/em> 是用来存放和共享 charts 的地方。它就像 Perl 的 
+&lt;a href="https://www.cpan.org" target="_blank">CPAN 档案库网络&lt;/a>
+或是 Fedora 的
+&lt;a href="https://src.fedoraproject.org/" target="_blank">软件包仓库&lt;/a>，只不过它是供 Kubernetes 包所使用的。&lt;/p>
+&lt;p>&lt;em>Release&lt;/em> 是运行在 Kubernetes 集群中的 chart 的实例。一个 chart 通常可以在同一个集群中安装多次。每一次安装都会创建一个新的
+&lt;em>release&lt;/em>。以 MySQL chart为例，如果你想在你的集群中运行两个数据库，你可以安装该chart两次。每一个数据库都会拥有它自己的
+&lt;em>release&lt;/em> 和 &lt;em>release name&lt;/em>。&lt;/p>
+&lt;p>在了解了上述这些概念以后，我们就可以这样来解释 Helm：&lt;/p>
+&lt;p>Helm 安装 &lt;em>charts&lt;/em> 到 Kubernetes 集群中，每次安装都会创建一个新的 &lt;em>release&lt;/em>。你可以在 Helm 的
+chart &lt;em>repositories&lt;/em> 中寻找新的 chart。&lt;/p>
+&lt;h2 id="helm-search查找-charts">'helm search'：查找 Charts&lt;/h2>
+&lt;p>Helm 自带一个强大的搜索命令，可以用来从两种来源中进行搜索：&lt;/p></description></item><item><title/><link>https://helm.sh/zh/docs/intro/cheatsheet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/intro/cheatsheet/</guid><description>&lt;h1 id="速查表---helm">速查表 - HELM&lt;/h1>
+&lt;p>Helm 速查表包含了通过Helm管理应用的所有必需命令。&lt;/p>
+&lt;hr>
+&lt;h2 id="基本方法上下文">基本方法/上下文&lt;/h2>
+&lt;p>Chart:&lt;/p>
+&lt;ul>
+&lt;li>chart名称，防止被拉取和标记。&lt;/li>
+&lt;li>&amp;lt;repo_name&amp;gt;/&amp;lt;chart_name&amp;gt; 防止已添加但未被拉取的库。&lt;/li>
+&lt;li>chart使用URL绝对路径。&lt;/li>
+&lt;/ul>
+&lt;p>Name:&lt;/p>
+&lt;ul>
+&lt;li>当前安装的helm chart的名称。&lt;/li>
+&lt;/ul>
+&lt;p>Release:&lt;/p>
+&lt;ul>
+&lt;li>赋予安装实例的名称。&lt;/li>
+&lt;/ul>
+&lt;p>Revision:&lt;/p>
+&lt;ul>
+&lt;li>Helm 历史命令的值&lt;/li>
+&lt;/ul>
+&lt;p>Repo-name:&lt;/p>
+&lt;ul>
+&lt;li>仓库名称&lt;/li>
+&lt;/ul>
+&lt;p>DIR:&lt;/p>
+&lt;ul>
+&lt;li>目录 name/path&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="chart-管理">Chart 管理&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm create &amp;lt;name&amp;gt; &lt;span style="color:#09f;font-style:italic"># Creates a chart directory along with the common files and directories used in a chart.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm package &amp;lt;chart-path&amp;gt; &lt;span style="color:#09f;font-style:italic"># Packages a chart into a versioned chart archive file.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm lint &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Run tests to examine a chart and identify possible issues:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm show all &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Inspect a chart and list its contents:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm show values &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Displays the contents of the values.yaml file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm pull &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Download/pull chart &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm pull &amp;lt;chart&amp;gt; --untar&lt;span style="color:#555">=&lt;/span>&lt;span style="color:#366">true&lt;/span> &lt;span style="color:#09f;font-style:italic"># If set to true, will untar the chart after downloading it&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm pull &amp;lt;chart&amp;gt; --verify &lt;span style="color:#09f;font-style:italic"># Verify the package before using it&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm pull &amp;lt;chart&amp;gt; --version &amp;lt;number&amp;gt; &lt;span style="color:#09f;font-style:italic"># Default-latest is used, specify a version constraint for the chart version to use&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm dependency list &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Display a list of a chart’s dependencies:&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="安装和卸载应用">安装和卸载应用&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Install the chart with a name&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --namespace &amp;lt;namespace&amp;gt; &lt;span style="color:#09f;font-style:italic"># Install the chart in a specific namespace&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --set &lt;span style="color:#033">key1&lt;/span>&lt;span style="color:#555">=&lt;/span>val1,key2&lt;span style="color:#555">=&lt;/span>val2 &lt;span style="color:#09f;font-style:italic"># Set values on the command line (can specify multiple or separate values with commas)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --values &amp;lt;yaml-file/url&amp;gt; &lt;span style="color:#09f;font-style:italic"># Install the chart with your specified values&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --dry-run --debug &lt;span style="color:#09f;font-style:italic"># Run a test installation to validate chart (p)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --verify &lt;span style="color:#09f;font-style:italic"># Verify the package before using it &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm install &amp;lt;name&amp;gt; &amp;lt;chart&amp;gt; --dependency-update &lt;span style="color:#09f;font-style:italic"># update dependencies if they are missing before installing the chart&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm uninstall &amp;lt;name&amp;gt; &lt;span style="color:#09f;font-style:italic"># Uninstall a release&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="应用升级和回滚">应用升级和回滚&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; &lt;span style="color:#09f;font-style:italic"># Upgrade a release&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --atomic &lt;span style="color:#09f;font-style:italic"># If set, upgrade process rolls back changes made in case of failed upgrade.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --dependency-update &lt;span style="color:#09f;font-style:italic"># update dependencies if they are missing before installing the chart&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --version &amp;lt;version_number&amp;gt; &lt;span style="color:#09f;font-style:italic"># specify a version constraint for the chart version to use&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --values &lt;span style="color:#09f;font-style:italic"># specify values in a YAML file or a URL (can specify multiple)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --set &lt;span style="color:#033">key1&lt;/span>&lt;span style="color:#555">=&lt;/span>val1,key2&lt;span style="color:#555">=&lt;/span>val2 &lt;span style="color:#09f;font-style:italic"># Set values on the command line (can specify multiple or separate valuese)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm upgrade &amp;lt;release&amp;gt; &amp;lt;chart&amp;gt; --force &lt;span style="color:#09f;font-style:italic"># Force resource updates through a replacement strategy&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm rollback &amp;lt;release&amp;gt; &amp;lt;revision&amp;gt; &lt;span style="color:#09f;font-style:italic"># Roll back a release to a specific revision&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm rollback &amp;lt;release&amp;gt; &amp;lt;revision&amp;gt; --cleanup-on-fail &lt;span style="color:#09f;font-style:italic"># Allow deletion of new resources created in this rollback when rollback fails&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="列出添加移除和升级仓库">列出，添加，移除和升级仓库&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm repo add &amp;lt;repo-name&amp;gt; &amp;lt;url&amp;gt; &lt;span style="color:#09f;font-style:italic"># Add a repository from the internet:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo list &lt;span style="color:#09f;font-style:italic"># List added chart repositories&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo update &lt;span style="color:#09f;font-style:italic"># Update information of available charts locally from chart repositories&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo remove &amp;lt;repo_name&amp;gt; &lt;span style="color:#09f;font-style:italic"># Remove one or more chart repositories&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo index &amp;lt;DIR&amp;gt; &lt;span style="color:#09f;font-style:italic"># Read the current directory and generate an index file based on the charts found.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm repo index &amp;lt;DIR&amp;gt; --merge &lt;span style="color:#09f;font-style:italic"># Merge the generated index with an existing index file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm search repo &amp;lt;keyword&amp;gt; &lt;span style="color:#09f;font-style:italic"># Search repositories for a keyword in charts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm search hub &amp;lt;keyword&amp;gt; &lt;span style="color:#09f;font-style:italic"># Search for charts in the Artifact Hub or your own hub instance&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="helm-发布检测">Helm 发布检测&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm list &lt;span style="color:#09f;font-style:italic"># Lists all of the releases for a specified namespace, uses current namespace context if namespace not specified&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --all &lt;span style="color:#09f;font-style:italic"># Show all releases without any filter applied, can use -a&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --all-namespaces &lt;span style="color:#09f;font-style:italic"># List releases across all namespaces, we can use -A&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list -l &lt;span style="color:#033">key1&lt;/span>&lt;span style="color:#555">=&lt;/span>value1,key2&lt;span style="color:#555">=&lt;/span>value2 &lt;span style="color:#09f;font-style:italic"># Selector (label query) to filter on, supports &amp;#39;=&amp;#39;, &amp;#39;==&amp;#39;, and &amp;#39;!=&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --date &lt;span style="color:#09f;font-style:italic"># Sort by release date&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --deployed &lt;span style="color:#09f;font-style:italic"># Show deployed releases. If no other is specified, this will be automatically enabled&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --pending &lt;span style="color:#09f;font-style:italic"># Show pending releases&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --failed &lt;span style="color:#09f;font-style:italic"># Show failed releases&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --uninstalled &lt;span style="color:#09f;font-style:italic"># Show uninstalled releases (if &amp;#39;helm uninstall --keep-history&amp;#39; was used)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list --superseded &lt;span style="color:#09f;font-style:italic"># Show superseded releases&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm list -o yaml &lt;span style="color:#09f;font-style:italic"># Prints the output in the specified format. Allowed values: table, json, yaml (default table)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm status &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># This command shows the status of a named release.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm status &amp;lt;release&amp;gt; --revision &amp;lt;number&amp;gt; &lt;span style="color:#09f;font-style:italic"># if set, display the status of the named release with revision&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm &lt;span style="color:#366">history&lt;/span> &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># Historical revisions for a given release.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm env &lt;span style="color:#09f;font-style:italic"># Env prints out all the environment information in use by Helm.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="下载发布信息">下载发布信息&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm get all &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># A human readable collection of information about the notes, hooks, supplied values, and generated manifest file of the given release.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm get hooks &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># This command downloads hooks for a given release. Hooks are formatted in YAML and separated by the YAML &amp;#39;---\n&amp;#39; separator.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm get manifest &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># A manifest is a YAML-encoded representation of the Kubernetes resources that were generated from this release&amp;#39;s chart(s). If a chart is dependent on other charts, those resources will also be included in the manifest.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm get notes &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># Shows notes provided by the chart of a named release.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm get values &amp;lt;release&amp;gt; &lt;span style="color:#09f;font-style:italic"># Downloads a values file for a given release. use -o to format output&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="插件管理">插件管理&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>helm plugin install &amp;lt;path/url1&amp;gt; &lt;span style="color:#09f;font-style:italic"># Install plugins&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm plugin list &lt;span style="color:#09f;font-style:italic"># View a list of all installed plugins&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm plugin update &amp;lt;plugin&amp;gt; &lt;span style="color:#09f;font-style:italic"># Update plugins&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>helm plugin uninstall &amp;lt;plugin&amp;gt; &lt;span style="color:#09f;font-style:italic"># Uninstall a plugin&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;hr></description></item></channel></rss>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>차트 템플릿 가이드 on 헬름</title><link>https://helm.sh/ko/docs/chart_template_guide/</link><description>Recent content in 차트 템플릿 가이드 on 헬름</description><generator>Hugo</generator><language>ko</language><atom:link href="https://helm.sh/ko/docs/chart_template_guide/index.xml" rel="self" type="application/rss+xml"/><item><title>시작하기</title><link>https://helm.sh/ko/docs/chart_template_guide/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/getting_started/</guid><description>&lt;p>이 섹션에서는 차트를 만든 다음 첫 번째 템플릿을 추가할 것이다.
+우리가 여기서 만든 차트는 가이드의 나머지 부분에서 쭉 사용될 것이다.&lt;/p>
+&lt;p>시작하기 위해 헬름 차트를 간단히 살펴보자.&lt;/p>
+&lt;h2 id="차트">차트&lt;/h2>
+&lt;p>
+&lt;a href="https://helm.sh/docs/topics/charts/">차트 가이드&lt;/a>에 설명된 대로,
+헬름 차트는 다음과 같이 구성된다:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>mychart/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>templates/&lt;/code> 디렉토리는 템플릿 파일을 위한 것이다.
+헬름이 차트를 평가할 때,
+&lt;code>templates/&lt;/code> 디렉토리의 모든 파일을 템플릿 렌더링 엔진으로 전달한다.
+그리고 나서 처리 결과를 모아 쿠버네티스로 보낸다.&lt;/p></description></item><item><title>빌트인 객체</title><link>https://helm.sh/ko/docs/chart_template_guide/builtin_objects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/builtin_objects/</guid><description>&lt;p>객체는 템플릿 엔진에서 템플릿으로 전달된다. 그리고 사용자의 코드는
+객체를 전달할 수 있다. (&lt;code>with&lt;/code> 와 &lt;code>range&lt;/code> 문을 볼 때
+예제로 확인할 수 있다.) 이후에 보게 될 &lt;code>tuple&lt;/code> 함수와 같이
+템플릿 내에서 새로운 객체를 만드는 몇 가지 방법이 있다.&lt;/p>
+&lt;p>객체는 간단히 하나의 값만 가질 수도 있다. 또는 다른
+객체나 기능을 포함할 수 있다. 예를 들어, &lt;code>Release&lt;/code> 객체는
+(&lt;code>Release.Name&lt;/code> 과 같은) 여러 객체를 포함하며 &lt;code>Files&lt;/code> 객체는 몇 가지 함수를 가지고 있다.&lt;/p>
+&lt;p>이전 섹션에서는 템플릿에 릴리즈 이름을 삽입하기 위해
+&lt;code>{{.Release.Name}}&lt;/code> 을 사용하였다. &lt;code>Release&lt;/code> 는 내 템플릿에
+접근할 수 있는 최상위 객체 중 하나이다.&lt;/p></description></item><item><title>Values 파일</title><link>https://helm.sh/ko/docs/chart_template_guide/values_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/values_files/</guid><description>&lt;p>이전 섹션에서 우리는 헬름 템플릿에서 제공하는 빌트인 객체를 살펴봤다. 기본 객체 중 하나는 &lt;code>Values&lt;/code>이다. 이 객체는 차트로 전달된 값에 접근할 수 있게 해준다. 이 객체의 내용들은 여러 출처에서 나온다:&lt;/p>
+&lt;ul>
+&lt;li>본 차트에 포함된 &lt;code>values.yaml&lt;/code> 파일&lt;/li>
+&lt;li>서브 차트의 경우, 부모 차트의 &lt;code>values.yaml&lt;/code> 파일&lt;/li>
+&lt;li>&lt;code>-f&lt;/code> 플래그 (&lt;code>helm install -f myvals.yaml ./mychart&lt;/code>)가 있는 &lt;code>helm install&lt;/code> 또는 &lt;code>helm upgrade&lt;/code>로 전달된 &lt;code>values.yaml&lt;/code> 파일&lt;/li>
+&lt;li>&lt;code>--set&lt;/code> (such as &lt;code>helm install --set foo=bar ./mychart&lt;/code>)과 함께 전달된 개별 매개변수&lt;/li>
+&lt;/ul>
+&lt;p>위 목록은 적용될 값의 순서이다: 기본 값인 &lt;code>values.yaml&lt;/code>은 부모 차트의 &lt;code>values.yaml&lt;/code>에 의해 재정의될 수 있고, 사용자가 제공한 &lt;code>values.yaml&lt;/code> 파일에 의해 재정의될 수 있으며, &lt;code>--set&lt;/code> 매개변수에 의해 재정의될 수 있다.&lt;/p></description></item><item><title>템플릿 함수와 파이프라인</title><link>https://helm.sh/ko/docs/chart_template_guide/functions_and_pipelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/functions_and_pipelines/</guid><description>&lt;p>So far, we've seen how to place information into a template. But that
+information is placed into the template unmodified. Sometimes we want to
+transform the supplied data in a way that makes it more useable to us.&lt;/p>
+&lt;p>Let's start with a best practice: When injecting strings from the &lt;code>.Values&lt;/code>
+object into the template, we ought to quote these strings. We can do that by
+calling the &lt;code>quote&lt;/code> function in the template directive:&lt;/p></description></item><item><title>템플릿 함수 목록</title><link>https://helm.sh/ko/docs/chart_template_guide/function_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/function_list/</guid><description>&lt;p>헬름에는 템플릿에서 활용할 수 있는 많은 템플릿 함수들이 포함되어 있다.
+여기에 나열되며 다음 범주로 분류된다.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="#%ec%95%94%ed%98%b8%ed%99%94-%eb%b0%8f-%eb%b3%b4%ec%95%88-%ed%95%a8%ec%88%98">암호화 및 보안&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%82%a0%ec%a7%9c-%ed%95%a8%ec%88%98">날짜&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%82%ac%ec%a0%84-%eb%b0%8f-%ec%82%ac%ec%a0%84-%ed%95%a8%ec%88%98">사전&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%9d%b8%ec%bd%94%eb%94%a9-%ed%95%a8%ec%88%98">인코딩&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ed%8c%8c%ec%9d%bc-%ea%b2%bd%eb%a1%9c-%ed%95%a8%ec%88%98">파일 경로&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%bf%a0%eb%b2%84%eb%84%a4%ed%8b%b0%ec%8a%a4-%eb%b0%8f-%ec%b0%a8%ed%8a%b8-%ed%95%a8%ec%88%98">쿠버네티스 및 차트&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%85%bc%eb%a6%ac-%eb%b0%8f-%ed%9d%90%eb%a6%84-%ec%a0%9c%ec%96%b4-%ed%95%a8%ec%88%98">논리 및 흐름 제어&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%aa%a9%eb%a1%9d-%eb%b0%8f-%eb%aa%a9%eb%a1%9d-%ed%95%a8%ec%88%98">목록&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%88%98%ed%95%99-%ed%95%a8%ec%88%98">수학&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%84%a4%ed%8a%b8%ec%9b%8c%ed%81%ac-%ed%95%a8%ec%88%98">네트워크&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%a6%ac%ed%94%8c%eb%a0%89%ec%85%98-%ed%95%a8%ec%88%98">리플렉션&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%a0%95%ea%b7%9c-%ed%91%9c%ed%98%84%ec%8b%9d">정규 표현식&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%9c%a0%ec%9d%98%ec%a0%81-%eb%b2%84%ec%a0%84-%ed%95%a8%ec%88%98">유의적 버전&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%eb%ac%b8%ec%9e%90%ec%97%b4-%ed%95%a8%ec%88%98">문자열&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ed%98%95-%eb%b3%80%ed%99%98-%ed%95%a8%ec%88%98">형 변환&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#url-%ed%95%a8%ec%88%98">URL&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#uuid-%ed%95%a8%ec%88%98">UUID&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="논리-및-흐름-제어-함수">논리 및 흐름 제어 함수&lt;/h2>
+&lt;p>헬름은
+
+&lt;a href="#and">and&lt;/a>, 
+&lt;a href="#coalesce">coalesce&lt;/a>, 
+&lt;a href="#default">default&lt;/a>, 
+&lt;a href="#empty">empty&lt;/a>, 
+&lt;a href="#eq">eq&lt;/a>, 
+&lt;a href="#fail">fail&lt;/a>,
+
+&lt;a href="#ge">ge&lt;/a>, 
+&lt;a href="#gt">gt&lt;/a>, 
+&lt;a href="#le">le&lt;/a>, 
+&lt;a href="#lt">lt&lt;/a>, 
+&lt;a href="#ne">ne&lt;/a>, 
+&lt;a href="#not">not&lt;/a>, 
+&lt;a href="#or">or&lt;/a> 를
+포함한 수많은 논리 및 흐름 제어 기능이 포함되어 있다.&lt;/p>
+&lt;h3 id="and">and&lt;/h3>
+&lt;p>두 인수의 불리언 and를 반환한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>and .Arg1 .Arg2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="or">or&lt;/h3>
+&lt;p>두 인수의 불리언 or를 반환한다.
+비어 있지 않은 첫 번째 인수 또는 마지막 인수를 반환한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>or .Arg1 .Arg2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="not">not&lt;/h3>
+&lt;p>인수의 불리언 부정을 반환한다.&lt;/p></description></item><item><title>흐름(flow) 제어</title><link>https://helm.sh/ko/docs/chart_template_guide/control_structures/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/control_structures/</guid><description>&lt;p>Control structures (called &amp;quot;actions&amp;quot; in template parlance) provide you, the
+template author, with the ability to control the flow of a template's
+generation. Helm's template language provides the following control structures:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>if&lt;/code>/&lt;code>else&lt;/code> - 조건부 블록 생성&lt;/li>
+&lt;li>&lt;code>with&lt;/code> - 스코프 지정&lt;/li>
+&lt;li>&lt;code>range&lt;/code> - &amp;quot;for each&amp;quot; 스타일 반복문 제공&lt;/li>
+&lt;/ul>
+&lt;p>In addition to these, it provides a few actions for declaring and using named
+template segments:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>define&lt;/code> declares a new named template inside of your template&lt;/li>
+&lt;li>&lt;code>template&lt;/code> imports a named template&lt;/li>
+&lt;li>&lt;code>block&lt;/code> declares a special kind of fillable template area&lt;/li>
+&lt;/ul>
+&lt;p>In this section, we'll talk about &lt;code>if&lt;/code>, &lt;code>with&lt;/code>, and &lt;code>range&lt;/code>. The others are
+covered in the &amp;quot;Named Templates&amp;quot; section later in this guide.&lt;/p></description></item><item><title>변수</title><link>https://helm.sh/ko/docs/chart_template_guide/variables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/variables/</guid><description>&lt;p>With functions, pipelines, objects, and control structures under our belts, we
+can turn to one of the more basic ideas in many programming languages:
+variables. In templates, they are less frequently used. But we will see how to
+use them to simplify code, and to make better use of &lt;code>with&lt;/code> and &lt;code>range&lt;/code>.&lt;/p>
+&lt;p>In an earlier example, we saw that this code will fail:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- with .Values.favorite }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">drink&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.drink | default &amp;#34;tea&amp;#34; | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">food&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.food | upper | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">release&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Release.Name&lt;/code> is not inside of the scope that's restricted in the &lt;code>with&lt;/code> block.
+One way to work around scoping issues is to assign objects to variables that can
+be accessed without respect to the present scope.&lt;/p></description></item><item><title>지명 템플릿</title><link>https://helm.sh/ko/docs/chart_template_guide/named_templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/named_templates/</guid><description>&lt;p>It is time to move beyond one template, and begin to create others. In this
+section, we will see how to define &lt;em>named templates&lt;/em> in one file, and then use
+them elsewhere. A &lt;em>named template&lt;/em> (sometimes called a &lt;em>partial&lt;/em> or a
+&lt;em>subtemplate&lt;/em>) is simply a template defined inside of a file, and given a name.
+We'll see two ways to create them, and a few different ways to use them.&lt;/p></description></item><item><title>NOTES.txt 파일 작성하기</title><link>https://helm.sh/ko/docs/chart_template_guide/notes_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/notes_files/</guid><description>&lt;p>이 섹션에서는 차트 사용자에게 지침을 제공하는 헬름의 도구들을 살펴본다.
+&lt;code>helm install&lt;/code> 이나 &lt;code>helm upgrade&lt;/code> 가 끝나면,
+헬름은 사용자에게 유용한 정보들을 출력할 수 있다.
+이 정보는 템플릿을 사용하여 많은 부분을 커스터마이징할 수 있다.&lt;/p>
+&lt;p>차트에 설치 메모를 추가하기 위해, 간단하게 &lt;code>templates/NOTES.txt&lt;/code>
+파일을 생성한다. 이 파일은 평범한 텍스트이지만, 템플릿처럼 처리되며
+모든 일반 템플릿 기능과 객체를 사용할 수 있다.&lt;/p>
+&lt;p>간단히 &lt;code>NOTES.txt&lt;/code> 파일을 생성한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>Thank you for installing {{ .Chart.Name }}.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Your release is named {{ .Release.Name }}.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>To learn more about the release, try:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $ helm status {{ .Release.Name }}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> $ helm get all {{ .Release.Name }}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이제 &lt;code>helm install rude-cardinal ./mychart&lt;/code> 를 실행하면 하단에 이런 메세지가
+표시된다.&lt;/p></description></item><item><title>템플릿 내부 파일 접근하기</title><link>https://helm.sh/ko/docs/chart_template_guide/accessing_files/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/accessing_files/</guid><description>&lt;p>이전 항목에서 지명 템플릿을 만들고 액세스하는 몇 가지 방법을 살펴보았다.
+이런 방법으로 다른 템플릿에서 필요한 템플릿을 쉽게 가져올 수 있다.
+하지만 때로는 &lt;em>템플릿이 아닌 파일&lt;/em> 을 가져와서
+그 내용을 템플릿 렌더러(renderer)로 보내지 않고 직접 주입(inject)하려고 하는 경우가
+있을 수 있다.&lt;/p>
+&lt;p>헬름은 &lt;code>.Files&lt;/code> 객체를 통해 파일에 액세스할 수 있게 해준다. 템플릿 예제를 확인하기 전에
+어떻게 작동하는지 살펴보자.&lt;/p>
+&lt;ul>
+&lt;li>헬름 차트에 파일을 추가해도 된다. 추가된 파일들은 하나로 묶인다.
+다만, 쿠버네티스 객체 저장소에는 제한이 있어
+차트는 1M 보다 작아야 한다.&lt;/li>
+&lt;li>어떤 파일은 &lt;code>.Files&lt;/code> 객체를 통해 액세스할 수 없는데,
+주로 보안 상의 이유 때문이다.
+&lt;ul>
+&lt;li>&lt;code>templates/&lt;/code>에 있는 파일은 액세스할 수 없다.&lt;/li>
+&lt;li>&lt;code>.helmignore&lt;/code>를 사용하여 제외된 파일은 액세스할 수 없다.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>차트는 UNIX 모드 정보를 보존해주지 않으므로
+&lt;code>.Files&lt;/code> 객체에서 온 파일의 경우, 파일 수준의 권한(permission)은
+파일의 가용성에 영향을 미치지 않는다.&lt;/li>
+&lt;/ul>
+&lt;!-- (see https://github.com/jonschlinkert/markdown-toc) -->
+&lt;!-- toc -->
+&lt;ul>
+&lt;li>
+&lt;a href="#%ea%b8%b0%eb%b3%b8-%ec%98%88%ec%a0%9c">기본-예제&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ea%b2%bd%eb%a1%9c-%ed%97%ac%ed%8d%bc">경로-헬퍼&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ea%b8%80%eb%a1%adglob-%ed%8c%a8%ed%84%b4">글롭glob-패턴&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%bb%a8%ed%94%bc%ea%b7%b8%eb%a7%b5configmap%ea%b3%bc-%ec%8b%9c%ed%81%ac%eb%a6%bfsecret-%eb%8f%84%ea%b5%ac-%ed%95%a8%ec%88%98">컨피그맵configmap과-시크릿secret-도구-함수&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#%ec%9d%b8%ec%bd%94%eb%94%a9">인코딩&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#lines-%eb%a9%94%ec%86%8c%eb%93%9c">lines-메소드&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;!-- tocstop -->
+&lt;h2 id="기본-예제">기본 예제&lt;/h2>
+&lt;p>With those caveats behind, let's write a template that reads three files into
+our ConfigMap. To get started, we will add three files to the chart, putting all
+three directly inside of the &lt;code>mychart/&lt;/code> directory.&lt;/p></description></item><item><title>서브차트와 글로벌 값</title><link>https://helm.sh/ko/docs/chart_template_guide/subcharts_and_globals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/subcharts_and_globals/</guid><description>&lt;p>To this point we have been working only with one chart. But charts can have
+dependencies, called &lt;em>subcharts&lt;/em>, that also have their own values and templates.
+In this section we will create a subchart and see the different ways we can
+access values from within templates.&lt;/p>
+&lt;p>Before we dive into the code, there are a few important details to learn about
+subcharts.&lt;/p>
+&lt;ol>
+&lt;li>A subchart is considered &amp;quot;stand-alone&amp;quot;, which means a subchart can never
+explicitly depend on its parent chart.&lt;/li>
+&lt;li>For that reason, a subchart cannot access the values of its parent.&lt;/li>
+&lt;li>A parent chart can override values for subcharts.&lt;/li>
+&lt;li>Helm has a concept of &lt;em>global values&lt;/em> that can be accessed by all charts.&lt;/li>
+&lt;/ol>
+&lt;p>As we walk through the examples in this section, many of these concepts will
+become clearer.&lt;/p></description></item><item><title>.helmignore 파일</title><link>https://helm.sh/ko/docs/chart_template_guide/helm_ignore_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/helm_ignore_file/</guid><description>&lt;p>&lt;code>.helmignore&lt;/code> 파일은 헬름 차트에 포함시키고 싶지 않은 파일들을 지정하는 데 사용한다.&lt;/p>
+&lt;p>이 파일이 있으면, &lt;code>helm package&lt;/code> 명령어는 애플리케이션을 패키징할 때 &lt;code>.helmignore&lt;/code>에서 지정한 패턴에 매칭되는 모든 파일들을 무시할 것이다.&lt;/p>
+&lt;p>이를 통해 불필요하거나 민감한 파일 또는 디렉토리들이 헬름 차트에 추가되는 것을 막을 수 있다.&lt;/p>
+&lt;p>&lt;code>.helmignore&lt;/code> 파일&lt;/p>
+&lt;p>&lt;code>.helmignore&lt;/code> 파일은 유닉스 쉘 글롭(glob) 매칭, 상대 경로 매칭, 부정(negation, 접두어 ! 사용)을 지원한다.
+한 줄에는 하나의 패턴만 있다는 것으로 취급된다.&lt;/p>
+&lt;p>&lt;code>.helmignore&lt;/code> 파일 예시는 다음과 같다.&lt;/p></description></item><item><title>템플릿 디버깅</title><link>https://helm.sh/ko/docs/chart_template_guide/debugging/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/debugging/</guid><description>&lt;p>렌더링된 템플릿이 쿠버네티스 API 서버로 전송될 때 문서 형식
+이외의 이유로 YAML 파일들이 거부될 수 있기 때문에,
+템플릿 디버깅은 다소 까다로울 수 있다.&lt;/p>
+&lt;p>디버깅에 도움이 되는 몇 가지 명령어들이 있다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>helm lint&lt;/code> 는 내 차트가 모범 사례에 맞는지 검증하는 믿을만한
+도구이다.&lt;/li>
+&lt;li>&lt;code>helm install --dry-run --debug&lt;/code> 혹은 &lt;code>helm template --debug&lt;/code>: 앞에서 설명한 적이 있는
+방법이다. 서버가 템플릿을 렌더링한 결과물을 매니페스트 파일로 돌려받아 볼 수 있는
+매우 유용한 방법이다.&lt;/li>
+&lt;li>&lt;code>helm get manifest&lt;/code>: 서버에 어떤 템플릿들이 설치되어 있는지 알아 볼 수 있는 유용한
+방법이다.&lt;/li>
+&lt;/ul>
+&lt;p>내 YAML이 파싱에 실패했지만, 무엇이 생성되는지를 확인해보고 싶을 때,
+템플릿에서 문제가 되는 섹션을 주석처리하고 &lt;code>helm install --dry-run --debug&lt;/code> 를 다시 실행해보면
+YAML 을 쉽게 확인해 볼 수 있다.&lt;/p></description></item><item><title>다음 단계</title><link>https://helm.sh/ko/docs/chart_template_guide/wrapping_up/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/wrapping_up/</guid><description>&lt;p>본 가이드는 차트 개발자에게 헬름의 템플릿 언어를 사용하는 방법을 깊이 이해시키기 위한 것이다.
+템플릿 개발의 기술적 관점이 중심이 된다.&lt;/p>
+&lt;p>그러나 이 가이드에서도 실제 차트 개발에 필요한 많은 것들을 모두 다루지는 못했다.
+새로운 차트를 작성할 때 도움이 되는 다른 유용한 문서들은 다음과 같다.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="https://github.com/helm/charts" target="_blank">Helm Charts project&lt;/a> is an indispensable source of charts. That project is also sets the standard for best practices in chart development.&lt;/li>
+&lt;li>The Kubernetes 
+&lt;a href="https://kubernetes.io/docs/home/" target="_blank">Documentation&lt;/a> provides detailed examples of the various resource kinds that you can use, from ConfigMaps and Secrets to DaemonSets and Deployments.&lt;/li>
+&lt;li>The Helm 
+&lt;a href="https://helm.sh/docs/topics/charts/">Charts Guide&lt;/a> explains the workflow of using charts.&lt;/li>
+&lt;li>The Helm 
+&lt;a href="https://helm.sh/docs/topics/charts_hooks/">Chart Hooks Guide&lt;/a> explains how to create lifecycle hooks.&lt;/li>
+&lt;li>The Helm 
+&lt;a href="https://helm.sh/docs/howto/charts_tips_and_tricks/">Charts Tips and Tricks&lt;/a> article provides some useful tips for writing charts.&lt;/li>
+&lt;li>The 
+&lt;a href="https://github.com/Masterminds/sprig" target="_blank">Sprig documentation&lt;/a> documents more than sixty of the template functions.&lt;/li>
+&lt;li>The 
+&lt;a href="https://godoc.org/text/template" target="_blank">Go template docs&lt;/a> explain the template syntax in detail.&lt;/li>
+&lt;li>The 
+&lt;a href="https://github.com/databus23/schelm" target="_blank">Schelm tool&lt;/a> is a nice helper utility for debugging charts.&lt;/li>
+&lt;/ul>
+&lt;p>Sometimes it's easier to ask a few questions and get answers from experienced developers. The best place to do this is in the 
+&lt;a href="https://kubernetes.slack.com" target="_blank">Kubernetes Slack&lt;/a> Helm channels:&lt;/p></description></item><item><title>부록: YAML 기법</title><link>https://helm.sh/ko/docs/chart_template_guide/yaml_techniques/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/yaml_techniques/</guid><description>&lt;p>Most of this guide has been focused on writing the template language. Here,
+we'll look at the YAML format. YAML has some useful features that we, as
+template authors, can use to make our templates less error prone and easier to
+read.&lt;/p>
+&lt;h2 id="스칼라scalar와-콜렉션collection">스칼라(scalar)와 콜렉션(collection)&lt;/h2>
+&lt;p>According to the 
+&lt;a href="https://yaml.org/spec/1.2/spec.html" target="_blank">YAML spec&lt;/a>, there are two
+types of collections, and many scalar types.&lt;/p>
+&lt;p>The two types of collections are maps and sequences:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">map&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">one&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">1&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">two&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">2&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">three&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">3&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">sequence&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- one&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- two&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- three&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Scalar values are individual values (as opposed to collections)&lt;/p></description></item><item><title>부록: Go 자료형과 템플릿</title><link>https://helm.sh/ko/docs/chart_template_guide/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_template_guide/data_types/</guid><description>&lt;p>헬름 템플릿 언어는 강한 타이핑(strongly typed)인 Go 프로그래밍 언어로 구현된다.
+이러한 이유로, 템플릿에서의 변수는 _타이핑(typed)_된다.
+대부분의 경우, 변수는 다음 자료형 중 하나로 노출된다.&lt;/p>
+&lt;ul>
+&lt;li>string: 텍스트 문자열&lt;/li>
+&lt;li>bool: &lt;code>true&lt;/code> 또는 &lt;code>false&lt;/code>&lt;/li>
+&lt;li>int: 정수 값 (8, 16, 32, 64 비트의 부호가 있거나(signed) 없는(unsinged) 다양한 자료형이 있다)&lt;/li>
+&lt;li>float64: 64비트 부동 소수점 값 (8, 16, 32 비트의 다양한 자료형이 있다)&lt;/li>
+&lt;li>byte slice(&lt;code>[]byte&lt;/code>), 흔히 (잠재적으로) 바이너리 데이터를 담기 위해 사용된다.&lt;/li>
+&lt;li>struct(구조체): 프로퍼티와 메소드를 가지는 객체&lt;/li>
+&lt;li>위의 자료형 중 하나에 대한 슬라이스(인덱스 있는 리스트)&lt;/li>
+&lt;li>위의 자료형 중 하나에 대한 문자열-키 맵(&lt;code>map[string]interface{}&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;p>Go에는 다른 여러가지 자료형이 있는데, 템플릿에서는 때에 따라 자료형을 변환해야 할 수도 있다.
+객체 자료형을 디버그하는 가장 쉬운 방법은 템플릿 내에서 자료형을 출력하는 &lt;code>printf &amp;quot;%t&amp;quot;&lt;/code>에 전달하는 것이다.
+또한 &lt;code>typeOf&lt;/code>과 &lt;code>kindOf&lt;/code> 함수도 살펴보자.&lt;/p></description></item></channel></rss>

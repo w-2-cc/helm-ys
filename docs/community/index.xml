@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Community on Helm</title><link>https://helm.sh/docs/community/</link><description>Recent content in Community on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/community/index.xml" rel="self" type="application/rss+xml"/><item><title>Developer Guide</title><link>https://helm.sh/docs/community/developers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/community/developers/</guid><description>&lt;p>This guide explains how to set up your environment for developing on Helm.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>The latest version of Go&lt;/li>
+&lt;li>A Kubernetes cluster w/ kubectl (optional)&lt;/li>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h2 id="building-helm">Building Helm&lt;/h2>
+&lt;p>We use Make to build our programs. The simplest way to get started is:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If required, this will first install dependencies and validate configuration. It will then compile &lt;code>helm&lt;/code> and place it in
+&lt;code>bin/helm&lt;/code>.&lt;/p>
+&lt;p>To run Helm locally, you can run &lt;code>bin/helm&lt;/code>.&lt;/p></description></item><item><title>Release Checklist</title><link>https://helm.sh/docs/community/release_checklist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/community/release_checklist/</guid><description>&lt;h1 id="a-maintainers-guide-to-releasing-helm">A Maintainer's Guide to Releasing Helm&lt;/h1>
+&lt;p>Time for a new Helm release! As a Helm maintainer cutting a release, you are
+the best person to 
+&lt;a href="https://github.com/helm/helm-www/blob/main/content/en/docs/community/release_checklist.md" target="_blank">update this
+release checklist&lt;/a>
+should your experiences vary from what's documented here.&lt;/p>
+&lt;p>All releases will be of the form vX.Y.Z where X is the major version number, Y
+is the minor version number and Z is the patch release number. This project
+strictly follows 
+&lt;a href="https://semver.org/" target="_blank">semantic versioning&lt;/a> so following this
+step is critical.&lt;/p></description></item><item><title>Related Projects and Documentation</title><link>https://helm.sh/docs/community/related/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/community/related/</guid><description>&lt;p>The Helm community has produced many extra tools, plugins, and documentation
+about Helm. We love to hear about these projects.&lt;/p>
+&lt;p>If you have anything you'd like to add to this list, please open an
+
+&lt;a href="https://github.com/helm/helm-www/issues" target="_blank">issue&lt;/a> or 
+&lt;a href="https://github.com/helm/helm-www/pulls" target="_blank">pull
+request&lt;/a>.&lt;/p>
+&lt;h2 id="helm-plugins">Helm Plugins&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-adopt" target="_blank">helm-adopt&lt;/a> - A helm v3 plugin to adopt
+existing k8s resources into a new generated helm chart.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/idsulik/helm-cel" target="_blank">helm-cel&lt;/a> - Plugin that uses Common Expression Language (CEL) to validate values.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/jlandowner/helm-chartsnap" target="_blank">helm-chartsnap&lt;/a> - Snapshot testing plugin for Helm charts.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/databus23/helm-diff" target="_blank">Helm Diff&lt;/a> - Preview &lt;code>helm upgrade&lt;/code>
+as a coloured diff&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/vmware-labs/distribution-tooling-for-helm" target="_blank">Helm Dt&lt;/a> - Plugin that helps distributing Helm charts across OCI registries and on Air gap environments&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/komodorio/helm-dashboard" target="_blank">Helm Dashboard&lt;/a> - GUI for Helm, visualize releases and repositories, manifest diffs&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hayorov/helm-gcs" target="_blank">helm-gcs&lt;/a> - Plugin to manage repositories
+on Google Cloud Storage&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/aslafy-z/helm-git" target="_blank">helm-git&lt;/a> - Install charts and retrieve
+values files from your Git repositories&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/cststack/k8comp" target="_blank">helm-k8comp&lt;/a> - Plugin to create Helm
+Charts from hiera using k8comp&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/helm/helm-mapkubeapis" target="_blank">helm-mapkubeapis&lt;/a> - Update helm release
+metadata to replace deprecated or removed Kubernetes APIs&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/OctopusDeployLabs/helm-migrate-values" target="_blank">helm-migrate-values&lt;/a> - Plugin to migrate user-specified values across Helm chart versions to handle breaking schema changes in &lt;code>values.yaml&lt;/code>&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/ContainerSolutions/helm-monitor" target="_blank">helm-monitor&lt;/a> - Plugin to
+monitor a release and rollback based on Prometheus/ElasticSearch query&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/JovianX/helm-release-plugin" target="_blank">helm-release-plugin&lt;/a> - Plugin for Release management, Update release values, pulls(re-creates) helm Charts from deployed releases, set helm release TTL.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hypnoglow/helm-s3" target="_blank">helm-s3&lt;/a> - Helm plugin that allows to
+use AWS S3 as a [private] chart repository&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/karuppiah7890/helm-schema-gen" target="_blank">helm-schema-gen&lt;/a> - Helm
+Plugin that generates values yaml schema for your Helm 3 charts&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/jkroepke/helm-secrets" target="_blank">helm-secrets&lt;/a> - Plugin to manage
+and store secrets safely (based on 
+&lt;a href="https://github.com/mozilla/sops" target="_blank">sops&lt;/a>)&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/sigstore/helm-sigstore" target="_blank">helm-sigstore&lt;/a> -
+Plugin for Helm to integrate the 
+&lt;a href="https://sigstore.dev/" target="_blank">sigstore&lt;/a> ecosystem. Search, upload and verify signed Helm charts.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/Duologic/helm-tanka" target="_blank">helm-tanka&lt;/a> - A Helm plugin for
+rendering Tanka/Jsonnet inside Helm charts.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/xchapter7x/hcunit" target="_blank">hc-unit&lt;/a> - Plugin for unit testing
+charts locally using OPA (Open Policy Agent) &amp;amp; Rego&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/quintush/helm-unittest" target="_blank">helm-unittest&lt;/a> - Plugin for unit
+testing chart locally with YAML&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-val" target="_blank">helm-val&lt;/a> - A plugin to get
+values from a previous release.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/kuuji/helm-external-val" target="_blank">helm-external-val&lt;/a> - A plugin that fetches helm values from external sources (configMaps, Secrets, etc.)&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/nikhilsbhat/helm-images" target="_blank">helm-images&lt;/a> - Helm plugin to fetch all possible images from the chart before deployment or from a deployed release&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/nikhilsbhat/helm-drift" target="_blank">helm-drift&lt;/a> - Helm plugin that identifies the configuration that has drifted from the Helm chart&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/pidanou/helm-tui" target="_blank">helm-tui&lt;/a> - A light UI to manage your Helm assets without leaving the terminal&lt;/li>
+&lt;/ul>
+&lt;p>We also encourage GitHub authors to use the
+
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">helm-plugin&lt;/a>
+tag on their plugin repositories.&lt;/p></description></item><item><title>The History of the Project</title><link>https://helm.sh/docs/community/history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/community/history/</guid><description>&lt;p>Helm is a 
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/" target="_blank">graduated&lt;/a>
+
+&lt;a href="https://www.cncf.io/projects/" target="_blank">CNCF project&lt;/a>.&lt;/p>
+&lt;p>Helm began as what is now known as 
+&lt;a href="https://github.com/helm/helm-classic" target="_blank">Helm
+Classic&lt;/a>, a Deis project begun in 2015 and
+introduced at the inaugural KubeCon.&lt;/p>
+&lt;p>In January of 2016, the project merged with a GCS tool called Kubernetes
+Deployment Manager, and the project was moved under
+
+&lt;a href="https://kubernetes.io" target="_blank">Kubernetes&lt;/a>. As a result of the merging of codebases,
+Helm 2.0 was released later that year. The key feature of Deployment Manager
+that survived in Helm 2 was the server-side component, renamed from DM to Tiller
+for the final Helm 2.0 release.&lt;/p></description></item><item><title>Localizing Helm Documentation</title><link>https://helm.sh/docs/community/localization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/community/localization/</guid><description>&lt;p>This guide explains how to localize the Helm documentation.&lt;/p>
+&lt;h2 id="getting-started">Getting Started&lt;/h2>
+&lt;p>Contributions for translations use the same process as contributions for
+documentation. Translations are supplied through 
+&lt;a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">pull
+requests&lt;/a>
+to the 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a> git repository and pull
+requests are reviewed by the team that manages the website.&lt;/p>
+&lt;h3 id="two-letter-language-code">Two-letter Language Code&lt;/h3>
+&lt;p>Documentation is organized by the 
+&lt;a href="https://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank">ISO 639-1
+standard&lt;/a> for the
+language codes. For example, the two-letter code for Korean is &lt;code>ko&lt;/code>.&lt;/p>
+&lt;p>In content and configuration you will find the language code in use. Here are 3
+examples:&lt;/p></description></item></channel></rss>

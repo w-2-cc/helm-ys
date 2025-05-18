@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>最佳实践 on Helm</title><link>https://helm.sh/zh/docs/chart_best_practices/</link><description>Recent content in 最佳实践 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/chart_best_practices/index.xml" rel="self" type="application/rss+xml"/><item><title>一般惯例</title><link>https://helm.sh/zh/docs/chart_best_practices/conventions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/conventions/</guid><description>&lt;p>最佳实践的这部分阐述了一般惯例。&lt;/p>
+&lt;h2 id="chart名称">Chart名称&lt;/h2>
+&lt;p>chart名称必须是小写字母和数字。单词之间 &lt;em>可以&lt;/em> 使用横杠分隔(-)：&lt;/p>
+&lt;p>示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>drupal&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>nginx-lego&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>aws-cluster-autoscaler&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>chart名称中不能用大写字母也不能用下划线。点 . 符号也不行。&lt;/p>
+&lt;h2 id="版本号">版本号&lt;/h2>
+&lt;p>Helm尽可能使用
+&lt;a href="https://semver.org" target="_blank">SemVer 2&lt;/a>来表示版本号。（注意Docker镜像的tag不一定遵循SemVer，
+因此被认为是一个不幸的例外规则。）&lt;/p>
+&lt;p>当SemVer版本存储在Kubernetes标签中时，我们通常把&lt;code>+&lt;/code>字符改成&lt;code>_&lt;/code>，因为标签不允许使用&lt;code>+&lt;/code>作为值进行签名。&lt;/p>
+&lt;h2 id="格式化yaml">格式化YAML&lt;/h2>
+&lt;p>YAML 文件应该按照 &lt;em>双空格&lt;/em> 缩进(绝不要使用tab键)。&lt;/p>
+&lt;h2 id="helm-和-chart的用法">Helm 和 Chart的用法&lt;/h2>
+&lt;p>以下是几个 &lt;em>Helm&lt;/em> 和 &lt;em>helm&lt;/em> 的惯用方法。&lt;/p>
+&lt;ul>
+&lt;li>&lt;em>Helm&lt;/em> 是指整个项目&lt;/li>
+&lt;li>&lt;code>helm&lt;/code> 是指客户端命令&lt;/li>
+&lt;li>&lt;code>chart&lt;/code> 不是专有名词，不需要首字母大写&lt;/li>
+&lt;li>但&lt;code>Chart.yaml&lt;/code>需要首字母大写，因为文件名大小写敏感&lt;/li>
+&lt;/ul>
+&lt;p>若有疑问，使用 &lt;em>Helm&lt;/em> ('H'大写).&lt;/p></description></item><item><title>values</title><link>https://helm.sh/zh/docs/chart_best_practices/values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/values/</guid><description>&lt;p>最佳实践的该部分包括了values的使用。这部分指南中，我们提供了关于你如何构建和使用values的建议，以及专注于设计chart的 &lt;code>values.yaml&lt;/code>文件。&lt;/p>
+&lt;h2 id="命名规范">命名规范&lt;/h2>
+&lt;p>变量名称以小写字母开头，单词按驼峰区分：&lt;/p>
+&lt;p>正确的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chickenNoodleSoup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>错误的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">Chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># initial caps may conflict with built-ins&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chicken-noodle-soup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># do not use hyphens in the name&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意所有的Helm内置变量以大写字母开头，以便与用户定义的value进行区分：&lt;code>.Release.Name&lt;/code>，&lt;code>.Capabilities.KubeVersion&lt;/code>。&lt;/p>
+&lt;h2 id="扁平或嵌套的value">扁平或嵌套的Value&lt;/h2>
+&lt;p>YAML是一种灵活格式，值可以嵌套得很深，也可以是扁平的。&lt;/p>
+&lt;p>嵌套的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">server&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>nginx&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">80&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>扁平的&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">serverName&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>nginx&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serverPort&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">80&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>大多数场景中，扁平的优于嵌套的。因为对模板开发者和用户来说更加简单。&lt;/p>
+&lt;p>为了最佳的安全性，嵌套值的每一层都必须检查：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{&lt;span style="color:#bbb"> &lt;/span>if .Values.server }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;none&amp;#34; .Values.server.name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于每个嵌套层，都必须进行存在性检查。但对于扁平的配置，使得模板更易于阅读和使用，这个检查可以跳过。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{&lt;span style="color:#bbb"> &lt;/span>default &amp;#34;none&amp;#34; .Values.serverName }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当有大量的相关变量时，其中至少有一个是非选择性的，嵌套的值可以改善可读性。&lt;/p>
+&lt;h2 id="搞清楚类型">搞清楚类型&lt;/h2>
+&lt;p>YAML的类型强制规则有时候是很反常的。比如，&lt;code>foo: false&lt;/code> 和 &lt;code>foo: &amp;quot;false&amp;quot;&lt;/code> 是不一样的。大整型数如：&lt;code>foo: 12345678&lt;/code>
+有时会被转换成科学计数法。&lt;/p></description></item><item><title>模板</title><link>https://helm.sh/zh/docs/chart_best_practices/templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/templates/</guid><description>&lt;p>最佳实践指南的这部分聚焦于模板。&lt;/p>
+&lt;h2 id="templates结构">&lt;code>templates/&lt;/code>结构&lt;/h2>
+&lt;p>&lt;code>templates/&lt;/code>目录结构应该如下：&lt;/p>
+&lt;ul>
+&lt;li>如果生成YAML输出，模板文件应该有扩展名&lt;code>.yaml&lt;/code>。
+扩展名是&lt;code>.tpl&lt;/code>可用于生成非格式化内容的模板文件。&lt;/li>
+&lt;li>模板文件名称应该使用横杠符号(&lt;code>my-example-configmap.yaml&lt;/code>)，不用驼峰记法。&lt;/li>
+&lt;li>每个资源的定义应该在它自己的模板文件中。&lt;/li>
+&lt;li>模板文件的名称应该反映名称中的资源类型。比如：&lt;code>foo-pod.yaml&lt;/code>， &lt;code>bar-svc.yaml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="定义模板的名称">定义模板的名称&lt;/h2>
+&lt;p>定义的模板(在&lt;code>{{ define }}&lt;/code>命令中定义的模板)是可全局访问的。这就意味着chart和所有的子chart都可以访问用&lt;code>{{ define }}&lt;/code>创建的所有模板。&lt;/p>
+&lt;p>因此， &lt;em>所有定义的模板名称应该被命名空间化。&lt;/em>&lt;/p>
+&lt;p>正确的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;nginx.fullname&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{/* ... */}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>不正确的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;fullname&amp;#34; -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{/* ... */}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>强烈建议通过&lt;code>helm create&lt;/code>命令创建新chart，因为模板名称是根据此最佳实践自动定义的。&lt;/p>
+&lt;h2 id="格式化模板">格式化模板&lt;/h2>
+&lt;p>模板应该使用两个 &lt;em>空格&lt;/em> 缩进（永远不要用tab）。&lt;/p>
+&lt;p>模板命令的大括号前后应该使用空格：&lt;/p>
+&lt;p>正确的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{&lt;span style="color:#bbb"> &lt;/span>.foo }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>print &amp;#34;foo&amp;#34; }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- print &amp;#34;bar&amp;#34; -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>不正确的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{.foo}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{print &amp;#34;foo&amp;#34;}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{-print &amp;#34;bar&amp;#34;-}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>模板应该尽可能多地使用空格：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">foo&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- range .Values.items }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>. }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>块(例如控制结构) 可以缩进表示模板代码流。&lt;/p></description></item><item><title>依赖</title><link>https://helm.sh/zh/docs/chart_best_practices/dependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/dependencies/</guid><description>&lt;p>最佳实践的这部分阐述&lt;code>Chart.yaml&lt;/code>中声明的&lt;code>dependencies&lt;/code>。&lt;/p>
+&lt;h2 id="版本">版本&lt;/h2>
+&lt;p>如果有可能的话，使用版本范围而不是某个固定的版本。建议的默认设置时使用补丁级别版本的匹配：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样会匹配 &lt;code>1.2.3&lt;/code>以及该版本的任何补丁，也就是说，&lt;code>~1.2.3&lt;/code>相当于&lt;code>&amp;gt;= 1.2.3, &amp;lt; 1.3.0&lt;/code>&lt;/p>
+&lt;p>关于完整的版本匹配语法，请参照
+&lt;a href="https://github.com/Masterminds/semver#checking-version-constraints" target="_blank">语义版本文档&lt;/a>。&lt;/p>
+&lt;h3 id="预发布版本">预发布版本&lt;/h3>
+&lt;p>上述版本约束不适用于预发布版本。比如 &lt;code>version: ~1.2.3&lt;/code> 可以匹配 &lt;code>version: ~1.2.4&lt;/code> 但不能匹配 &lt;code>version: ~1.2.3-1&lt;/code>。
+预发布及补丁级别匹配如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3-0&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="仓库url">仓库URL&lt;/h3>
+&lt;p>如果可能的话，使用 &lt;code>https://&lt;/code> 仓库URL，而不是&lt;code>http://&lt;/code> URL。&lt;/p>
+&lt;p>如果这个仓库已经被添加到仓库索引文件中，仓库名称可以作为URL的别名。使用&lt;code>alias:&lt;/code> 或 &lt;code>@&lt;/code> 后跟仓库名称。&lt;/p>
+&lt;p>文件URL(&lt;code>file://...&lt;/code>) 被认为是一种有固定部署管道组装的chart的“特例”。&lt;/p>
+&lt;p>当使用
+&lt;a href="https://helm.sh/zh/docs/topics/plugins#%e4%b8%8b%e8%bd%bd%e6%8f%92%e4%bb%b6" target="_blank">下载器插件&lt;/a>时，URL会使用特定于插件的方案。
+注意，chart的用户需要安装一个支持该方案的插件来更新或构建依赖关系。&lt;/p>
+&lt;p>当&lt;code>repository&lt;/code>字段为空时，Helm无法对依赖项执行依赖管理操作。在这种场景下，Helm假定依赖关系位于&lt;code>charts&lt;/code>
+文件夹的子目录中，名称与依赖关系的&lt;code>name&lt;/code>属性相同。&lt;/p>
+&lt;h2 id="条件和标签">条件和标签&lt;/h2>
+&lt;p>条件和标签可以被添加到任意 &lt;em>可选的&lt;/em> 依赖中。&lt;/p>
+&lt;p>条件的首先格式是：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">condition&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>somechart.enabled&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>somechart&lt;/code>是依赖的chart名称。&lt;/p>
+&lt;p>当多个子chart（依赖）一起提供可选或可交换的特性时，这些chart应该共享相同的标签。&lt;/p>
+&lt;p>比如，如果&lt;code>nginx&lt;/code> 和 &lt;code>memcached&lt;/code>在chart中一起提供性能优化，且需要在使用该功能时同时存在，则都应该有如下的标签部分：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">tags&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- webaccelerator&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这允许用户使用一个标签打开和关闭该功能。&lt;/p></description></item><item><title>标签和注释</title><link>https://helm.sh/zh/docs/chart_best_practices/labels/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/labels/</guid><description>&lt;p>最佳实践的这部分讨论关于在chart中使用标签和注释的最佳方式。&lt;/p>
+&lt;h2 id="是标签还是注释">是标签还是注释？&lt;/h2>
+&lt;p>在以下条件下，元数据项应该是标签：&lt;/p>
+&lt;ul>
+&lt;li>Kubernetes使用它来识别这种资源&lt;/li>
+&lt;li>为了查询系统，暴露给操作员会很有用&lt;/li>
+&lt;/ul>
+&lt;p>比如，我们建议使用 &lt;code>helm.sh/chart: NAME-VERSION&lt;/code> 作为标签，以便操作员可以找到特定chart的所有实例。&lt;/p>
+&lt;p>如果元数据项不是用于查询，就应该设置为注释。&lt;/p>
+&lt;p>Helm钩子都是注释。&lt;/p>
+&lt;h2 id="标准标签">标准标签&lt;/h2>
+&lt;p>以下表格定义了Helm chart使用的通用标签。Helm本身从不要求出现特定标签。标记为REC的是推荐标签。且 &lt;em>应该&lt;/em> 放置在chart之上保持全局一致性。
+标记为OPT的是可选的。 这些是惯用的和常用的，但操作时并不经常依赖。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>名称&lt;/th>
+ &lt;th>状态&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/name&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>app名称，反应整个app。&lt;code>{{ template &amp;quot;name&amp;quot; . }}&lt;/code>经常用于此。很多Kubernetes清单会使用这个，但不是Helm指定的。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>helm.sh/chart&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>chart的名称和版本： &lt;code>{{ .Chart.Name }}-{{ .Chart.Version | replace &amp;quot;+&amp;quot; &amp;quot;_&amp;quot; }}&lt;/code>。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/managed-by&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>此值应始终设置为 &lt;code>{{ .Release.Service }}&lt;/code>。 用来查找被Helm管理的所有内容。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/instance&lt;/code>&lt;/td>
+ &lt;td>REC&lt;/td>
+ &lt;td>这个应该是&lt;code>{{ .Release.Name }}&lt;/code>。 有助于在同一应用程序中区分不同的实例。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/version&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>app的版本，且被设置为 &lt;code>{{ .Chart.AppVersion }}&lt;/code>.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/component&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>这是通用标签，用于标记块在应用程序中可能扮演的不同角色。比如 &lt;code>app.kubernetes.io/component: frontend&lt;/code>。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>app.kubernetes.io/part-of&lt;/code>&lt;/td>
+ &lt;td>OPT&lt;/td>
+ &lt;td>当多个chart或块用于构建一个应用程序时。比如，应用软件和数据库生成一个网站。这可以设置为受支持的顶级应用程序。&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>你可以在
+&lt;a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/" target="_blank">Kubernetes documentation&lt;/a>找到更多
+&lt;code>app.kubernetes.io&lt;/code>作为前缀的Kubernetes标签。&lt;/p></description></item><item><title>pod和pod模板</title><link>https://helm.sh/zh/docs/chart_best_practices/pods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/pods/</guid><description>&lt;p>最佳实践的这部分讨论在chart清单中格式化Pod和Pod模板部分。&lt;/p>
+&lt;p>以下（非详尽的）资源列表使用Pod模板：&lt;/p>
+&lt;ul>
+&lt;li>Deployment&lt;/li>
+&lt;li>ReplicationController&lt;/li>
+&lt;li>ReplicaSet&lt;/li>
+&lt;li>DaemonSet&lt;/li>
+&lt;li>StatefulSet&lt;/li>
+&lt;/ul>
+&lt;h2 id="镜像">镜像&lt;/h2>
+&lt;p>容器镜像应该使用固定的tag或镜像SHA。不应该使用&lt;code>latest&lt;/code>, &lt;code>head&lt;/code>, &lt;code>canary&lt;/code>等标签或其他被设计为“浮动的”标签。&lt;/p>
+&lt;p>镜像 &lt;em>可以&lt;/em> 被定义在 &lt;code>values.yaml&lt;/code> 文件中是的切换镜像更加容易。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.redisImage | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>镜像和tag &lt;em>可以&lt;/em> 在 &lt;code>values.yaml&lt;/code>中定义为两个独立的字段：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ .Values.redisImage }}:{{ .Values.redisTag }}&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="镜像拉取策略">镜像拉取策略&lt;/h2>
+&lt;p>&lt;code>helm create&lt;/code> 通过以下方式在&lt;code>deployment.yaml&lt;/code>中将 &lt;code>imagePullPolicy&lt;/code> 默认设置为 &lt;code>IfNotPresent&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">imagePullPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.image.pullPolicy }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>以及&lt;code>values.yaml&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">pullPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>IfNotPresent&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>类似地，如果Kubernetes根本没有定义，默认会将 &lt;code>imagePullPolicy&lt;/code> 设置为 &lt;code>IfNotPresent&lt;/code>。
+如果想设置一个值而不是 &lt;code>IfNotPresent&lt;/code>，只需在 &lt;code>values.yaml&lt;/code> 中更新为需要的值即可。&lt;/p>
+&lt;h2 id="pod模板应该声明选择器">Pod模板应该声明选择器&lt;/h2>
+&lt;p>所有的Pod模板部分应该指定一个selector。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">selector&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">matchLabels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">app.kubernetes.io/name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MyName&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">template&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">labels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">app.kubernetes.io/name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>MyName&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这是一个很好的实践，因为它建立了集合和pod之间的关系。&lt;/p></description></item><item><title>自定义资源</title><link>https://helm.sh/zh/docs/chart_best_practices/custom_resource_definitions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/custom_resource_definitions/</guid><description>&lt;p>最佳实践的这部分处理创建和使用自定义资源。&lt;/p>
+&lt;p>当使用自定义资源时(CRD)，区分两个不同的部分很重要：&lt;/p>
+&lt;ul>
+&lt;li>CRD的声明。是一个具有&lt;code>CustomResourceDefinition&lt;/code>类型的yaml文件。&lt;/li>
+&lt;li>有些资源 &lt;em>使用&lt;/em> CRD. 假设CRD定义了&lt;code>foo.example.com/v1&lt;/code>。任何有&lt;code>apiVersion: example.com/v1&lt;/code>和
+&lt;code>Foo&lt;/code>类的资源都可以使用CRD。&lt;/li>
+&lt;/ul>
+&lt;h2 id="使用资源之前安装crd声明">使用资源之前安装CRD声明&lt;/h2>
+&lt;p>Helm被优化为尽可能快地将尽可能多的资源加载到Kubernetes中。按照设计，Kubernetes可以获取一整套清单并将其全部上线
+（称之为协调循环）。&lt;/p>
+&lt;p>但CRD与此不同。&lt;/p>
+&lt;p>对于CRD来说，声明必须在所有的CRD类型资源使用之前被注册。注册过程可能需要几秒钟。&lt;/p>
+&lt;h3 id="方法1-使用-helm">方法1: 使用 &lt;code>helm&lt;/code>&lt;/h3>
+&lt;p>随着Helm 3的到来，我们去掉了旧的&lt;code>crd-install&lt;/code>钩子以便获取更简单的方法。现在可以在chart中创建一个名为&lt;code>crds&lt;/code>的特殊目录来保存CRD。
+这些CRD没有模板化，但是运行&lt;code>helm install&lt;/code>时可以为chart默认安装。如果CRD已经存在，会显示警告并跳过。如果希望跳过CRD安装步骤，
+可以使用&lt;code>--skip-crds&lt;/code>参数。&lt;/p>
+&lt;h4 id="注意事项和说明">注意事项（和说明）&lt;/h4>
+&lt;p>目前不支持使用Helm升级或删除CRD。由于数据意外丢失的风险，这是经过多次社区讨论后作出的明确决定。对于如何处理CRD及其生命周期，
+目前社区还未达成共识。随着过程的发展，Helm会逐渐支持这些场景。&lt;/p>
+&lt;p>执行&lt;code>helm install&lt;/code> 和 &lt;code>helm upgrade&lt;/code>时的&lt;code>--dry-run&lt;/code>参数目前不支持CRD。“模拟运行”的目的是检测chart的输出是否在发送到服务器时实际有效。
+但是CRD是对服务器行为的修改。Helm无法在模拟运行时安装CRD，因此客户端无法知道自定义资源(CR)，验证就会失败。
+你可以将CRD移动到自己的chart中或者使用&lt;code>helm template&lt;/code>代替。&lt;/p>
+&lt;p>在讨论CRD支持时需要考虑的另一个重要点是如何处理模板的渲染。Helm 2中使用&lt;code>crd-install&lt;/code>的一个明显缺点是，
+由于API可用性的变化导致无法有效验证chart（CRD实际上是向Kubernetes集群添加了另一个可用API）。 如果chart安装了CRD，
+&lt;code>helm&lt;/code>不再有一组有效的API版本可供使用。这也是从CRD删除模板支持的原因。有了CRD安装的新方法&lt;code>crds&lt;/code>，我们现在可以确保&lt;code>helm&lt;/code>拥有当前集群状态的完全有效的信息。&lt;/p>
+&lt;h3 id="方法2-分隔chart">方法2： 分隔chart&lt;/h3>
+&lt;p>另一个方法是将CRD定义放入chart中，然后将所有使用该CRD的资源放到 &lt;em>另一个&lt;/em> chart中。&lt;/p>
+&lt;p>这个方法要将每个chart分开安装，但对于具有集群管理员访问权限的操作员，这种工作流可能更有用。&lt;/p></description></item><item><title>基于角色的访问控制</title><link>https://helm.sh/zh/docs/chart_best_practices/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/chart_best_practices/rbac/</guid><description>&lt;p>最佳实践的这部分讨论在chart清单中创建和格式化RBAC资源。&lt;/p>
+&lt;p>RBAC 资源有：&lt;/p>
+&lt;ul>
+&lt;li>ServiceAccount (namespaced)&lt;/li>
+&lt;li>Role (namespaced)&lt;/li>
+&lt;li>ClusterRole&lt;/li>
+&lt;li>RoleBinding (namespaced)&lt;/li>
+&lt;li>ClusterRoleBinding&lt;/li>
+&lt;/ul>
+&lt;h2 id="yaml-配置">YAML 配置&lt;/h2>
+&lt;p>RBAC和服务账户配置应该使用独立的key。它们是独立的内容。在YAML中将这两个概念分开可以消除歧义使其更加清晰。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">rbac&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Specifies whether RBAC resources should be created&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serviceAccount&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># Specifies whether a ServiceAccount should be created&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># The name of the ServiceAccount to use.&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># If not set and create is true, a name is generated using the fullname template&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个结构可以在更加复杂的需要多个服务账户的chart中扩展。&lt;/p></description></item></channel></rss>

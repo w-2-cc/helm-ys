@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>모범 사례 on 헬름</title><link>https://helm.sh/ko/docs/chart_best_practices/</link><description>Recent content in 모범 사례 on 헬름</description><generator>Hugo</generator><language>ko</language><atom:link href="https://helm.sh/ko/docs/chart_best_practices/index.xml" rel="self" type="application/rss+xml"/><item><title>일반적인 관례</title><link>https://helm.sh/ko/docs/chart_best_practices/conventions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/conventions/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 일반적인 관례를 설명한다.&lt;/p>
+&lt;h2 id="차트-이름">차트 이름&lt;/h2>
+&lt;p>차트 이름은 소문자와 숫자여야 한다. 단어는 대시(-)로 구분할 수 있다.&lt;/p>
+&lt;p>예시:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-fallback" data-lang="fallback">&lt;span style="display:flex;">&lt;span>drupal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nginx-lego
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>aws-cluster-autoscaler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>대문자나 밑줄문자는 차트 이름에 사용할 수 없다. 점도 사용할 수 없다.&lt;/p>
+&lt;h2 id="버전-번호">버전 번호&lt;/h2>
+&lt;p>가능하다면 어디서든, 헬름은 버전 번호를 표현할 때 
+&lt;a href="https://semver.org" target="_blank">SemVer 2&lt;/a>를 사용한다.
+(도커 이미지 태그는 SemVer를 따를 필요가 없고
+아쉽지만 규칙에서 예외로 취급된다는 점을 알아두자.)&lt;/p>
+&lt;p>SemVer 버전을 쿠버네티스 레이블로 저장할 때,
+관례적으로 &lt;code>+&lt;/code> 문자를 &lt;code>_&lt;/code> 문자로 변경하는데,
+&lt;code>+&lt;/code> 기호는 레이블 값으로 허용되지 않기 때문이다.&lt;/p></description></item><item><title>값</title><link>https://helm.sh/ko/docs/chart_best_practices/values/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/values/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 값(values)을 사용하는 방법을 다룬다.
+여기서는 차트의 &lt;code>values.yaml&lt;/code> 파일을 설계하는 데 초점을 맞추고, 값을 어떻게 구성하고 사용할지에 대한 권고사항을 제시한다.&lt;/p>
+&lt;h2 id="네이밍-컨벤션">네이밍 컨벤션&lt;/h2>
+&lt;p>변수 이름은 소문자로 시작해야하며 단어는 카멜케이스로
+구분해야 한다.&lt;/p>
+&lt;p>올바른 경우:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chickenNoodleSoup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>잘못된 경우:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">Chicken&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># 첫 글자가 대문자이면 빌트인 변수와 충돌이 발생할 수 있다&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">chicken-noodle-soup&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># 변수명에 하이픈(-)을 사용하지 말자&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>헬름의 모든 빌트인 변수는 사용자 정의 값과 쉽게 구분할 수 있도록
+대문자로 시작한다: &lt;code>.Release.Name&lt;/code>,
+&lt;code>.Capabilities.KubeVersion&lt;/code>.&lt;/p></description></item><item><title>템플릿</title><link>https://helm.sh/ko/docs/chart_best_practices/templates/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/templates/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 템플릿을 자세히 알아본다.&lt;/p>
+&lt;h2 id="templates의-구조">&lt;code>templates/&lt;/code>의 구조&lt;/h2>
+&lt;p>&lt;code>templates/&lt;/code> 디렉토리는 다음과 같이 구조화되어야 한다.&lt;/p>
+&lt;ul>
+&lt;li>YAML을 만드는 템플릿 파일들은 확장자가 &lt;code>.yaml&lt;/code>이어야 한다.
+형식이 정해지지 않은 컨텐츠를 만드는 템플릿 파일에는 &lt;code>.tpl&lt;/code> 확장자를 쓸 수
+있다.&lt;/li>
+&lt;li>템플릿 파일 이름은 대시 표기법(&lt;code>my-example-configmap.yaml&lt;/code>)을 따라야 하며,
+카멜 표기법이 아니다.&lt;/li>
+&lt;li>각 리소스 정의는 자체 템플릿 파일 내에 있어야 한다.&lt;/li>
+&lt;li>템플릿 파일 이름은 이름 내에 리소스 종류를 반영해야 한다. 예 :
+&lt;code>foo-pod.yaml&lt;/code>,&lt;code>bar-svc.yaml&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="정의된-템플릿의-이름">정의된 템플릿의 이름&lt;/h2>
+&lt;p>정의된 템플릿 (&lt;code>{{ define }}&lt;/code> 지시문 내에 생성된 템플릿)은
+전역에서 접근가능하다. 즉, 차트와 그 모든 하위 차트는
+&lt;code>{{ define }}&lt;/code> 으로 생성된 모든 템플릿에 접근할 수 있다.&lt;/p></description></item><item><title>의존성</title><link>https://helm.sh/ko/docs/chart_best_practices/dependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/dependencies/</guid><description>&lt;p>이 부분은 가이드의 일부로서 &lt;code>Chart.yaml&lt;/code>에서 선언되는 &lt;code>dependencies&lt;/code>에 관한 모범사례를 다룬다.&lt;/p>
+&lt;h2 id="버전">버전&lt;/h2>
+&lt;p>가능하면 특정 버전을 콕 집어서 사용하기 보다는 버전 범위를 사용하자.
+권장되는 기본값은 다음과 같이 패치-수준의 버전 매치(match)를 사용하는 것이다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>~1.2.3&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이렇게 하면 &lt;code>1.2.3&lt;/code>과 그 릴리스의 다른 패치들도 매치된다.
+다시 말하면 &lt;code>~1.2.3&lt;/code>은 &lt;code>&amp;gt;= 1.2.3, &amp;lt; 1.3.0&lt;/code>과 동등하다.&lt;/p>
+&lt;p>버전 매칭 구문에 대한 자세한 설명은 
+&lt;a href="https://github.com/Masterminds/semver#checking-version-constraints" target="_blank">semver
+문서&lt;/a>에서 볼 수 있다.&lt;/p>
+&lt;h3 id="리포지터리-url">리포지터리 URL&lt;/h3>
+&lt;p>가능하면 &lt;code>https://&lt;/code> 리포지터리 URL 뒤에 &lt;code>http://&lt;/code> URL을 사용하자.&lt;/p>
+&lt;p>리포지터리가 리포지터리 인덱스 파일에 추가되면, 리포지터리 이름은 URL의 별칭으로 사용될 수 있다.
+&lt;code>alias:&lt;/code>나 &lt;code>@&lt;/code> 뒤에 리포지터리 이름을 쓰자.&lt;/p></description></item><item><title>레이블과 어노테이션</title><link>https://helm.sh/ko/docs/chart_best_practices/labels/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/labels/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 차트 내에서 레이블과 어노테이션을 사용하는 모범사례에 대해 논한다.&lt;/p>
+&lt;h2 id="레이블인가-어노테이션인가">레이블인가, 어노테이션인가?&lt;/h2>
+&lt;p>다음 조건에 해당하는 메타데이터 항목은 레이블이어야 한다.&lt;/p>
+&lt;ul>
+&lt;li>쿠버네티스에서 해당 리소스를 식별하기 위해 사용된다.&lt;/li>
+&lt;li>시스템 쿼리를 목적으로 운영자에게 유용하게 노출되어야 한다.&lt;/li>
+&lt;/ul>
+&lt;p>예를 들어, &lt;code>helm.sh/chart: NAME-VERSION&lt;/code>을 레이블로서 사용하는 것을 권장하는데,
+이렇게 하면 운영자는 레이블을 통해 특정 차트의 모든 인스턴스들을 편리하게 찾을 수 있다.&lt;/p>
+&lt;p>메타데이터 항목이 쿼리에 사용되지 않는다면, 어노테이션으로 설정해야 한다.&lt;/p>
+&lt;p>헬름 훅은 항상 어노테이션이다.&lt;/p>
+&lt;h2 id="표준-레이블">표준 레이블&lt;/h2>
+&lt;p>아래 표에 헬름 차트에서 널리 사용되는 레이블이 있다.
+헬름 자체는 특정 레이블을 필요로 하지 않는다.
+REC로 표시된 레이블은 권장되는 것으로서, 전체적인 정합성 유지를 위해 차트에 있어야 한다.
+OPT로 표시된 레이블은 선택사항이다.
+이것들은 관용적 또는 일반적으로 사용하지만, 운영 목적에서는 그렇게 자주 사용하지 않는다.&lt;/p></description></item><item><title>파드와 파드템플릿</title><link>https://helm.sh/ko/docs/chart_best_practices/pods/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/pods/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 차트 매니페스트에 있는 파드와 파드템플릿 부분의 형식을 논한다.&lt;/p>
+&lt;p>파드템플릿을 사용하는 리소스들(일부)은 다음과 같다.&lt;/p>
+&lt;ul>
+&lt;li>디플로이먼트(Deployment)&lt;/li>
+&lt;li>레플리케이션컨트롤러(ReplicationController)&lt;/li>
+&lt;li>레플리카셋(ReplicaSet)&lt;/li>
+&lt;li>데몬셋(DaemonSet)&lt;/li>
+&lt;li>스테이트풀셋(StatefulSet)&lt;/li>
+&lt;/ul>
+&lt;h2 id="이미지">이미지&lt;/h2>
+&lt;p>컨테이너 이미지는 고정된 태그나 이미지의 SHA를 사용해야 한다.
+&lt;code>latest&lt;/code>, &lt;code>head&lt;/code>, &lt;code>canary&lt;/code> 등 &amp;quot;유동적인&amp;quot; 목적으로 고안된 태그를
+사용해서는 안된다.&lt;/p>
+&lt;p>이미지를 쉽게 교체하기 위해 &lt;code>values.yaml&lt;/code> 파일 내에 이미지를 정의할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.redisImage | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>values.yaml&lt;/code> 내에서 이미지와 태그를 각각의 필드로 정의할 수도 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ .Values.redisImage }}:{{ .Values.redisTag }}&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="imagepullpolicy">ImagePullPolicy&lt;/h2>
+&lt;p>&lt;code>deployment.yaml&lt;/code>는&lt;/p></description></item><item><title>커스텀 리소스 데피니션(CRD)</title><link>https://helm.sh/ko/docs/chart_best_practices/custom_resource_definitions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/custom_resource_definitions/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 커스텀 리소스 데피니션 객체를 생성하고 사용하는 것을 다룬다.&lt;/p>
+&lt;p>커스텀 리소스 데피니션(CRD)를 다룰 때에는, 다음 2가지를 구분하는 것이 중요하다.&lt;/p>
+&lt;ul>
+&lt;li>CRD의 선언이 있다. 이것은 종류(kind)가 &lt;code>CustomResourceDefinition&lt;/code>인 YAML 파일이다.&lt;/li>
+&lt;li>그리고 그 CRD를 사용하는 리소스들이 있다. 어떤 CRD가 &lt;code>foo.example.com/v1&lt;/code>를 정의한다고 해보자.
+&lt;code>apiVersion: example.com/v1&lt;/code>가 있고 종류(kind)가 &lt;code>Foo&lt;/code>인 모든 리소스들은 그 CRD를 사용하는 리소스이다.&lt;/li>
+&lt;/ul>
+&lt;h2 id="리소스를-사용하기-전에-crd-선언을-설치하기">리소스를 사용하기 전에 CRD 선언을 설치하기&lt;/h2>
+&lt;p>헬름은 되도록 많은 리소스들을 빨리 쿠버네티스 내에 로드(load)하도록 최적화되어 있다.
+설계상, 쿠버네티스는 전체 매니페스트 세트를 받고 온라인으로 반영한다(이것을 조정(reconciliation) 루프라고 한다).&lt;/p></description></item><item><title>역할 기반 접근 제어</title><link>https://helm.sh/ko/docs/chart_best_practices/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ko/docs/chart_best_practices/rbac/</guid><description>&lt;p>이 부분은 모범사례 가이드의 일부로서 차트 매니페스트에 있는 RBAC 리소스의 생성과 형식을 논한다.&lt;/p>
+&lt;p>RBAC 리소스는 다음과 같다.&lt;/p>
+&lt;ul>
+&lt;li>ServiceAccount (네임스페이스 구분)&lt;/li>
+&lt;li>Role (네임스페이스 구분)&lt;/li>
+&lt;li>ClusterRole&lt;/li>
+&lt;li>RoleBinding (네임스페이스 구분)&lt;/li>
+&lt;li>ClusterRoleBinding&lt;/li>
+&lt;/ul>
+&lt;h2 id="yaml-설정">YAML 설정&lt;/h2>
+&lt;p>RBAC과 서비스어카운트(ServiceAccount) 설정은 개별 키로 되어야 한다.
+둘은 별개의 것이다.
+이 두가지 개념을 YAML 내에서 구분함으로써 둘 사이의 애매함을 없애고 명확히 할 수 있다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">rbac&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># RBAC 리소스를 생성할지 지정&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">serviceAccount&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># 서비스어카운트를 생성할지 지정&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">create&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">true&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># 사용할 서비스어카운트 이름&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># create가 true인데 이름이 지정되지 않으면, 풀네임 템플릿에 따라 이름이 생성됨&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>이 구조는 여러 개의 서비스어카운트를 필요로 하는 더 복잡한 차트로 확장할 수 있다.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>主题 on Helm</title><link>https://helm.sh/zh/docs/topics/</link><description>Recent content in 主题 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/topics/index.xml" rel="self" type="application/rss+xml"/><item><title>Chart</title><link>https://helm.sh/zh/docs/topics/charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/charts/</guid><description>&lt;p>Helm使用的包格式称为 &lt;em>chart&lt;/em>。 chart就是一个描述Kubernetes相关资源的文件集合。单个chart可以用来部署一些简单的，
+类似于memcache pod，或者某些复杂的HTTP服务器以及web全栈应用、数据库、缓存等等。&lt;/p>
+&lt;p>Chart是作为特定目录布局的文件被创建的。它们可以打包到要部署的版本存档中。&lt;/p>
+&lt;p>如果你想下载和查看一个发布的chart，但不安装它，你可以用这个命令： &lt;code>helm pull chartrepo/chartname&lt;/code>。&lt;/p>
+&lt;p>该文档解释说明了chart格式，并提供了用Helm构建chart的基本指导。&lt;/p>
+&lt;h2 id="chart-文件结构">Chart 文件结构&lt;/h2>
+&lt;p>chart是一个组织在文件目录中的集合。目录名称就是chart名称（没有版本信息）。因而描述WordPress的chart可以存储在&lt;code>wordpress/&lt;/code>目录中。&lt;/p>
+&lt;p>在这个目录中，Helm 期望可以匹配以下结构：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>wordpress/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Chart.yaml # 包含了chart信息的YAML文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> LICENSE # 可选: 包含chart许可证的纯文本文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> README.md # 可选: 可读的README文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.yaml # chart 默认的配置值
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> values.schema.json # 可选: 一个使用JSON结构的values.yaml文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> charts/ # 包含chart依赖的其他chart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> crds/ # 自定义资源的定义
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/ # 模板目录， 当和values 结合时，可生成有效的Kubernetes manifest文件
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> templates/NOTES.txt # 可选: 包含简要使用说明的纯文本文件
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Helm保留使用 &lt;code>charts/&lt;/code>，&lt;code>crds/&lt;/code>， &lt;code>templates/&lt;/code>目录，以及列举出的文件名。其他文件保持原样。&lt;/p>
+&lt;h2 id="chartyaml-文件">Chart.yaml 文件&lt;/h2>
+&lt;p>&lt;code>Chart.yaml&lt;/code>文件是chart必需的。包含了以下字段：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>chart API 版本 （必需）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>chart名称 （必需）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>语义化2 版本（必需）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kubeVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>兼容Kubernetes版本的语义化版本（可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">description&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>一句话对这个项目的描述（可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">type&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>chart类型 （可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">keywords&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- 关于项目的一组关键字（可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">home&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>项目home页面的URL （可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">sources&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- 项目源码的URL列表（可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">dependencies&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># chart 必要条件列表 （可选）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>chart名称 (nginx)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>chart版本 (&amp;#34;1.2.3&amp;#34;)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">repository&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>（可选）仓库URL (&amp;#34;https://example.com/charts&amp;#34;) 或别名 (&amp;#34;@repo-name&amp;#34;)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">condition&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>（可选） 解析为布尔值的yaml路径，用于启用/禁用chart (e.g. subchart1.enabled )&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">tags&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># （可选）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- 用于一次启用/禁用 一组chart的tag&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">import-values&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># （可选）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- ImportValue 保存源值到导入父键的映射。每项可以是字符串或者一对子/父列表项&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">alias&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>（可选） chart中使用的别名。当你要多次添加相同的chart时会很有用&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">maintainers&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#09f;font-style:italic"># （可选）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>维护者名字 （每个维护者都需要）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">email&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>维护者邮箱 （每个维护者可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">url&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>维护者URL （每个维护者可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">icon&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>用做icon的SVG或PNG图片URL （可选）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">appVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>包含的应用版本（可选）。不需要是语义化，建议使用引号&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">deprecated&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>不被推荐的chart （可选，布尔值）&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">annotations&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">example&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>按名称输入的批注列表 （可选）.&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>从
+&lt;a href="https://github.com/helm/helm/releases/tag/v3.3.2" target="_blank">v3.3.2&lt;/a>，不再允许额外的字段。推荐的方法是在
+&lt;code>annotations&lt;/code> 中添加自定义元数据。&lt;/p></description></item><item><title>Chart Hook</title><link>https://helm.sh/zh/docs/topics/charts_hooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/charts_hooks/</guid><description>&lt;p>Helm 提供了一个 &lt;em>hook&lt;/em> 机制允许chart开发者在发布生命周期的某些点进行干预。比如你可以使用hook用于：&lt;/p>
+&lt;ul>
+&lt;li>安装时在加载其他chart之前加载配置映射或密钥&lt;/li>
+&lt;li>安装新chart之前执行备份数据库的任务，然后在升级之后执行第二个任务用于存储数据。&lt;/li>
+&lt;li>在删除发布之前执行一个任务以便在删除服务之前退出滚动。&lt;/li>
+&lt;/ul>
+&lt;p>钩子的工作方式与常规模板类似，但因为Helm对其不同的使用方式，会有一些特殊的注释。这部分会讲述钩子的基本使用模式。&lt;/p>
+&lt;h2 id="可用的钩子">可用的钩子&lt;/h2>
+&lt;p>定义了以下钩子：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>注释值&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>pre-install&lt;/code>&lt;/td>
+ &lt;td>在模板渲染之后，Kubernetes资源创建之前执行&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>post-install&lt;/code>&lt;/td>
+ &lt;td>在所有资源加载到Kubernetes之后执行&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>pre-delete&lt;/code>&lt;/td>
+ &lt;td>在Kubernetes删除之前，执行删除请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>post-delete&lt;/code>&lt;/td>
+ &lt;td>在所有的版本资源删除之后执行删除请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>pre-upgrade&lt;/code>&lt;/td>
+ &lt;td>在模板渲染之后，资源更新之前执行一个升级请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>post-upgrade&lt;/code>&lt;/td>
+ &lt;td>所有资源升级之后执行一个升级请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>pre-rollback&lt;/code>&lt;/td>
+ &lt;td>在模板渲染之后，资源回滚之前，执行一个回滚请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>post-rollback&lt;/code>&lt;/td>
+ &lt;td>在所有资源被修改之后执行一个回滚请求&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>test&lt;/code>&lt;/td>
+ &lt;td>调用Helm test子命令时执行 (
+&lt;a href="https://helm.sh/zh/docs/topics/chart_tests/" target="_blank">test文档&lt;/a>)&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>&lt;em>注意&lt;code>crd-install&lt;/code>钩子已被移除以支持Helm 3的&lt;code>crds/&lt;/code>目录。&lt;/em>&lt;/p>
+&lt;h2 id="钩子和发布生命周期">钩子和发布生命周期&lt;/h2>
+&lt;p>钩子允许你在发布生命周期的关键节点上有机会执行操作。比如，考虑&lt;code>helm install&lt;/code>的生命周期。默认的，生命周期看起来是这样：&lt;/p>
+&lt;ol>
+&lt;li>用户执行&lt;code>helm install foo&lt;/code>&lt;/li>
+&lt;li>Helm库调用安装API&lt;/li>
+&lt;li>在一些验证之后，库会渲染&lt;code>foo&lt;/code>模板&lt;/li>
+&lt;li>库会加载结果资源到Kubernetes&lt;/li>
+&lt;li>库会返回发布对象（和其他数据）给客户端&lt;/li>
+&lt;li>客户端退出&lt;/li>
+&lt;/ol>
+&lt;p>Helm 为&lt;code>install&lt;/code>周期定义了两个钩子：&lt;code>pre-install&lt;/code>和&lt;code>post-install&lt;/code>。如果&lt;code>foo&lt;/code> chart的开发者两个钩子都执行，
+周期会被修改为这样：&lt;/p>
+&lt;ol>
+&lt;li>用户返回 &lt;code>helm install foo&lt;/code>&lt;/li>
+&lt;li>Helm库调用安装API&lt;/li>
+&lt;li>在 &lt;code>crds/&lt;/code>目录中的CRD会被安装&lt;/li>
+&lt;li>在一些验证之后，库会渲染&lt;code>foo&lt;/code>模板&lt;/li>
+&lt;li>库准备执行&lt;code>pre-install&lt;/code>钩子(将hook资源加载到Kubernetes中)&lt;/li>
+&lt;li>库按照权重对钩子排序(默认将权重指定为0)，然后在资源种类排序，最后按名称正序排列。&lt;/li>
+&lt;li>库先加载最小权重的钩子(从负到正)&lt;/li>
+&lt;li>库会等到钩子是 &amp;quot;Ready&amp;quot;状态(CRD除外)&lt;/li>
+&lt;li>库将生成的资源加载到Kubernetes中。注意如果设置了&lt;code>--wait&lt;/code>参数，库会等所有资源是ready状态，
+且所有资源准备就绪后才会执行&lt;code>post-install&lt;/code>钩子。&lt;/li>
+&lt;li>库执行&lt;code>post-install&lt;/code>钩子(加载钩子资源)。&lt;/li>
+&lt;li>库会等到钩子是&amp;quot;Ready&amp;quot;状态&lt;/li>
+&lt;li>库会返回发布对象(和其他数据)给客户端&lt;/li>
+&lt;li>客户端退出&lt;/li>
+&lt;/ol>
+&lt;p>  等钩子准备好是什么意思？ 这取决于钩子声明的资源。如果资源是 &lt;code>Job&lt;/code> 或 &lt;code>Pod&lt;/code>类型，Helm会等到直到他成功运行完成。
+如果钩子失败，发布就会失败。这是一个 &lt;em>阻塞操作&lt;/em>,所以Helm客户端会在这个任务执行时暂停。&lt;/p></description></item><item><title>Chart Test</title><link>https://helm.sh/zh/docs/topics/chart_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/chart_tests/</guid><description>&lt;p>  chart包含了很多一起工作的Kubernetes资源和组件。作为一个chart作者，你可能想写一些测试验证chart安装时是否按照预期工作。
+这些测试同时可以帮助chart用户理解你的chart在做什么。&lt;/p>
+&lt;p>&lt;strong>test&lt;/strong> 在helm chart中放在 &lt;code>templates/&lt;/code>目录，并且是一个指定了容器和给定命令的任务。如果测试通过，容器应该成功退出 (exit 0)
+任务的定义必须包含helm测试钩子的注释：&lt;code>helm.sh/hook: test&lt;/code>。&lt;/p>
+&lt;p>注意Helm v3中，任务定义需要包含helm的测试钩子注释之一：&lt;code>helm.sh/hook: test-success&lt;/code> 或者 &lt;code>helm.sh/hook: test-failure&lt;/code>。
+&lt;code>helm.sh/hook: test-success&lt;/code> 仍然向后兼容，也可以是 &lt;code>helm.sh/hook: test&lt;/code>。&lt;/p>
+&lt;p>示例测试以下内容：&lt;/p>
+&lt;ul>
+&lt;li>验证你values.yaml文件中的配置可以正确注入。
+&lt;ul>
+&lt;li>确保你的用户名和密码是对的&lt;/li>
+&lt;li>确保不正确的用户名和密码不会工作&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>判断你的服务只启动的并且正确地负载均衡&lt;/li>
+&lt;li>等等。&lt;/li>
+&lt;/ul>
+&lt;p>你可以在Helm的一个版本中运行预定义的测试，执行 &lt;code>helm test &amp;lt;RELEASE_NAME&amp;gt;&lt;/code>。对于chart用户来说，
+这是验证chart发布（或应用）可以正常运行的很好的方式。&lt;/p>
+&lt;h2 id="example-test">Example Test&lt;/h2>
+&lt;p>
+&lt;a href="https://helm.sh/zh/docs/helm/helm_create" target="_blank">helm create&lt;/a>命令会自动创建一些目录和文件。
+要尝试helm的测试功能，需要先创建一个helm chart示例。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm create demo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后就可以看到示例demo的目录结构如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">demo/
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> Chart.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> values.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> charts/
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> templates/
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> templates/tests/test-connection.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在&lt;code>demo/templates/tests/test-connection.yaml&lt;/code>中，可以试试看到的测试功能，测试pod定义如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Pod&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;{{ include &amp;#34;&lt;/span>demo.fullname&amp;#34; . }}-test-connection&amp;#34;&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">labels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>{{- include &amp;#34;demo.labels&amp;#34; . | nindent 4 }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">annotations&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">&amp;#34;helm.sh/hook&amp;#34;: &lt;/span>test&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">spec&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">containers&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>wget&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">image&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>busybox&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#c30">&amp;#39;wget&amp;#39;&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">args&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#c30">&amp;#39;{{ include &amp;#34;demo.fullname&amp;#34; . }}:{{ .Values.service.port }}&amp;#39;&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">restartPolicy&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Never&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="运行一个发布版本测试套件的步骤">运行一个发布版本测试套件的步骤&lt;/h2>
+&lt;p>首先，安装chart到你的集群中创建一个版本。需要等待所有的pod变成active的状态；如果安装之后立即执行test，
+可能会出现相应的失败，你不得不再执行一次test。&lt;/p></description></item><item><title>库类型Chart</title><link>https://helm.sh/zh/docs/topics/library_charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/library_charts/</guid><description>&lt;p>库类型chart是一种
+&lt;a href="https://helm.sh/zh/docs/topics/charts" target="_blank">Helm chart&lt;/a>，定义了可以由其他chart中Helm
+模板共享的chart原语或定义。这允许用户通过chart分享可复用得代码片段来避免重复并保持chart
+
+&lt;a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank">干燥&lt;/a>。&lt;/p>
+&lt;p>在Helm 3中引用了库chart，从形式上区别于Helm 2中chart维护的通用或辅助chart。
+作为一个chart类型引入，可以提供：&lt;/p>
+&lt;ul>
+&lt;li>一种明确区分通用和应用chart的方法&lt;/li>
+&lt;li>逻辑上阻止安装通用chart&lt;/li>
+&lt;li>通用chart中的未渲染模板可以包含版本组件&lt;/li>
+&lt;li>允许依赖的chart使用导入的上下文&lt;/li>
+&lt;/ul>
+&lt;p>chart维护者可以定义一个通用的chart作为库并且现在可以确信Helm将以标准一致的方式处理chart。
+也意味着通过改变chart类型来分享应用chart中的定义。&lt;/p>
+&lt;h2 id="创建一个简单的库chart">创建一个简单的库chart&lt;/h2>
+&lt;p>像之前提到的，库chart是一种
+&lt;a href="https://helm.sh/zh/docs/topics/charts" target="_blank">Helm chart&lt;/a>类型。意味着你可以从创建脚手架chart开始：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm create mylibchart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Creating mylibchart
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>本示例中创建自己的模板需要先删除&lt;code>templates&lt;/code>目录中的所有文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> rm -rf mylibchart/templates/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>不再需要values文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> rm -f mylibchart/values.yaml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在创建通用代码之前，先快速回顾一下相关Helm概念。
+&lt;a href="https://helm.sh/zh/docs/chart_template_guide/named_templates/" target="_blank">已命名的模板&lt;/a>
+(有时称为局部模板或子模板)是定义在一个文件中的简单模板，并分配了一个名称。在&lt;code>templates/&lt;/code>目录中，
+所有以下划线开始的文件(_)不会输出到Kubernetes清单文件中。因此依照惯例，辅助模板和局部模板被放置在&lt;code>_*.tpl&lt;/code>或&lt;code>_*.yaml&lt;/code>文件中。&lt;/p>
+&lt;p>这个示例中，我们要写一个通用的配置映射来创建一个空的配置映射源。在&lt;code>mylibchart/templates/_configmap.yaml&lt;/code>文件中定义如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{- define &amp;#34;mylibchart.configmap.tpl&amp;#34; -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>ConfigMap&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">metadata&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Release.Name | printf &amp;#34;%s-%s&amp;#34; .Chart.Name }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">data&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- define &amp;#34;mylibchart.configmap&amp;#34; -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- include &amp;#34;mylibchart.util.merge&amp;#34; (append . &amp;#34;mylibchart.configmap.tpl&amp;#34;) -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>{{- end -}}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个配置映射结构被定义在名为&lt;code>mylibchart.configmap.tpl&lt;/code>的模板文件中。&lt;code>data&lt;/code>是一个空源的配置映射，
+这个文件中另一个命名的模板是&lt;code>mylibchart.configmap&lt;/code>。这个模板包含了另一个模板&lt;code>mylibchart.util.merge&lt;/code>，
+会使用两个命名的模板作为参数，称为&lt;code>mylibchart.configmap&lt;/code>和&lt;code>mylibchart.configmap.tpl&lt;/code>。&lt;/p></description></item><item><title>Helm来源和完整性</title><link>https://helm.sh/zh/docs/topics/provenance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/provenance/</guid><description>&lt;p>Helm有一个来源工具帮助chart用户检测包的完整性和来源。使用基于PKI，GnuPG及流行包管理器的行业标准工具，Helm可以生成和检测签名文件。&lt;/p>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>完整性是通过比较chart的出处记录来建立的。出处记录存储在 &lt;em>出处文件&lt;/em>，和打包好的chart放在一起。比如，
+如果有个名为&lt;code>myapp-1.2.3.tgz&lt;/code>的chart，则它的出处文件是&lt;code>myapp-1.2.3.tgz.prov&lt;/code>。&lt;/p>
+&lt;p>出处文件会在打包时生成(&lt;code>helm package --sign ...&lt;/code>)，并可以通过多重命名检查，尤其是&lt;code>helm install --verify&lt;/code>。&lt;/p>
+&lt;h2 id="工作流">工作流&lt;/h2>
+&lt;p>这部分描述有效使用源数据的潜在工作流。&lt;/p>
+&lt;p>前置条件：&lt;/p>
+&lt;ul>
+&lt;li>合法的二进制格式（非ASCII包裹）的PGP密钥对&lt;/li>
+&lt;li>&lt;code>helm&lt;/code>命令行工具&lt;/li>
+&lt;li>GnuPG命令行工具（可选）&lt;/li>
+&lt;li>Keybase命令行工具（可选）&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>注意：&lt;/strong> 如果你的PGP私钥有密码，系统将提示你为所有支持&lt;code>--sign&lt;/code>选项的命令输入密码。&lt;/p>
+&lt;p>创建新的chart与之前一样：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm create mychart
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Creating mychart
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>一旦准备好打包了，使用&lt;code>helm package&lt;/code>命令时添加&lt;code>--sign&lt;/code>参数，并且指定已知的字符串key和包含相应私钥的秘钥环：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm package --sign --key &lt;span style="color:#c30">&amp;#39;John Smith&amp;#39;&lt;/span> --keyring path/to/keyring.secret mychart
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>注意：&lt;/strong> &lt;code>--key&lt;/code>参数的值必须是对应key的&lt;code>uid&lt;/code>(在&lt;code>gpg --list-keys&lt;/code>输出列表中)的子字符串，比如名字或者email。
+&lt;strong>指纹码 &lt;em>不能&lt;/em> 使用。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>提示：&lt;/strong> 针对GnuPG用户，你的私钥的keyring在&lt;code>~/.gnupg/secring.gpg&lt;/code>。你可以使用&lt;code>gpg --list-secret-keys&lt;/code>列出你需要的key。&lt;/p>
+&lt;p>&lt;strong>警告：&lt;/strong> GnuPG v2版在默认位置&lt;code>~/.gnupg/pubring.kbx&lt;/code>使用了新格式&lt;code>kbx&lt;/code>存储私钥的keyring。使用以下命令将你的keyring转换到传统的gpg格式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> gpg --export &amp;gt;~/.gnupg/pubring.gpg
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> gpg --export-secret-keys &amp;gt;~/.gnupg/secring.gpg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时，您应该同时看到了&lt;code>mychart-0.1.0.tgz&lt;/code>和&lt;code>mychart-0.1.0.tgz.prov&lt;/code>。 这两个文件最终都会被上传到对应的chart仓库。&lt;/p>
+&lt;p>您可以使用&lt;code>helm verify&lt;/code>验证chart：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm verify mychart-0.1.0.tgz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>失败的验证如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm verify topchart-0.1.0.tgz
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Error: sha256 sum does not match for topchart-0.1.0.tgz: &amp;#34;sha256:1939fbf7c1023d2f6b865d137bbb600e0c42061c3235528b1e8c82f4450c12a7&amp;#34; != &amp;#34;sha256:5a391a90de56778dd3274e47d789a2c84e0e106e1a37ef8cfa51fd60ac9e623a&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在安装时同时验证，使用&lt;code>--verify&lt;/code>参数。&lt;/p></description></item><item><title>Chart仓库指南</title><link>https://helm.sh/zh/docs/topics/chart_repository/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/chart_repository/</guid><description>&lt;p>本节介绍如何创建和使用chart仓库。在高层级中，chart仓库是打包的chart存储和分享的位置。&lt;/p>
+&lt;p>社区的Helm chart仓库位于
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a>，欢迎加入。
+不过Helm也可以创建并运行你自己的chart仓库。该指南将介绍如何操作。&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;ul>
+&lt;li>先阅读
+&lt;a href="https://helm.sh/zh/docs/intro/quickstart/" target="_blank">快速开始&lt;/a>&lt;/li>
+&lt;li>阅读
+&lt;a href="https://helm.sh/zh/docs/topics/charts/" target="_blank">Charts&lt;/a>文档&lt;/li>
+&lt;/ul>
+&lt;h2 id="创建一个chart仓库">创建一个chart仓库&lt;/h2>
+&lt;p>&lt;em>chart仓库&lt;/em> 是一个配置了&lt;code>index.yaml&lt;/code>文件和一些已经打包chart的HTTP服务器。当你准备好分享chart时，最好的方法是将chart上传到chart仓库。&lt;/p>
+&lt;p>&lt;strong>注意：&lt;/strong> 从Helm 2.2.0开始，客户端支持对仓库进行SSL身份认证。其他身份验证协议可以通过插件提供。&lt;/p>
+&lt;p>由于chart仓库可以是任何服务于YAML和tar文件并响应GET请求的HTTP服务器，托管你自己的chart仓库时就有很多选择。比如可以使用Google
+Cloud Storage(GCS)， Amazon S3，GitHub页面，甚至创建自己的web服务器。&lt;/p>
+&lt;h3 id="chart仓库结构">chart仓库结构&lt;/h3>
+&lt;p>chart仓库由chart包和包含了仓库中所有chart索引的特殊文件&lt;code>index.yaml&lt;/code>。
+通常描述chart的&lt;code>index.yaml&lt;/code>也托管在同一个服务器上作为
+&lt;a href="https://helm.sh/zh/docs/topics/provenance/" target="_blank">来源文件&lt;/a>。&lt;/p>
+&lt;p>比如，&lt;code>https://example.com/charts&lt;/code>仓库布局可能看起来像这样：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">charts/
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- index.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- alpine-0.1.2.tgz
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- alpine-0.1.2.tgz.prov
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个案例中，index文件包含了Alpine这一个chart的信息，并提供了下载地址：&lt;code>https://example.com/charts/alpine-0.1.2.tgz&lt;/code>。&lt;/p>
+&lt;p>&lt;code>index.yaml&lt;/code>文件不是必须和chart包放在同一个服务器上，但是这样是最方便的。&lt;/p>
+&lt;h3 id="index文件">index文件&lt;/h3>
+&lt;p>&lt;code>index.yaml&lt;/code>文件是一个yaml格式的文件。包含了一些包的元信息，包括chart中&lt;code>Chart.yaml&lt;/code>文件的内容。
+一个合法的chart仓库必须有一个index文件，包含了chart仓库中每一个chart的信息。
+&lt;code>helm repo index&lt;/code>命令会基于给定的包含chart包的本地目录生成一个index文件。&lt;/p>
+&lt;p>index文件类似于这样：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>v1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">entries&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">alpine&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">created&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>2016-10-06T16:23:20.499814565&lt;span style="color:#f60">-06&lt;/span>:&lt;span style="color:#f60">00&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">description&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Deploy a basic Alpine Linux pod&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">digest&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>99c76e403d752c84ead610644d4b1c2f2b453a74b921f422b9dcb8a7c8b559cd&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">home&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>https://helm.sh/helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>alpine&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">sources&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://github.com/helm/helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">urls&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://technosophos.github.io/tscharts/alpine-0.2.0.tgz&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">0.2.0&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">created&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>2016-10-06T16:23:20.499543808&lt;span style="color:#f60">-06&lt;/span>:&lt;span style="color:#f60">00&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">description&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Deploy a basic Alpine Linux pod&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">digest&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>515c58e5f79d8b2913a10cb400ebb6fa9c77fe813287afbacf1a0b897cd78727&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">home&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>https://helm.sh/helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>alpine&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">sources&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://github.com/helm/helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">urls&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://technosophos.github.io/tscharts/alpine-0.1.0.tgz&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">0.1.0&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">nginx&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">created&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>2016-10-06T16:23:20.499543808&lt;span style="color:#f60">-06&lt;/span>:&lt;span style="color:#f60">00&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">description&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Create a basic nginx HTTP server&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">digest&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>aaff4545f79d8b2913a10cb400ebb6fa9c77fe813287afbacf1a0b897cdffffff&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">home&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>https://helm.sh/helm&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>nginx&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">sources&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://github.com/helm/charts&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">urls&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- https://technosophos.github.io/tscharts/nginx-1.1.0.tgz&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#f60">1.1.0&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">generated&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>2016-10-06T16:23:20.499029981&lt;span style="color:#f60">-06&lt;/span>:&lt;span style="color:#f60">00&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="托管chart仓库">托管chart仓库&lt;/h2>
+&lt;p>这部分展示了几种提供chart仓库的方法&lt;/p></description></item><item><title>使用基于OCI的注册中心</title><link>https://helm.sh/zh/docs/topics/registries/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/registries/</guid><description>&lt;p>从Helm 3开始，可以使用具有
+&lt;a href="https://www.opencontainers.org/" target="_blank">OCI&lt;/a>支持的容器注册中心来存储和共享chart包。从Helm v3.8.0开始，默认启用OCI支持。&lt;/p>
+&lt;h2 id="v380版本之前对-oci-的支持">v3.8.0版本之前对 OCI 的支持&lt;/h2>
+&lt;p>OCI 支持在Helm v3.8.0版本从试验阶段过渡成为普遍可用。在之前版本中，对OCI支持会有不同的地方。如果你在v3.8.0之前的版本使用OCI，需要着重了解不同Helm版本之间OCI的变化。&lt;/p>
+&lt;h3 id="在v380之前的版本启用oci支持">在v3.8.0之前的版本启用OCI支持&lt;/h3>
+&lt;p>Helm v3.8.0版本之前, OCI支持是&lt;em>试验性&lt;/em>的且必须显式启用。&lt;/p>
+&lt;p>为了在之前版本中启用OCI试验性支持，需要在环境变量中设置&lt;code>HELM_EXPERIMENTAL_OCI&lt;/code>，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">export HELM_EXPERIMENTAL_OCI=1
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="oci在v380中的弃用和行为变化">OCI在v3.8.0中的弃用和行为变化&lt;/h3>
+&lt;p>
+&lt;a href="https://github.com/helm/helm/releases/tag/v3.8.0" target="_blank">Helm v3.8.0&lt;/a>版本中，以下行为和特性与之前版本不同：&lt;/p>
+&lt;ul>
+&lt;li>在依赖中将chart设置为OCI时，版本号可以像其他依赖一样设置成范围。&lt;/li>
+&lt;li>包含构建信息的SemVer tag可以被推送和使用。OCI注册中心的tag字符不支持&lt;code>+&lt;/code>。如果有，Helm会将&lt;code>+&lt;/code> 转成 &lt;code>_&lt;/code>。&lt;/li>
+&lt;li>&lt;code>helm registry login&lt;/code> 命令现在采用与Docker CLI相同的结构存储凭证。Helm和Docker CLI的注册表配置使用一样的路径。&lt;/li>
+&lt;/ul>
+&lt;h3 id="oci在v370中的弃用和行为变化">OCI在v3.7.0中的弃用和行为变化&lt;/h3>
+&lt;p>
+&lt;a href="https://github.com/helm/helm/releases/tag/v3.7.0" target="_blank">Helm v3.7.0&lt;/a>版本包含了针对支持OCI的
+&lt;a href="https://github.com/helm/community/blob/main/hips/hip-0006.md" target="_blank">HIP
+6&lt;/a>执行策略。因此以下行为和特性与之前版本不同：&lt;/p>
+&lt;ul>
+&lt;li>移除了 &lt;code>helm chart&lt;/code> 子命令。&lt;/li>
+&lt;li>移除了chart缓存(没有了 &lt;code>helm chart list&lt;/code> 等等)。&lt;/li>
+&lt;li>OCI注册引用现在需要以 &lt;code>oci://&lt;/code> 开头。&lt;/li>
+&lt;li>注册引用的基础名称&lt;em>必须&lt;/em>和chart名称匹配。&lt;/li>
+&lt;li>注册引用的tag&lt;em>必须&lt;/em>和chart的语义版本匹配（比如没有&lt;code>latest&lt;/code>这种tag）。&lt;/li>
+&lt;li>chart层的媒体类型从&lt;code>application/tar+gzip&lt;/code>转换成了&lt;code>application/vnd.cncf.helm.chart.content.v1.tar+gzip&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;h2 id="使用基于oci的注册中心">使用基于OCI的注册中心&lt;/h2>
+&lt;h3 id="基于oci注册中心的helm仓库">基于OCI注册中心的Helm仓库&lt;/h3>
+&lt;p>
+&lt;a href="https://helm.sh/zh/docs/topics/chart_repository" target="_blank">Helm 仓库&lt;/a>是一种制作和分发打包好的Helm
+chart的方式。基于OCI的的注册中心包含0个或多个Helm仓库，且每个都会有0个或多个Helm chart。&lt;/p>
+&lt;h3 id="使用托管的注册中心">使用托管的注册中心&lt;/h3>
+&lt;p>以下是几种chart可以使用的托管容器注册中心，都支持OCI，例如：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/push-oci-artifact.html" target="_blank">Amazon ECR&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://docs.microsoft.com/azure/container-registry/container-registry-helm-repos#push-chart-to-registry-as-oci-artifact" target="_blank">Azure Container Registry&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://docs.docker.com/docker-hub/oci-artifacts/" target="_blank">Docker Hub&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://cloud.google.com/artifact-registry/docs/helm/manage-charts" target="_blank">Google Artifact Registry&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://cloud.ibm.com/docs/Registry?topic=Registry-registry_helm_charts" target="_blank">IBM Cloud Container Registry&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://jfrog.com/help/r/jfrog-artifactory-documentation/helm-oci-repositories" target="_blank">JFrog Artifactory&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>参照托管平台提供的文档来创建和配置支持OCI的注册中心。&lt;/p>
+&lt;p>&lt;strong>注：&lt;/strong> 你可以在开发电脑上运行基于OCI的注册中心 
+&lt;a href="https://docs.docker.com/registry/deploying/" target="_blank">Docker Registry&lt;/a>
+或者 
+&lt;a href="https://github.com/project-zot/zot" target="_blank">&lt;code>zot&lt;/code>&lt;/a>。在开发电脑上运行只能用于测试目的。&lt;/p>
+&lt;h2 id="用于处理注册中心的命令">用于处理注册中心的命令&lt;/h2>
+&lt;h3 id="registry-子命令">&lt;code>registry&lt;/code> 子命令&lt;/h3>
+&lt;h4 id="login">&lt;code>login&lt;/code>&lt;/h4>
+&lt;p>登录到注册中心 (手动输入密码)&lt;/p></description></item><item><title>Helm 架构</title><link>https://helm.sh/zh/docs/topics/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/architecture/</guid><description>&lt;h1 id="helm-架构">Helm 架构&lt;/h1>
+&lt;p>本文从较高的层次描述Helm的体系结构。&lt;/p>
+&lt;h2 id="helm的目标">Helm的目标&lt;/h2>
+&lt;p>Helm管理名为chart的Kubernetes包的工具。Helm可以做以下的事情：&lt;/p>
+&lt;ul>
+&lt;li>从头开始创建新的chart&lt;/li>
+&lt;li>将chart打包成归档(tgz)文件&lt;/li>
+&lt;li>与存储chart的仓库进行交互&lt;/li>
+&lt;li>在现有的Kubernetes集群中安装和卸载chart&lt;/li>
+&lt;li>管理与Helm一起安装的chart的发布周期&lt;/li>
+&lt;/ul>
+&lt;p>对于Helm，有三个重要的概念：&lt;/p>
+&lt;ol>
+&lt;li>&lt;em>chart&lt;/em> 创建Kubernetes应用程序所必需的一组信息。&lt;/li>
+&lt;li>&lt;em>config&lt;/em> 包含了可以合并到打包的chart中的配置信息，用于创建一个可发布的对象。&lt;/li>
+&lt;li>&lt;em>release&lt;/em> 是一个与特定配置相结合的chart的运行实例。&lt;/li>
+&lt;/ol>
+&lt;h2 id="组件">组件&lt;/h2>
+&lt;p>Helm是一个可执行文件，执行时分成两个不同的部分：&lt;/p>
+&lt;p>&lt;strong>Helm客户端&lt;/strong> 是终端用户的命令行客户端。负责以下内容：&lt;/p>
+&lt;ul>
+&lt;li>本地chart开发&lt;/li>
+&lt;li>管理仓库&lt;/li>
+&lt;li>管理发布&lt;/li>
+&lt;li>与Helm库建立接口
+&lt;ul>
+&lt;li>发送安装的chart&lt;/li>
+&lt;li>发送升级或卸载现有发布的请求&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Helm库&lt;/strong> 提供执行所有Helm操作的逻辑。与Kubernetes API服务交互并提供以下功能：&lt;/p>
+&lt;ul>
+&lt;li>结合chart和配置来构建版本&lt;/li>
+&lt;li>将chart安装到Kubernetes中，并提供后续发布对象&lt;/li>
+&lt;li>与Kubernetes交互升级和卸载chart&lt;/li>
+&lt;/ul>
+&lt;p>独立的Helm库封装了Helm逻辑以便不同的客户端可以使用它。&lt;/p>
+&lt;h2 id="执行">执行&lt;/h2>
+&lt;p>Helm客户端和库是使用Go编程语言编写的&lt;/p>
+&lt;p>这个库使用Kubernetes客户端库与Kubernetes通信。现在，这个库使用REST+JSON。它将信息存储在Kubernetes的密钥中。
+不需要自己的数据库。&lt;/p>
+&lt;p>如果可能，配置文件是用YAML编写的。&lt;/p></description></item><item><title>Helm高级技术</title><link>https://helm.sh/zh/docs/topics/advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/advanced/</guid><description>&lt;p>这部分解释说明了使用Helm的各种高级特性和技术。
+这部分旨在为Helm的高级用户提供高度自定义和操作chart及发布的信息。每个高级特性都会有它自己的权衡利弊，
+因此每个使用它们的都要有Helm的深度知识并小心使用。或者换言之，
+谨记 
+&lt;a href="https://en.wikipedia.org/wiki/With_great_power_comes_great_responsibility" target="_blank">Peter Parker 原则&lt;/a>&lt;/p>
+&lt;h2 id="后置渲染">后置渲染&lt;/h2>
+&lt;p>后置渲染允许在通过Helm安装chart之前手动使用、配置或者验证渲染的manifest。
+这允许有高级配置需求的用户可以使用诸如
+&lt;a href="https://kustomize.io" target="_blank">&lt;code>kustomize&lt;/code>&lt;/a> 来配置更改而不需要fork一个公共
+chart或要求chart维护人员为每个软件指定每个最新的配置项。
+这里同样有一些示例用来在企业环境中注入常用工具和sidecar或者在部署前对manifest进行分析。&lt;/p>
+&lt;h3 id="前提条件">前提条件&lt;/h3>
+&lt;ul>
+&lt;li>Helm 3.1+&lt;/li>
+&lt;/ul>
+&lt;h3 id="使用">使用&lt;/h3>
+&lt;p>后置渲染器是在STDIN能够接受渲染后的Kubernetes manifest并能在STDOUT返回有效的Kubernetes manifest，
+可以是任意可执行文件。它应该在出现失败事件时返回非0退出码。这是两个组件之间的唯一API。允许在你的后置渲染过程中有很好的灵活性。&lt;/p>
+&lt;p>后置渲染器可以和&lt;code>install&lt;/code>、&lt;code>upgrade&lt;/code>以及&lt;code>template&lt;/code>一起使用。使用后置渲染器时，使用&lt;code>--post-renderer&lt;/code>
+参数并指定要使用的渲染器可执行文件的路径：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ helm install mychart stable/wordpress --post-renderer ./path/to/executable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果路径中不包含任何分隔符，就会在$PATH中搜索，否则就会把相对路径转换成全路径。&lt;/p>
+&lt;p>如果需要使用多个后置渲染器，在一个脚本中调用它们，或者在构建任何二进制工具时调用它们。
+在bash中，就像 &lt;code>renderer1 | renderer2 | renderer3&lt;/code> 一样简单。&lt;/p>
+&lt;p>你可以在 
+&lt;a href="https://github.com/thomastaylor312/advanced-helm-demos/tree/master/post-render" target="_blank">这里&lt;/a>
+查看作为一个后置渲染器使用 &lt;code>kustomize&lt;/code> 的示例。&lt;/p>
+&lt;h3 id="警告">警告&lt;/h3>
+&lt;p>在使用后置渲染器时，以下这些事需要注意：使用后置渲染器时最重要的是，
+所有人在修改版本时&lt;strong>必须&lt;/strong> 使用同样的渲染器来保证可重复的构建。
+这个功能是专门为允许任何用户切换他们正在使用或停止使用的渲染器而构建的， 但是这个应该谨慎操作，以避免意外修改或数据丢失。&lt;/p>
+&lt;p>另一个重要的注意事项就是安全，如果您正在使用一个后置渲染器，要保证它来自一个可信源（对于其他任意可执行文件也是如此）。
+不推荐使用不可靠的或者未核实的可访问所有渲染器模板的渲染器，渲染器模板经常会包含隐私数据。&lt;/p>
+&lt;h3 id="自定义后置渲染">自定义后置渲染&lt;/h3>
+&lt;p>使用Go SDK时后置渲染器甚至可以提供更多的灵活性。任意后置渲染器只需要执行下面的Go接口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">type&lt;/span> PostRenderer &lt;span style="color:#069;font-weight:bold">interface&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#09f;font-style:italic">// Run expects a single buffer filled with Helm rendered manifests. It
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#09f;font-style:italic">// expects the modified results to be returned on a separate buffer or an
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#09f;font-style:italic">// error if there was an issue or failure while running the post render step
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#09f;font-style:italic">&lt;/span> &lt;span style="color:#c0f">Run&lt;/span>(renderedManifests &lt;span style="color:#555">*&lt;/span>bytes.Buffer) (modifiedManifests &lt;span style="color:#555">*&lt;/span>bytes.Buffer, err &lt;span style="color:#078;font-weight:bold">error&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有关Go SDK的更多信息，请查看 
+&lt;a href="#go-sdk">Go SDK 部分&lt;/a>&lt;/p></description></item><item><title>Kubernetes分发指南</title><link>https://helm.sh/zh/docs/topics/kubernetes_distros/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/kubernetes_distros/</guid><description>&lt;p>Helm 应该适用于任何
+&lt;a href="https://github.com/cncf/k8s-conformance" target="_blank">符合标准的Kubernetes版本&lt;/a>（无论是否经过
+&lt;a href="https://www.cncf.io/certification/software-conformance/" target="_blank">认证&lt;/a>）。&lt;/p>
+&lt;p>该文档捕获在特定Kubernetes环境中使用Helm的有关信息。如果需要，请提供更多有关发行版的详细信息（按字母排序）。&lt;/p>
+&lt;h2 id="aks">AKS&lt;/h2>
+&lt;p>Helm 使用 
+&lt;a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm" target="_blank">Azure Kubernetes
+Service&lt;/a>。&lt;/p>
+&lt;h2 id="dcos">DC/OS&lt;/h2>
+&lt;p>Helm 已经测试并工作在 Mesospheres DC/OS 1.11 Kubernetes平台，且不需要额外的配置。&lt;/p>
+&lt;h2 id="eks">EKS&lt;/h2>
+&lt;p>Helm 使用Amazon Elastic Kubernetes Service (Amazon EKS):
+
+&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/helm.html" target="_blank">Helm 使用 Amazon EKS&lt;/a>。&lt;/p>
+&lt;h2 id="gke">GKE&lt;/h2>
+&lt;p>Google的GKE托管的Kubernetes平台可以使用Helm工作，且不需要额外配置。&lt;/p>
+&lt;h2 id="scriptslocal-cluster-和-hyperkube">&lt;code>scripts/local-cluster&lt;/code> 和 Hyperkube&lt;/h2>
+&lt;p>Hyperkube 通过&lt;code>scripts/local-cluster.sh&lt;/code>配置的可以正常工作。对于原始Hyperkube你可能需要一些手动配置。&lt;/p>
+&lt;h2 id="iks">IKS&lt;/h2>
+&lt;p>Helm 使用
+&lt;a href="https://cloud.ibm.com/docs/containers?topic=containers-helm" target="_blank">IBM Cloud Kubernetes Service&lt;/a>。&lt;/p>
+&lt;h2 id="kind-docker中kubernetes">KIND (Docker中Kubernetes)&lt;/h2>
+&lt;p>Helm 会在 
+&lt;a href="https://github.com/kubernetes-sigs/kind" target="_blank">KIND&lt;/a> 上定期测试。&lt;/p>
+&lt;h2 id="kubeone">KubeOne&lt;/h2>
+&lt;p>Helm 在用KubeOne配置的集群中可以无警告地工作。&lt;/p>
+&lt;h2 id="kubermatic">Kubermatic&lt;/h2>
+&lt;p>Helm在用Kubermatic配置的用户集群中可以无警告地工作。由于种子集群可以以不同的方式建立，因此Helm的支持取决于它们的配置。&lt;/p>
+&lt;h2 id="microk8s">MicroK8s&lt;/h2>
+&lt;p>Helm 可以在
+&lt;a href="https://microk8s.io" target="_blank">MicroK8s&lt;/a> 使用命令启用：&lt;code>microk8s.enable helm3&lt;/code>&lt;/p>
+&lt;h2 id="minikube">Minikube&lt;/h2>
+&lt;p>Helm经过测试可以与
+&lt;a href="https://github.com/kubernetes/minikube" target="_blank">Minikube&lt;/a>一起使用，不需要额外配置。&lt;/p>
+&lt;h2 id="openshift">Openshift&lt;/h2>
+&lt;p>Helm 在OpenShift Online上工作非常简单， OpenShift Dedicated, OpenShift
+Container Platform (version &amp;gt;= 3.6) 或 OpenShift Origin (version &amp;gt;= 3.6)。通过
+
+&lt;a href="https://blog.openshift.com/getting-started-helm-openshift/" target="_blank">blog&lt;/a>了解更多。&lt;/p></description></item><item><title>基于角色的访问控制</title><link>https://helm.sh/zh/docs/topics/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/rbac/</guid><description>&lt;p>在Kubernetes中，向用户或应用程序特定的服务账户授予角色是确保你的应用程序在指定范围运行的最佳实践。
+有关服务账户权限的更多信息请查看
+&lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions" target="_blank">官方Kubernetes文档&lt;/a>。&lt;/p>
+&lt;p>从Kubernetes 1.6开始，基于角色的访问控制默认是启用的。RBAC允许你根据你组织中的用户和角色指定行为类型。&lt;/p>
+&lt;p>有了RBAC，您可以：&lt;/p>
+&lt;ul>
+&lt;li>授权特殊操作 (创建集群范围内的资源，比如新角色) 给管理员&lt;/li>
+&lt;li>限制用户在指定命名空间创建资源的能力 (pod，持久卷，工作负载)，或者是集群范围内(资源配额，角色，自定义资源)&lt;/li>
+&lt;li>限制用户在特定命名空间或集群范围内查看资源的能力&lt;/li>
+&lt;/ul>
+&lt;p>该指南适用于希望限制用户与Kubernetes API交互范围的管理员。&lt;/p>
+&lt;h2 id="管理用户账户">管理用户账户&lt;/h2>
+&lt;p>所有的Kubernetes集群有两类用户：Kubernetes管理的服务账户和普通用户。&lt;/p>
+&lt;p>普通用户被认为是有外部独立的服务管理。一个管理员分发私钥，用户的Keystone或者Google账户，甚至用户名密码列表的文件。
+在这方面，Kubernetes没有表示普通用户账户的对象。普通用户无法通过API调用添加到集群中。&lt;/p>
+&lt;p>相反，服务账户是由Kubernetes API管理的账户。被绑定到指定的命名空间，且有API服务或手动调用API自动创建。
+服务账户绑定到了一组作为密钥存储的凭据。它们被挂载到pod中，允许集群内进程与Kubernetes API交互。&lt;/p>
+&lt;p>API请求被绑定到了普通用户或者服务账户，或者被视作匿名请求。意味着集群内或外部的每个来自人类用户使用&lt;code>kubectl&lt;/code>的进程，
+到node的kubelet，或到control plane的成员，向API server 发送请求时必须进行身份验证。否则被视为匿名用户。&lt;/p>
+&lt;h2 id="角色集群角色角色绑定及集群角色绑定">角色，集群角色，角色绑定，及集群角色绑定&lt;/h2>
+&lt;p>在Kubernetes中，用户账户和服务账户只能查看和编辑允许他们访问的资源。通过使用角色和角色绑定授予访问权限。
+角色和角色绑定是绑定在特定的命名空间，授予用户查看和/或编辑角色提供访问的命名空间的资源。&lt;/p>
+&lt;p>在集群范围内，称为集群角色和集群角色绑定。授予用户集群角色则允许他们有查看和编辑整个集群资源的权限。同样也需要查看和编辑
+集群范围的资源（命名空间，资源配额，节点）。&lt;/p>
+&lt;p>集群角色可以通过角色绑定中引用被绑定到一个特定的命名空间，通常以这种方式使用管理&lt;code>admin&lt;/code>，编辑&lt;code>edit&lt;/code>和查看&lt;code>view&lt;/code>默认的集群角色。&lt;/p>
+&lt;p>有一些集群中默认可用的集群角色。旨在成为面向用户的角色。包括超级用户角色(&lt;code>cluster-admin&lt;/code>)， 以及具有更细粒度访问权限的角色 (&lt;code>admin&lt;/code>,
+&lt;code>edit&lt;/code>,&lt;code>view&lt;/code>)。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>默认集群角色&lt;/th>
+ &lt;th>默认集群角色绑定&lt;/th>
+ &lt;th>描述&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>cluster-admin&lt;/code>&lt;/td>
+ &lt;td>&lt;code>system:masters&lt;/code> group&lt;/td>
+ &lt;td>允许超级用户访问任意资源并执行任意操作。在集群角色绑定中使用时，它提供了对集群和所有命名空间中的每个资源的完全控制。在角色绑定中使用时，提供了对角色绑定的命名空间的每个资源完全控制，包括命名空间本身。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>admin&lt;/code>&lt;/td>
+ &lt;td>None&lt;/td>
+ &lt;td>允许管理员访问，旨在使用角色绑定在命名空间中授权。如果使用一个角色绑定，允许对命名空间中的大部分资源进行读、写，包括在命名空间中创建角色和角色绑定。不允许对资源配额或命名空间本身进行写操作。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>edit&lt;/code>&lt;/td>
+ &lt;td>None&lt;/td>
+ &lt;td>允许对命名空间中大部分的对象进行读写。不允许查看或修改角色或角色绑定。&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>view&lt;/code>&lt;/td>
+ &lt;td>None&lt;/td>
+ &lt;td>允许对命名空间中大部分的对象进行读操作。不允许查看角色或角色绑定。由于密钥需要升级查看，所以不允许该角色查看。&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="使用rbac限制用户账户的访问">使用RBAC限制用户账户的访问&lt;/h2>
+&lt;p>现在我们明白了基本的基于角色的访问控制，让我们讨论一下管理员如何限制用户的访问范围。&lt;/p>
+&lt;h3 id="示例授权用户特定命名空间的读写操作">示例：授权用户特定命名空间的读写操作&lt;/h3>
+&lt;p>限制用户访问特定的命名空间，可以使用&lt;code>edit&lt;/code>或&lt;code>admin&lt;/code>角色。如果你的chart是用角色或角色绑定创建或交互，应该使用&lt;code>admin&lt;/code>集群角色。&lt;/p>
+&lt;p>另外，也可以用&lt;code>cluster-admin&lt;/code>创建个角色绑定。授予用户命名空间范围内的&lt;code>cluster-admin&lt;/code>操作，提供了命名空间内每个资源的完全访问，包括命名空间本身。&lt;/p>
+&lt;p>对于这个示例，我们可以使用&lt;code>edit&lt;/code>角色创建一个用户。首先，创建一个命名空间：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> kubectl create namespace foo
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在在命名空间中创建一个角色绑定，授予用户 &lt;code>edit&lt;/code> 角色。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> kubectl create rolebinding sam-edit
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> --clusterrole edit \​
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> --user sam \​
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> --namespace foo
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="示例授予用户集群范围内的读写操作">示例：授予用户集群范围内的读写操作&lt;/h3>
+&lt;p>如果用户希望安装一个chart来安装集群范围的资源（命名空间，角色，自定义资源等等），则需要集群范围的写操作。&lt;/p></description></item><item><title>Helm插件指南</title><link>https://helm.sh/zh/docs/topics/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/plugins/</guid><description>&lt;p>Helm插件是一个可以通过&lt;code>helm&lt;/code> CLI访问的工具，但不是Helm的内置代码。&lt;/p>
+&lt;p>已有插件可以搜索
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">GitHub&lt;/a>。&lt;/p>
+&lt;p>该指南描述如何使用和创建插件。&lt;/p>
+&lt;h2 id="概述">概述&lt;/h2>
+&lt;p>Helm插件是与Helm无缝集成的附加工具。插件提供一种扩展Helm核心特性集的方法，但不需要每个新的特性都用Go编写并加入核心工具中。&lt;/p>
+&lt;p>Helm插件有以下特性：&lt;/p>
+&lt;ul>
+&lt;li>可以在不影响Helm核心工具的情况下添加和移除。&lt;/li>
+&lt;li>可以用任意编程语言编写。&lt;/li>
+&lt;li>与Helm集成，并展示在&lt;code>helm help&lt;/code>和其他地方。&lt;/li>
+&lt;/ul>
+&lt;p>Helm插件存在与&lt;code>$HELM_PLUGINS&lt;/code>。你可以找到该变量的当前值，包括不设置环境变量的默认值，使用&lt;code>helm env&lt;/code>命令。&lt;/p>
+&lt;p>Helm插件模型部分基于Git的插件模型。为此，你有时可能听到&lt;code>helm&lt;/code>已插件为基础被用作_porcelain_ 层。这是一种Helm提供用户体验和顶级处理逻辑的简写方式。
+而插件执行所需操作的“细节工作”。&lt;/p>
+&lt;h2 id="安装一个插件">安装一个插件&lt;/h2>
+&lt;p>插件使用 &lt;code>$ helm plugin install &amp;lt;path|url&amp;gt;&lt;/code> 命令安装插件。你可以在本地文件系统上传一个路径或远程仓库url给插件。The &lt;code>helm plugin install&lt;/code>
+命令会克隆或拷贝给定路径的插件到 &lt;code>$HELM_PLUGINS&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm plugin install https://github.com/adamreese/helm-env
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果是插件tar包，仅需解压插件到&lt;code>$HELM_PLUGINS&lt;/code>目录。也可以用tar包的url直接安装：
+&lt;code>helm plugin install https://domain/path/to/plugin.tar.gz&lt;/code>。&lt;/p>
+&lt;h2 id="构建插件">构建插件&lt;/h2>
+&lt;p>在很多方面，插件类似于chart。每个插件有个顶级目录和一个&lt;code>plugin.yaml&lt;/code>文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span>HELM_PLUGINS/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- last/
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- plugin.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa"> |- last.sh
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述示例中，&lt;code>last&lt;/code>插件包含在&lt;code>last&lt;/code>目录中。有两个文件：&lt;code>plugin.yaml&lt;/code>（必需）和一个可执行脚本，&lt;code>last.sh&lt;/code>（可选）。&lt;/p>
+&lt;p>插件的核心是一个简单的YAML文件&lt;code>plugin.yaml&lt;/code>。下面是一个插件YAML，用于获取最新的release名称：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;last&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">version&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;0.1.0&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">usage&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;get the last release name&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">description&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;get the last release name&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">ignoreFlags&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">false&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;$HELM_BIN --host $TILLER_HOST list --short --max 1 --date -r&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">platformCommand&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">os&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>linux&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">arch&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>i386&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;$HELM_BIN list --short --max 1 --date -r&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">os&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>linux&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">arch&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>amd64&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;$HELM_BIN list --short --max 1 --date -r&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">os&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>windows&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">arch&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>amd64&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">command&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;$HELM_BIN list --short --max 1 --date -r&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>name&lt;/code>是插件名称。当Helm执行此插件时使用此名称。（比如，&lt;code>helm NAME&lt;/code>会调用此插件）。&lt;/p></description></item><item><title>Helm v2 迁移到 v3</title><link>https://helm.sh/zh/docs/topics/v2_v3_migration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/v2_v3_migration/</guid><description>&lt;p>该指南介绍如何将Helm v2迁移到v3。Helm v2需要被安装且在一个或多个集群中管理版本。&lt;/p>
+&lt;h2 id="helm-3变化概述">Helm 3变化概述&lt;/h2>
+&lt;p>Helm 2 to 3完整的变化列表在 
+&lt;a href="https://v3.helm.sh/docs/faq/#changes-since-helm-2" target="_blank">FAQ 部分&lt;/a>。
+以下是用户在迁移之前应该要注意的一些改变的概述：&lt;/p>
+&lt;ol>
+&lt;li>移除了Tiller:
+&lt;ul>
+&lt;li>用client/library结构（仅仅&lt;code>helm&lt;/code>）替换了 client/server&lt;/li>
+&lt;li>安全性现在是每个用户的基础（委托给了Kubernetes用户集群安全）&lt;/li>
+&lt;li>发布版本现在作为集群内的密钥存储且改变了发布对象的元数据&lt;/li>
+&lt;li>发布版本是在版本命名空间的基础上持久化的并且不再是Tiller的命名空间&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>升级了Chart仓库：
+&lt;ul>
+&lt;li>&lt;code>helm search&lt;/code> 现在支持本地仓库搜索和Artifact Hub查询&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>对于以下更新的规范，Chart的apiVersion升级到了&amp;quot;v2&amp;quot;：
+&lt;ul>
+&lt;li>动态依赖的chart依赖移动到了&lt;code>Chart.yaml&lt;/code>
+(删除了&lt;code>requirements.yaml&lt;/code> 且 requirements --&amp;gt; dependencies)&lt;/li>
+&lt;li>库chart (辅助/公共库) 现在可以添加为动态链接的chart依赖&lt;/li>
+&lt;li>Chart有个&lt;code>type&lt;/code>元数据字段将chart定义为&lt;code>application&lt;/code>或&lt;code>library&lt;/code>的chart。默认是可渲染和安装的应用&lt;/li>
+&lt;li>Helm 2 的chart (apiVersion=v1) 依然可用&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>添加了XDG目录规范：
+&lt;ul>
+&lt;li>Helm根目录针对存储配置文件删除和替换了XDG目录规范&lt;/li>
+&lt;li>不再需要初始化Helm&lt;/li>
+&lt;li>移除了&lt;code>helm init&lt;/code> 和 &lt;code>helm home&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>其他更改：
+&lt;ul>
+&lt;li>简化了Helm的安装和设置：
+&lt;ul>
+&lt;li>仅针对Helm客户端 (二进制)&lt;/li>
+&lt;li>按照已有范式运行&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>不再默认设置&lt;code>local&lt;/code>或&lt;code>stable&lt;/code>仓库&lt;/li>
+&lt;li>删除了&lt;code>crd-install&lt;/code>钩子并用chart中的&lt;code>crds&lt;/code>目录替换了，在渲染chart之前会安装所有的crd&lt;/li>
+&lt;li>删除了&lt;code>test-failure&lt;/code>钩子注释值，且弃用了&lt;code>test-success&lt;/code>。使用&lt;code>test&lt;/code>代替&lt;/li>
+&lt;li>删除/替换/添加的命令：
+&lt;ul>
+&lt;li>delete --&amp;gt; uninstall : 默认删除所有的发布记录（之前需要&lt;code>--purge&lt;/code>）&lt;/li>
+&lt;li>fetch --&amp;gt; pull&lt;/li>
+&lt;li>home (已删除)&lt;/li>
+&lt;li>init (已删除)&lt;/li>
+&lt;li>install: 需要发布名称或者&lt;code>--generate-name&lt;/code> 参数&lt;/li>
+&lt;li>inspect --&amp;gt; show&lt;/li>
+&lt;li>reset (已删除)&lt;/li>
+&lt;li>serve (已删除)&lt;/li>
+&lt;li>template: &lt;code>-x&lt;/code>/&lt;code>--execute&lt;/code> 参数重命名为 &lt;code>-s&lt;/code>/&lt;code>--show-only&lt;/code>&lt;/li>
+&lt;li>upgrade: 添加了参数 &lt;code>--history-max&lt;/code>，限制每个版本保存的最大记录数量（0表示不限制）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Helm 3 Go库经历了很多变化，不再兼容Helm 2库&lt;/li>
+&lt;li>发行版二进制包现在托管在 &lt;code>get.helm.sh&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="迁移用例">迁移用例&lt;/h2>
+&lt;p>迁移用例如下：&lt;/p></description></item><item><title>Helm版本支持策略</title><link>https://helm.sh/zh/docs/topics/version_skew/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/version_skew/</guid><description>&lt;p>该文档描述了在Helm和Kubernetes之间支持的最大版本偏差。&lt;/p>
+&lt;h2 id="支持的版本">支持的版本&lt;/h2>
+&lt;p>Helm的版本用 &lt;code>x.y.z&lt;/code> 描述，&lt;code>x&lt;/code>是主版本，&lt;code>y&lt;/code>是次版本，&lt;code>z&lt;/code>是补丁版本，遵循
+
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">语义化版本&lt;/a> 术语。&lt;/p>
+&lt;p>Helm项目维护了一个针对最近次要版本的发布分支。适当的修复，包括安全修复、从发布分支中的cherry-pick，
+视严重程度而定。更多细节请查看
+&lt;a href="https://helm.sh/zh/docs/topics/release_policy" target="_blank">Helm版本策略&lt;/a>。&lt;/p>
+&lt;h2 id="可支持的版本偏差">可支持的版本偏差&lt;/h2>
+&lt;p>当一个Helm的新版本发布时，它是针对Kubernetes的一个特定的次版本编译的。比如，Helm 3.0.0
+与Kubernetes的1.16.2的客户端版本交互，一次可以兼容Kubernetes 1.16。&lt;/p>
+&lt;p>从Helm 3开始，Helm 编译时假定与针对&lt;code>n-3&lt;/code>版本的Kubernetes兼容。由于Helm 2对Kubernetes次版本变更的支持稍微严格一点，
+则假定与Kubernetes的&lt;code>n-1&lt;/code>版本兼容。&lt;/p>
+&lt;p>例如，如果您在使用一个针对Kubernetes 1.17客户端API版本编译的Helm 3版本，那么它应该可以安全地使用Kubernetes 1.17，
+1.16，1.15，以及1.14。如果您在使用一个针对Kubernetes 1.16客户端API版本编译的Helm 2版本，那么它应该可以安全地使用
+Kubernetes 1.16 和 1.15。&lt;/p>
+&lt;p>不推荐将Helm用于比编译它所依赖的版本更高的Kubernetes版本，因为Helm并没有做出任何向前兼容的保证。&lt;/p>
+&lt;p>如果您选择了一个Kubernetes版本不支持的Helm，需自负风险。&lt;/p>
+&lt;p>请参考下表来确定哪个版本的Helm与您的集群兼容。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Helm 版本&lt;/th>
+ &lt;th>支持的 Kubernetes 版本&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>3.12.x&lt;/td>
+ &lt;td>1.27.x - 1.24.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.11.x&lt;/td>
+ &lt;td>1.26.x - 1.23.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.10.x&lt;/td>
+ &lt;td>1.25.x - 1.22.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.9.x&lt;/td>
+ &lt;td>1.24.x - 1.21.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.8.x&lt;/td>
+ &lt;td>1.23.x - 1.20.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.7.x&lt;/td>
+ &lt;td>1.22.x - 1.19.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.6.x&lt;/td>
+ &lt;td>1.21.x - 1.18.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.5.x&lt;/td>
+ &lt;td>1.20.x - 1.17.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.4.x&lt;/td>
+ &lt;td>1.19.x - 1.16.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.3.x&lt;/td>
+ &lt;td>1.18.x - 1.15.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.2.x&lt;/td>
+ &lt;td>1.18.x - 1.15.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.1.x&lt;/td>
+ &lt;td>1.17.x - 1.14.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>3.0.x&lt;/td>
+ &lt;td>1.16.x - 1.13.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.16.x&lt;/td>
+ &lt;td>1.16.x - 1.15.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.15.x&lt;/td>
+ &lt;td>1.15.x - 1.14.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.14.x&lt;/td>
+ &lt;td>1.14.x - 1.13.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.13.x&lt;/td>
+ &lt;td>1.13.x - 1.12.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.12.x&lt;/td>
+ &lt;td>1.12.x - 1.11.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.11.x&lt;/td>
+ &lt;td>1.11.x - 1.10.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.10.x&lt;/td>
+ &lt;td>1.10.x - 1.9.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.9.x&lt;/td>
+ &lt;td>1.10.x - 1.9.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.8.x&lt;/td>
+ &lt;td>1.9.x - 1.8.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.7.x&lt;/td>
+ &lt;td>1.8.x - 1.7.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.6.x&lt;/td>
+ &lt;td>1.7.x - 1.6.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.5.x&lt;/td>
+ &lt;td>1.6.x - 1.5.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.4.x&lt;/td>
+ &lt;td>1.6.x - 1.5.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.3.x&lt;/td>
+ &lt;td>1.5.x - 1.4.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.2.x&lt;/td>
+ &lt;td>1.5.x - 1.4.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.1.x&lt;/td>
+ &lt;td>1.5.x - 1.4.x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>2.0.x&lt;/td>
+ &lt;td>1.4.x - 1.3.x&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>SQL存储后端的权限管理</title><link>https://helm.sh/zh/docs/topics/permissions_sql_storage_backend/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/permissions_sql_storage_backend/</guid><description>&lt;p>该文档旨在提供用户使用SQL存储后端时设置和管理权限的指导。&lt;/p>
+&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>为了处理权限，Helm利用了Kubernetes的RBAC特性。使用SQL存储后端时，
+Kubernetes的角色不能被用于确认用户是否可以访问给定的资源。该文档会展示如果创建和管理权限。&lt;/p>
+&lt;h2 id="初始化">初始化&lt;/h2>
+&lt;p>Helm CLI 首先会连接您的数据库。客户端会确认数据库是否已经预先初始化，如果没有，
+它会自动处理必要的安装。初始化需要在public架构的admin权限，或者至少可以做以下事情：&lt;/p>
+&lt;ul>
+&lt;li>创建一个表&lt;/li>
+&lt;li>在public架构授予权限&lt;/li>
+&lt;/ul>
+&lt;p>当你的数据库执行过迁移操作之后，其他角色就可以使用客户端了。&lt;/p>
+&lt;h2 id="postgresql向非管理员用户授权">PostgreSQL向非管理员用户授权&lt;/h2>
+&lt;p>管理权限时，SQL后端驱动会利用PostgreSQL的
+&lt;a href="https://www.postgresql.org/docs/9.5/ddl-rowsecurity.html" target="_blank">RLS&lt;/a>(
+行安全级别)特性。RLS允许所有用户读/写同一张表，如果没有明确说明，不允许操作相同的行。
+默认情况下，运行&lt;code>helm list&lt;/code>时任何角色如果没有明确授权正确的权限会返回空列表，并且不能检索或修改集群中的任何资源。&lt;/p>
+&lt;p>我们来看看如何为给定角色授予访问特定命名空间的权限：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#069;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>POLICY&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#555">&amp;lt;&lt;/span>name&lt;span style="color:#555">&amp;gt;&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">ON&lt;/span>&lt;span style="color:#bbb"> &lt;/span>releases_v1&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">FOR&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">ALL&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">TO&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#555">&amp;lt;&lt;/span>&lt;span style="color:#069;font-weight:bold">role&lt;/span>&lt;span style="color:#555">&amp;gt;&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#069;font-weight:bold">USING&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(namespace&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#555">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#39;default&amp;#39;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个命令在使用&lt;code>namespace = 'default'&lt;/code>条件时会授权给角色&lt;code>role&lt;/code>所有资源读和写操作权限。
+在创建这个策略时，运行&lt;code>helm list&lt;/code>时会代表角色&lt;code>role&lt;/code>在默认的命名空间中连接数据库，
+因而能看到命名空间中所有的版本，并能修改和删除它们。&lt;/p>
+&lt;p>权限可以按照RLS粒度进行管理，人们可能会对表的不同列的访问限制感兴趣：&lt;/p>
+&lt;ul>
+&lt;li>key&lt;/li>
+&lt;li>type&lt;/li>
+&lt;li>body&lt;/li>
+&lt;li>name&lt;/li>
+&lt;li>namespace&lt;/li>
+&lt;li>version&lt;/li>
+&lt;li>status&lt;/li>
+&lt;li>owner&lt;/li>
+&lt;li>createdAt&lt;/li>
+&lt;li>modifiedAt&lt;/li>
+&lt;/ul></description></item><item><title>发布计划策略</title><link>https://helm.sh/zh/docs/topics/release_policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/release_policy/</guid><description>&lt;p>为了用户的利益，Helm提前定义和宣布发布日期。本文档描述了控制Helm发布计划的策略。&lt;/p>
+&lt;h2 id="发布日历">发布日历&lt;/h2>
+&lt;p>可以在
+&lt;a href="https://helm.sh/calendar/release" target="_blank">这里&lt;/a>找到显示即将发布的Helm公共日历&lt;/p>
+&lt;h2 id="语义化版本">语义化版本&lt;/h2>
+&lt;p>Helm的版本描述为&lt;code>x.y.z&lt;/code>，其中&lt;code>x&lt;/code>是主版本，&lt;code>y&lt;/code>是次版本，&lt;code>z&lt;/code>是补丁版本，遵循
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">语义化版本&lt;/a>术语。&lt;/p>
+&lt;h2 id="补丁发布">补丁发布&lt;/h2>
+&lt;p>补丁版本为用户提供bug修复和安全修复。不会包含新的特性。&lt;/p>
+&lt;p>与最新的次要/主要版本相关的新补丁通常每月的第二个星期三进行发布一次。&lt;/p>
+&lt;p>补丁版本会修复需要处理的高优先级回归或安全问题。&lt;/p>
+&lt;p>补丁版本会因为以下原因取消：&lt;/p>
+&lt;ul>
+&lt;li>如果自上一个版本没有新内容加入&lt;/li>
+&lt;li>如果补丁版本的发布日期在第一候选版本发布之前一周之内&lt;/li>
+&lt;li>如果补丁版本在次版本发布后的四周内&lt;/li>
+&lt;/ul>
+&lt;h2 id="次版本发布">次版本发布&lt;/h2>
+&lt;p>次版本包含安全和bug修复以及新特性。它们对API和CLI用法向后兼容。&lt;/p>
+&lt;p>为了与Kubernetes版本保持一致，次要版本会每四个月发布一次（一年三版）。&lt;/p>
+&lt;p>如果需要的话，可以发布额外的次版本，但不会影响已经宣布的未来版本的时间线，除非宣布的发布时间不到7天。&lt;/p>
+&lt;p>版本发布的同时，下一个次版本的发布时间也宣布并发布在Helm的主页上。&lt;/p>
+&lt;h2 id="主版本发布">主版本发布&lt;/h2>
+&lt;p>主版本包含了突破性的更改。这种版本很少，但是有时需要允许helm在重要的新方向上持续改善。&lt;/p>
+&lt;p>主版本很难计划。考虑到这一点，最终发布时间只能在第一个beta版本可用时选择和宣布。&lt;/p></description></item><item><title>弃用的 Kubernetes API</title><link>https://helm.sh/zh/docs/topics/kubernetes_apis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/topics/kubernetes_apis/</guid><description>&lt;p>Kubernetes是一个API驱动系统，且API会随着时间的推移而变化，以反映对问题理解的不断推移。这是系统及API的普遍做法。
+API推移的一个重要部分时良好的弃用策略和通知用户更改API是如何实现的。换句话说，你的API使用者需要提前知道要发布的API
+删除或更改了什么。这消除了重大改变对用户造成的恐惧。&lt;/p>
+&lt;p>
+&lt;a href="https://kubernetes.io/docs/reference/using-api/deprecation-policy/" target="_blank">Kubernetes弃用策略&lt;/a>
+文档描述了如何处理API版本的变化。弃用策略声明了在弃用声明之后支持的API版本的时间范围。因此关注弃用声明并知道API何时被移除很重要。
+有助于将影响降到最低。&lt;/p>
+&lt;p>这是一个声明示例， 
+&lt;a href="https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/" target="_blank">针对Kubernetes 1.6弃用的API版本&lt;/a>，
+而且是在版本发布的几个月之前公布。在这之前，这些API版本可能已经宣布不再使用了。这表明一个好的策略可以通知用户API的版本支持。&lt;/p>
+&lt;p>Helm模板定义Kubernetes对象时指定了一个 
+&lt;a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-groups" target="_blank">Kubernetes
+API组&lt;/a>，类似于Kubernetes的manifest文件。
+在模板的&lt;code>apiVersion&lt;/code>字段指定并标识了Kubernetes对象的API版本。这意味着Helm用户和chart维护者需要关注Kubernetes的API版本
+何时会被弃用且在哪个Kubernetes版本中被移除。&lt;/p>
+&lt;h2 id="chart-maintainers">Chart Maintainers&lt;/h2>
+&lt;p>你应该审核chart，检查Kubernetes中已弃用或已删除的Kubernetes API版本。如果API版本不再被支持，应该更新为支持版本并发布新的
+chart版本。API版本由&lt;code>kind&lt;/code>和&lt;code>apiVersion&lt;/code>字段定义。比如，Kubernetes 1.16 中有个被移除的&lt;code>Deployment&lt;/code>对象API版本：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">apiVersion&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>apps/v1beta1&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#309;font-weight:bold">kind&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>Deployment&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="helm用户">Helm用户&lt;/h2>
+&lt;p>你应该审核你使用的chart(类似于
+&lt;a href="#chart-maintainers">chart维护者&lt;/a>)，并识别所有的chart中Kubernetes版本弃用或移除的API版本。
+针对确定的chart，需要检查（有支持的API版本的）chart最新的版本，或者手动更新。&lt;/p>
+&lt;p>另外，你还需要审核已经部署的chart（即Helm版本）还有没有弃用或移除的API版本。可以使用&lt;code>helm get manifest&lt;/code>获取详细信息。&lt;/p>
+&lt;p>将Helm更新为支持的API取决于你通过以下方式找到的：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>如果你只找到弃用的API版本，则：&lt;/p>
+&lt;ul>
+&lt;li>执行&lt;code>helm upgrade&lt;/code>升级Kubernetes API版本支持的chart版本&lt;/li>
+&lt;li>在升级中添加一个描述，在当前版本之前不执行Helm版本回滚&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>如果你发现了在Kubernetes版本中被移除的API版本，则：&lt;/p>
+&lt;ul>
+&lt;li>如果你运行的Kubernetes版本中API版本依然可用（比如，你在Kubernetes 1.15 且你发现使用的API会在1.16中移除）：
+&lt;ul>
+&lt;li>遵循第1步的步骤&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>否则（比如，你运行的Kubernetes 版本中某些API版本通过&lt;code>helm get manifest&lt;/code>显示不可用）：
+&lt;ul>
+&lt;li>需要编辑存储在集群中的版本清单，更新API版本到支持的API。查看
+&lt;a href="#updating-api-versions-of-a-release-manifest">更新版本清单的API版本&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>注意：在所有使用支持的API更新Helm版本的场景中，决不应该将发布版本回滚到API版本支持的之前的版本&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>建议：最佳实践是将正在使用的弃用版本升级到支持的API版本，在升级Kubernetes 集群之前删除这些API版本。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果你没有按照之前的建议更新版本， 当升级的Kubernetes版本中API的版本已经移除，会出现类似下面的错误：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Error: UPGRADE FAILED: current release manifest contains removed kubernetes api(s)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">for this kubernetes version and it is therefore unable to build the kubernetes
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">objects for performing the diff. error from kubernetes: unable to recognize &amp;#34;&amp;#34;:
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">no matches for kind &amp;#34;Deployment&amp;#34; in version &amp;#34;apps/v1beta1&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Helm在这个情况中会失败，因为试图它在当前部署的和你传了更新/支持的API版本的chart之间创建一个diff补丁（包含在这个Kubernetes
+版本中删除的Kubernetes API）。失败的根本原因是，当Kubernetes删除了一个API版本时，Kubernetes的Go客户端库不再解析弃用的对象，
+所以Helm调用库时会失败。不幸的是，Helm无法从这种情况下恢复，且无法再管理这样的版本。查看
+
+&lt;a href="#updating-api-versions-of-a-release-manifest">升级发布清单的API版本&lt;/a> 获取更多如何从这种情况恢复的细节信息。&lt;/p></description></item></channel></rss>

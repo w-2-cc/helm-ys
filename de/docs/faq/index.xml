@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fragen und Antworten on Helm</title><link>https://helm.sh/de/docs/faq/</link><description>Recent content in Fragen und Antworten on Helm</description><generator>Hugo</generator><language>de</language><atom:link href="https://helm.sh/de/docs/faq/index.xml" rel="self" type="application/rss+xml"/><item><title>Änderungen seit Helm 2</title><link>https://helm.sh/de/docs/faq/changes_since_helm2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/faq/changes_since_helm2/</guid><description>&lt;h2 id="änderungen-seit-helm-2">Änderungen seit Helm 2&lt;/h2>
+&lt;p>Hier ist eine Liste an grundlegenden Änderungen in Helm 3.&lt;/p>
+&lt;h3 id="löschung-von-tiller">Löschung von Tiller&lt;/h3>
+&lt;p>Während des Helm 2 Entwicklungszyklus haben wir Tiller vorgestellt. Tiller
+spielte eine wichtige Rolle für Teams in einem geteilten Cluster - es war
+für mehrere unterschiedliche Operatoren möglich, mit demselben Set an Versionen
+zu interagieren.&lt;/p>
+&lt;p>Mit rollenbasierter Zugriffskontrolle (RBAC), standardmässig aktiviert in Kubernetes 1.6,
+sperrte Tiller immer mehr in Produktionsumgebungen aus, da die Verwaltung schwieriger
+wurde. Durch die riesigen Änderungen der Sicherheitsregeln, war es unser Fokus,
+eine permissive Standardkonfiguration zu liefern. Das erlaubte es Neulingen in Helm
+und Kubernetes, schnell zu starten, ohne sich allzuviuel über Sicherheitskontrollen den
+Kopf zu zerbrechen. Unglücklicherweise konnte diese permissive Konfiguration ein
+breites Spektrum an Berechtigungen öffnen, ohne dass der Nutzer dies erwartete.
+DevOps und SREs hatten zusätzliche Betriebsschritte zu lernen, um Tiller in einer
+multi-mandant Cluster zu betreiben.&lt;/p></description></item><item><title>Installieren</title><link>https://helm.sh/de/docs/faq/installing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/faq/installing/</guid><description>&lt;h2 id="installieren">Installieren&lt;/h2>
+&lt;h3 id="warum-gibt-es-keine-nativen-pakete-von-helm-für-fedora-oder-andere-linuxdistributionen">Warum gibt es keine nativen Pakete von Helm für Fedora oder andere Linuxdistributionen?&lt;/h3>
+&lt;p>Das Helm Projekt verwaltet keine Pakete für Betriebssysteme oder Umgebungen.
+Die Helm Gemeinschaft stellt möglicherweise native Pakete zur Verfügung
+und wenn es genug Aufmerksamkeit in der Gemeinschaft für ein Paket gibt,
+wird es vielleicht gelistet. So war es als Homebrew Formular startete und gelistet
+wurde. Wenn Sie interessiert sind, ein Paket zu verwalten, würden wir das
+sehr begrüssen.&lt;/p></description></item><item><title>Deinstallieren</title><link>https://helm.sh/de/docs/faq/uninstalling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/faq/uninstalling/</guid><description>&lt;h2 id="deinstallieren">Deinstallieren&lt;/h2>
+&lt;h3 id="i-möchte-mein-lokales-helm-deinstallieren-wo-sind-alle-dateien">I möchte mein lokales Helm deinstallieren. Wo sind alle Dateien?&lt;/h3>
+&lt;p>Neben dem eigentlichen &lt;code>helm&lt;/code> Programm speichert Helm Dateien an folgenden
+Orten:&lt;/p>
+&lt;ul>
+&lt;li>$XDG_CACHE_HOME&lt;/li>
+&lt;li>$XDG_CONFIG_HOME&lt;/li>
+&lt;li>$XDG_DATA_HOME&lt;/li>
+&lt;/ul>
+&lt;p>Die folgende Tabelle gibt die Standardspeicherorte je Betriebssystem an:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Betriebssystem&lt;/th>
+ &lt;th>Zwischenspeicherpfad&lt;/th>
+ &lt;th>Konfigurationspfad&lt;/th>
+ &lt;th>Datenpfad&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Linux&lt;/td>
+ &lt;td>&lt;code>$HOME/.cache/helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.config/helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.local/share/helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>macOS&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Caches/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Preferences/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/helm &lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Windows&lt;/td>
+ &lt;td>&lt;code>%TEMP%\helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Fehlersuche</title><link>https://helm.sh/de/docs/faq/troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/faq/troubleshooting/</guid><description>&lt;h2 id="fehlersuche">Fehlersuche&lt;/h2>
+&lt;h3 id="ich-bekomme-eine-warnung-unable-to-get-an-update-from-the-stable-chart-repository">Ich bekomme eine Warnung &amp;quot;Unable to get an update from the &amp;quot;stable&amp;quot; chart repository&amp;quot;&lt;/h3>
+&lt;p>Starten Sie &lt;code>helm repo list&lt;/code>. Wenn Ihr &lt;code>stable&lt;/code> Repository zu &lt;code>storage.googleapis.com&lt;/code> zeigt,
+benötigen Sie eine Aktualisierung. Am 13.11.2020 wurde das Helm Chart Verzeichnis
+
+&lt;a href="https://github.com/helm/charts#deprecation-timeline" target="_blank">unsupported&lt;/a>, nachdem es ein Jahr lang
+als veraltet gekennzeichnet wurde. Ein Archiv ist verfügbar auf
+&lt;code>https://charts.helm.sh/stable&lt;/code>, aber es bekommt keine Aktualisierungen mehr.&lt;/p>
+&lt;p>Sie können folgendes tun, um Ihr Repository zu reparieren:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo add stable https://charts.helm.sh/stable --force-update 
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Dasselbe gilt für das &lt;code>incubator&lt;/code> Repository, dessen Archiv verfügbar ist bei
+
+&lt;a href="https://charts.helm.sh/incubator" target="_blank">https://charts.helm.sh/incubator&lt;/a>.
+Zur Reparatur können Sie folgendes Kommando verwenden:&lt;/p></description></item></channel></rss>

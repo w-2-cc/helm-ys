@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cómo Hacer on Helm</title><link>https://helm.sh/es/docs/howto/</link><description>Recent content in Cómo Hacer on Helm</description><generator>Hugo</generator><language>es</language><atom:link href="https://helm.sh/es/docs/howto/index.xml" rel="self" type="application/rss+xml"/><item><title>Consejos y Trucos para el Desarrollo de Charts</title><link>https://helm.sh/es/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/es/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>Esta guía cubre algunos de los consejos y trucos que los desarrolladores de charts
+de Helm han aprendido al crear charts con calidad de producción.&lt;/p>
+&lt;h2 id="conozca-las-funciones-de-plantilla">Conozca las funciones de plantilla&lt;/h2>
+&lt;p>Helm usa 
+&lt;a href="https://godoc.org/text/template" target="_blank">plantillas Go&lt;/a> para crear plantillas
+para sus archivos de recursos. Si bien Go incluye varias funciones integradas,
+hemos agregado muchas otras.&lt;/p>
+&lt;p>Primero, agregamos todas las funciones en la 
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">biblioteca
+Sprig&lt;/a>.&lt;/p>
+&lt;p>También agregamos dos funciones de plantilla especiales: &lt;code>include&lt;/code> y
+&lt;code>required&lt;/code>. La función &lt;code>include&lt;/code> le permite traer otra plantilla y luego pasar
+los resultados a otras funciones de la plantilla.&lt;/p></description></item><item><title>Sincronizar tu Repositorio de Charts</title><link>https://helm.sh/es/docs/howto/chart_repository_sync_example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/es/docs/howto/chart_repository_sync_example/</guid><description>&lt;p>&lt;em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
+que sirve como repositorio de charts.&lt;/em>&lt;/p>
+&lt;h2 id="requisitos-previos">Requisitos Previos&lt;/h2>
+&lt;ul>
+&lt;li>Instalar la herramienta 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil" target="_blank">gsutil&lt;/a>.
+&lt;em>Dependemos en gran medida de la funcionalidad de gsutil rsync&lt;/em>&lt;/li>
+&lt;li>Asegúrese de tener acceso al binario de Helm&lt;/li>
+&lt;li>&lt;em>Opcional: Le recomendamos que establezca 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page" target="_blank">control de versiones del
+objeto&lt;/a>
+en su bucket de GCS en caso de que elimine algo accidentalmente.&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local&lt;/h2>
+&lt;p>Cree un directorio local como lo hicimos en 
+&lt;a href="https://helm.sh/docs/topics/chart_repository/">la guía del repositorio de charts&lt;/a>
+, y coloque sus charts empaquetados en ese directorio.&lt;/p></description></item><item><title>Chart Releaser Action para automatizar página GitHub de Charts</title><link>https://helm.sh/es/docs/howto/chart_releaser_action/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/es/docs/howto/chart_releaser_action/</guid><description>&lt;p>Esta guía describe cómo utilizar 
+&lt;a href="https://github.com/marketplace/actions/helm-chart-releaser" target="_blank">Chart Releaser
+Action&lt;/a> para automatizar
+el releasing charts a través de las páginas GitHub. Chart Releaser Action es una GitHub Action
+workflow para converitrun proyecto GitHub en un repositorio de chart de Helm autoalojados, utilizando la herramienta
+
+&lt;a href="https://github.com/helm/chart-releaser" target="_blank">helm/chart-releaser&lt;/a> CLI.&lt;/p>
+&lt;h2 id="cambios-en-el-repositorio">Cambios en el repositorio&lt;/h2>
+&lt;p>Crear un repositorio Git en tu organización GitHub. Puedes dar el nombre del repositorio como &lt;code>helm-charts&lt;/code>, aunque también son aceptables otros nombres. Las fuentes de todos los Charts pueden colocarse en la rama &lt;code>main&lt;/code>. Los charts deben colocarse en el directorio &lt;code>/charts&lt;/code> en el nivel superior del árbol de directorios.&lt;/p></description></item></channel></rss>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>コミュニティ on Helm</title><link>https://helm.sh/ja/docs/community/</link><description>Recent content in コミュニティ on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/docs/community/index.xml" rel="self" type="application/rss+xml"/><item><title>開発者ガイド</title><link>https://helm.sh/ja/docs/community/developers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/developers/</guid><description>&lt;p>このガイドでは、Helmで開発するための環境をセットアップする方法について説明します。&lt;/p>
+&lt;h2 id="必要な環境">必要な環境&lt;/h2>
+&lt;ul>
+&lt;li>Goの最新バージョン&lt;/li>
+&lt;li>kubectlおよびKubernetesクラスター (optional)&lt;/li>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h2 id="helmをビルドする">Helmをビルドする&lt;/h2>
+&lt;p>Makeを使用してプログラムを構築します。最も簡単な方法は次のとおりです:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意: &lt;code>$GOPATH/src/helm.sh/helm&lt;/code> のパスにて実行されていない場合、このコマンドは失敗します。 また、&lt;code>build&lt;/code>
+が関連するパッケージが見つけられないため、&lt;code>helm.sh&lt;/code>ディレクトリをシンボリックリンクにしてはいけません。&lt;/p>
+&lt;p>このコマンドは必要に応じて依存関係をインストールし、&lt;code>vendor/&lt;/code>ツリーを再ビルドしたのち、configurationを検証します。 その後に&lt;code>helm&lt;/code>をコンパイルして&lt;code>bin/helm&lt;/code>に配置します。&lt;/p>
+&lt;p>Helmをローカルで実行するには、&lt;code>bin/helm&lt;/code>を実行してください。&lt;/p>
+&lt;ul>
+&lt;li>Helmは、macOSおよびAlpineを含んだほとんどのLinuxディストリビューションで動作することが知られています。&lt;/li>
+&lt;/ul>
+&lt;h2 id="テストの実行">テストの実行&lt;/h2>
+&lt;p>すべてのテスト(&lt;code>vendor/&lt;/code>のテストを除く)を実行するには、&lt;code>make test&lt;/code>を実行してください。 前提条件として、
+&lt;a href="https://golangci-lint.run" target="_blank">golangci-lint&lt;/a>
+をインストールする必要があります 。&lt;/p>
+&lt;h2 id="コントリビューションガイドライン">コントリビューションガイドライン&lt;/h2>
+&lt;p>私たちはコントリビューションを歓迎します。 このプロジェクトは、（a)
+コードの品質を高く保ち（b）プロジェクトの一貫性を保ち（c）コントリビューションがオープンソースの法的要件に従うことを保証するため、いくつかのガイドラインを設定しました。
+私たちの目的はコントリビューターに負担をかけることではなく、ユーザーが利益を得ることができるようにエレガントで高品質なオープンソースコードを構築することです。&lt;/p>
+&lt;p>CONTRIBUTINGガイドを読み、理解していることを確認してください。&lt;/p>
+&lt;p>
+&lt;a href="https://github.com/helm/helm/blob/main/CONTRIBUTING.md" target="_blank">https://github.com/helm/helm/blob/main/CONTRIBUTING.md&lt;/a>&lt;/p>
+&lt;h3 id="コードの構造">コードの構造&lt;/h3>
+&lt;p>Helmプロジェクトのコードは、以下のように構成されています。&lt;/p>
+&lt;ul>
+&lt;li>個々のプログラムは&lt;code>cmd/&lt;/code>にあります。&lt;code>cmd/&lt;/code>内のコードはライブラリ再利用を目的として設計されていません。&lt;/li>
+&lt;li>共有ライブラリは&lt;code>pkg/&lt;/code>にあります。&lt;/li>
+&lt;li>&lt;code>scripts/&lt;/code>ディレクトリには多数のユーティリティスクリプトがあります。これらのほとんどはCI/CDパイプラインによって使用されます。&lt;/li>
+&lt;/ul>
+&lt;p>Goの依存関係管理は流動的であり、Helmのライフサイクルの過程で変更される可能性があります。 依存関係を手動で管理 &lt;em>しない&lt;/em> ことをお勧めします。 その代わりに、プロジェクトの&lt;code>Makefile&lt;/code>に依存して管理を行うことをお勧めします。
+Helm 3では、Goバージョン1.13以降を使用することをお勧めします。&lt;/p>
+&lt;h3 id="ドキュメントの作成">ドキュメントの作成&lt;/h3>
+&lt;p>Helm 3以降、ドキュメントは独自のリポジトリに移動されました。 新しい機能を作成する場合は付属のドキュメントを作成して、
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a>にsubmitしてください。&lt;/p>
+&lt;p>例外: 
+&lt;a href="https://helm.sh/docs/helm/" target="_blank">Helm CLI output (英語)&lt;/a> は &lt;code>helm&lt;/code> のバイナリ自体から生成されます。
+このoutputを生成する方法については
+&lt;a href="https://github.com/helm/helm-www#updating-the-helm-cli-reference-docs" target="_blank">Updating the Helm CLI Reference Docs&lt;/a>
+をご覧ください。 翻訳された場合、CLI出力は生成されず&lt;code>/content/&amp;lt;lang&amp;gt;/docs/helm&lt;/code>に生成されます。&lt;/p>
+&lt;h3 id="git-規約">Git 規約&lt;/h3>
+&lt;p>バージョン管理システムにはGitを使用しています。
+&lt;code>main&lt;/code>ブランチは現在の開発候補の中心です。 リリースにはタグが付けられます。&lt;/p>
+&lt;p>GitHubのPull Requests（PRs）を介してコードの変更を受け付けています。 これを行うためのワークフローの一例は次のとおりです。&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>$GOPATH/src&lt;/code> に移動して &lt;code>mkdir helm.sh; cd helm.sh&lt;/code> を実行し、 &lt;code>github.com/helm/helm&lt;/code>
+のリポジトリを&lt;code>git clone&lt;/code> します。&lt;/li>
+&lt;li>リポジトリをあなたのGitHubアカウントにフォークします&lt;/li>
+&lt;li>あなたのリポジトリを&lt;code>$GOPATH/src/helm.sh/helm&lt;/code>のリモートとして追加します。&lt;/li>
+&lt;li>新しい作業ブランチ (&lt;code>git checkout -b feat/my-feature&lt;/code>) 作成し、そのブランチで作業を行います。&lt;/li>
+&lt;li>レビューの準備ができましたら、あなたのブランチをGitHubにプッシュして新しいプルリクエストを開いてください。&lt;/li>
+&lt;/ol>
+&lt;p>Git commit messagesに関しては
+&lt;a href="https://karma-runner.github.io/0.13/dev/git-commit-msg.html" target="_blank">Semantic Commit Messages&lt;/a>
+に従います
+:&lt;/p></description></item><item><title>プロジェクトの歴史</title><link>https://helm.sh/ja/docs/community/history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/history/</guid><description>&lt;p>Helm は 
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/" target="_blank">CNCF の Graduated プロジェクト&lt;/a>です。&lt;/p>
+&lt;p>Helm は、現在 
+&lt;a href="https://github.com/helm/helm-classic" target="_blank">Helm Classic&lt;/a> として知られているものとして始まりました。
+これは、2015年に開始され、
+最初の KubeCon で導入された Deis プロジェクトです。&lt;/p>
+&lt;p>2016 年 1 月、プロジェクトは Kubernetes Deployment Manager と呼ばれる GCS ツールと統合され、
+プロジェクトは 
+&lt;a href="https://kubernetes.io" target="_blank">Kubernetes&lt;/a> の下に移動されました。
+コードベースの統合の結果、
+Helm 2.0 がその年の後半にリリースされました。
+Helm 2 で生き残った Deployment Manager の主要な機能はサーバー側のコンポーネントで、
+最終的な Helm 2.0 リリースでは DM から Tiller に名前が変更されました。&lt;/p>
+&lt;p>Helm は、2018 年 6 月に Kubernetes サブプロジェクトから本格的な CNCF プロジェクトに昇格しました。
+Helm はトップレベルの管理組織を形成し、
+Monocular、Helm Chart Repo、Chart Museum、そして後に Helm Hub など、
+いくつかのプロジェクトが Helm プロジェクトに組み込まれました。&lt;/p>
+&lt;p>Helm 3 の開発サイクルが始まると、Tiller が削除され、
+Helm はクライアントツールであるという当初のビジョンに近づきました。
+ただし、Helm 3 は引き続き Kubernetes クラスター内のリリースを追跡しているため、
+チームが共同で Helm リリースのセットで作業することができます。Helm 3 は 2019 年 11 月にリリースされました。&lt;/p></description></item><item><title>Helm ドキュメントの国際化</title><link>https://helm.sh/ja/docs/community/localization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/community/localization/</guid><description>&lt;p>このガイドでは Helm ドキュメントをどのように国際化するかを説明します。&lt;/p>
+&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>翻訳への貢献にはドキュメントへの貢献と同様のプロセスを用います。翻訳は 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a> git リポジトリへの
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">プルリクエスト&lt;/a>によって供給され、プルリクエストはウェブサイトの管理チームによってレビューされます。&lt;/p>
+&lt;h3 id="2文字言語コード">2文字言語コード&lt;/h3>
+&lt;p>ドキュメントは 
+&lt;a href="https://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank">ISO 639-1
+標準&lt;/a> 言語コードによって管理されます。例えば、韓国語の2文字コードは &lt;code>ko&lt;/code> です。&lt;/p>
+&lt;p>コンテンツや設定でこの言語コードが使われます。3つ例を示します。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>content&lt;/code> ディレクトリ内で言語コードがサブディレクトリとして存在し、国際化されたコンテンツがそれぞれのディレクトリに入っています。&lt;/li>
+&lt;li>&lt;code>i18n&lt;/code> ディレクトリはそれぞれの言語について、ウェブサイトで使用されるフレーズについての設定ファイルを保有しています。それらのファイルは &lt;code>[LANG]&lt;/code> がその言語の2文字コードとなるような &lt;code>[LANG].toml&lt;/code> というパターンで命名されています。&lt;/li>
+&lt;li>トップレベルの &lt;code>config.toml&lt;/code> ファイルではナビゲーションやその他の詳細が言語コードごとに管理されています。&lt;/li>
+&lt;/ul>
+&lt;p>言語コード &lt;code>en&lt;/code> を持つ英語が、デフォルトの言語および翻訳元として用いられます。&lt;/p>
+&lt;h3 id="フォークブランチ変更プルリクエスト">フォーク、ブランチ、変更、プルリクエスト&lt;/h3>
+&lt;p>翻訳に貢献するために、まずは Github の 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www リポジトリ&lt;/a>の
+&lt;a href="https://help.github.com/ja/github/getting-started-with-github/fork-a-repo" target="_blank">フォークを作る&lt;/a>ことから始めましょう。あなたはまずあなたのフォークに変更をコミットすることから始めるでしょう。&lt;/p>
+&lt;p>初期状態であなたのフォークは &lt;code>main&lt;/code> として知られるデフォルトブランチに設定されているでしょう。あなたの変更を開発するあるいはプルリクエストを作成するためにブランチを使用してください。もしブランチについて不慣れなら
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-branches" target="_blank">それらについて Github ドキュメントで読む&lt;/a>ことができます。&lt;/p>
+&lt;p>ブランチを作成出来たら、翻訳を追加したり、コンテンツを国際化したりしましょう。&lt;/p>
+&lt;p>注：helm は 
+&lt;a href="https://developercertificate.org/" target="_blank">Developers Certificate of
+Origin&lt;/a> を利用しています。すべてのコミットは署名されている必要があります。コミットを作成する際に &lt;code>-s&lt;/code> か &lt;code>--signoff&lt;/code> フラグを用いることで、あなたの Git に設定されている名前とメールアドレスを用いてコミットに署名することができます。詳細については 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md#sign-your-work" target="_blank">CONTRIBUTING.md&lt;/a> をご覧ください。&lt;/p>
+&lt;p>準備ができたら、
+&lt;a href="https://help.github.com/ja/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">プルリクエスト&lt;/a> を作成し、helm-www リポジトリに反映しましょう。&lt;/p>
+&lt;p>作成されたプルリクエストは管理者によってレビューされます。その過程についての詳細は 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md&lt;/a> を参照してください。&lt;/p>
+&lt;h2 id="コンテンツの翻訳">コンテンツの翻訳&lt;/h2>
+&lt;p>全ての Helm コンテンツを国際化するのは大きな仕事です。小さなことから初めて大丈夫です。時間をかけて翻訳を拡大することができます。&lt;/p>
+&lt;h3 id="新たな言語を開始する">新たな言語を開始する&lt;/h3>
+&lt;p>新たな言語を開始するには以下の最低要件が必要です。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>_index.md&lt;/code> ファイルを含む &lt;code>content/[LANG]/docs&lt;/code> ディレクトリを追加する。これはドキュメントランディングページの最上位です。&lt;/li>
+&lt;li>&lt;code>i18n&lt;/code> ディレクトリに &lt;code>[LANG].toml&lt;/code> ファイルを作成する。まずは開始地点として &lt;code>en.toml&lt;/code> ファイルをコピーすることができます。&lt;/li>
+&lt;li>新たな言語を公開するため、&lt;code>config.toml&lt;/code> ファイルにその言語のセクションを追加する。既に存在する言語のセクションを開始地点とすることができます。&lt;/li>
+&lt;/ul>
+&lt;h3 id="翻訳">翻訳&lt;/h3>
+&lt;p>翻訳されたコンテンツは &lt;code>content/[LANG]/docs&lt;/code> ディレクトリ内に存在する必要があります。それらは英語ソースと同じURLを持ちます。例えば、イントロダクションを韓国語に翻訳するなら以下のように英語ソースをコピーすると便利です。&lt;/p></description></item></channel></rss>

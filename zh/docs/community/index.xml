@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>社区 on Helm</title><link>https://helm.sh/zh/docs/community/</link><description>Recent content in 社区 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/community/index.xml" rel="self" type="application/rss+xml"/><item><title>开发者指南</title><link>https://helm.sh/zh/docs/community/developers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/community/developers/</guid><description>&lt;p>该指南说明如何为开发Helm配置环境。&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;ul>
+&lt;li>Go最新版本&lt;/li>
+&lt;li>Kubernetes集群及kubectl（可选）&lt;/li>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h2 id="构建-helm">构建 Helm&lt;/h2>
+&lt;p>我们使用Make构建程序。最简单的开始方式是：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>有必要的话要先安装依赖，并验证配置。然后会编译 &lt;code>helm&lt;/code> 并将其放到 &lt;code>bin/helm&lt;/code>。&lt;/p>
+&lt;p>在本地执行Helm，可以执行 &lt;code>bin/helm&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>Helm运行在 macOS 和大多数发行版上，包括 Alpine。&lt;/li>
+&lt;/ul>
+&lt;h2 id="执行测试">执行测试&lt;/h2>
+&lt;p>要运行所有测试，执行 &lt;code>make test&lt;/code>。作为先决条件，需要安装
+
+&lt;a href="https://golangci-lint.run" target="_blank">golangci-lint&lt;/a>。&lt;/p>
+&lt;h2 id="贡献指南">贡献指南&lt;/h2>
+&lt;p>我们欢迎你的贡献。 该项目已经设置了一些指南，为了保证 (a) 代码的高质量，(b) 保持项目一致，
+(c) 贡献遵循开源法律要求。我们的目的不是为贡献者增加负担，但是要构建优雅和高质量的开源代码，
+这样我们的用户才能从中受益。&lt;/p>
+&lt;p>确保你已经阅读并理解主要贡献指南：&lt;/p>
+&lt;p>
+&lt;a href="https://github.com/helm/helm/blob/main/CONTRIBUTING.md" target="_blank">https://github.com/helm/helm/blob/main/CONTRIBUTING.md&lt;/a>&lt;/p>
+&lt;h3 id="代码结构">代码结构&lt;/h3>
+&lt;p>Helm项目的代码组织如下：&lt;/p>
+&lt;ul>
+&lt;li>独立的程序位于 &lt;code>cmd/&lt;/code>。&lt;code>cmd/&lt;/code> 中的代码不是为库复用设计的。&lt;/li>
+&lt;li>共享的库放在 &lt;code>pkg/&lt;/code>。&lt;/li>
+&lt;li>&lt;code>scripts/&lt;/code> 目录包含很多实用程序脚本。大多数用于CI/CD流水线。&lt;/li>
+&lt;/ul>
+&lt;p>Go依赖管理在不断变化，而且在Helm生命周期中很可能发生变化。我们建议开发者 &lt;em>不要&lt;/em> 手动管理依赖。
+而是建议依靠项目的 &lt;code>Makefile&lt;/code> 来处理。使用Helm 3时，建议使用Go 1.13及更新版本。&lt;/p>
+&lt;h3 id="编写文档">编写文档&lt;/h3>
+&lt;p>从Helm 3开始，文档已经移动到了它自己的仓库中。当编制新特性时，请编写随附文档并提交到
+
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a> 仓库。&lt;/p>
+&lt;p>有个例外：
+&lt;a href="https://helm.sh/docs/helm/" target="_blank">Helm CLI 输出 (英文)&lt;/a> 是 &lt;code>helm&lt;/code> 程序自己生成的。
+查看 
+&lt;a href="https://github.com/helm/helm-www#updating-the-helm-cli-reference-docs" target="_blank">更新Helm CLI参考文档&lt;/a>
+来了解如何生成该输出。翻译后，不会生成CLI输出，但可以在 &lt;code>/content/&amp;lt;lang&amp;gt;/docs/helm&lt;/code> 中找到。&lt;/p>
+&lt;h3 id="git-约定">Git 约定&lt;/h3>
+&lt;p>我们使用Git作为版本控制系统。 &lt;code>main&lt;/code> 分支是当前开发候选分支。发布版本会打tag。&lt;/p></description></item><item><title>版本 Checklist</title><link>https://helm.sh/zh/docs/community/release_checklist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/community/release_checklist/</guid><description>&lt;h1 id="维护人员发布helm指南">维护人员发布Helm指南&lt;/h1>
+&lt;p>是时候发布新的Helm了！作为Helm维护者发布版本，如果你的经验与这里的文档不同，那你就是
+
+&lt;a href="https://github.com/helm/helm-www/blob/main/content/en/docs/community/release_checklist.md" target="_blank">更新版本checklist&lt;/a>
+的最佳人选。&lt;/p>
+&lt;p>所有版本都将采用vX.Y.Z的形式，X是主版本号，Y是次版本号，Z是补丁发布号。该项目严格遵守 
+&lt;a href="https://semver.org/" target="_blank">语义化版本&lt;/a>，
+因此遵循这一点非常重要。&lt;/p>
+&lt;p>Helm会提前宣布下个次版本发布的日期。应尽一切努力遵守宣布的日期。此外，在开始发布过程时，应该选择下一个发布的日期在发布过程中使用。&lt;/p>
+&lt;p>这些说明将涵盖三种不同版本的遵守发布过程的初始配置：&lt;/p>
+&lt;ul>
+&lt;li>主版本 - 发布频率较低 - 有重大更新时&lt;/li>
+&lt;li>次版本 - 每3到4个月发布 - 无重大更新&lt;/li>
+&lt;li>补丁版本 - 每月发布 - 不需要指南中的所有步骤&lt;/li>
+&lt;/ul>
+&lt;p>
+&lt;a href="#initial-configuration">初始化配置&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;a href="#1-create-the-release-branch">创建发布分支&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#2-majorminor-releases-change-the-version-number-in-git">主/次版本：在Git中更改版本号&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#3-majorminor-releases-commit-and-push-the-release-branch">主/次版本：提交并推送发布分支&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#4-majorminor-releases-create-a-release-candidate">主/次版本：创建一个候选发布&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#5-majorminor-releases-iterate-on-successive-release-candidates">主/次版本：迭代连续的候选版本&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#6-finalize-the-release">完成发布&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#7-write-the-release-notes">编写发布日志&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#8-pgp-sign-the-downloads">PGP签名下载&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#9-publish-release">发布版本&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#10-update-docs">更新文档&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="#11-tell-the-community">告知社区&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="initial-configuration">Initial Configuration&lt;/h2>
+&lt;h3 id="设置远程git">设置远程Git&lt;/h3>
+&lt;p>需要注意的是该文档假设你的远程upstream仓库关联到了
+&lt;a href="https://github.com/helm/helm" target="_blank">https://github.com/helm/helm&lt;/a>。
+如果不是（比如，如果你选择了“origin”或其他类似的替代），请确保根据本地环境调整列出的代码段。
+如果你不确定使用了什么远程的upstream，使用&lt;code>git remote -v&lt;/code>命令查看。&lt;/p>
+&lt;p>如果你没有
+&lt;a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/configuring-a-remote-for-a-fork" target="_blank">上游远程&lt;/a>，
+可以类似这样添加：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git remote add upstream git@github.com:helm/helm.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="设置环境变量">设置环境变量&lt;/h3>
+&lt;p>在该文档中，我们还会引用一些环境变量，更便于设置。针对主、次版本，使用以下选项：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">RELEASE_NAME&lt;/span>&lt;span style="color:#555">=&lt;/span>vX.Y.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">RELEASE_BRANCH_NAME&lt;/span>&lt;span style="color:#555">=&lt;/span>&lt;span style="color:#c30">&amp;#34;release-X.Y&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">RELEASE_CANDIDATE_NAME&lt;/span>&lt;span style="color:#555">=&lt;/span>&lt;span style="color:#c30">&amp;#34;&lt;/span>&lt;span style="color:#033">$RELEASE_NAME&lt;/span>&lt;span style="color:#c30">-rc.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你在创建一个补丁版本，改用以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">PREVIOUS_PATCH_RELEASE&lt;/span>&lt;span style="color:#555">=&lt;/span>vX.Y.Z
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">RELEASE_NAME&lt;/span>&lt;span style="color:#555">=&lt;/span>vX.Y.Z+1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#366">export&lt;/span> &lt;span style="color:#033">RELEASE_BRANCH_NAME&lt;/span>&lt;span style="color:#555">=&lt;/span>&lt;span style="color:#c30">&amp;#34;release-X.Y&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="设置签名key">设置签名Key&lt;/h3>
+&lt;p>我们还会通过对二进制文件和提供的签名文件进行哈希计算增加发布过程的安全性和认证。
+使用
+&lt;a href="https://help.github.com/en/articles/about-commit-signature-verification" target="_blank">GitHub 和 GPG&lt;/a>来执行。
+如果还没设置GPG可以按照以下步骤操作：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;a href="https://gnupg.org/index.html" target="_blank">安装 GPG&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://help.github.com/en/articles/generating-a-new-gpg-key" target="_blank">生成 GPG key&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://help.github.com/en/articles/adding-a-new-gpg-key-to-your-github-account" target="_blank">将key添加到GitHub账户中&lt;/a>&lt;/li>
+&lt;li>
+&lt;a href="https://help.github.com/en/articles/telling-git-about-your-signing-key" target="_blank">在Git中设置签名密钥&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;p>一旦你有了签名密钥，需要将其添加到仓库根目录中的KEYS文件中。文件中有添加密钥到KEY文件的说明。如果还没有，需要将公钥添加到keyserver。
+如果使用了GnuPG，可以参照
+&lt;a href="https://debian-administration.org/article/451/Submitting_your_GPG_key_to_a_keyserver" target="_blank">Debian提供的说明&lt;/a>。&lt;/p>
+&lt;h2 id="1-create-the-release-branch">1. Create the Release Branch&lt;/h2>
+&lt;h3 id="主次版本">主、次版本&lt;/h3>
+&lt;p>主版本是为新特性及操作且&lt;em>不具有向后兼容性&lt;/em>。次版本是为了不破坏向后兼容性的新特性。创建一个主版本或次版本，从主干分支创建&lt;code>release-X.Y&lt;/code>分支。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git fetch upstream
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout upstream/main
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout -b &lt;span style="color:#033">$RELEASE_BRANCH_NAME&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个新分支是发布版本的基础分支，会在后面不断迭代。&lt;/p></description></item><item><title>相关项目及文档</title><link>https://helm.sh/zh/docs/community/related/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/community/related/</guid><description>&lt;p>Helm社区已经创建了很多针对Helm的额外工具，插件和文档。我们乐于听到这些项目声音。&lt;/p>
+&lt;p>如果你有什么需要补充到这里的话，请创建一个 
+&lt;a href="https://github.com/helm/helm-www/issues" target="_blank">issue&lt;/a> 或者
+
+&lt;a href="https://github.com/helm/helm-www/pulls" target="_blank">pull request&lt;/a>。&lt;/p>
+&lt;h2 id="helm-插件">Helm 插件&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-adopt" target="_blank">helm-adopt&lt;/a> - 将现有k8s资源转换成新生成的helm
+chart的helm v3插件。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/databus23/helm-diff" target="_blank">Helm Diff&lt;/a> - &lt;code>helm upgrade&lt;/code>的彩色diff预览&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/komodorio/helm-dashboard" target="_blank">Helm Dashboard&lt;/a> - Helm的GUI界面，可视化release、repository及manifest的差异&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hayorov/helm-gcs" target="_blank">helm-gcs&lt;/a> - 管理Google Cloud Storage中仓库的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/aslafy-z/helm-git" target="_blank">helm-git&lt;/a> - 从Git仓库中安装chart并检索values文件。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/cststack/k8comp" target="_blank">helm-k8comp&lt;/a> - 使用k8comp从hiera创建Helm Charts的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/helm/helm-mapkubeapis" target="_blank">helm-mapkubeapis&lt;/a> - 更新helm发布版本元数据用于替换过期或已移除的k8s API&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/ContainerSolutions/helm-monitor" target="_blank">helm-monitor&lt;/a> - 基于
+Prometheus/ElasticSearch的用于监控版本发布和回滚的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/JovianX/helm-release-plugin" target="_blank">helm-release-plugin&lt;/a> - 该插件用于管理已部署的release，更新release值，拉取（重建）helm chart，以及设置helm release TTL。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hypnoglow/helm-s3" target="_blank">helm-s3&lt;/a> - 允许使用AWS S3作为[私有]chart仓库的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/karuppiah7890/helm-schema-gen" target="_blank">helm-schema-gen&lt;/a> - 为Helm
+3生成values的yaml框架的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/jkroepke/helm-secrets" target="_blank">helm-secrets&lt;/a> - 安全存储密钥的插件
+（基于
+&lt;a href="https://github.com/mozilla/sops" target="_blank">sops&lt;/a>）&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/sigstore/helm-sigstore" target="_blank">helm-sigstore&lt;/a> - Helm集成
+&lt;a href="https://sigstore.dev/" target="_blank">sigstore&lt;/a>生态的插件。
+用于搜索、上传及验证已签名的Helm chart。&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/Duologic/helm-tanka" target="_blank">helm-tanka&lt;/a> - 在Helm chart中渲染Tanka/Jsonnet的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/xchapter7x/hcunit" target="_blank">hc-unit&lt;/a> - 使用OPA (Open Policy Agent) 和 Rego本地进行chart单元测试的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/quintush/helm-unittest" target="_blank">helm-unittest&lt;/a> - 使用YAML本地进行chart单元测试的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-val" target="_blank">helm-val&lt;/a> - 从之前的版本中获取值的插件&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/kuuji/helm-external-val" target="_blank">helm-external-val&lt;/a> - 从外部资源（configMaps，
+Secrets等）获取Helm values的插件&lt;/li>
+&lt;/ul>
+&lt;p>我们同样鼓励使用GitHub的各位使用
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">helm-plugin&lt;/a>
+给插件仓库打tag。&lt;/p></description></item><item><title>项目历史</title><link>https://helm.sh/zh/docs/community/history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/community/history/</guid><description>&lt;p>Helm 是
+&lt;a href="https://www.cncf.io/projects/" target="_blank">CNCF&lt;/a>的
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/" target="_blank">毕业项目&lt;/a>。&lt;/p>
+&lt;p>Helm 开始时被称为
+&lt;a href="https://github.com/helm/helm-classic" target="_blank">Helm Classic&lt;/a>，始于2015年的Deis项目并在KubeCon会议中被提出。&lt;/p>
+&lt;p>2016年1月，该项目与名为Kubernetes部署管理器的GCS工具合并，并移动到了
+&lt;a href="https://kubernetes.io" target="_blank">Kubernetes&lt;/a>中。
+由于代码的合并，Helm 2.0于当年晚些时候发布。在Helm 2中保留的部署管理的关键特性是服务端组件，
+Helm 2.0最终的发布版本中DM重命名为了Tiller。&lt;/p>
+&lt;p>Helm于2018年6月从Kubernetes子项目晋升为CNCF的成熟项目。Helm组建了一个顶级的管理机构并在Helm项目中包含了几个子项目，
+包括Monocular，Helm Chart仓库，Chart博物馆，以及后来的Helm Hub。&lt;/p>
+&lt;p>当Helm 3开发周期开始时，移除了Tiller，使其更接近于作为客户工具最初愿景。但Helm 3继续跟踪Kubernetes集群内部的版本，
+使团队可以共同完成一个公共的Helm发布版本。Helm 3于2019年11月发布。&lt;/p>
+&lt;p>Helm 
+&lt;a href="https://www.cncf.io/announcement/2020/04/30/cloud-native-computing-foundation-announces-helm-graduation/" target="_blank">于2020年4月成为CNCF的毕业项目&lt;/a>。&lt;/p>
+&lt;p>CNCF的
+&lt;a href="https://artifacthub.io" target="_blank">Artifact Hub&lt;/a>在2020年10月份替换了
+&lt;a href="https://hub.helm.sh" target="_blank">Helm Hub&lt;/a>。&lt;/p></description></item><item><title>本地化Helm文档</title><link>https://helm.sh/zh/docs/community/localization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/community/localization/</guid><description>&lt;p>本指南介绍如何本地化Helm文档。&lt;/p>
+&lt;h2 id="入门">入门&lt;/h2>
+&lt;p>翻译工作使用与文档稿件相同的过程。翻译通过
+&lt;a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">pull
+requests&lt;/a>
+提供给 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a> 仓库并由管理站点的团队审查。&lt;/p>
+&lt;h3 id="双字母语言代码">双字母语言代码&lt;/h3>
+&lt;p>语言代码文档由
+&lt;a href="https://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank">ISO 639-1标准&lt;/a>组织。
+比如，韩国的双字母代码是 &lt;code>ko&lt;/code>。&lt;/p>
+&lt;p>在内容和配置中可以找到使用的语音码。三个例子如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>content&lt;/code> 目录中的子目录以语言码命名且本地化内容在对应的目录中。 主要在每个语言码目录的 &lt;code>docs&lt;/code>子目录中。&lt;/li>
+&lt;li>&lt;code>i18n&lt;/code>目录包含一个网站使用的每种语言的配置文件。文件按照 &lt;code>[LANG].toml&lt;/code> 形式命名，&lt;code>[LANG]&lt;/code> 是双字母语言码。&lt;/li>
+&lt;li>顶层&lt;code>config.toml&lt;/code>文件中，有按语言码组织的导航和其他详细信息的配置。&lt;/li>
+&lt;/ul>
+&lt;p>英文使用语言码 &lt;code>en&lt;/code>，是翻译的默认语言和资源。&lt;/p>
+&lt;h3 id="fork-branch-change-pull-request">Fork, Branch, Change, Pull Request&lt;/h3>
+&lt;p>贡献翻译从
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www仓库&lt;/a>
+
+&lt;a href="https://help.github.com/en/github/getting-started-with-github/fork-a-repo" target="_blank">创建fork&lt;/a>开始。在你的fork中提交更改。&lt;/p>
+&lt;p>默认情况下，fork将在名为master的默认分支上工作。请使用分支提交更改并创建pull requests。如果你不熟悉分支，可以
+
+&lt;a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches" target="_blank">阅读GitHub文档&lt;/a>。&lt;/p>
+&lt;p>一旦有了分支，就可以添加翻译，将内容本地化为一种语言。&lt;/p>
+&lt;p>注意，Helm使用一个
+&lt;a href="https://developercertificate.org/" target="_blank">Developers Certificate of Origin&lt;/a>。
+所有的提交需要signoff。提交时可以使用 &lt;code>-s&lt;/code> 或 &lt;code>--signoff&lt;/code> 参数使用你Git配置的用户和邮箱签署这个提交。
+更多细节请查看 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md#sign-your-work" target="_blank">CONTRIBUTING.md&lt;/a>
+文件。&lt;/p>
+&lt;p>准备好之后，创建一个 
+&lt;a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">pull request&lt;/a>
+将翻译提交到helm-www仓库。&lt;/p>
+&lt;p>一旦创建了pull request，维护者会进行审查。过程细节查看 
+&lt;a href="https://github.com/helm/helm-www/blob/main/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md&lt;/a>。&lt;/p>
+&lt;h2 id="翻译内容">翻译内容&lt;/h2>
+&lt;p>本地化所有的Helm内容是一项巨大的任务。开始很小的改动是可以的。翻译会随着时间扩展。&lt;/p>
+&lt;h3 id="开始一个新语言">开始一个新语言&lt;/h3>
+&lt;p>开始新语言时有些最低要求，包括：&lt;/p>
+&lt;ul>
+&lt;li>添加&lt;code>content/[LANG]/docs&lt;/code>目录，包含&lt;code>_index.md&lt;/code> 文件。这是顶层的文档落地页。&lt;/li>
+&lt;li>&lt;code>[LANG].toml&lt;/code> 文件在&lt;code>i18n&lt;/code>目录中。可以复制&lt;code>en.toml&lt;/code>文件作为起点。&lt;/li>
+&lt;li>在 &lt;code>config.toml&lt;/code>文件中添加一部分用于展示新语言。可以用已有语言作为起点。&lt;/li>
+&lt;/ul>
+&lt;h3 id="翻译">翻译&lt;/h3>
+&lt;p>已翻译内容需要保留在 &lt;code>content/[LANG]/docs&lt;/code> 目录中。应该有相同的URL作为英文源。
+比如，将intro翻译为韩文时拷贝英文是有用的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>mkdir -p content/ko/docs/intro
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cp content/en/docs/intro/install.md content/ko/docs/intro/install.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个新文件中的内容可以翻译成其他语言。&lt;/p></description></item></channel></rss>

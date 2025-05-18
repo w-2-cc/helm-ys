@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Introdução on Helm</title><link>https://helm.sh/pt/docs/intro/</link><description>Recent content in Introdução on Helm</description><generator>Hugo</generator><language>pt</language><atom:link href="https://helm.sh/pt/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>Guia de Início Rápido</title><link>https://helm.sh/pt/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/intro/quickstart/</guid><description>&lt;p>Esse guia cobre como você rapidamente pode começar a utilizar o Helm.&lt;/p>
+&lt;h2 id="pré-requisitos">Pré-requisitos&lt;/h2>
+&lt;p>Os pré-requisitos a seguir são exigidos para uma experiência bem sucedida e segura
+do uso do Helm.&lt;/p>
+&lt;ol>
+&lt;li>Ter acesso a um cluster Kubernetes&lt;/li>
+&lt;li>Decidir quais configurações de segurança serão aplicadas durante a instalação,
+se houver alguma&lt;/li>
+&lt;li>Instalar e configurar o Helm.&lt;/li>
+&lt;/ol>
+&lt;h3 id="instale-o-kubernetes-ou-tenha-acesso-a-um-cluster">Instale o Kubernetes ou tenha acesso a um cluster&lt;/h3>
+&lt;ul>
+&lt;li>Você deve ter o Kubernetes instalado. Para a utilização da última versão do Helm,
+nós recomendamos a última versão estável do Kubernetes, que geralmente é a penúltima
+&lt;em>minor version&lt;/em>.&lt;/li>
+&lt;li>Você deve ter também instalado localmente a ferramenta &lt;code>kubectl&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>Consulte a 
+&lt;a href="https://helm.sh/docs/topics/version_skew/" target="_blank">Política de Suporte de Versões do Helm&lt;/a>
+para a máxima diferença de versões suportadas entre o Helm e o Kubernetes.&lt;/p></description></item><item><title>Instalando o Helm</title><link>https://helm.sh/pt/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/pt/docs/intro/install/</guid><description>&lt;p>Esse guia ensina como instalar a CLI do Helm. O Helm pode ser instalado
+a partir do código-fonte, ou mesmo de um binário pré-buildado.&lt;/p>
+&lt;h2 id="a-partir-do-projeto-helm">A partir do Projeto Helm&lt;/h2>
+&lt;p>O projeto Helm disponibiliza duas maneiras de baixar e instalar o Helm. Essas são
+as formas oficiais de se obter as versões do Helm. Além disso, a comunidade do Helm
+disponibiliza alternativas de download através de diversos gerenciadores de pacotes.
+A seção de instalação pelos gerenciadores de pacotes se encontra abaixo dos métodos
+oficiais.&lt;/p></description></item></channel></rss>

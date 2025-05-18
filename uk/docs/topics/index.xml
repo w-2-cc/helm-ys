@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Посібники on Helm</title><link>https://helm.sh/uk/docs/topics/</link><description>Recent content in Посібники on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/topics/index.xml" rel="self" type="application/rss+xml"/><item><title>Чарти</title><link>https://helm.sh/uk/docs/topics/charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/charts/</guid><description>&lt;p>Helm використовує формат пакування, який називається &lt;em>чарти&lt;/em>. Чарт — це набір файлів, які описують повʼязаний набір ресурсів Kubernetes. Один чарт може бути використаний для розгортання чогось простого, як, наприклад, pod з memcached, або чогось складного, як повний вебстек з HTTP серверами, базами даних, кешами й так далі.&lt;/p>
+&lt;p>Чарти створюються як файли, розташовані в певній структурі тек. Вони можуть бути упаковані у версійні архіви для розгортання.&lt;/p>
+&lt;p>Якщо ви хочете завантажити та переглянути файли опублікованого чарту без його встановлення, ви можете зробити це за допомогою команди &lt;code>helm pull chartrepo/chartname&lt;/code>.&lt;/p></description></item><item><title>Хуки чартів</title><link>https://helm.sh/uk/docs/topics/charts_hooks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/charts_hooks/</guid><description>&lt;p>Helm надає механізм &lt;em>хуків&lt;/em>, що дозволяє розробникам чартів втручатися на певних етапах життєвого циклу релізу. Наприклад, ви можете використовувати хуки для:&lt;/p>
+&lt;ul>
+&lt;li>Завантаження ConfigMap або Secret під час встановлення до завантаження будь-яких інших чартів.&lt;/li>
+&lt;li>Виконання Job для резервного копіювання бази даних перед встановленням нового чарту, а потім виконання другого Job після оновлення для відновлення даних.&lt;/li>
+&lt;li>Запуску Job перед видаленням релізу для мʼякого виведення сервісу з обігу перед його видаленням.&lt;/li>
+&lt;/ul>
+&lt;p>Хуки працюють як звичайні шаблони, але мають спеціальні анотації, які змушують Helm використовувати їх по-іншому. У цьому розділі ми розглянемо базовий шаблон використання хуків.&lt;/p></description></item><item><title>Тести чартів</title><link>https://helm.sh/uk/docs/topics/chart_tests/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/chart_tests/</guid><description>&lt;p>Чарт містить ряд ресурсів та компонентів Kubernetes, які працюють разом. Як автор чарту, ви можете захотіти написати деякі тести, щоб перевірити, чи ваш чарт працює відповідно до очікувань після його встановлення. Ці тести також допомагають споживачеві чарту зрозуміти, що саме повинен робити ваш чарт.&lt;/p>
+&lt;p>&lt;strong>Тест&lt;/strong> у Helm чарті розміщується в теці &lt;code>templates/&lt;/code> і є визначенням Job, яке вказує контейнер з певною командою для виконання. Контейнер повинен успішно завершити роботу (exit 0), щоб тест вважався успішним. Визначення Job повинно містити анотацію хука Helm: &lt;code>helm.sh/hook: test&lt;/code>.&lt;/p></description></item><item><title>Бібліотечні чарти</title><link>https://helm.sh/uk/docs/topics/library_charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/library_charts/</guid><description>&lt;p>Бібліотечний чарт — це тип 
+&lt;a href="https://helm.sh/uk/docs/topics/charts/">Helm чарту&lt;/a>, який визначає примітиви або визначення, що можуть бути спільно використані шаблонами Helm в інших чартах. Це дозволяє користувачам ділитися фрагментами коду, які можна повторно використовувати у різних чартах, уникаючи повторень та підтримуючи чарти 
+&lt;a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank">DRY&lt;/a> (Don't Repeat Yourself).&lt;/p>
+&lt;p>Бібліотечний чарт було представлено у Helm 3 для формального визнання загальних або допоміжних чартів, які використовувалися авторами чартів ще з Helm 2. Додавши його як тип чарту, він надає:&lt;/p></description></item><item><title>Підтвердження походження та цілісності в Helm</title><link>https://helm.sh/uk/docs/topics/provenance/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/provenance/</guid><description>&lt;p>Helm має інструменти підтвердження походження, які допомагають користувачам чартів перевіряти цілісність та походження пакета. Використовуючи інструменти на основі PKI, GnuPG та відомих менеджерів пакетів, Helm може створювати та перевіряти підписані файли.&lt;/p>
+&lt;h2 id="overview">Огляд&lt;/h2>
+&lt;p>Цілісність встановлюється шляхом порівняння чарту з записом про походження. Записи про походження зберігаються у &lt;em>файлах походження&lt;/em>, які зберігаються поряд з упакованим чартом. Наприклад, якщо чарти називаються &lt;code>myapp-1.2.3.tgz&lt;/code>, то файл походження буде &lt;code>myapp-1.2.3.tgz.prov&lt;/code>.&lt;/p>
+&lt;p>Файли походження генеруються під час пакування (&lt;code>helm package --sign ...&lt;/code>) і можуть бути перевірені кількома командами, зокрема &lt;code>helm install --verify&lt;/code>.&lt;/p></description></item><item><title>Репозиторій чартів</title><link>https://helm.sh/uk/docs/topics/chart_repository/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/chart_repository/</guid><description>&lt;p>Цей розділ пояснює, як створювати та працювати з репозиторіями чартів Helm. На високому рівні, репозиторій чартів — це місце, де можуть зберігатися та розповсюджуватися упаковані чарти.&lt;/p>
+&lt;p>Розподілений репозиторій спільноти чартів Helm знаходиться на 
+&lt;a href="https://artifacthub.io/packages/search?kind=0" target="_blank">Artifact Hub&lt;/a> та запрошує вас долучитися. Однак Helm також дозволяє вам створювати власні репозиторії чартів. Цей посібник пояснює, як це зробити.&lt;/p>
+&lt;h3 id="prerequisites">Передумови&lt;/h3>
+&lt;ul>
+&lt;li>Пройдіть 
+&lt;a href="https://helm.sh/uk/docs/intro/quickstart/">Керівництво з швидкого старту&lt;/a>&lt;/li>
+&lt;li>Ознайомтеся з документом 
+&lt;a href="https://helm.sh/uk/docs/topics/charts/">Чарти&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="create-a-chart-repository">Створення репозиторію чартів&lt;/h3>
+&lt;p>&lt;em>Репозиторій чартів&lt;/em> — це HTTP-сервер, який містить файл &lt;code>index.yaml&lt;/code> і, за бажанням, деякі упаковані чарти. Коли ви готові поділитися своїми чартами, найкращий спосіб зробити це — завантажити їх до репозиторію чартів.&lt;/p></description></item><item><title>Використання реєстрів на основі OCI</title><link>https://helm.sh/uk/docs/topics/registries/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/registries/</guid><description>&lt;p>Починаючи з Helm 3, ви можете використовувати реєстри контейнерів з підтримкою 
+&lt;a href="https://www.opencontainers.org/" target="_blank">OCI&lt;/a> для зберігання та обміну пакетами чартів. Починаючи з Helm v3.8.0, підтримка OCI є стандартно увімкнено.&lt;/p>
+&lt;h2 id="oci-support-prior-to-v3.8.0">Підтримка OCI до v3.8.0&lt;/h2>
+&lt;p>Підтримка OCI перейшла з експериментального статусу в загальну доступність з Helm v3.8.0. У попередніх версіях Helm підтримка OCI працювала інакше. Якщо ви використовували підтримку OCI до Helm v3.8.0, важливо зрозуміти, що змінилося в Helm.&lt;/p>
+&lt;h3 id="enabling-oci-support-prior-to-v3.8.0">Увімкнення підтримки OCI до v3.8.0&lt;/h3>
+&lt;p>До Helm v3.8.0 підтримка OCI є &lt;em>експериментальною&lt;/em> і має бути увімкнена вручну.&lt;/p></description></item><item><title>Архітектура Helm</title><link>https://helm.sh/uk/docs/topics/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/architecture/</guid><description>&lt;h1 id="helm-architecture">Архітектура Helm&lt;/h1>
+&lt;p>Цей документ описує архітектуру Helm на високому рівні.&lt;/p>
+&lt;h2 id="the-purpose-of-helm">Призначення Helm&lt;/h2>
+&lt;p>Helm — це інструмент для керування пакетами Kubernetes, що називаються &lt;em>чартами&lt;/em>. Helm може:&lt;/p>
+&lt;ul>
+&lt;li>Створювати нові чарти з нуля&lt;/li>
+&lt;li>Упаковувати чарт в архіви чартів (tgz)&lt;/li>
+&lt;li>Взаємодіяти з репозиторіями чартів, де зберігаються чарти&lt;/li>
+&lt;li>Встановлювати та видаляти чарти в наявному кластері Kubernetes&lt;/li>
+&lt;li>Керувати циклом випуску чартів, які були встановлені за допомогою Helm&lt;/li>
+&lt;/ul>
+&lt;p>Для Helm є три важливі концепції:&lt;/p>
+&lt;ol>
+&lt;li>&lt;em>Chart&lt;/em> — це пакет інформації, необхідної для створення екземпляра застосунку Kubernetes.&lt;/li>
+&lt;li>&lt;em>Config&lt;/em> містить конфігураційну інформацію, яку можна обʼєднати з упакованим чартом для створення обʼєкта, що підлягає випуску.&lt;/li>
+&lt;li>&lt;em>Release&lt;/em> — це запущений екземпляр &lt;em>чарту&lt;/em>, поєднаний з конкретним &lt;em>конфігом&lt;/em>.&lt;/li>
+&lt;/ol>
+&lt;h2 id="components">Компоненти&lt;/h2>
+&lt;p>Helm є виконуваним файлом, який реалізовано в двох окремих частинах:&lt;/p></description></item><item><title>Розширені техніки Helm</title><link>https://helm.sh/uk/docs/topics/advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/advanced/</guid><description>&lt;p>Цей розділ пояснює різні розширені функції та техніки використання Helm. Інформація в цьому розділі призначена для &amp;quot;досвідчених користувачів&amp;quot; Helm, які бажають здійснювати докладні налаштування та маніпуляції з їх чартами та випусками. Кожна з цих розширених функцій має свої переваги та обмеження, тому кожну з них потрібно використовувати обережно і з глибокими знаннями Helm. Іншими словами, памʼятайте про 
+&lt;a href="https://en.wikipedia.org/wiki/With_great_power_comes_great_responsibility" target="_blank">принцип Пітера Паркера&lt;/a>.&lt;/p>
+&lt;h2 id="post-rendering">Пост-рендеринг&lt;/h2>
+&lt;p>Пост-рендеринг дає можливість встановлювачу чартів вручну маніпулювати, налаштовувати та/або перевіряти створені маніфести перед їх встановленням через Helm. Це дозволяє користувачам з додатковими потребами у налаштуванні використовувати інструменти, такі як 
+&lt;a href="https://kustomize.io" target="_blank">&lt;code>kustomize&lt;/code>&lt;/a>, для застосування змін конфігурації без необхідності створювати форк публічного чарту або вимагати від супроводжувачів чартів вказувати всі можливі опції конфігурації для програмного забезпечення. Є також випадки для впровадження загальних інструментів та контейнерів sidecar у корпоративних середовищах або для аналізу маніфестів перед розгортанням.&lt;/p></description></item><item><title>Дистрибутиви Kubernetes</title><link>https://helm.sh/uk/docs/topics/kubernetes_distros/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/kubernetes_distros/</guid><description>&lt;p>Helm повинен працювати з будь-якою 
+&lt;a href="https://github.com/cncf/k8s-conformance" target="_blank">відповідною версією Kubernetes&lt;/a> (сертифікованою чи ні).&lt;/p>
+&lt;p>Цей документ містить інформацію про використання Helm у специфічних середовищах Kubernetes. Будь ласка, додайте більше деталей про будь-які дистрибутиви (відсортовано за алфавітом), якщо це потрібно.&lt;/p>
+&lt;h2 id="aks">AKS&lt;/h2>
+&lt;p>Helm працює з 
+&lt;a href="https://docs.microsoft.com/en-us/azure/aks/kubernetes-helm" target="_blank">Azure Kubernetes Service&lt;/a>.&lt;/p>
+&lt;h2 id="dcos">DC/OS&lt;/h2>
+&lt;p>Helm було протестовано і він працює на платформі Kubernetes Mesosphere DC/OS 1.11, і не вимагає додаткової конфігурації.&lt;/p>
+&lt;h2 id="eks">EKS&lt;/h2>
+&lt;p>Helm працює з Amazon Elastic Kubernetes Service (Amazon EKS):
+
+&lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/helm.html" target="_blank">Використання Helm з Amazon EKS&lt;/a>.&lt;/p></description></item><item><title>Контроль доступу на основі ролей</title><link>https://helm.sh/uk/docs/topics/rbac/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/rbac/</guid><description>&lt;p>У Kubernetes надання ролей користувачу або службовому обліковому запису, специфічному для застосунку, є найкращою практикою для забезпечення роботи вашого застосунку в межах, які ви визначили. Дізнайтеся більше про дозволи службових облікових записів 
+&lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions" target="_blank">в офіційній документації Kubernetes&lt;/a>.&lt;/p>
+&lt;p>З версії Kubernetes 1.6 контроль доступу на основі ролей (RBAC) стандартно увімкнено. RBAC дозволяє вам визначати, які типи дій дозволені залежно від користувача та його ролі у вашій організації.&lt;/p>
+&lt;p>З RBAC ви можете:&lt;/p>
+&lt;ul>
+&lt;li>надавати привілейовані операції (створення ресурсів на рівні кластеру, таких як нові ролі) адміністраторам&lt;/li>
+&lt;li>обмежити можливість користувача створювати ресурси (pods, persistent volumes, deployments) до певних просторів імен або в межах кластера (квоти ресурсів, ролі, визначення власних ресурсів)&lt;/li>
+&lt;li>обмежити можливість користувача переглядати ресурси або в певних просторах імен, або в межах кластера.&lt;/li>
+&lt;/ul>
+&lt;p>Цей посібник призначений для адміністраторів, які хочуть обмежити область доступу користувача до API Kubernetes.&lt;/p></description></item><item><title>Втулки Helm</title><link>https://helm.sh/uk/docs/topics/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/plugins/</guid><description>&lt;p>Втулок Helm — це інструмент, до якого можна отримати доступ через CLI &lt;code>helm&lt;/code>, але який не є частиною основного коду Helm.&lt;/p>
+&lt;p>Наявні втулки можна знайти у 
+&lt;a href="https://helm.sh/uk/docs/community/related/#helm-plugins">відповідному&lt;/a> розділі або шукаючи на 
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">GitHub&lt;/a>.&lt;/p>
+&lt;p>Цей посібник пояснює, як використовувати та створювати втулки.&lt;/p>
+&lt;h2 id="an-overview">Огляд&lt;/h2>
+&lt;p>Втулки Helm є додатковими інструментами, які безперешкодно інтегруються з Helm. Вони надають спосіб розширення основного набору функцій Helm без потреби написання кожної нової функції на Go і додавання її до основного інструменту.&lt;/p></description></item><item><title>Міграція з Helm v2 на Helm v3</title><link>https://helm.sh/uk/docs/topics/v2_v3_migration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/v2_v3_migration/</guid><description>&lt;p>Цей посібник показує, як мігрувати з Helm v2 на Helm v3. Для цього необхідно мати встановлений Helm v2, який управляє релізами в одному або кількох кластерах.&lt;/p>
+&lt;h2 id="overview-of-helm-3-changes">Огляд змін у Helm 3&lt;/h2>
+&lt;p>Повний список змін між Helm 2 і 3 задокументований у 
+&lt;a href="https://v3.helm.sh/docs/faq/#changes-since-helm-2" target="_blank">розділі FAQ&lt;/a>. Ось деякі з основних змін, про які слід знати перед і під час міграції:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Видалення Tiller:&lt;/p>
+&lt;ul>
+&lt;li>Заміна архітектури клієнт/сервер на клієнт/бібліотека (тільки бінарний файл &lt;code>helm&lt;/code>)&lt;/li>
+&lt;li>Безпека тепер залежить від користувача (делеговано безпеці кластера Kubernetes)&lt;/li>
+&lt;li>Релізи тепер зберігаються як секрети в кластері, а метадані обʼєкта релізу змінилися&lt;/li>
+&lt;li>Релізи зберігаються на основі простору імен релізу, а не в просторі імен Tiller&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Оновлено репозиторій чартів:&lt;/p></description></item><item><title>Застарілі API Kubernetes</title><link>https://helm.sh/uk/docs/topics/kubernetes_apis/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/kubernetes_apis/</guid><description>&lt;p>Kubernetes є системою, що керується API, і API еволюціонує з часом, відображаючи зміну розуміння проблемного простору. Це загальноприйнята практика для систем та їх API. Важливою частиною еволюції API є наявність чіткої політики застарівання та процесу, який інформує користувачів про те, як впроваджуються зміни до API. Іншими словами, споживачі вашого API повинні знати заздалегідь, коли та в якій версії API буде видалено або змінено. Це дозволяє уникнути неприємних сюрпризів та руйнівних змін для споживачів.&lt;/p></description></item><item><title>Політика підтримки версій Helm</title><link>https://helm.sh/uk/docs/topics/version_skew/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/version_skew/</guid><description>&lt;p>Цей документ описує максимальну підтримувану різницю версій між Helm і Kubernetes.&lt;/p>
+&lt;h2 id="supported-versions">Підтримувані версії&lt;/h2>
+&lt;p>Версії Helm виражаються у форматі &lt;code>x.y.z&lt;/code>, де &lt;code>x&lt;/code> — це основна версія, &lt;code>y&lt;/code> — це мінорна версія, а &lt;code>z&lt;/code> — це версія патчу, відповідно до 
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">семантичного версіювання&lt;/a>.&lt;/p>
+&lt;p>Проєкт Helm підтримує релізну гілку для останнього мінорного випуску. Застосовні виправлення, включаючи виправлення безпеки, додаються в релізну гілку залежно від їх серйозності та можливості впровадження. Більше деталей можна знайти в 
+&lt;a href="https://helm.sh/uk/docs/topics/release_policy/">політиці випусків Helm&lt;/a>.&lt;/p></description></item><item><title>Управління правами доступу для SQL-сховища</title><link>https://helm.sh/uk/docs/topics/permissions_sql_storage_backend/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/permissions_sql_storage_backend/</guid><description>&lt;p>Цей документ надає рекомендації користувачам щодо налаштування та управління правами доступу при використанні SQL-сховища.&lt;/p>
+&lt;h2 id="introduction">Вступ&lt;/h2>
+&lt;p>Для керування правами доступу Helm використовує функцію RBAC (Role-Based Access Control) Kubernetes. Проте, коли використовується SQL-сховище, ролі Kubernetes не можуть бути використані для визначення, чи може користувач отримати доступ до певного ресурсу. У цьому документі описано, як створювати та керувати такими правами доступу.&lt;/p>
+&lt;h2 id="initialization">Ініціалізація&lt;/h2>
+&lt;p>При першому підключенні CLI Helm до вашої бази даних клієнт перевірить, чи було її попередньо ініціалізовано. Якщо ні, клієнт автоматично подбає про необхідне налаштування. Для цього ініціалізація потребує адміністративних привілеїв у схемі public або принаймні можливості:&lt;/p></description></item><item><title>Політика графіку випусків</title><link>https://helm.sh/uk/docs/topics/release_policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/topics/release_policy/</guid><description>&lt;p>Для зручності користувачів Helm визначає та оголошує дати випусків заздалегідь. Цей документ описує політику, що регулює графік випусків Helm.&lt;/p>
+&lt;h2 id="release-calendar">Календар випусків&lt;/h2>
+&lt;p>Публічний календар із запланованими випусками Helm можна знайти 
+&lt;a href="https://helm.sh/calendar/release" target="_blank">тут&lt;/a>.&lt;/p>
+&lt;h2 id="semantic-versioning">Семантичне версіювання&lt;/h2>
+&lt;p>Версії Helm виражаються як &lt;code>x.y.z&lt;/code>, де &lt;code>x&lt;/code> — це основна версія, &lt;code>y&lt;/code> — мінорна версія, а &lt;code>z&lt;/code> — випуск патча, відповідно до термінології 
+&lt;a href="https://semver.org/spec/v2.0.0.html" target="_blank">семантичного версіювання&lt;/a>.&lt;/p>
+&lt;h2 id="patch-releases">Випуски патчів&lt;/h2>
+&lt;p>Випуски патчів надають користувачам виправлення помилок і виправлення з безпеки. Вони не містять нових функцій.&lt;/p></description></item></channel></rss>

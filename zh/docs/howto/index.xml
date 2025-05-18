@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>如何使用 on Helm</title><link>https://helm.sh/zh/docs/howto/</link><description>Recent content in 如何使用 on Helm</description><generator>Hugo</generator><language>zh</language><atom:link href="https://helm.sh/zh/docs/howto/index.xml" rel="self" type="application/rss+xml"/><item><title>chart开发提示和技巧</title><link>https://helm.sh/zh/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>本指南涵盖了Helm chart的开发人员在构建生产环境质量的chart时学到的一些提示和技巧。&lt;/p>
+&lt;h2 id="了解你的模板功能">了解你的模板功能&lt;/h2>
+&lt;p>Helm使用了
+&lt;a href="https://godoc.org/text/template" target="_blank">Go模板&lt;/a>将你的自由文件构建成模板。
+Go塑造了一些内置方法，我们增加了一些其他的。&lt;/p>
+&lt;p>首先，我们添加了
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">Sprig库&lt;/a>中所有的方法，出于安全原因，“env”和“expandenv”除外。&lt;/p>
+&lt;p>我们也添加了两个特殊的模板方法：&lt;code>include&lt;/code>和&lt;code>required&lt;/code>。&lt;code>include&lt;/code>方法允许你引入另一个模板，并将结果传递给其他模板方法。&lt;/p>
+&lt;p>比如，这个模板片段包含了一个叫&lt;code>mytpl&lt;/code>的模板，然后将其转成小写，并使用双引号括起来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>include &amp;#34;mytpl&amp;#34; . | lower | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>required&lt;/code>方法可以让你声明模板渲染所需的特定值。如果这个值是空的，模板渲染会出错并打印用户提交的错误信息。&lt;/p>
+&lt;p>下面这个&lt;code>required&lt;/code>方法的例子声明了一个&lt;code>.Values.who&lt;/code>需要的条目，并且当这个条目不存在时会打印错误信息：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>required &amp;#34;A valid .Values.who entry required!&amp;#34; .Values.who }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="字符串引号括起来但整型不用">字符串引号括起来，但整型不用&lt;/h2>
+&lt;p>使用字符串数据时，你总是更安全地将字符串括起来而不是露在外面：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.MyName | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是使用整型时 &lt;em>不要把值括起来&lt;/em>。在很多场景中那样会导致Kubernetes内解析失败。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.Port }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个说明不适用于环境变量是字符串的情况，即使表现为整型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">env&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>HOST&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;http://host&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>PORT&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#c30">&amp;#34;1234&amp;#34;&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用include方法">使用'include'方法&lt;/h2>
+&lt;p>Go提供了一种使用内置模板将一个模板包含在另一个模板中的方法。然而内置方法并不适用于Go模板流水线。&lt;/p>
+&lt;p>为使包含模板成为可能，然后对该模板的输出执行操作，Helm有一个特殊的&lt;code>include&lt;/code>方法：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>{{&lt;span style="color:#bbb"> &lt;/span>include &amp;#34;toYaml&amp;#34; $value | indent 2 }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面这个包含的模板称为&lt;code>toYaml&lt;/code>，传值给&lt;code>$value&lt;/code>，然后将这个模板的输出传给&lt;code>indent&lt;/code>方法。&lt;/p></description></item><item><title>同步你的Chart仓库</title><link>https://helm.sh/zh/docs/howto/chart_repository_sync_example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/howto/chart_repository_sync_example/</guid><description>&lt;p>&lt;em>注意： 该示例是专门针对Google Cloud Storage (GCS)提供的chart仓库。&lt;/em>&lt;/p>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;ul>
+&lt;li>安装
+&lt;a href="https://cloud.google.com/storage/docs/gsutil" target="_blank">gsutil&lt;/a>工具。 &lt;em>我们非常依赖gsutil rsync功能&lt;/em>&lt;/li>
+&lt;li>确保可以使用Helm程序&lt;/li>
+&lt;li>&lt;em>可选：我们推荐在你的GCS中设置
+&lt;a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page" target="_blank">对象版本&lt;/a>以防不小心删除了什么。&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h2 id="设置本地chart仓库目录">设置本地chart仓库目录&lt;/h2>
+&lt;p>就像我们在
+&lt;a href="https://helm.sh/zh/docs/topics/chart_repository" target="_blank">chart仓库指南&lt;/a>做的，创建一个本地目录，并将打包好的chart放在该目录中。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> mkdir fantastic-charts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> mv alpine-0.1.0.tgz fantastic-charts/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="生成新的indexyaml">生成新的index.yaml&lt;/h2>
+&lt;p>使用Helm生成新的index.yaml文件，通过将目录路径和远程仓库url传递给&lt;code>helm repo index&lt;/code>命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这会生成新的index.yaml文件并放在&lt;code>fantastic-charts/&lt;/code>目录。&lt;/p>
+&lt;h2 id="同步本地和远程仓库">同步本地和远程仓库&lt;/h2>
+&lt;p>使用&lt;code>scripts/sync-repo.sh&lt;/code>命令上传GCS目录中的内容并传入本地目录名和GCS名。&lt;/p>
+&lt;p>例如:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> &lt;span style="color:#366">pwd&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">/Users/me/code/go/src/helm.sh/helm
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> scripts/sync-repo.sh fantastic-charts/ fantastic-charts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Verifying Prerequisites....
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Thumbs up! Looks like you have gsutil. Let&amp;#39;s continue.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Building synchronization state...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Starting synchronization
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Are you sure you would like to continue with these changes?? [y/N]} y
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Building synchronization state...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Starting synchronization
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Uploading gs://fantastic-charts/alpine-0.1.0.tgz: 740 B/740 B
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Uploading gs://fantastic-charts/index.yaml: 347 B/347 B
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">Congratulations your remote chart repository now matches the contents of fantastic-charts/
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="更新你的chart仓库">更新你的chart仓库&lt;/h2>
+&lt;p>您需要保留chart仓库内容的本地副本或使用&lt;code>gsutil rsync&lt;/code>拷贝远程chart仓库内容到本地目录。&lt;/p></description></item><item><title>Chart发布操作用以自动化GitHub的页面Chart</title><link>https://helm.sh/zh/docs/howto/chart_releaser_action/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/zh/docs/howto/chart_releaser_action/</guid><description>&lt;p>该指南描述了如何使用
+&lt;a href="https://github.com/marketplace/actions/helm-chart-releaser" target="_blank">Chart发布操作&lt;/a>
+通过GitHub页面自动发布chart。Chart发布操作是一个将GitHub项目转换成自托管Helm chart仓库的GitHub操作流。使用了
+
+&lt;a href="https://github.com/helm/chart-releaser" target="_blank">helm/chart-releaser&lt;/a> CLI 工具。&lt;/p>
+&lt;h2 id="仓库变化">仓库变化&lt;/h2>
+&lt;p>在你的GitHub组织下创建一个Git仓库。可以将其命名为&lt;code>helm-charts&lt;/code>，当然其他名称也可以接受。所有chart的资源都可以放在主分支。
+chart应该放在根目录下的&lt;code>/charts&lt;/code>目录中。&lt;/p>
+&lt;p>还应该有另一个分支 &lt;code>gh-pages&lt;/code> 用于发布chart。这个分支的更改会通过Chart发布操作自动创建。同时可以创建一个
+&lt;code>gh-branch&lt;/code>分支并添加&lt;code>README.md&lt;/code>文件，其对访问该页面的用户是可见的。&lt;/p>
+&lt;p>你可以在&lt;code>README.md&lt;/code>中为chart的安装添加说明，像这样：
+（替换 &lt;code>&amp;lt;alias&amp;gt;&lt;/code>， &lt;code>&amp;lt;orgname&amp;gt;&lt;/code> 和 &lt;code>&amp;lt;chart-name&amp;gt;&lt;/code>）:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>## Usage
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[Helm](https://helm.sh) must be installed to use the charts. Please refer to
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Helm&amp;#39;s [documentation](https://helm.sh/docs) to get started.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Once Helm has been set up correctly, add the repo as follows:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> helm repo add &amp;lt;alias&amp;gt; https://&amp;lt;orgname&amp;gt;.github.io/helm-charts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>If you had already added this repo earlier, run `helm repo update` to retrieve
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>the latest versions of the packages. You can then run `helm search repo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&amp;lt;alias&amp;gt;` to see the charts.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>To install the &amp;lt;chart-name&amp;gt; chart:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> helm install my-&amp;lt;chart-name&amp;gt; &amp;lt;alias&amp;gt;/&amp;lt;chart-name&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>To uninstall the chart:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> helm uninstall my-&amp;lt;chart-name&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>发布后的chart的url类似这样：&lt;/p></description></item></channel></rss>

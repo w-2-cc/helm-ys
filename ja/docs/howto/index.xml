@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>How-to on Helm</title><link>https://helm.sh/ja/docs/howto/</link><description>Recent content in How-to on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/docs/howto/index.xml" rel="self" type="application/rss+xml"/><item><title>チャート開発のヒントとコツ</title><link>https://helm.sh/ja/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>このガイドでは、
+Helm チャート開発者がプロダクション品質のチャートを構築する際に学んだヒントやコツを紹介しています。&lt;/p>
+&lt;h2 id="テンプレートの関数を知る">テンプレートの関数を知る&lt;/h2>
+&lt;p>Helm はリソースファイルのテンプレートに 
+&lt;a href="https://godoc.org/text/template" target="_blank">Go テンプレート&lt;/a>を使用します。
+Go にはいくつかの組み込み機能がありますが、
+他にも多くの機能が追加されています。&lt;/p>
+&lt;p>まず、
+
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">Sprig ライブラリ&lt;/a>の関数をすべて追加しました。&lt;/p>
+&lt;p>また、&lt;code>include&lt;/code> と &lt;code>required&lt;/code> の2つの特別なテンプレート関数を追加しました。
+&lt;code>include&lt;/code> 関数では、別のテンプレートを持ち込んで、
+その結果を他のテンプレート関数に渡すことができます。&lt;/p>
+&lt;p>例えば、このテンプレートスニペットは &lt;code>mytpl&lt;/code> というテンプレートを含み、
+その結果を小文字にして二重引用符で囲んでいます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>include &amp;#34;mytpl&amp;#34; . | lower | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>required&lt;/code> 関数では、テンプレートレンダリングに必要な特定の値のエントリを宣言することができます。
+値が空の場合、テンプレートのレンダリングは
+ユーザーが送信したエラーメッセージで失敗します。&lt;/p>
+&lt;p>以下の &lt;code>required&lt;/code> 関数の例は、.Values.who のエントリが必須であることを宣言し、
+そのエントリが見つからない場合に
+エラーメッセージを表示します。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">value&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>required &amp;#34;A valid .Values.who entry required!&amp;#34; .Values.who }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="文字列を引用する整数を引用しない">文字列を引用する、整数を引用しない&lt;/h2>
+&lt;p>文字列データを扱う際には、文字列をそのままにしておくよりも、
+引用符で囲んだ方が安全です。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.MyName | quote }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>しかし、整数で作業するときは &lt;em>値を引用しないでください&lt;/em>。
+これは多くの場合、Kubernetes 内部で parse エラーを引き起こす可能性があります。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#309;font-weight:bold">port&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>{{&lt;span style="color:#bbb"> &lt;/span>.Values.Port }}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>この注意事項は、たとえそれが整数を表す場合でも、
+文字列であることが予想される env 変数の値には適用されません。&lt;/p></description></item></channel></rss>

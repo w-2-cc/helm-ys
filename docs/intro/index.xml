@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Introduction on Helm</title><link>https://helm.sh/docs/intro/</link><description>Recent content in Introduction on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>Quickstart Guide</title><link>https://helm.sh/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/intro/quickstart/</guid><description>&lt;p>This guide covers how you can quickly get started using Helm.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;p>The following prerequisites are required for a successful and properly secured
+use of Helm.&lt;/p>
+&lt;ol>
+&lt;li>A Kubernetes cluster&lt;/li>
+&lt;li>Deciding what security configurations to apply to your installation, if any&lt;/li>
+&lt;li>Installing and configuring Helm.&lt;/li>
+&lt;/ol>
+&lt;h3 id="install-kubernetes-or-have-access-to-a-cluster">Install Kubernetes or have access to a cluster&lt;/h3>
+&lt;ul>
+&lt;li>You must have Kubernetes installed. For the latest release of Helm, we
+recommend the latest stable release of Kubernetes, which in most cases is the
+second-latest minor release.&lt;/li>
+&lt;li>You should also have a local configured copy of &lt;code>kubectl&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>See the 
+&lt;a href="https://helm.sh/docs/topics/version_skew/" target="_blank">Helm Version Support Policy&lt;/a> for the maximum version skew supported between Helm and Kubernetes.&lt;/p></description></item><item><title>Installing Helm</title><link>https://helm.sh/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/intro/install/</guid><description>&lt;p>This guide shows how to install the Helm CLI. Helm can be installed either from
+source, or from pre-built binary releases.&lt;/p>
+&lt;h2 id="from-the-helm-project">From The Helm Project&lt;/h2>
+&lt;p>The Helm project provides two ways to fetch and install Helm. These are the
+official methods to get Helm releases. In addition to that, the Helm community
+provides methods to install Helm through different package managers.
+Installation through those methods can be found below the official methods.&lt;/p></description></item><item><title>Using Helm</title><link>https://helm.sh/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/intro/using_helm/</guid><description>&lt;p>This guide explains the basics of using Helm to manage packages on your
+Kubernetes cluster. It assumes that you have already 
+&lt;a href="https://helm.sh/docs/intro/install/">installed&lt;/a> the Helm client.&lt;/p>
+&lt;p>If you are simply interested in running a few quick commands, you may wish to
+begin with the 
+&lt;a href="https://helm.sh/docs/intro/quickstart/">Quickstart Guide&lt;/a>. This chapter
+covers the particulars of Helm commands, and explains how to use Helm.&lt;/p>
+&lt;h2 id="three-big-concepts">Three Big Concepts&lt;/h2>
+&lt;p>A &lt;em>Chart&lt;/em> is a Helm package. It contains all of the resource definitions
+necessary to run an application, tool, or service inside of a Kubernetes
+cluster. Think of it like the Kubernetes equivalent of a Homebrew formula, an
+Apt dpkg, or a Yum RPM file.&lt;/p></description></item><item><title>Cheat Sheet</title><link>https://helm.sh/docs/intro/cheatsheet/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/intro/cheatsheet/</guid><description>&lt;p>Helm cheatsheet featuring all the necessary commands required to manage an application through Helm.&lt;/p>
+&lt;hr>
+&lt;h3 id="basic-interpretationscontext">Basic interpretations/context&lt;/h3>
+&lt;p>Chart:&lt;/p>
+&lt;ul>
+&lt;li>It is the name of your chart in case it has been pulled and untarred.&lt;/li>
+&lt;li>It is &amp;lt;repo_name&amp;gt;/&amp;lt;chart_name&amp;gt; in case the repository has been added but chart not pulled.&lt;/li>
+&lt;li>It is the URL/Absolute path to the chart.&lt;/li>
+&lt;/ul>
+&lt;p>Name:&lt;/p>
+&lt;ul>
+&lt;li>It is the name you want to give to your current helm chart installation.&lt;/li>
+&lt;/ul>
+&lt;p>Release:&lt;/p></description></item></channel></rss>

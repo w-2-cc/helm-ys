@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Спільнота on Helm</title><link>https://helm.sh/uk/docs/community/</link><description>Recent content in Спільнота on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/community/index.xml" rel="self" type="application/rss+xml"/><item><title>Посібник для розробників</title><link>https://helm.sh/uk/docs/community/developers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/community/developers/</guid><description>&lt;p>Цей посібник пояснює, як налаштувати ваше середовище для розробки на Helm.&lt;/p>
+&lt;h2 id="prerequisites">Передумови&lt;/h2>
+&lt;ul>
+&lt;li>Остання версія Go&lt;/li>
+&lt;li>Кластер Kubernetes з kubectl (необовʼязково)&lt;/li>
+&lt;li>Git&lt;/li>
+&lt;/ul>
+&lt;h2 id="building-helm">Збирання Helm&lt;/h2>
+&lt;p>Ми використовуємо Make для компіляції наших програм. Найпростіший спосіб почати:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Якщо потрібно, спочатку будуть встановлені залежності та перевірена конфігурація. Потім буде скомпільовано &lt;code>helm&lt;/code> і розміщено у &lt;code>bin/helm&lt;/code>.&lt;/p>
+&lt;p>Щоб запустити Helm локально, ви можете запустити &lt;code>bin/helm&lt;/code>.&lt;/p>
+&lt;ul>
+&lt;li>Helm відомий тим, що працює на macOS та більшості дистрибутивів Linux, включаючи Alpine.&lt;/li>
+&lt;/ul>
+&lt;h2 id="running-tests">Запуск тестів&lt;/h2>
+&lt;p>Щоб запустити всі тести, виконайте &lt;code>make test&lt;/code>. Перед цим вам потрібно мати встановлений 
+&lt;a href="https://golangci-lint.run" target="_blank">golangci-lint&lt;/a>.&lt;/p></description></item><item><title>Перевірка випуску</title><link>https://helm.sh/uk/docs/community/release_checklist/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/community/release_checklist/</guid><description>&lt;h1 id="посібник-для-супровідників-щодо-випуску-helm">Посібник для супровідників щодо випуску Helm&lt;/h1>
+&lt;p>Час для нового випуску Helm! Як супровідник Helm, який випускає нову версію, ви є найкращою людиною, щоб 
+&lt;a href="https://github.com/helm/helm-www/blob/main/content/en/docs/community/release_checklist.md" target="_blank">оновити цей чеклист випуску&lt;/a> у разі, якщо ваш досвід відрізняється від задокументованого тут.&lt;/p>
+&lt;p>Усі випуски будуть мати формат vX.Y.Z, де X — це основний номер версії, Y — це номер мінорної версії, а Z — це номер патч-релізу. Цей проєкт суворо дотримується 
+&lt;a href="https://semver.org/" target="_blank">семантичного версіювання&lt;/a>, тому дотримання цього етапу є критично важливим.&lt;/p></description></item><item><title>Повʼязані проєкти та документація</title><link>https://helm.sh/uk/docs/community/related/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/community/related/</guid><description>&lt;p>Спільнота Helm розробила безліч додаткових інструментів, втулків та документації про Helm. Нам завжди цікаво дізнатися про ці проєкти.&lt;/p>
+&lt;p>Якщо у вас є щось, що ви хочете додати до цього списку, будь ласка, відкрийте 
+&lt;a href="https://github.com/helm/helm-www/issues" target="_blank">issue&lt;/a> або 
+&lt;a href="https://github.com/helm/helm-www/pulls" target="_blank">pull request&lt;/a>.&lt;/p>
+&lt;h2 id="helm-plugins">Втулки Helm&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-adopt" target="_blank">helm-adopt&lt;/a> — Втулок Helm v3 для включення поточних ресурсів k8s у нові згенеровані Helm чарти.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/jlandowner/helm-chartsnap" target="_blank">helm-chartsnap&lt;/a> — Втулок для тестування знімків для Helm чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/databus23/helm-diff" target="_blank">Helm Diff&lt;/a> — Попередній перегляд &lt;code>helm upgrade&lt;/code> у вигляді кольорового diff.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/vmware-labs/distribution-tooling-for-helm" target="_blank">Helm Dt&lt;/a> — Втулок, який допомагає розподілити Helm чарти між OCI реєстрами та в умовах Air gap.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/komodorio/helm-dashboard" target="_blank">Helm Dashboard&lt;/a> — GUI для Helm, візуалізація релізів та репозиторіїв, відмінності у маніфестах.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hayorov/helm-gcs" target="_blank">helm-gcs&lt;/a> — Втулок для керування репозиторіями на Google Cloud Storage.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/aslafy-z/helm-git" target="_blank">helm-git&lt;/a> — Встановлює чарти та отримує файли значень з ваших Git репозиторіїв.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/cststack/k8comp" target="_blank">helm-k8comp&lt;/a> — Втулок для створення Helm чартів з hiera за допомогою k8comp.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/helm/helm-mapkubeapis" target="_blank">helm-mapkubeapis&lt;/a> — Оновлює метадані релізу Helm для заміни застарілих або видалених API Kubernetes.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/OctopusDeployLabs/helm-migrate-values" target="_blank">helm-migrate-values&lt;/a> — Втулок для перенесення вказаних користувачем значень між версіями чартів Helm, щоб впоратися зі змінами схеми у файлі &lt;code>values.yaml&lt;/code>.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/ContainerSolutions/helm-monitor" target="_blank">helm-monitor&lt;/a> — Втулок для моніторингу релізу та відкату на основі запиту Prometheus/ElasticSearch.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/JovianX/helm-release-plugin" target="_blank">helm-release-plugin&lt;/a> — Втулок для управління релізами, оновлення значень релізу, витягує (перестворює) Helm чарти з розгорнутих релізів, встановлює TTL релізу Helm.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/hypnoglow/helm-s3" target="_blank">helm-s3&lt;/a> — Втулок Helm, який дозволяє використовувати AWS S3 як [приватний] репозиторій чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/karuppiah7890/helm-schema-gen" target="_blank">helm-schema-gen&lt;/a> — Втулок Helm, який генерує схему yaml значень для ваших Helm 3 чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/jkroepke/helm-secrets" target="_blank">helm-secrets&lt;/a> — Втулок для безпечного керування та зберігання секретів (на основі 
+&lt;a href="https://github.com/mozilla/sops" target="_blank">sops&lt;/a>).&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/sigstore/helm-sigstore" target="_blank">helm-sigstore&lt;/a> — Втулок для Helm для інтеграції з екосистемою 
+&lt;a href="https://sigstore.dev/" target="_blank">sigstore&lt;/a>. Пошук, завантаження та перевірка підписаних Helm чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/Duologic/helm-tanka" target="_blank">helm-tanka&lt;/a> — Втулок Helm для рендерингу Tanka/Jsonnet всередині Helm чартів.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/xchapter7x/hcunit" target="_blank">hc-unit&lt;/a> — Втулок для юніт-тестування чартів локально за допомогою OPA (Open Policy Agent) &amp;amp; Rego.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/quintush/helm-unittest" target="_blank">helm-unittest&lt;/a> — Втулок для юніт-тестування чартів локально з YAML.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/HamzaZo/helm-val" target="_blank">helm-val&lt;/a> — Втулок для отримання значень з попереднього релізу.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/kuuji/helm-external-val" target="_blank">helm-external-val&lt;/a> — Втулок, який отримує значення helm з зовнішніх джерел (configMaps, Secrets тощо).&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/nikhilsbhat/helm-images" target="_blank">helm-images&lt;/a> — Втулок Helm для отримання всіх можливих зображень з чарту перед розгортанням або з розгорнутого релізу.&lt;/li>
+&lt;li>
+&lt;a href="https://github.com/nikhilsbhat/helm-drift" target="_blank">helm-drift&lt;/a> — Втулок Helm, який виявляє конфігурацію, яка відрізняється від Helm чарту.&lt;/li>
+&lt;/ul>
+&lt;p>Ми також заохочуємо авторів на GitHub використовувати теґ 
+&lt;a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;amp;type=Repositories" target="_blank">helm-plugin&lt;/a> у своїх репозиторіях втулків.&lt;/p></description></item><item><title>Історія Проєкту</title><link>https://helm.sh/uk/docs/community/history/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/community/history/</guid><description>&lt;p>Helm є 
+&lt;a href="https://helm.sh/blog/celebrating-helms-cncf-graduation/">дипломованим&lt;/a> 
+&lt;a href="https://www.cncf.io/projects/" target="_blank">проєктом CNCF&lt;/a>.&lt;/p>
+&lt;p>Helm почався як те, що тепер відоме як 
+&lt;a href="https://github.com/helm/helm-classic" target="_blank">Helm Classic&lt;/a>, проєкт Deis, розпочатий у 2015 році та представлений на перших KubeCon.&lt;/p>
+&lt;p>У січні 2016 року проєкт обʼєднався з інструментом GCS під назвою Kubernetes Deployment Manager, і проєкт було переведено під 
+&lt;a href="https://kubernetes.io" target="_blank">Kubernetes&lt;/a>. В результаті злиття кодових баз, Helm 2.0 був випущений пізніше того ж року. Ключова особливість Deployment Manager, яка збереглася в Helm 2, — це серверна компонента, перейменована з DM на Tiller для фінального релізу Helm 2.0.&lt;/p></description></item><item><title>Локалізація документації Helm</title><link>https://helm.sh/uk/docs/community/localization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/community/localization/</guid><description>&lt;p>Цей посібник пояснює, як локалізувати документацію Helm.&lt;/p>
+&lt;h2 id="getting-started">Початок роботи&lt;/h2>
+&lt;p>Внесення змін у переклади використовує той самий процес, що й внесення змін у документацію. Переклади подаються через 
+&lt;a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank">пул-реквести&lt;/a> до репозиторію 
+&lt;a href="https://github.com/helm/helm-www" target="_blank">helm-www&lt;/a>, і пул-реквести перевіряються командою, яка управляє вебсайтом.&lt;/p>
+&lt;h3 id="two-letter-language-code">Дволітерний код мови&lt;/h3>
+&lt;p>Документація організована відповідно до стандарту 
+&lt;a href="https://www.loc.gov/standards/iso639-2/php/code_list.php" target="_blank">ISO 639-1&lt;/a> для мовних кодів. Наприклад, дволітерний код для корейської мови — &lt;code>ko&lt;/code>, української — &lt;code>uk&lt;/code>.&lt;/p>
+&lt;p>У контенті та конфігураціях ви знайдете використовувані мовні коди. Ось 3 приклади:&lt;/p></description></item></channel></rss>

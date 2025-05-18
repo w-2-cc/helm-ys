@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>チャートテンプレートガイド on Helm</title><link>https://helm.sh/ja/docs/chart_template_guide/</link><description>Recent content in チャートテンプレートガイド on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/docs/chart_template_guide/index.xml" rel="self" type="application/rss+xml"/><item><title>Appendix: Go データ型とテンプレート</title><link>https://helm.sh/ja/docs/chart_template_guide/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/chart_template_guide/data_types/</guid><description>&lt;p>Helm テンプレート言語は、厳密に型指定された Go プログラミング言語で実装されています。
+そのため、テンプレートの変数は &lt;em>typed&lt;/em> です。
+ほとんどの場合、変数は次のタイプのいずれかとして公開されます。&lt;/p>
+&lt;ul>
+&lt;li>string: テキストの文字列&lt;/li>
+&lt;li>bool: &lt;code>true&lt;/code> または &lt;code>false&lt;/code>&lt;/li>
+&lt;li>int: 整数値
+(これの8、16、32、および 64 ビットの符号付きおよび符号なし変数もあります)&lt;/li>
+&lt;li>float64: 64 ビットの浮動小数点値
+(これには 8、16、32 ビットの種類もあります)&lt;/li>
+&lt;li>バイトスライス (&lt;code>[]byte&lt;/code>)。バイナリデータを (潜在的に) 保持するためによく使用されます&lt;/li>
+&lt;li>struct: プロパティとメソッドを持つオブジェクト&lt;/li>
+&lt;li>前のタイプのいずれかのスライス (インデックス付きリスト)&lt;/li>
+&lt;li>文字列キー付きマップ (&lt;code>map[string]interface{}&lt;/code>) 値は
+前のタイプの1つです&lt;/li>
+&lt;/ul>
+&lt;p>Go には他にも多くのタイプがあり、テンプレートでそれらの間で変換する必要がある場合があります。
+オブジェクトのタイプをデバッグする最も簡単な方法は、
+テンプレートで &lt;code>printf &amp;quot;%t&amp;quot;&lt;/code> を介してオブジェクトを渡すことです。
+これにより、タイプが出力されます。&lt;code>typeOf&lt;/code> および &lt;code>kindOf&lt;/code> 関数も参照してください。&lt;/p></description></item></channel></rss>

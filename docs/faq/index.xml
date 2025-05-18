@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frequently Asked Questions on Helm</title><link>https://helm.sh/docs/faq/</link><description>Recent content in Frequently Asked Questions on Helm</description><generator>Hugo</generator><language>en</language><atom:link href="https://helm.sh/docs/faq/index.xml" rel="self" type="application/rss+xml"/><item><title>Changes Since Helm 2</title><link>https://helm.sh/docs/faq/changes_since_helm2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/faq/changes_since_helm2/</guid><description>&lt;h2 id="changes-since-helm-2">Changes since Helm 2&lt;/h2>
+&lt;p>Here's an exhaustive list of all the major changes introduced in Helm 3.&lt;/p>
+&lt;h3 id="removal-of-tiller">Removal of Tiller&lt;/h3>
+&lt;p>During the Helm 2 development cycle, we introduced Tiller. Tiller played an
+important role for teams working on a shared cluster - it made it possible for
+multiple different operators to interact with the same set of releases.&lt;/p>
+&lt;p>With role-based access controls (RBAC) enabled by default in Kubernetes 1.6,
+locking down Tiller for use in a production scenario became more difficult to
+manage. Due to the vast number of possible security policies, our stance was to
+provide a permissive default configuration. This allowed first-time users to
+start experimenting with Helm and Kubernetes without having to dive headfirst
+into the security controls. Unfortunately, this permissive configuration could
+grant a user a broad range of permissions they weren’t intended to have. DevOps
+and SREs had to learn additional operational steps when installing Tiller into a
+multi-tenant cluster.&lt;/p></description></item><item><title>Installing</title><link>https://helm.sh/docs/faq/installing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/faq/installing/</guid><description>&lt;h2 id="installing">Installing&lt;/h2>
+&lt;h3 id="why-arent-there-native-packages-of-helm-for-fedora-and-other-linux-distros">Why aren't there native packages of Helm for Fedora and other Linux distros?&lt;/h3>
+&lt;p>The Helm project does not maintain packages for operating systems and
+environments. The Helm community may provide native packages and if the Helm
+project is made aware of them they will be listed. This is how the Homebrew
+formula was started and listed. If you're interested in maintaining a package,
+we'd love it.&lt;/p>
+&lt;h3 id="why-do-you-provide-a-curl-bash-script">Why do you provide a &lt;code>curl ...|bash&lt;/code> script?&lt;/h3>
+&lt;p>There is a script in our repository (&lt;code>scripts/get-helm-3&lt;/code>) that can be executed
+as a &lt;code>curl ..|bash&lt;/code> script. The transfers are all protected by HTTPS, and the
+script does some auditing of the packages it fetches. However, the script has
+all the usual dangers of any shell script.&lt;/p></description></item><item><title>Uninstalling</title><link>https://helm.sh/docs/faq/uninstalling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/faq/uninstalling/</guid><description>&lt;h2 id="uninstalling">Uninstalling&lt;/h2>
+&lt;h3 id="i-want-to-delete-my-local-helm-where-are-all-its-files">I want to delete my local Helm. Where are all its files?&lt;/h3>
+&lt;p>Along with the &lt;code>helm&lt;/code> binary, Helm stores some files in the following locations:&lt;/p>
+&lt;ul>
+&lt;li>$XDG_CACHE_HOME&lt;/li>
+&lt;li>$XDG_CONFIG_HOME&lt;/li>
+&lt;li>$XDG_DATA_HOME&lt;/li>
+&lt;/ul>
+&lt;p>The following table gives the default folder for each of these, by OS:&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Operating System&lt;/th>
+ &lt;th>Cache Path&lt;/th>
+ &lt;th>Configuration Path&lt;/th>
+ &lt;th>Data Path&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>Linux&lt;/td>
+ &lt;td>&lt;code>$HOME/.cache/helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.config/helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/.local/share/helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>macOS&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Caches/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/Preferences/helm&lt;/code>&lt;/td>
+ &lt;td>&lt;code>$HOME/Library/helm &lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Windows&lt;/td>
+ &lt;td>&lt;code>%TEMP%\helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm &lt;/code>&lt;/td>
+ &lt;td>&lt;code>%APPDATA%\helm&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Troubleshooting</title><link>https://helm.sh/docs/faq/troubleshooting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/docs/faq/troubleshooting/</guid><description>&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;h3 id="i-am-getting-a-warning-about-unable-to-get-an-update-from-the-stable-chart-repository">I am getting a warning about &amp;quot;Unable to get an update from the &amp;quot;stable&amp;quot; chart repository&amp;quot;&lt;/h3>
+&lt;p>Run &lt;code>helm repo list&lt;/code>. If it shows your &lt;code>stable&lt;/code> repository pointing to a &lt;code>storage.googleapis.com&lt;/code> URL, you
+will need to update that repository. On November 13, 2020, the Helm Charts repo 
+&lt;a href="https://github.com/helm/charts#deprecation-timeline" target="_blank">became unsupported&lt;/a> after a year-long deprecation. An archive has been made available at
+&lt;code>https://charts.helm.sh/stable&lt;/code> but will no longer receive updates.&lt;/p>
+&lt;p>You can run the following command to fix your repository:&lt;/p></description></item></channel></rss>

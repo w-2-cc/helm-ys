@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概要 on Helm</title><link>https://helm.sh/ja/docs/intro/</link><description>Recent content in 概要 on Helm</description><generator>Hugo</generator><language>ja</language><atom:link href="https://helm.sh/ja/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>クイックスタートガイド</title><link>https://helm.sh/ja/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/quickstart/</guid><description>&lt;p>このガイドでは、Helm をすぐに使い始める方法について説明します。&lt;/p>
+&lt;h2 id="前提条件">前提条件&lt;/h2>
+&lt;p>Helm を正しく安全に使用するには、
+次の前提条件が必要です。&lt;/p>
+&lt;ol>
+&lt;li>Kubernetes クラスター&lt;/li>
+&lt;li>インストールに適用するセキュリティ構成がある場合は、それを決定する&lt;/li>
+&lt;li>Helm のインストールと構成&lt;/li>
+&lt;/ol>
+&lt;h3 id="kubernetes-をインストールするかクラスターにアクセスする">Kubernetes をインストールするか、クラスターにアクセスする&lt;/h3>
+&lt;ul>
+&lt;li>Kubernetes がインストールされている必要があります。
+Helm の最新リリースには、Kubernetesの最新の安定リリースをお勧めします。
+これは、ほとんどの場合、2番目に新しいマイナーリリースです。&lt;/li>
+&lt;li>ローカルに設定された &lt;code>kubectl&lt;/code> のコピーも必要です。&lt;/li>
+&lt;/ul>
+&lt;p>注: 1.6 より前のバージョンの Kubernetes では、ロールベースのアクセス制御 (RBAC) のサポートが制限されているか、
+サポートされていません。&lt;/p>
+&lt;h2 id="helm-のインストール">Helm のインストール&lt;/h2>
+&lt;p>Helm クライアントのバイナリリリースをダウンロードします。&lt;code>homebrew&lt;/code> のようなツールを使うか、
+
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">公式リリースページ&lt;/a> を見ることができます。&lt;/p>
+&lt;p>詳細またはその他のオプションについては、
+
+&lt;a href="https://helm.sh/ja/docs/intro/install/">インストールガイド&lt;/a> を参照してください。&lt;/p>
+&lt;h2 id="helm-チャートリポジトリを初期化する">Helm チャートリポジトリを初期化する&lt;/h2>
+&lt;p>Helm の準備ができたら、チャートリポジトリを追加できます。
+ポピュラーな開始場所の1つは、公式の Helm Stable チャートです。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> helm repo add stable https://charts.helm.sh/stable
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>これがインストールされると、インストールできるチャートを一覧表示できるようになります。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">helm search repo stable
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">NAME CHART VERSION APP VERSION DESCRIPTION
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/acs-engine-autoscaler 2.2.2 2.1.1 DEPRECATED Scales worker nodes within agent pools
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/aerospike 0.2.8 v4.5.0.5 A Helm chart for Aerospike in Kubernetes
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/airflow 4.1.0 1.10.4 Airflow is a platform to programmatically autho...
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">stable/ambassador 4.1.0 0.81.0 A Helm chart for Datawire Ambassador
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#aaa">&lt;/span>&lt;span style="color:#009;font-weight:bold">#&lt;/span> ... and many more
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="サンプルチャートをインストールする">サンプルチャートをインストールする&lt;/h2>
+&lt;p>チャートをインストールするには、&lt;code>helm install&lt;/code> コマンドを実行します。
+Helm には、チャートを見つけてインストールする方法がいくつかありますが、最も簡単なのは、
+公式の &lt;code>stable&lt;/code> チャートの1つを使用することです。&lt;/p></description></item><item><title>Helm のインストール</title><link>https://helm.sh/ja/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/install/</guid><description>&lt;p>このガイドでは、Helm CLI のインストール方法を示します。Helm はソースから、またはビルド済みのバイナリリリースから
+インストールできます。&lt;/p>
+&lt;h2 id="helm-プロジェクトから">Helm プロジェクトから&lt;/h2>
+&lt;p>Helm プロジェクトは、Helm をフェッチしてインストールする2つの方法を提供します。
+これらは Helm リリースを取得するための公式の方法です。さらに、Helm コミュニティは、
+さまざまなパッケージマネージャーを通じて Helm をインストールする方法を提供しています。
+これらの方法によるインストールは、公式の方法の下にあります。&lt;/p>
+&lt;h3 id="バイナリリリースから">バイナリリリースから&lt;/h3>
+&lt;p>Helm のすべての 
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">リリース&lt;/a> は、さまざまな OS のバイナリリリースを提供します。
+これらのバイナリバージョンは、手動でダウンロードして
+インストールできます。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;a href="https://github.com/helm/helm/releases" target="_blank">任意のバージョン&lt;/a>をダウンロードします&lt;/li>
+&lt;li>ダウンロードしたパッケージを展開します (&lt;code>tar -zxvf helm-v3.0.0-linux-amd64.tar.gz&lt;/code>)&lt;/li>
+&lt;li>展開したディレクトリで &lt;code>helm&lt;/code> バイナリを見つけ、
+目的の場所に移動します (&lt;code>mv linux-amd64/helm /usr/local/bin/helm&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;p>そこから、クライアントを実行し、
+&lt;a href="https://helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository" target="_blank">Stable リポジトリを追加&lt;/a>できるはずです: &lt;code>helm help&lt;/code> を参考&lt;/p>
+&lt;p>&lt;strong>注&lt;/strong>: Helm 自動テストは、GitHub Actions のビルドとリリース中にのみLinux AMD64 に対して実行されます。
+他の OS のテストは、
+対象の OS の Helm を要求するコミュニティの責任の元で行われています。&lt;/p>
+&lt;h3 id="スクリプトから">スクリプトから&lt;/h3>
+&lt;p>Helm に、最新バージョンの Helm を自動的に取得して
+
+&lt;a href="https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3" target="_blank">ローカルにインストールする&lt;/a>
+インストーラースクリプトが追加されました。&lt;/p>
+&lt;p>そのスクリプトをフェッチして、ローカルで実行できます。
+十分に文書化されているため、実行する前にそれを読んで何が行われているかを理解できます。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-console" data-lang="console">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> chmod &lt;span style="color:#f60">700&lt;/span> get_helm.sh
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#009;font-weight:bold">$&lt;/span> ./get_helm.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>もちろん、
+最新版で実施したい場合は、
+&lt;code>curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash&lt;/code> を使用できます。&lt;/p></description></item><item><title>Helm の使い方</title><link>https://helm.sh/ja/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/ja/docs/intro/using_helm/</guid><description>&lt;p>このガイドでは、Helm を使用して Kubernetes クラスタ上のパッケージを管理する基本について説明します。
+Helm クライアントが既に 
+&lt;a href="https://helm.sh/ja/docs/intro/install/">インストール済み&lt;/a> であると
+想定しています。&lt;/p>
+&lt;p>いくつかのクイックコマンドを実行したいだけの場合は、
+
+&lt;a href="https://helm.sh/ja/docs/intro/quickstart/">クイックスタートガイド&lt;/a> から始めてください。
+この章では、Helm コマンドの詳細について説明し、Helm の使用方法を説明します。&lt;/p>
+&lt;h2 id="3つの大きな概念">3つの大きな概念&lt;/h2>
+&lt;p>&lt;em>チャート&lt;/em> は Helm パッケージです。
+これには、Kubernetes クラスタ内でアプリケーション、ツール、またはサービスを実行するために必要なすべてのリソース定義が含まれています。
+Kubernetes に置ける Homebrew の式、Apt dpkg、
+または Yum RPM ファイルに相当するようなものと考えてください。&lt;/p>
+&lt;p>&lt;em>リポジトリ&lt;/em> は、チャートを収集して共有できる場所です。
+Perl の 
+&lt;a href="https://www.cpan.org" target="_blank">CPAN アーカイブ&lt;/a> や 
+&lt;a href="https://src.fedoraproject.org/" target="_blank">Fedora パッケージデータベース&lt;/a>に似ていますが、
+Kubernetes パッケージが対象です。&lt;/p>
+&lt;p>&lt;em>リリース&lt;/em> は、Kubernetes クラスタで実行されているチャートのインスタンスです。
+多くの場合、1つのチャートを同じクラスターに何度もインストールできます。
+そして、それがインストールされるたびに、新しい &lt;em>リリース&lt;/em> が作成されます。
+MySQL チャートを考えてみましょう。クラスターで2つのデータベースを実行する場合は、そのチャートを2回インストールできます。
+それぞれに独自の &lt;em>リリース&lt;/em> があり、次に独自の &lt;em>リリース名&lt;/em> が付けられます。&lt;/p>
+&lt;p>これらの概念を念頭に置いて、Helm を次のように説明できます。&lt;/p>
+&lt;p>Helm は &lt;em>チャート&lt;/em> を Kubernetes にインストールし、インストールごとに新しい &lt;em>リリース&lt;/em> を作成します。
+また、新しいチャートを見つけるには、Helm チャート &lt;em>リポジトリ&lt;/em> を検索できます。&lt;/p>
+&lt;h2 id="helm-search-チャートを見つける">'helm search': チャートを見つける&lt;/h2>
+&lt;p>Helm には強力な検索コマンドが付属しています。
+2つの異なるタイプのソースの検索に使用できます。&lt;/p></description></item></channel></rss>

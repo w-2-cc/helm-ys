@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Поради on Helm</title><link>https://helm.sh/uk/docs/howto/</link><description>Recent content in Поради on Helm</description><generator>Hugo</generator><language>uk</language><atom:link href="https://helm.sh/uk/docs/howto/index.xml" rel="self" type="application/rss+xml"/><item><title>Поради та підказки для розробки чартів</title><link>https://helm.sh/uk/docs/howto/charts_tips_and_tricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/howto/charts_tips_and_tricks/</guid><description>&lt;p>Цей посібник містить поради та підказки, про які розробники чартів Helm дізнались під час створення чартів промислової якості.&lt;/p>
+&lt;h2 id="know-your-template-functions">Знайомство з функціями шаблону&lt;/h2>
+&lt;p>Helm використовує 
+&lt;a href="https://godoc.org/text/template" target="_blank">шаблони Go&lt;/a> для шаблонування ваших ресурсних файлів. Хоча Go поставляється з кількома вбудованими функціями, ми додали багато інших.&lt;/p>
+&lt;p>По-перше, ми додали всі функції з 
+&lt;a href="https://masterminds.github.io/sprig/" target="_blank">бібліотеки Sprig&lt;/a>, за винятком &lt;code>env&lt;/code> і &lt;code>expandenv&lt;/code>, з міркувань безпеки.&lt;/p>
+&lt;p>Ми також додали дві спеціальні функції шаблонів: &lt;code>include&lt;/code> і &lt;code>required&lt;/code>. Функція &lt;code>include&lt;/code> дозволяє додавати інший шаблон і передавати результати іншим функціям шаблонів.&lt;/p></description></item><item><title>Синхронізація вашого репозиторію чартів</title><link>https://helm.sh/uk/docs/howto/chart_repository_sync_example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/howto/chart_repository_sync_example/</guid><description>&lt;p>&lt;em>Примітка: Цей приклад для хмарного сховища Google (GCS), яке обслуговує репозиторій чартів.&lt;/em>&lt;/p>
+&lt;h2 id="prerequisites">Попередні умови&lt;/h2>
+&lt;ul>
+&lt;li>Встановіть інструмент 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil" target="_blank">gsutil&lt;/a>. &lt;em>Ми значною мірою покладаємося на функціональність gsutil rsync.&lt;/em>&lt;/li>
+&lt;li>Переконайтеся, що у вас є доступ до бінарного файлу Helm.&lt;/li>
+&lt;li>&lt;em>Необовʼязково: Ми рекомендуємо встановити 
+&lt;a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page" target="_blank">версіювання обʼєктів&lt;/a> у вашому сховищі GCS, на випадок, якщо ви випадково щось видалите.&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h2 id="set-up-a-local-chart-repository-directory">Налаштування теки локального репозиторію чартів&lt;/h2>
+&lt;p>Створіть локальну теку, як ми це робили в 
+&lt;a href="https://helm.sh/uk/docs/topics/chart_repository/">керівництві з репозиторію чартів&lt;/a>, і помістіть ваші упаковані чарти в цю теку.&lt;/p></description></item><item><title>Chart Releaser Action для автоматизації випуску чартів на GitHub Pages</title><link>https://helm.sh/uk/docs/howto/chart_releaser_action/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/uk/docs/howto/chart_releaser_action/</guid><description>&lt;p>Цей посібник описує, як використовувати 
+&lt;a href="https://github.com/marketplace/actions/helm-chart-releaser" target="_blank">Chart Releaser Action&lt;/a> для автоматизації випуску чартів через GitHub Pages. Chart Releaser Action — це GitHub Action workflow, який перетворює GitHub проєкт на репозиторій чартів Helm, використовуючи CLI-інструмент 
+&lt;a href="https://github.com/helm/chart-releaser" target="_blank">helm/chart-releaser&lt;/a>.&lt;/p>
+&lt;h2 id="repository-changes">Зміни в репозиторії&lt;/h2>
+&lt;p>Створіть Git-репозиторій у вашій організації на GitHub. Ви можете назвати репозиторій &lt;code>helm-charts&lt;/code>, хоча також прийнятні інші назви. Джерела всіх чартів можуть бути розміщені на гілці &lt;code>main&lt;/code>. Чарти повинні бути розміщені в теці &lt;code>/charts&lt;/code> на верхньому рівні дерева тек.&lt;/p></description></item></channel></rss>

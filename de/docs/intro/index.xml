@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Einführung on Helm</title><link>https://helm.sh/de/docs/intro/</link><description>Recent content in Einführung on Helm</description><generator>Hugo</generator><language>de</language><atom:link href="https://helm.sh/de/docs/intro/index.xml" rel="self" type="application/rss+xml"/><item><title>Schnellstartanleitung</title><link>https://helm.sh/de/docs/intro/quickstart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/intro/quickstart/</guid><description>&lt;p>Mit dieser Anleitung können Sie schnell mit Helm starten.&lt;/p>
+&lt;h2 id="vorbedingungen">Vorbedingungen&lt;/h2>
+&lt;p>Die folgenden Vorbedingungen sind erforderlich, um Helm erfolgreich und sicher
+zu nutzen.&lt;/p>
+&lt;ol>
+&lt;li>Ein Kubernetes Cluster&lt;/li>
+&lt;li>Entscheiden, welche Sicherheitskonfigurationen zur Installation verwendet werden&lt;/li>
+&lt;li>Installieren und konfigurieren von Helm.&lt;/li>
+&lt;/ol>
+&lt;h3 id="installieren-von-kubernetes-oder-zugriff-auf-einen-cluster-haben">Installieren von Kubernetes oder Zugriff auf einen Cluster haben&lt;/h3>
+&lt;ul>
+&lt;li>Sie müssen Kubernetes installiert haben. Für die letzte Version von Helm
+empfehlen wir die letzte stabile Version von Kubernetes, was in den meisten
+Fällen die zweitletzte Unterversion ist.&lt;/li>
+&lt;li>Sie sollten eine lokale Kopie eines konfigurierten kubectl haben.&lt;/li>
+&lt;/ul>
+&lt;p>Sehen Sie die 
+&lt;a href="https://helm.sh/docs/topics/version_skew/" target="_blank">Helm Version Support Policy&lt;/a>
+für die maximal unterstützte Version zwischen Helm und Kubernetes.&lt;/p></description></item><item><title>Helm installieren</title><link>https://helm.sh/de/docs/intro/install/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/intro/install/</guid><description>&lt;p>Diese Anleitung zeigt, wie Helm CLI zu installieren ist. Helm kann sowohl
+vom Quellcode als auch vorkompilierten Binaries installiert werden.&lt;/p>
+&lt;h2 id="vom-helm-projekt">Vom Helm Projekt&lt;/h2>
+&lt;p>Das Helm Projekt stellt zwei Wege zum Beziehen und Installieren von Helm zur
+Verfügung. Dies sind die offiziellen Methoden, um Helm Versionen zu bekommen.
+Zusätzlich zu dem stellt die Helm Gemeinschaft Methoden zur Installation
+mit verschiedenen Paketmanagern zur Verfügung. Die Installation mit diesen
+Methoden können am Ende der Anleitung zu den offiziellen Methoden gelesen
+werden.&lt;/p></description></item><item><title>Helm benutzen</title><link>https://helm.sh/de/docs/intro/using_helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://helm.sh/de/docs/intro/using_helm/</guid><description>&lt;p>Diese Anleiting erklärt die Grundsätze zu Helm, um Pakete in Ihrem Kubernetes
+Cluster zu verwalten. Es wird erwartet, dass Sie das Helm Programm bereits
+
+&lt;a href="https://helm.sh/de/docs/intro/install/">installiert&lt;/a> haben.&lt;/p>
+&lt;p>Wenn Sie nur daran interessiert, ein paar einfache Kommandos schnell zu lernen,
+beginnen Sie mit der 
+&lt;a href="https://helm.sh/de/docs/intro/quickstart/">Schnellstartanleitung&lt;/a>.
+Dieses Kapitel erklärt die speziellen Helm Kommandos und erklärt, wie
+Helm zu benutzen ist.&lt;/p>
+&lt;h2 id="drei-grosse-konzepte">Drei grosse Konzepte&lt;/h2>
+&lt;p>Ein &lt;em>Chart&lt;/em> ist ein Helm Paket. Es beinhaltet alle Resourcedefinitionen, die zur
+Ausführung einer Applikation, eines Werkzeugs oder Dienstes im Kubernetes
+Cluster erforderlich sind. Denken Sie an etwas wie ein Homebrew Formular für
+Kubernetes, ein Apt dpkg oder eine Yum RPM Datei.&lt;/p></description></item></channel></rss>
