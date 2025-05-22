@@ -1,34 +1,4710 @@
-<!doctype html><html lang=es>
-<!-- Mirrored from helm.sh/es/docs/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 May 2025 19:50:26 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head><title>Helm | Docs
-</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Todo lo que necesita saber sobre cómo está organizada la documentación."><meta property="og:title" content="Docs Inicio"><meta property="og:title" content="Docs Inicio"><meta property="og:url" content="index.html"><meta property="og:description" content="Todo lo que necesita saber sobre cómo está organizada la documentación."><meta name=twitter:card content="summary"><meta name=twitter:image content="../../img/og-image.png"><meta name=twitter:title content="Helm | Docs Inicio"><meta name=twitter:description content="Todo lo que necesita saber sobre cómo está organizada la documentación."><meta name=google-site-verification content="dCa3wS47cErhx0IpaxbB85NfcOP-vFxevknVk6fzf5I"><link rel=icon href=../../img/favicon-152.png type=image/x-icon><link rel=apple-touch-icon-precomposed href=../../img/apple-touch-icon-precomposed.png><link rel=stylesheet href=../../css/style.5e1fe24631deb024ebb03258561d4fd91928d7231eea4b7df92cdbbe845dfd10.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css><link rel=alternate type=application/rss+xml href=index.xml title=Helm></head><body id=landing class=es></body><div id=helm class="page-docs page-wrapper page-docs-list"><header><nav class="navbar navbar-top" role=navigation aria-label="main navigation"><div class="container is-fluid is-vcentered"><div class=navbar-brand><a href=../../index.html><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 304 351"><title>Helm</title><mask id="a" fill="#fff"><path d="m0 0h313.303155v159.864865H0z" fill="#fff" fill-rule="evenodd"/></mask><mask id="b" fill="#fff"><path d="m0 0h313.303155v159.864865H0z" fill="#fff" fill-rule="evenodd"/></mask><g fill="none" fill-rule="evenodd" transform="translate(-11 -51)"><path d="m11.6785714 189h19.7858357v26.789h23.9037V189h19.7858358v75.25H55.3681071v-28.695333h-23.9037V264.25H11.6785714zm86.1738429 75.25V189h46.8030427v16.354333H117.63825V217.595h23.9037v16.655333h-23.9037v13.846h27.017207V264.25zm68.4971567.0V189h19.785836v55.384h27.117643v19.866zM243.885943 189l30.733328 27.892667L305.252164 189h8.938779v75.25h-19.886272v-38.628333l-19.6854 17.959666L254.833436 225.722v38.528h-19.886272V189z" fill="#0f1689"/><g transform="matrix(1 0 0 -1 11.958136 455)"><g fill="#0f1689" mask="url(#a)"><path d="m203.460676 95.6875425c6.93631.0 12.559301-14.8092194 12.559301-33.0773172s-5.622991-33.0773172-12.559301-33.0773172c-6.936311.0-12.559301 14.8092194-12.559301 33.0773172s5.62299 33.0773172 12.559301 33.0773172z" transform="matrix(.81915204 .57357644 -.57357644 .81915204 111.870091 -51.706556)"/><path d="m30.1423223 95.6875425c6.9363104.0 12.559301-14.8092194 12.559301-33.0773172s-5.6229906-33.0773172-12.559301-33.0773172-12.5593009 14.8092194-12.5593009 33.0773172 5.6229905 33.0773172 12.5593009 33.0773172z" transform="matrix(-.81915204 .57357644 .57357644 .81915204 58.084611 47.704768)"/><path d="m116.732815 66.2752676c6.936311.0 12.559301-14.8092193 12.559301-33.0773172.0-18.2680978-5.62299-33.07731713-12.559301-33.07731713-6.93631.0-12.559301 14.80921933-12.559301 33.07731713.0 18.2680979 5.622991 33.0773172 12.559301 33.0773172z" transform="matrix(-1 0 0 1 272.628524 53.670762)"/></g><path d="m251.467006 173.099849c-20.230076-33.609969-56.889565-56.067908-98.755776-56.067908-40.720798.0-76.5158766 21.245901-97.0586959 53.334588m2.1981107 129.169534c20.8403036 30.232701 55.5559042 50.026591 94.8605852 50.026591 39.376099.0 74.146424-19.865887 94.974049-50.191495" mask="url(#a)" stroke="#0f1689" stroke-width="20"/></g><g transform="translate(11.958136)"><g fill="#0f1689" mask="url(#b)"><path d="m203.460676 95.6875425c6.93631.0 12.559301-14.8092194 12.559301-33.0773172s-5.622991-33.0773172-12.559301-33.0773172c-6.936311.0-12.559301 14.8092194-12.559301 33.0773172s5.62299 33.0773172 12.559301 33.0773172z" transform="matrix(.81915204 .57357644 -.57357644 .81915204 111.870091 -54.166016)"/><path d="m30.1423223 95.6875425c6.9363104.0 12.559301-14.8092194 12.559301-33.0773172s-5.6229906-33.0773172-12.559301-33.0773172-12.5593009 14.8092194-12.5593009 33.0773172 5.6229905 33.0773172 12.5593009 33.0773172z" transform="matrix(-.81915204 .57357644 .57357644 .81915204 58.084611 45.245308)"/><path d="m116.732815 66.2752676c6.936311.0 12.559301-14.8092193 12.559301-33.0773172.0-18.2680978-5.62299-33.07731713-12.559301-33.07731713-6.93631.0-12.559301 14.80921933-12.559301 33.07731713.0 18.2680979 5.622991 33.0773172 12.559301 33.0773172z" transform="matrix(-1 0 0 1 272.628524 51.211302)"/></g><path d="m251.467006 170.64039c-20.230076-33.609969-56.889565-56.067908-98.755776-56.067908-40.720798.0-76.5158766 21.2459-97.0586959 53.334587m2.1981107 129.169534c20.8403036 30.232702 55.5559042 50.026591 94.8605852 50.026591 39.376099.0 74.146424-19.865886 94.974049-50.191494" mask="url(#b)" stroke="#0f1689" stroke-width="20"/></g></g></svg></a></div><div class="navbar-menu is-centered" id=navMenuDocumentation><a href=../index.html class=navbar-item>Inicio
-</a><a href=index.html class=navbar-item>Docs
-</a><a href=https://artifacthub.io/ class="navbar-item external" target=_blank>Charts <span class=icon><i class="mdi mdi-open-in-new"></i></span>
-</a><a href=../../blog/index.html class="navbar-item external" target=_blank>Blog <span class=icon><i class="mdi mdi-open-in-new"></i></span>
-</a><a href=https://github.com/helm/community class="navbar-item external" target=_blank>Comunidad <span class=icon><i class="mdi mdi-open-in-new"></i></span></a></div><div class="navbar-end is-hidden-mobile"><ul class=is-pulled-right><li class="versioner l18ner navbar-item has-dropdown is-right is-hoverable"><a data-dropdown=drop1 aria-controls=drop1 aria-expanded=false class="versioner-trigger navbar-link">Español <i class="fa fa-caret-down"></i></a><ul id=drop1 class="navbar-dropdown dropdown-menu f-dropdown" data-dropdown-content aria-hidden=true tabindex=-1><li class=navbar-item><a href=../../docs/index.html><code>en</code> &nbsp; English</a></li><li class=navbar-item><a href=../../de/docs/index.html><code>de</code> &nbsp; Deutsch</a></li><li class=navbar-item><a href=index.html class=active><code>es</code> &nbsp; Español</a></li><li class=navbar-item><a href=../../fr/docs/index.html><code>fr</code> &nbsp; Français</a></li><li class=navbar-item><a href=../../gr/docs/index.html><code>gr</code> &nbsp; Ελληνικά</a></li><li class=navbar-item><a href=../../ja/docs/index.html><code>ja</code> &nbsp; 日本語</a></li><li class=navbar-item><a href=../../ko/docs/index.html><code>ko</code> &nbsp; 한국어</a></li><li class=navbar-item><a href=../../pt/docs/index.html><code>pt</code> &nbsp; Português</a></li><li class=navbar-item><a href=../../ru/docs/index.html><code>ru</code> &nbsp; Русский</a></li><li class=navbar-item><a href=../../uk/docs/index.html><code>uk</code> &nbsp; Українська</a></li><li class=navbar-item><a href=../../zh/docs/index.html><code>zh</code> &nbsp; 中文</a></li><li class="navbar-item l18n-prompt"><a href=https://github.com/helm/helm-www#internationalization--translation><small>Traduzca esta pagina</small></a></li></ul></li><li class="versioner navbar-item has-dropdown is-right is-hoverable"><a data-dropdown=drop1 aria-controls=drop1 aria-expanded=false class="versioner-trigger navbar-link">v3.17.0 <i class="fa fa-caret-down"></i></a><ul id=drop1 class="navbar-dropdown dropdown-menu f-dropdown" data-dropdown-content aria-hidden=true tabindex=-1><li><a href=../../docs/index.html class=navbar-item>v3.17.0 <em>stable</em></a></li><li><a href=https://v2.helm.sh/docs class=navbar-item>v2.17.0</a></li></ul></li><li><a class="button not-fixed is-outlined" href=intro/quickstart/index.html>Empieza</a></li></ul></div><div class="navbar-end is-hidden-tablet"><div id=navbarBurger class="navbar-burger burger" data-target=navMenuDocumentation><span></span>
-<span></span>
-<span></span></div></div></div></nav><nav class="navbar navbar-top navbar-top-fixed" role=navigation aria-label="main navigation"><div class="container is-fluid"><div class=navbar-brand><a href=../../index.html><svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 304 351"><title>Helm</title><mask id="a" fill="#fff"><path d="m0 0h313.303155v159.864865H0z" fill="#fff" fill-rule="evenodd"/></mask><mask id="b" fill="#fff"><path d="m0 0h313.303155v159.864865H0z" fill="#fff" fill-rule="evenodd"/></mask><g fill="none" fill-rule="evenodd" transform="translate(-11 -51)"><path d="m11.6785714 189h19.7858357v26.789h23.9037V189h19.7858358v75.25H55.3681071v-28.695333h-23.9037V264.25H11.6785714zm86.1738429 75.25V189h46.8030427v16.354333H117.63825V217.595h23.9037v16.655333h-23.9037v13.846h27.017207V264.25zm68.4971567.0V189h19.785836v55.384h27.117643v19.866zM243.885943 189l30.733328 27.892667L305.252164 189h8.938779v75.25h-19.886272v-38.628333l-19.6854 17.959666L254.833436 225.722v38.528h-19.886272V189z" fill="#0f1689"/><g transform="matrix(1 0 0 -1 11.958136 455)"><g fill="#0f1689" mask="url(#a)"><path d="m203.460676 95.6875425c6.93631.0 12.559301-14.8092194 12.559301-33.0773172s-5.622991-33.0773172-12.559301-33.0773172c-6.936311.0-12.559301 14.8092194-12.559301 33.0773172s5.62299 33.0773172 12.559301 33.0773172z" transform="matrix(.81915204 .57357644 -.57357644 .81915204 111.870091 -51.706556)"/><path d="m30.1423223 95.6875425c6.9363104.0 12.559301-14.8092194 12.559301-33.0773172s-5.6229906-33.0773172-12.559301-33.0773172-12.5593009 14.8092194-12.5593009 33.0773172 5.6229905 33.0773172 12.5593009 33.0773172z" transform="matrix(-.81915204 .57357644 .57357644 .81915204 58.084611 47.704768)"/><path d="m116.732815 66.2752676c6.936311.0 12.559301-14.8092193 12.559301-33.0773172.0-18.2680978-5.62299-33.07731713-12.559301-33.07731713-6.93631.0-12.559301 14.80921933-12.559301 33.07731713.0 18.2680979 5.622991 33.0773172 12.559301 33.0773172z" transform="matrix(-1 0 0 1 272.628524 53.670762)"/></g><path d="m251.467006 173.099849c-20.230076-33.609969-56.889565-56.067908-98.755776-56.067908-40.720798.0-76.5158766 21.245901-97.0586959 53.334588m2.1981107 129.169534c20.8403036 30.232701 55.5559042 50.026591 94.8605852 50.026591 39.376099.0 74.146424-19.865887 94.974049-50.191495" mask="url(#a)" stroke="#0f1689" stroke-width="20"/></g><g transform="translate(11.958136)"><g fill="#0f1689" mask="url(#b)"><path d="m203.460676 95.6875425c6.93631.0 12.559301-14.8092194 12.559301-33.0773172s-5.622991-33.0773172-12.559301-33.0773172c-6.936311.0-12.559301 14.8092194-12.559301 33.0773172s5.62299 33.0773172 12.559301 33.0773172z" transform="matrix(.81915204 .57357644 -.57357644 .81915204 111.870091 -54.166016)"/><path d="m30.1423223 95.6875425c6.9363104.0 12.559301-14.8092194 12.559301-33.0773172s-5.6229906-33.0773172-12.559301-33.0773172-12.5593009 14.8092194-12.5593009 33.0773172 5.6229905 33.0773172 12.5593009 33.0773172z" transform="matrix(-.81915204 .57357644 .57357644 .81915204 58.084611 45.245308)"/><path d="m116.732815 66.2752676c6.936311.0 12.559301-14.8092193 12.559301-33.0773172.0-18.2680978-5.62299-33.07731713-12.559301-33.07731713-6.93631.0-12.559301 14.80921933-12.559301 33.07731713.0 18.2680979 5.622991 33.0773172 12.559301 33.0773172z" transform="matrix(-1 0 0 1 272.628524 51.211302)"/></g><path d="m251.467006 170.64039c-20.230076-33.609969-56.889565-56.067908-98.755776-56.067908-40.720798.0-76.5158766 21.2459-97.0586959 53.334587m2.1981107 129.169534c20.8403036 30.232702 55.5559042 50.026591 94.8605852 50.026591 39.376099.0 74.146424-19.865886 94.974049-50.191494" mask="url(#b)" stroke="#0f1689" stroke-width="20"/></g></g></svg></a></div><div class="navbar-menu is-centered" id=navMenuDocumentation><a href=../index.html class=navbar-item>Inicio
-</a><a href=index.html class=navbar-item>Docs
-</a><a href=https://artifacthub.io/ class="navbar-item external" target=_blank>Charts <span class=icon><i class="mdi mdi-open-in-new"></i></span>
-</a><a href=../../blog/index.html class="navbar-item external" target=_blank>Blog <span class=icon><i class="mdi mdi-open-in-new"></i></span>
-</a><a href=https://github.com/helm/community class="navbar-item external" target=_blank>Comunidad <span class=icon><i class="mdi mdi-open-in-new"></i></span></a></div><div class="navbar-end is-hidden-mobile"><ul class=is-pulled-right><li class="versioner l18ner navbar-item has-dropdown is-right is-hoverable"><a data-dropdown=drop1 aria-controls=drop1 aria-expanded=false class="versioner-trigger navbar-link">Español <i class="fa fa-caret-down"></i></a><ul id=drop1 class="navbar-dropdown dropdown-menu f-dropdown" data-dropdown-content aria-hidden=true tabindex=-1><li class=navbar-item><a href=../../docs/index.html><code>en</code> &nbsp; English</a></li><li class=navbar-item><a href=../../de/docs/index.html><code>de</code> &nbsp; Deutsch</a></li><li class=navbar-item><a href=index.html class=active><code>es</code> &nbsp; Español</a></li><li class=navbar-item><a href=../../fr/docs/index.html><code>fr</code> &nbsp; Français</a></li><li class=navbar-item><a href=../../gr/docs/index.html><code>gr</code> &nbsp; Ελληνικά</a></li><li class=navbar-item><a href=../../ja/docs/index.html><code>ja</code> &nbsp; 日本語</a></li><li class=navbar-item><a href=../../ko/docs/index.html><code>ko</code> &nbsp; 한국어</a></li><li class=navbar-item><a href=../../pt/docs/index.html><code>pt</code> &nbsp; Português</a></li><li class=navbar-item><a href=../../ru/docs/index.html><code>ru</code> &nbsp; Русский</a></li><li class=navbar-item><a href=../../uk/docs/index.html><code>uk</code> &nbsp; Українська</a></li><li class=navbar-item><a href=../../zh/docs/index.html><code>zh</code> &nbsp; 中文</a></li><li class="navbar-item l18n-prompt"><a href=https://github.com/helm/helm-www#internationalization--translation><small>Traduzca esta pagina</small></a></li></ul></li><li class="versioner navbar-item has-dropdown is-right is-hoverable"><a data-dropdown=drop1 aria-controls=drop1 aria-expanded=false class="versioner-trigger navbar-link">v3.17.0 <i class="fa fa-caret-down"></i></a><ul id=drop1 class="navbar-dropdown dropdown-menu f-dropdown" data-dropdown-content aria-hidden=true tabindex=-1><li><a href=../../docs/index.html class=navbar-item>v3.17.0 <em>stable</em></a></li><li><a href=https://v2.helm.sh/docs class=navbar-item>v2.17.0</a></li></ul></li><li><a class="button not-fixed is-outlined" href=intro/quickstart/index.html>Empieza</a></li></ul></div></div></nav></header><div class=columns id=helm><aside class="column is-narrow is-gapless sidebar-wrapper"><input type=checkbox class=hamburger-trigger>
-<small class=hamburger><span></span>
-<span></span>
-<span></span></small><div class=sidebar><div class="is-visible-mobile is-hidden-tablet" id=sidebar-toggle>Browse Docs <span class=icon><i class="mdi mdi-arrow-down"></i></span></div><div class=sidebar-content-wrapper><div class=search-container><input id=q placeholder=Search... autofocus>
-<span class=icon><i class="mdi mdi-magnify"></i></span></div><nav class=sidebar-nav><ul class="current sidebar-main"><li class="sidebar-nav-item toctree-l1"><a class="reference internal" href=index.html state><span class=ripple>Docs Inicio</span></a></li><li class="sidebar-nav-item toctree-l1"><a class="reference internal" href=intro/index.html><span class=ripple>Introducción</span></a><ul class=current><li class=toctree-12><a href=intro/quickstart/index.html title="Switch to Guía de inicio rápido">Guía de inicio rápido</a></li><li class=toctree-12><a href=intro/install/index.html title="Switch to Instalar Helm">Instalar Helm</a></li><li class=toctree-12><a href=intro/using_helm/index.html title="Switch to Uso de Helm">Uso de Helm</a></li><li class=toctree-12><a href=intro/cheatsheet/index.html title="Switch to "></a></li></ul></li><li class="sidebar-nav-item toctree-l1"><a class="reference internal" href=howto/index.html><span class=ripple>Cómo Hacer</span></a><ul class=current><li class=toctree-12><a href=howto/charts_tips_and_tricks/index.html title="Switch to Consejos y Trucos para el Desarrollo de Charts">Consejos y Trucos para el Desarrollo de Charts</a></li><li class=toctree-12><a href=howto/chart_repository_sync_example/index.html title="Switch to Sincronizar tu Repositorio de Charts">Sincronizar tu Repositorio de Charts</a></li><li class=toctree-12><a href=howto/chart_releaser_action/index.html title="Switch to Chart Releaser Action para automatizar página GitHub de Charts">Chart Releaser Action para automatizar página GitHub de Charts</a></li></ul></li><li class="sidebar-nav-item toctree-l1"><a class="reference internal" href=topics/index.html><span class=ripple>Temas</span></a><ul class=current><li class=toctree-12><a href=topics/charts/index.html title="Switch to Charts">Charts</a></li><li class=toctree-12><a href=topics/charts_hooks/index.html title="Switch to Ganchos de Chart">Ganchos de Chart</a></li><li class=toctree-12><a href=topics/chart_tests/index.html title="Switch to Pruebas de Chart">Pruebas de Chart</a></li><li class=toctree-12><a href=topics/library_charts/index.html title="Switch to Charts de Bibliotecas">Charts de Bibliotecas</a></li><li class=toctree-12><a href=topics/provenance/index.html title="Switch to Procedencia e Integridad de Helm">Procedencia e Integridad de Helm</a></li><li class=toctree-12><a href=topics/architecture/index.html title="Switch to Arquitectura Helm">Arquitectura Helm</a></li><li class=toctree-12><a href=topics/advanced/index.html title="Switch to Técnicas avanzadas de Helm">Técnicas avanzadas de Helm</a></li><li class=toctree-12><a href=topics/kubernetes_distros/index.html title="Switch to Guía de distribución de Kubernetes">Guía de distribución de Kubernetes</a></li></ul></li></ul></nav><aside class="sidebar-buttons is-hidden-mobile"><div class=button-wrap><a href=https://github.com/helm/helm-www#contributing class="button is-outline is-fullwidth">Contribute to Docs</a></div></aside></div></div></aside><section class="column content-docs"><article class=content-wrapper><h1 id=bienvenidos>Bienvenidos</h1><p>Bienvenidos a la documentación de
-<a href=../../index.html target=_blank>Helm</a>. Helm es el administrador
-de paquetes de Kubernetes, y puedes leer información de antecedentes detallados en
-el
-<a href=https://www.cncf.io/cncf-helm-project-journey/ target=_blank>CNCF Informe de Viaje del Proyecto de Helm</a>.</p><h1 id=cómo-está-organizada-la-documentación>Cómo está organizada la documentación</h1><p>Helm tiene mucha documentación. Una descripción general de alto nivel de cómo está
-organizado lo ayudará a saber dónde buscar ciertas cosas:</p><ul><li><a href=intro/index.html>Tutoriales</a> te llevan de la mano a través de una serie de pasos para crear
-tu primer Helm chart. Empieza aquí si eres nuevo en Helm.</li><li><a href=topics/index.html>Guías de temas</a> discute temas y
-conceptos clave a un nivel bastante alto y proporcionar información de antecedentes
-y explicaciones útiles.</li><li><a href=../../docs/community/index.html>Guías de la comunidad</a> discute
-temas centrados en la comunidad de Helm. Comience aquí si desea obtener más información
-sobre el proceso de desarrollo de Helm y cómo puede contribuir.</li><li><a href=howto/index.html>Guías prácticas</a> son recetas. Le
-guían a través de los pasos necesarios para abordar problemas clave y casos de uso.
-Son más avanzados que los tutoriales y asumen cierto conocimiento de cómo funciona
-Helm.</li></ul><section class="quick-links clearfix"><h3 class=text-center>Quicklinks</h3><a href=../../docs/intro/quickstart/index.html class="quick-item clearfix"><h4>Quickstart Guide</h4><p>How to install and get started with Helm including instructions for distros, FAQs, and plugins.</p></a><a href=../../docs/topics/charts/index.html class="quick-item clearfix"><h4>Chart Guide</h4><p>Practical steps for building Helm charts—how to structure, sign, and sync your charts.</p></a><a href="https://www.youtube.com/watch?v=Zzwq9FmZdsU" class="quick-item clearfix"><h4>Video: Intro to Helm</h4><p>Watch Matt Farina and Josh Dolitsky present an introduction to Helm at KubeCon 2019.</p></a><a href=../../blog/migrate-from-helm-v2-to-helm-v3/index.html class="quick-item clearfix"><h4>Migrating from v2 to v3</h4><p>Read our blog post on how to migrate from Helm v2 to Helm v3.</p></a><a href=../../blog/2019-11-04-helm-security-audit-results/index.html class="quick-item clearfix"><h4>Helm Security Audit</h4><p>Helm has been audited and deemed as recommended for public deployment during a third-party security audit funded by the CNCF.</p></a></section></article></section></div></div><section class="container footer-links"><div class="columns clearfix"><dl class=column><dt><a href=https://github.com/helm/helm>Helm Project</a></dt><dd><a href=../../blog/index.html>Blog</a></dd><dd><a href=https://www.cncf.io/community/kubecon-cloudnativecon-events/>Events</a></dd><dd><a href=../../docs/intro/quickstart/index.html>Quick Start Guide</a></dd><dd><a href=https://github.com/cncf/foundation/blob/master/code-of-conduct.md>Code of Conduct</a></dd></dl><dl class=column><dt><a href=https://artifacthub.io/>Charts</a></dt><dd><a href=../../docs/topics/charts/index.html>Introduction</a></dd><dd><a href=../../docs/howto/charts_tips_and_tricks/index.html>Chart tips & tricks</a></dd><dd><a href=../../docs/chart_template_guide/index.html>Developing Charts</a></dd><dd><a href=https://artifacthub.io/>Search 800+ Charts</a> <i class="fa fa-external"></i></dd></dl><dl class=column><dt><a href=https://github.com/helm/community/blob/main/communication.md>Development</a></dt><dd><a href=https://kubernetes.slack.com/messages/C51E88VDG>#helm-dev</a> <em>(slack)</em></dd><dd><a href=https://github.com/helm/helm/blob/main/CONTRIBUTING.md>Contribution Guide</a></dd><dd><a href=https://github.com/helm/helm/blob/main/OWNERS>Maintainers</a></dd><dd><a href=https://github.com/helm/community/blob/main/communication.md#meetings>Weekly Meetings</a></dd></dl><dl class=column><dt><a href=https://github.com/helm/community>Community</a></dt><dd><a href=https://kubernetes.slack.com/messages/C0NH30761 title="#helm-users on Slack">#helm-users</a> <em>(slack)</em></dd><dd><a href=https://lists.cncf.io/g/cncf-helm/topics>Mailing List</a></dd><dd><a href=https://github.com/cncf/artwork/tree/master/projects/helm>Logos</a> & <a href=https://github.com/helm/community/tree/main/art>Art</a></dd><dd><a href=https://twitter.com/helmpack>Twitter</a></dd></dl></div><div class="columns has-text-left cncf-wrap"><div class="column is-two-thirds"><a href=https://www.cncf.io/ title="Cloud Native Computing Foundation" target=_blank><p class=lead>Somos un proyecto graduado de Cloud Native Computing Foundation.</p></a></div><div class="column is-one-third has-text-right"><a href=https://www.cncf.io/ title="Cloud Native Computing Foundation" target=_blank><img src=../../img/cncf-white.svg alt="We are a Cloud Native Computing Foundation project"></a></div></div><hr><div class=copyright><p>&copy; Helm Authors 2025 | Documentation distributed under <a href=https://creativecommons.org/licenses/by/4.0>CC-BY-4.0</a></p><p>&copy; 2025 The Linux Foundation. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href=https://www.linuxfoundation.org/trademark-usage/>Trademark Usage</a> page.</p></div></section><script src=../../js/jquery.min.5b0fc316fadc5b46871a87eb6e9c79b25141f345979724f6978008c9bd028182.js></script><script src=../../js/bundle.min.045b7fe0485ba75e00e2c390ece7e6b70efc6ce2cafe5e98c0f907b3677c6f21.js></script><script async src=https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js onload='docsearch({apiKey:"8bca76b0664b04581dc9f9854e844a90",indexName:"helm",inputSelector:"#q",debug:!1})'></script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","http://www.google-analytics.com/analytics.js","ga"),ga("create","UA-42867143-2","auto"),ga("send","pageview")</script></body>
-<!-- Mirrored from helm.sh/es/docs/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 May 2025 19:50:28 GMT -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Todo lo que necesitas saber sobre cómo está organizada la documentación.">
+      
+      
+      
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/_index/">
+      
+      
+        <link rel="prev" href="../../community/release_checklist/">
+      
+      
+        <link rel="next" href="../howto/_index/">
+      
+      
+      <link rel="icon" href="../../static/images/helm-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Inicio de Documentación - Helm Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bienvenido" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Helm Docs" class="md-header__button md-logo" aria-label="Helm Docs" data-md-component="logo">
+      
+  <img src="../../static/images/helm.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Helm Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inicio de Documentación
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/en/docs/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/de/docs/" hreflang="de" class="md-select__link">
+              Deutsch
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/es/docs/" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/fr/docs/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/gr/docs/" hreflang="gr" class="md-select__link">
+              Ελληνικά
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ja/docs/" hreflang="ja" class="md-select__link">
+              日本語
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ko/docs/" hreflang="ko" class="md-select__link">
+              한국어
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/pt/docs/" hreflang="pt" class="md-select__link">
+              Português
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/ru/docs/" hreflang="ru" class="md-select__link">
+              Русский
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/uk/docs/" hreflang="uk" class="md-select__link">
+              Українська
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/zh/docs/" hreflang="zh" class="md-select__link">
+              中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ingydotnet/helm-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Helm Docs" class="md-nav__button md-logo" aria-label="Helm Docs" data-md-component="logo">
+      
+  <img src="../../static/images/helm.svg" alt="logo">
+
+    </a>
+    Helm Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ingydotnet/helm-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docs Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chart best practices
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Chart best practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Best Practices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General Conventions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/custom_resource_definitions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Resource Definitions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/labels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Labels and Annotations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/pods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pods and PodTemplates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/rbac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Role-Based Access Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_best_practices/values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Values
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Chart template guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Chart template guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Template Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/accessing_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accessing Files Inside Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/builtin_objects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Built-in Objects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/control_structures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Flow Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/data_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix: Go Data Types and Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/function_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Template Function List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/functions_and_pipelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Template Functions and Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/helm_ignore_file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The .helmignore file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/named_templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Named Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/notes_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating a NOTES.txt File
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/subcharts_and_globals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Subcharts and Global Values
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/values_files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Values Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/wrapping_up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Next Steps
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../chart_template_guide/yaml_techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Appendix: YAML Techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Community
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Community
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/developers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Developer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The History of the Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/localization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Localizing Helm Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/related/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Related Projects and Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/release_checklist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Es
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Es
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio de Documentación
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Howto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Howto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cómo Hacer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/chart_releaser_action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Releaser Action para automatizar página GitHub de Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/chart_repository_sync_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sincronizar tu Repositorio de Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howto/charts_tips_and_tricks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Consejos y Trucos para el Desarrollo de Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/CheatSheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hoja de Referencia
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introducción
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Instalando Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guía de Inicio Rápido
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/using_helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usando Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Temas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Técnicas Avanzadas de Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura de Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/chart_repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guía de Repositorios de Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/chart_tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pruebas de Chart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/charts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/charts_hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ganchos de Chart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/kubernetes_apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    APIs de Kubernetes en desuso
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/kubernetes_distros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guía de distribución de Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/library_charts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Charts de Bibliotecas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/permissions_sql_storage_backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de permisos para el backend de almacenamiento SQL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guía de Plugins de Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Procedencia e Integridad de Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/rbac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Acceso Basado en Roles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/registries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Usar registros basados en OCI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/release_policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Política de programación de lanzamientos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/v2_v3_migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migración de Helm v2 a v3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topics/version_skew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Política de soporte de versiones de Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Faq
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Faq
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/changes_since_helm2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changes Since Helm 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/installing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/uninstalling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Uninstalling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Glossary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Helm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Helm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_completion_bash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Completion Bash
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_completion_fish/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Completion Fish
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_completion_powershell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Completion Powershell
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_completion_zsh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Completion Zsh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_create/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Create
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_delete/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm delete
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_dependency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Dependency
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_dependency_build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Dependency Build
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_dependency_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Dependency List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_dependency_update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Dependency Update
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_env/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Env
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get All
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get Manifest
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get Metadata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_get_values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Get Values
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm History
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_inspect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm inspect
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_lint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Lint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_package/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Package
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_plugin_install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Plugin Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_plugin_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Plugin List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_plugin_uninstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Plugin Uninstall
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_plugin_update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Plugin Update
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Pull
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_push/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Push
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Registry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_registry_login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Registry Login
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_registry_logout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Registry Logout
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo_add/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo Add
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo Index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo_list/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo List
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo_remove/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo Remove
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_repo_update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Repo Update
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Rollback
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_search_hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Search Hub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_search_repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Search Repo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show_all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show All
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show_chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show Chart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show_crds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show Crds
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show_readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show Readme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_show_values/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Show Values
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Template
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Test
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_uninstall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Uninstall
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_upgrade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Upgrade
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_verify/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Verify
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../helm/helm_version/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Version
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Howto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Howto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How-to
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Releaser Action to Automate GitHub Page Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Syncing Your Chart Repository
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Development Tips and Tricks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Intro
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Intro
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/CheatSheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cheat Sheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installing Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/using_helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Using Helm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Sdk
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Sdk
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Go SDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/gosdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Topics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Helm Techniques
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/chart_repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Chart Repository Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/chart_tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/charts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/charts_hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chart Hooks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deprecated Kubernetes APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubernetes Distribution Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/library_charts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Library Charts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Permissions management for SQL storage backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    The Helm Plugins Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Provenance and Integrity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/rbac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Role-based Access Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/registries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use OCI-based registries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/release_policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release schedule policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migrating Helm v2 to v3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/version_skew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Helm Version Support Policy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!--
+XXX no buttons for index.md pages yet. They need to point to _index.md
+-->
+
+
+  
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/_index.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/_index.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+
+<h1 id="bienvenido">Bienvenido</h1>
+<p>Bienvenido a la documentación de <a href="https://helm.sh/">Helm</a>. Helm es el gestor de
+paquetes para Kubernetes, y puedes leer información detallada en el <a href="https://www.cncf.io/cncf-helm-project-journey/">Informe del
+Proyecto Helm de CNCF</a>.</p>
+<h1 id="como-esta-organizada-la-documentacion">Cómo está organizada la documentación</h1>
+<p>Helm tiene mucha documentación. Una visión general de alto nivel de cómo está
+organizada te ayudará a saber dónde buscar ciertas cosas:</p>
+<ul>
+<li>Los <a href="chart_template_guide/getting_started/">Tutoriales</a> te guían paso a paso a través de una serie de
+  pasos para crear tu primer chart de Helm. Comienza aquí si eres nuevo en Helm.</li>
+<li>Las <a href="topics">Guías temáticas</a> discuten temas y conceptos clave a un nivel bastante alto
+  y proporcionan información y explicación útil de fondo.</li>
+<li>Las <a href="community">Guías de la Comunidad</a> discuten temas centrados en la comunidad de Helm.
+  Comienza aquí si quieres aprender más sobre el proceso de desarrollo de Helm
+  mismo y cómo puedes contribuir.</li>
+<li>Las <a href="howto">Guías prácticas</a> son recetas. Te guían a través de los pasos necesarios
+  para abordar problemas clave y casos de uso. Son más avanzadas que los
+  tutoriales y asumen cierto conocimiento de cómo funciona Helm.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
 </html>

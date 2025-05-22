@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Hoja de referencia de Helm">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/intro/CheatSheet/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../../howto/charts_tips_and_tricks/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../_index/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>Hoja de Referencia - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#interpretacionescontexto-basico" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              Hoja de Referencia
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1478,18 +1393,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
         
           
           <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
@@ -1505,7 +1422,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             Intro
@@ -1516,10 +1433,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../intro/CheatSheet/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Hoja de Referencia
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1530,6 +1467,96 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interpretacionescontexto-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interpretaciones/contexto básico
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión de Charts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalar-y-desinstalar-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalar y Desinstalar Aplicaciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizar-actualizacion-y-reversion-de-aplicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Realizar Actualización y Reversión de Aplicaciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listar-agregar-eliminar-y-actualizar-repositorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listar, Agregar, Eliminar y Actualizar Repositorios
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoreo-de-lanzamientos-de-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoreo de Lanzamientos de Helm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descargar-informacion-de-lanzamientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descargar Información de Lanzamientos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión de Plugins
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1542,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../intro/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1565,7 +1592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../intro/install/" class="md-nav__link">
+      <a href="../install/" class="md-nav__link">
         
   
   
@@ -1588,7 +1615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../intro/quickstart/" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   
@@ -1611,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../intro/using_helm/" class="md-nav__link">
+      <a href="../using_helm/" class="md-nav__link">
         
   
   
@@ -4673,45 +4700,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#interpretacionescontexto-basico" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Interpretaciones/contexto básico
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#gestion-de-charts" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Gestión de Charts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+  <a href="#instalar-y-desinstalar-aplicaciones" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
+      Instalar y Desinstalar Aplicaciones
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
+  <a href="#realizar-actualizacion-y-reversion-de-aplicaciones" class="md-nav__link">
     <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
+      Realizar Actualización y Reversión de Aplicaciones
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
+  <a href="#listar-agregar-eliminar-y-actualizar-repositorios" class="md-nav__link">
     <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Listar, Agregar, Eliminar y Actualizar Repositorios
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoreo-de-lanzamientos-de-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoreo de Lanzamientos de Helm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descargar-informacion-de-lanzamientos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descargar Información de Lanzamientos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión de Plugins
     </span>
   </a>
   
@@ -4739,7 +4793,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/intro/CheatSheet.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +4802,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/intro/CheatSheet.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,84 +4810,108 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>Hoja de Referencia</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
-<ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
-</ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
-$ mv alpine-0.1.0.tgz fantastic-charts/
+<p>Hoja de referencia de Helm con todos los comandos necesarios para gestionar una
+aplicación a través de Helm.</p>
+<hr />
+<h3 id="interpretacionescontexto-basico">Interpretaciones/contexto básico</h3>
+<p>Chart:
+- Es el nombre de tu chart en caso de que haya sido descargado y descomprimido.
+- Es <nombre_repo>/<nombre_chart> en caso de que el repositorio haya sido
+  agregado pero el chart no descargado.
+- Es la URL/Ruta absoluta al chart.</p>
+<p>Name:
+- Es el nombre que quieres dar a tu instalación actual del chart de Helm.</p>
+<p>Release:
+- Es el nombre que asignaste a una instancia de instalación.</p>
+<p>Revision:
+- Es el valor del comando Helm history.</p>
+<p>Repo-name:
+- El nombre de un repositorio.</p>
+<p>DIR:
+- Nombre/ruta del directorio</p>
+<hr />
+<h3 id="gestion-de-charts">Gestión de Charts</h3>
+<pre><code class="language-bash">helm create &lt;name&gt;                      # Crea un directorio de chart junto con los archivos y directorios comunes usados en un chart.
+helm package &lt;chart-path&gt;               # Empaqueta un chart en un archivo de archivo de chart versionado.
+helm lint &lt;chart&gt;                       # Ejecuta pruebas para examinar un chart e identificar posibles problemas.
+helm show all &lt;chart&gt;                   # Inspecciona un chart y lista su contenido.
+helm show values &lt;chart&gt;                # Muestra el contenido del archivo values.yaml.
+helm pull &lt;chart&gt;                       # Descarga/extrae chart.
+helm pull &lt;chart&gt; --untar=true          # Si se establece como true, descomprimirá el chart después de descargarlo.
+helm pull &lt;chart&gt; --verify              # Verifica el paquete antes de usarlo.
+helm pull &lt;chart&gt; --version &lt;number&gt;    # Por defecto se usa la última versión, especifica una restricción de versión para la versión del chart a usar.
+helm dependency list &lt;chart&gt;            # Muestra una lista de las dependencias de un chart.
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+<hr />
+<h3 id="instalar-y-desinstalar-aplicaciones">Instalar y Desinstalar Aplicaciones</h3>
+<pre><code class="language-bash">helm install &lt;name&gt; &lt;chart&gt;                           # Instala el chart con un nombre.
+helm install &lt;name&gt; &lt;chart&gt; --namespace &lt;namespace&gt;   # Instala el chart en un namespace específico.
+helm install &lt;name&gt; &lt;chart&gt; --set key1=val1,key2=val2 # Establece valores en la línea de comandos (puedes especificar múltiples o separar valores con comas).
+helm install &lt;name&gt; &lt;chart&gt; --values &lt;yaml-file/url&gt;  # Instala el chart con tus valores especificados.
+helm install &lt;name&gt; &lt;chart&gt; --dry-run --debug         # Ejecuta una instalación de prueba para validar el chart.
+helm install &lt;name&gt; &lt;chart&gt; --verify                  # Verifica el paquete antes de usarlo.
+helm install &lt;name&gt; &lt;chart&gt; --dependency-update       # Actualiza las dependencias si faltan antes de instalar el chart.
+helm uninstall &lt;name&gt;                                 # Desinstala un lanzamiento.
 </code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
+<hr />
+<h3 id="realizar-actualizacion-y-reversion-de-aplicaciones">Realizar Actualización y Reversión de Aplicaciones</h3>
+<pre><code class="language-bash">helm upgrade &lt;release&gt; &lt;chart&gt;                            # Actualiza un lanzamiento.
+helm upgrade &lt;release&gt; &lt;chart&gt; --atomic                   # Si se establece, el proceso de actualización revierte los cambios realizados en caso de actualización fallida.
+helm upgrade &lt;release&gt; &lt;chart&gt; --dependency-update        # Actualiza las dependencias si faltan antes de instalar el chart.
+helm upgrade &lt;release&gt; &lt;chart&gt; --version &lt;version_number&gt; # Especifica una restricción de versión para la versión del chart a usar.
+helm upgrade &lt;release&gt; &lt;chart&gt; --values                   # Especifica valores en un archivo YAML o una URL (puedes especificar múltiples).
+helm upgrade &lt;release&gt; &lt;chart&gt; --set key1=val1,key2=val2  # Establece valores en la línea de comandos (puedes especificar múltiples o separar valores).
+helm upgrade &lt;release&gt; &lt;chart&gt; --force                    # Fuerza actualizaciones de recursos a través de una estrategia de reemplazo.
+helm rollback &lt;release&gt; &lt;revision&gt;                        # Revierte un lanzamiento a una revisión específica.
+helm rollback &lt;release&gt; &lt;revision&gt;  --cleanup-on-fail     # Permite la eliminación de nuevos recursos creados en esta reversión cuando la reversión falla.
 </code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
-
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
+<hr />
+<h3 id="listar-agregar-eliminar-y-actualizar-repositorios">Listar, Agregar, Eliminar y Actualizar Repositorios</h3>
+<pre><code class="language-bash">helm repo add &lt;repo-name&gt; &lt;url&gt;   # Agrega un repositorio desde internet.
+helm repo list                    # Lista los repositorios de charts agregados.
+helm repo update                  # Actualiza la información de charts disponibles localmente desde los repositorios de charts.
+helm repo remove &lt;repo_name&gt;      # Elimina uno o más repositorios de charts.
+helm repo index &lt;DIR&gt;             # Lee el directorio actual y genera un archivo de índice basado en los charts encontrados.
+helm repo index &lt;DIR&gt; --merge     # Fusiona el índice generado con un archivo de índice existente.
+helm search repo &lt;keyword&gt;        # Busca en los repositorios una palabra clave en los charts.
+helm search hub &lt;keyword&gt;         # Busca charts en Artifact Hub o tu propia instancia de hub.
 </code></pre>
-<p>Enlaces Útiles:</p>
-<ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
-</ul>
+<hr />
+<h3 id="monitoreo-de-lanzamientos-de-helm">Monitoreo de Lanzamientos de Helm</h3>
+<pre><code class="language-bash">helm list                       # Lista todos los lanzamientos para un namespace especificado, usa el contexto de namespace actual si no se especifica namespace.
+helm list --all                 # Muestra todos los lanzamientos sin ningún filtro aplicado, se puede usar -a.
+helm list --all-namespaces      # Lista lanzamientos en todos los namespaces, podemos usar -A.
+helm list -l key1=value1,key2=value2 # Selector (consulta de etiqueta) para filtrar, soporta '=', '==', y '!='.
+helm list --date                # Ordena por fecha de lanzamiento.
+helm list --deployed            # Muestra lanzamientos desplegados. Si no se especifica otro, esto se habilitará automáticamente.
+helm list --pending             # Muestra lanzamientos pendientes.
+helm list --failed              # Muestra lanzamientos fallidos.
+helm list --uninstalled         # Muestra lanzamientos desinstalados (si se usó 'helm uninstall --keep-history').
+helm list --superseded          # Muestra lanzamientos reemplazados.
+helm list -o yaml               # Imprime la salida en el formato especificado. Valores permitidos: table, json, yaml (predeterminado table).
+helm status &lt;release&gt;           # Este comando muestra el estado de un lanzamiento nombrado.
+helm status &lt;release&gt; --revision &lt;number&gt;   # Si se establece, muestra el estado del lanzamiento nombrado con la revisión.
+helm history &lt;release&gt;          # Revisiones históricas para un lanzamiento dado.
+helm env                        # Env imprime toda la información del entorno en uso por Helm.
+</code></pre>
+<hr />
+<h3 id="descargar-informacion-de-lanzamientos">Descargar Información de Lanzamientos</h3>
+<pre><code class="language-bash">helm get all &lt;release&gt;      # Una colección legible de información sobre las notas, hooks, valores suministrados y archivo de manifiesto generado del lanzamiento dado.
+helm get hooks &lt;release&gt;    # Este comando descarga hooks para un lanzamiento dado. Los hooks están formateados en YAML y separados por el separador YAML '---\n'.
+helm get manifest &lt;release&gt; # Un manifiesto es una representación codificada en YAML de los recursos de Kubernetes que fueron generados desde el/los chart(s) de este lanzamiento. Si un chart depende de otros charts, esos recursos también se incluirán en el manifiesto.
+helm get notes &lt;release&gt;    # Muestra las notas proporcionadas por el chart de un lanzamiento nombrado.
+helm get values &lt;release&gt;   # Descarga un archivo de valores para un lanzamiento dado. Usa -o para formatear la salida.
+</code></pre>
+<hr />
+<h3 id="gestion-de-plugins">Gestión de Plugins</h3>
+<pre><code class="language-bash">helm plugin install &lt;path/url&gt;      # Instala plugins.
+helm plugin list                    # Muestra una lista de todos los plugins instalados.
+helm plugin update &lt;plugin&gt;         # Actualiza plugins.
+helm plugin uninstall &lt;plugin&gt;      # Desinstala un plugin.
+</code></pre>
+<hr />
 
 
 

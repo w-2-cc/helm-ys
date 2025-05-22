@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Explica cómo Helm interactúa con el Control de Acceso Basado en Roles de Kubernetes.">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/topics/rbac/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../provenance/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../registries/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>Control de Acceso Basado en Roles - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#gestion-de-cuentas-de-usuario" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              Control de Acceso Basado en Roles
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1639,18 +1554,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -1666,7 +1583,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Topics
@@ -1680,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1703,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/advanced/" class="md-nav__link">
+      <a href="../advanced/" class="md-nav__link">
         
   
   
@@ -1726,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1749,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_repository/" class="md-nav__link">
+      <a href="../chart_repository/" class="md-nav__link">
         
   
   
@@ -1772,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_tests/" class="md-nav__link">
+      <a href="../chart_tests/" class="md-nav__link">
         
   
   
@@ -1795,7 +1712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts/" class="md-nav__link">
+      <a href="../charts/" class="md-nav__link">
         
   
   
@@ -1818,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts_hooks/" class="md-nav__link">
+      <a href="../charts_hooks/" class="md-nav__link">
         
   
   
@@ -1841,7 +1758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+      <a href="../kubernetes_apis/" class="md-nav__link">
         
   
   
@@ -1864,7 +1781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+      <a href="../kubernetes_distros/" class="md-nav__link">
         
   
   
@@ -1887,7 +1804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/library_charts/" class="md-nav__link">
+      <a href="../library_charts/" class="md-nav__link">
         
   
   
@@ -1910,7 +1827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+      <a href="../permissions_sql_storage_backend/" class="md-nav__link">
         
   
   
@@ -1933,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/plugins/" class="md-nav__link">
+      <a href="../plugins/" class="md-nav__link">
         
   
   
@@ -1956,7 +1873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/provenance/" class="md-nav__link">
+      <a href="../provenance/" class="md-nav__link">
         
   
   
@@ -1976,10 +1893,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../topics/rbac/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Control de Acceso Basado en Roles
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1990,6 +1927,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-cuentas-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión de cuentas de usuario
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-clusterroles-rolebindings-y-clusterrolebindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles, ClusterRoles, RoleBindings y ClusterRoleBindings
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restringir-el-acceso-de-una-cuenta-de-usuario-usando-rbac" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restringir el acceso de una cuenta de usuario usando RBAC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restringir el acceso de una cuenta de usuario usando RBAC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-un-espacio-de-nombres-particular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de lectura/escritura a un espacio de nombres particular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-nivel-de-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de lectura/escritura a nivel de clúster
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-un-espacio-de-nombres-particular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de solo lectura a un espacio de nombres particular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-nivel-de-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de solo lectura a nivel de clúster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consideraciones-adicionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consideraciones Adicionales
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2002,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/registries/" class="md-nav__link">
+      <a href="../registries/" class="md-nav__link">
         
   
   
@@ -2025,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/release_policy/" class="md-nav__link">
+      <a href="../release_policy/" class="md-nav__link">
         
   
   
@@ -2048,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+      <a href="../v2_v3_migration/" class="md-nav__link">
         
   
   
@@ -2071,7 +2104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/version_skew/" class="md-nav__link">
+      <a href="../version_skew/" class="md-nav__link">
         
   
   
@@ -4673,45 +4706,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#gestion-de-cuentas-de-usuario" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Gestión de cuentas de usuario
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#roles-clusterroles-rolebindings-y-clusterrolebindings" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Roles, ClusterRoles, RoleBindings y ClusterRoleBindings
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+  <a href="#restringir-el-acceso-de-una-cuenta-de-usuario-usando-rbac" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
+      Restringir el acceso de una cuenta de usuario usando RBAC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Restringir el acceso de una cuenta de usuario usando RBAC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-un-espacio-de-nombres-particular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de lectura/escritura a un espacio de nombres particular
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-nivel-de-cluster" class="md-nav__link">
     <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
+      Ejemplo: Otorgar a un usuario acceso de lectura/escritura a nivel de clúster
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-un-espacio-de-nombres-particular" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de solo lectura a un espacio de nombres particular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-nivel-de-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo: Otorgar a un usuario acceso de solo lectura a nivel de clúster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
+  <a href="#consideraciones-adicionales" class="md-nav__link">
     <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Consideraciones Adicionales
     </span>
   </a>
   
@@ -4739,7 +4805,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/rbac.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +4814,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/rbac.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,84 +4822,195 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>Control de Acceso Basado en Roles</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
+<p>En Kubernetes, otorgar roles a un usuario o a una cuenta de servicio específica
+para una aplicación es una mejor práctica para asegurar que su aplicación
+esté operando dentro del alcance que ha especificado. Lea más sobre los
+permisos de cuentas de servicio <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#service-account-permissions">en la documentación oficial de
+Kubernetes</a>.</p>
+<p>Desde Kubernetes 1.6 en adelante, el Control de Acceso Basado en Roles está
+habilitado por defecto. RBAC le permite especificar qué tipos de acciones están
+permitidas dependiendo del usuario y su rol en su organización.</p>
+<p>Con RBAC, puede:</p>
 <ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
+<li>otorgar operaciones privilegiadas (crear recursos a nivel de clúster, como
+  nuevos roles) a administradores</li>
+<li>limitar la capacidad de un usuario para crear recursos (pods, volúmenes
+  persistentes, deployments) a espacios de nombres específicos, o en ámbitos
+  de todo el clúster (cuotas de recursos, roles, definiciones de recursos
+  personalizados)</li>
+<li>limitar la capacidad de un usuario para ver recursos ya sea en espacios de
+  nombres específicos o a nivel de todo el clúster.</li>
 </ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
-$ mv alpine-0.1.0.tgz fantastic-charts/
+<p>Esta guía es para administradores que desean restringir el alcance de la
+interacción de un usuario con la API de Kubernetes.</p>
+<h2 id="gestion-de-cuentas-de-usuario">Gestión de cuentas de usuario</h2>
+<p>Todos los clústeres de Kubernetes tienen dos categorías de usuarios: cuentas de
+servicio gestionadas por Kubernetes y usuarios normales.</p>
+<p>Los usuarios normales se asume que son gestionados por un servicio externo e
+independiente. Un administrador distribuyendo claves privadas, un almacén de
+usuarios como Keystone o Google Accounts, incluso un archivo con una lista de
+nombres de usuario y contraseñas. En este sentido, Kubernetes no tiene objetos
+que representen cuentas de usuario normales. Los usuarios normales no pueden
+ser añadidos a un clúster a través de una llamada API.</p>
+<p>En contraste, las cuentas de servicio son usuarios gestionados por la API de
+Kubernetes. Están vinculadas a espacios de nombres específicos y son creadas
+automáticamente por el servidor API o manualmente a través de llamadas API.
+Las cuentas de servicio están vinculadas a un conjunto de credenciales
+almacenadas como Secrets, que se montan en los pods permitiendo que los
+procesos dentro del clúster se comuniquen con la API de Kubernetes.</p>
+<p>Las solicitudes API están vinculadas a un usuario normal o a una cuenta de
+servicio, o son tratadas como solicitudes anónimas. Esto significa que cada
+proceso dentro o fuera del clúster, desde un usuario humano escribiendo
+<code>kubectl</code> en una estación de trabajo, hasta los kubelets en los nodos, hasta
+los miembros del plano de control, debe autenticarse al hacer solicitudes al
+servidor API, o ser tratado como un usuario anónimo.</p>
+<h2 id="roles-clusterroles-rolebindings-y-clusterrolebindings">Roles, ClusterRoles, RoleBindings y ClusterRoleBindings</h2>
+<p>En Kubernetes, las cuentas de usuario y las cuentas de servicio solo pueden
+ver y editar recursos a los que se les ha otorgado acceso. Este acceso se
+otorga a través del uso de Roles y RoleBindings. Los Roles y RoleBindings
+están vinculados a un espacio de nombres particular, lo que otorga a los
+usuarios la capacidad de ver y/o editar recursos dentro de ese espacio de
+nombres al que el Rol les proporciona acceso.</p>
+<p>A nivel de clúster, estos se llaman ClusterRoles y ClusterRoleBindings.
+Otorgar a un usuario un ClusterRole le da acceso para ver y/o editar recursos
+en todo el clúster. También es necesario para ver y/o editar recursos a nivel
+de clúster (espacios de nombres, cuotas de recursos, nodos).</p>
+<p>Los ClusterRoles pueden estar vinculados a un espacio de nombres particular a
+través de una referencia en un RoleBinding. Los ClusterRoles predeterminados
+<code>admin</code>, <code>edit</code> y <code>view</code> se usan comúnmente de esta manera.</p>
+<p>Estos son algunos ClusterRoles disponibles por defecto en Kubernetes. Están
+destinados a ser roles orientados al usuario. Incluyen roles de superusuario
+(<code>cluster-admin</code>), y roles con acceso más granular (<code>admin</code>, <code>edit</code>, <code>view</code>).</p>
+<table>
+<thead>
+<tr>
+<th>ClusterRole Predeterminado</th>
+<th>ClusterRoleBinding Predeterminado</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cluster-admin</code></td>
+<td>grupo <code>system:masters</code></td>
+<td>Permite acceso de superusuario para realizar cualquier acción en cualquier recurso. Cuando se usa en un ClusterRoleBinding, da control total sobre cada recurso en el clúster y en todos los espacios de nombres. Cuando se usa en un RoleBinding, da control total sobre cada recurso en el espacio de nombres del rolebinding, incluyendo el espacio de nombres en sí.</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>Ninguno</td>
+<td>Permite acceso de administrador, destinado a ser otorgado dentro de un espacio de nombres usando un RoleBinding. Si se usa en un RoleBinding, permite acceso de lectura/escritura a la mayoría de los recursos en un espacio de nombres, incluyendo la capacidad de crear roles y rolebindings dentro del espacio de nombres. No permite acceso de escritura a la cuota de recursos o al espacio de nombres en sí.</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>Ninguno</td>
+<td>Permite acceso de lectura/escritura a la mayoría de los objetos en un espacio de nombres. No permite ver o modificar roles o rolebindings.</td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td>Ninguno</td>
+<td>Permite acceso de solo lectura para ver la mayoría de los objetos en un espacio de nombres. No permite ver roles o rolebindings. No permite ver secrets, ya que estos son escalados.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="restringir-el-acceso-de-una-cuenta-de-usuario-usando-rbac">Restringir el acceso de una cuenta de usuario usando RBAC</h2>
+<p>Ahora que entendemos los conceptos básicos del Control de Acceso Basado en
+Roles, discutamos cómo un administrador puede restringir el alcance de acceso
+de un usuario.</p>
+<h3 id="ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-un-espacio-de-nombres-particular">Ejemplo: Otorgar a un usuario acceso de lectura/escritura a un espacio de nombres particular</h3>
+<p>Para restringir el acceso de un usuario a un espacio de nombres particular,
+podemos usar el rol <code>edit</code> o el rol <code>admin</code>. Si sus charts crean o interactúan
+con Roles y Rolebindings, querrá usar el ClusterRole <code>admin</code>.</p>
+<p>Además, también puede crear un RoleBinding con acceso <code>cluster-admin</code>.
+Otorgar a un usuario acceso <code>cluster-admin</code> a nivel de espacio de nombres
+proporciona control total sobre cada recurso en el espacio de nombres,
+incluyendo el espacio de nombres en sí.</p>
+<p>Para este ejemplo, crearemos un usuario con el Rol <code>edit</code>. Primero, cree el
+espacio de nombres:</p>
+<pre><code class="language-console">$ kubectl create namespace foo
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+<p>Ahora, cree un RoleBinding en ese espacio de nombres, otorgando al usuario el
+rol <code>edit</code>.</p>
+<pre><code class="language-console">$ kubectl create rolebinding sam-edit
+    --clusterrole edit \
+    --user sam \
+    --namespace foo
 </code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
-</code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
+<h3 id="ejemplo-otorgar-a-un-usuario-acceso-de-lecturaescritura-a-nivel-de-cluster">Ejemplo: Otorgar a un usuario acceso de lectura/escritura a nivel de clúster</h3>
+<p>Si un usuario desea instalar un chart que instala recursos a nivel de clúster
+(espacios de nombres, roles, definiciones de recursos personalizados, etc.),
+necesitará acceso de escritura a nivel de clúster.</p>
+<p>Para hacer eso, otorgue al usuario acceso <code>admin</code> o <code>cluster-admin</code>.</p>
+<p>Otorgar a un usuario acceso <code>cluster-admin</code> le da acceso a absolutamente todos
+los recursos disponibles en Kubernetes, incluyendo acceso a nodos con
+<code>kubectl drain</code> y otras tareas administrativas. Se recomienda encarecidamente
+considerar proporcionar al usuario acceso <code>admin</code> en su lugar, o crear un
+ClusterRole personalizado adaptado a sus necesidades.</p>
+<pre><code class="language-console">$ kubectl create clusterrolebinding sam-view
+    --clusterrole view \
+    --user sam
 
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
+$ kubectl create clusterrolebinding sam-secret-reader
+    --clusterrole secret-reader \
+    --user sam
 </code></pre>
-<p>Enlaces Útiles:</p>
-<ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
-</ul>
+<h3 id="ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-un-espacio-de-nombres-particular">Ejemplo: Otorgar a un usuario acceso de solo lectura a un espacio de nombres particular</h3>
+<p>Es posible que haya notado que no hay un ClusterRole disponible para ver
+secrets. El ClusterRole <code>view</code> no otorga a un usuario acceso de lectura a
+Secrets debido a preocupaciones de escalado. Helm almacena los metadatos de
+release como Secrets por defecto.</p>
+<p>Para que un usuario pueda ejecutar <code>helm list</code>, necesita poder leer estos
+secrets. Para eso, crearemos un ClusterRole especial <code>secret-reader</code>.</p>
+<p>Cree el archivo <code>cluster-role-secret-reader.yaml</code> y escriba el siguiente
+contenido en el archivo:</p>
+<pre><code class="language-yaml">apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-reader
+rules:
+- apiGroups: [&quot;&quot;]
+  resources: [&quot;secrets&quot;]
+  verbs: [&quot;get&quot;, &quot;watch&quot;, &quot;list&quot;]
+</code></pre>
+<p>Luego, cree el ClusterRole usando</p>
+<pre><code class="language-console">$ kubectl create -f clusterrole-secret-reader.yaml
+</code></pre>
+<p>Una vez hecho esto, podemos otorgar a un usuario acceso de lectura a la
+mayoría de los recursos, y luego otorgarle acceso de lectura a secrets:</p>
+<pre><code class="language-console">$ kubectl create namespace foo
+
+$ kubectl create rolebinding sam-view
+    --clusterrole view \
+    --user sam \
+    --namespace foo
+
+$ kubectl create rolebinding sam-secret-reader
+    --clusterrole secret-reader \
+    --user sam \
+    --namespace foo
+</code></pre>
+<h3 id="ejemplo-otorgar-a-un-usuario-acceso-de-solo-lectura-a-nivel-de-cluster">Ejemplo: Otorgar a un usuario acceso de solo lectura a nivel de clúster</h3>
+<p>En ciertos escenarios, puede ser beneficioso otorgar a un usuario acceso a
+nivel de clúster. Por ejemplo, si un usuario quiere ejecutar el comando
+<code>helm list --all-namespaces</code>, la API requiere que el usuario tenga acceso de
+lectura a nivel de clúster.</p>
+<p>Para hacer eso, otorgue al usuario tanto acceso <code>view</code> como <code>secret-reader</code> como
+se describió anteriormente, pero con un ClusterRoleBinding.</p>
+<pre><code class="language-console">$ kubectl create clusterrolebinding sam-view
+    --clusterrole view \
+    --user sam
+
+$ kubectl create clusterrolebinding sam-secret-reader
+    --clusterrole secret-reader \
+    --user sam
+</code></pre>
+<h2 id="consideraciones-adicionales">Consideraciones Adicionales</h2>
+<p>Los ejemplos mostrados arriba utilizan los ClusterRoles predeterminados
+proporcionados con Kubernetes. Para un control más granular sobre qué recursos
+se otorgan a los usuarios, consulte <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">la documentación de
+Kubernetes</a>
+sobre la creación de sus propios Roles y ClusterRoles personalizados. </p>
 
 
 

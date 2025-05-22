@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Introduce cómo usar y crear plugins para extender la funcionalidad de Helm.">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/topics/plugins/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../permissions_sql_storage_backend/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../provenance/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>Guía de Plugins de Helm - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#vision-general" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              Guía de Plugins de Helm
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1639,18 +1554,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -1666,7 +1583,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Topics
@@ -1680,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1703,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/advanced/" class="md-nav__link">
+      <a href="../advanced/" class="md-nav__link">
         
   
   
@@ -1726,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1749,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_repository/" class="md-nav__link">
+      <a href="../chart_repository/" class="md-nav__link">
         
   
   
@@ -1772,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_tests/" class="md-nav__link">
+      <a href="../chart_tests/" class="md-nav__link">
         
   
   
@@ -1795,7 +1712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts/" class="md-nav__link">
+      <a href="../charts/" class="md-nav__link">
         
   
   
@@ -1818,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts_hooks/" class="md-nav__link">
+      <a href="../charts_hooks/" class="md-nav__link">
         
   
   
@@ -1841,7 +1758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+      <a href="../kubernetes_apis/" class="md-nav__link">
         
   
   
@@ -1864,7 +1781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+      <a href="../kubernetes_distros/" class="md-nav__link">
         
   
   
@@ -1887,7 +1804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/library_charts/" class="md-nav__link">
+      <a href="../library_charts/" class="md-nav__link">
         
   
   
@@ -1910,7 +1827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+      <a href="../permissions_sql_storage_backend/" class="md-nav__link">
         
   
   
@@ -1930,10 +1847,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../topics/plugins/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Guía de Plugins de Helm
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1944,6 +1881,213 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vision-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visión general
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalando-un-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalando un plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-archivos-del-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura de archivos del plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-archivo-pluginyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      El archivo plugin.yaml
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El archivo plugin.yaml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-ignoreflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo ignoreFlags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-platformcommand" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo platformCommand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-platformhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo platformHooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construyendo-un-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construyendo un plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Construyendo un plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-del-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos del plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probando-un-plugin-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probando un plugin local
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-de-descargador-downloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins de descargador (Downloader)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-de-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables de entorno
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nota-sobre-el-analisis-de-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nota sobre el análisis de flags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proporcionando-autocompletado-de-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proporcionando autocompletado de shell
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proporcionando autocompletado de shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autocompletado-estatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autocompletado estático
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autocompletado-dinamico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autocompletado dinámico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consejos-y-trucos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consejos y trucos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1956,7 +2100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/provenance/" class="md-nav__link">
+      <a href="../provenance/" class="md-nav__link">
         
   
   
@@ -1979,7 +2123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/rbac/" class="md-nav__link">
+      <a href="../rbac/" class="md-nav__link">
         
   
   
@@ -2002,7 +2146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/registries/" class="md-nav__link">
+      <a href="../registries/" class="md-nav__link">
         
   
   
@@ -2025,7 +2169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/release_policy/" class="md-nav__link">
+      <a href="../release_policy/" class="md-nav__link">
         
   
   
@@ -2048,7 +2192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+      <a href="../v2_v3_migration/" class="md-nav__link">
         
   
   
@@ -2071,7 +2215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/version_skew/" class="md-nav__link">
+      <a href="../version_skew/" class="md-nav__link">
         
   
   
@@ -4673,47 +4817,191 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#vision-general" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Visión general
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#instalando-un-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Instalando un plugin
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+  <a href="#estructura-de-archivos-del-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
+      Estructura de archivos del plugin
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
+  <a href="#el-archivo-pluginyaml" class="md-nav__link">
     <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
+      El archivo plugin.yaml
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El archivo plugin.yaml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-ignoreflags" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo ignoreFlags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-platformcommand" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo platformCommand
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-campo-platformhooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      El campo platformHooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construyendo-un-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construyendo un plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Construyendo un plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comandos-del-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos del plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probando-un-plugin-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probando un plugin local
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plugins-de-descargador-downloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins de descargador (Downloader)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
+  <a href="#variables-de-entorno" class="md-nav__link">
     <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Variables de entorno
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nota-sobre-el-analisis-de-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nota sobre el análisis de flags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proporcionando-autocompletado-de-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proporcionando autocompletado de shell
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proporcionando autocompletado de shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autocompletado-estatico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autocompletado estático
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autocompletado-dinamico" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autocompletado dinámico
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consejos-y-trucos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consejos y trucos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4739,7 +5027,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/plugins.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +5036,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/plugins.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,84 +5044,328 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>Guía de Plugins de Helm</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
+<p>Un plugin de Helm es una herramienta a la que se puede acceder a través de la CLI de <code>helm</code>, pero que no forma parte del código principal de Helm.</p>
+<p>Puedes encontrar plugins existentes en la sección de <a href="{{&lt; ref &quot;related.md#helm-plugins&quot; &gt;}}">relacionados</a> o buscando en <a href="https://github.com/search?q=topic%3Ahelm-plugin&amp;type=Repositories">GitHub</a>.</p>
+<p>Esta guía explica cómo usar y crear plugins.</p>
+<h2 id="vision-general">Visión general</h2>
+<p>Los plugins de Helm son herramientas adicionales que se integran perfectamente con Helm. Proporcionan una forma de extender el conjunto de funciones principales de Helm, sin requerir que cada nueva función se escriba en Go y se agregue a la herramienta principal.</p>
+<p>Los plugins de Helm tienen las siguientes características:</p>
 <ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
+<li>Se pueden agregar y eliminar de una instalación de Helm sin afectar la herramienta principal.</li>
+<li>Se pueden escribir en cualquier lenguaje de programación.</li>
+<li>Se integran con Helm y aparecerán en <code>helm help</code> y otros lugares.</li>
 </ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
-$ mv alpine-0.1.0.tgz fantastic-charts/
+<p>Los plugins de Helm viven en <code>$HELM_PLUGINS</code>. Puedes encontrar el valor actual de esto, incluido el valor predeterminado cuando no está configurado en el entorno, usando el comando <code>helm env</code>.</p>
+<p>El modelo de plugins de Helm está parcialmente basado en el modelo de plugins de Git. Por ello, a veces puedes escuchar que se refiere a <code>helm</code> como la capa <em>porcelana</em>, y a los plugins como la <em>fontanería</em>. Esto es una forma abreviada de sugerir que Helm proporciona la experiencia de usuario y la lógica de procesamiento de alto nivel, mientras que los plugins hacen el "trabajo detallado" de realizar una acción deseada.</p>
+<h2 id="instalando-un-plugin">Instalando un plugin</h2>
+<p>Los plugins se instalan usando el comando <code>$ helm plugin install &lt;ruta|url&gt;</code>. Puedes pasar una ruta a un plugin en tu sistema de archivos local o una url de un repositorio VCS remoto. El comando <code>helm plugin install</code> clona o copia el plugin en la ruta/url dada dentro de <code>$HELM_PLUGINS</code>. Si instalas desde un VCS puedes especificar la versión con el argumento <code>--version</code>.</p>
+<pre><code class="language-console">$ helm plugin install https://github.com/adamreese/helm-env
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+<p>Si tienes una distribución tar de un plugin, simplemente descomprime el plugin en el directorio <code>$HELM_PLUGINS</code>. También puedes instalar plugins en tarball directamente desde una url usando <code>helm plugin install https://dominio/ruta/al/plugin.tar.gz</code></p>
+<h2 id="estructura-de-archivos-del-plugin">Estructura de archivos del plugin</h2>
+<p>En muchos aspectos, un plugin es similar a un chart. Cada plugin tiene un directorio de nivel superior que contiene un archivo <code>plugin.yaml</code>. Pueden estar presentes archivos adicionales, pero solo se requiere el archivo <code>plugin.yaml</code>.</p>
+<pre><code class="language-console">$HELM_PLUGINS/
+  |- last/
+      |- plugin.yaml
 </code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
+<h2 id="el-archivo-pluginyaml">El archivo plugin.yaml</h2>
+<p>El archivo plugin.yaml es obligatorio para un plugin. Contiene los siguientes campos:</p>
+<pre><code class="language-yaml">name: El nombre del plugin (OBLIGATORIO)
+version: Una versión SemVer 2 (OBLIGATORIO)
+usage: Texto de uso en una línea mostrado en la ayuda
+description: Descripción larga mostrada en lugares como helm help
+ignoreFlags: Ignora flags pasados desde Helm
+platformCommand: # Configura el comando a ejecutar según la plataforma
+  - os: Coincidencia de SO, puede estar vacío u omitido para coincidir con todos los SO
+    arch: Coincidencia de arquitectura, puede estar vacío u omitido para coincidir con todas las arquitecturas
+    command: Comando del plugin a ejecutar
+    args: Argumentos del comando del plugin
+command: (OBSOLETO) Comando del plugin, usa platformCommand en su lugar
+platformHooks: # Configura hooks de ciclo de vida del plugin según la plataforma
+  install: # Comandos de instalación
+    - os: Coincidencia de SO, puede estar vacío u omitido para coincidir con todos los SO
+      arch: Coincidencia de arquitectura, puede estar vacío u omitido para coincidir con todas las arquitecturas
+      command: Comando de instalación del plugin a ejecutar
+      args: Argumentos del comando de instalación del plugin
+  update: # Comandos de actualización
+    - os: Coincidencia de SO, puede estar vacío u omitido para coincidir con todos los SO
+      arch: Coincidencia de arquitectura, puede estar vacío u omitido para coincidir con todas las arquitecturas
+      command: Comando de actualización del plugin a ejecutar
+      args: Argumentos del comando de actualización del plugin
+  delete: # Comandos de eliminación
+    - os: Coincidencia de SO, puede estar vacío u omitido para coincidir con todos los SO
+      arch: Coincidencia de arquitectura, puede estar vacío u omitido para coincidir con todas las arquitecturas
+      command: Comando de eliminación del plugin a ejecutar
+      args: Argumentos del comando de eliminación del plugin
+hooks: # (Obsoleto) Hooks de ciclo de vida del plugin, usa platformHooks en su lugar
+  install: Comando para instalar el plugin
+  update: Comando para actualizar el plugin
+  delete: Comando para eliminar el plugin
+downloaders: # Configura la capacidad de downloaders
+  - command: Comando a invocar
+    protocols:
+      - Esquema de protocolo soportado
 </code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
+<h3 id="el-campo-name">El campo <code>name</code></h3>
+<p><code>name</code> es el nombre del plugin. Cuando Helm ejecuta este plugin, este es el nombre que usará (por ejemplo, <code>helm NOMBRE</code> invocará este plugin).</p>
+<p><em><code>name</code> debe coincidir con el nombre del directorio.</em> En el ejemplo anterior, eso significa que el plugin con <code>name: last</code> debe estar contenido en un directorio llamado <code>last</code>.</p>
+<p>Restricciones sobre <code>name</code>:</p>
+<ul>
+<li><code>name</code> no puede duplicar uno de los comandos de nivel superior existentes de <code>helm</code>.</li>
+<li><code>name</code> debe limitarse a los caracteres ASCII a-z, A-Z, 0-9, <code>_</code> y <code>-</code>.</li>
+</ul>
+<h3 id="el-campo-version">El campo <code>version</code></h3>
+<p><code>version</code> es la versión SemVer 2 del plugin. <code>usage</code> y <code>description</code> se usan para generar el texto de ayuda de un comando.</p>
+<h3 id="el-campo-ignoreflags">El campo <code>ignoreFlags</code></h3>
+<p>El switch <code>ignoreFlags</code> le dice a Helm que <em>no</em> pase flags al plugin. Así que si un plugin se llama con <code>helm myplugin --foo</code> y <code>ignoreFlags: true</code>, entonces <code>--foo</code> se descarta silenciosamente.</p>
+<h3 id="el-campo-platformcommand">El campo <code>platformCommand</code></h3>
+<p><code>platformCommand</code> configura el comando que el plugin ejecutará cuando sea llamado. No puedes establecer ambos, <code>platformCommand</code> y <code>command</code>, ya que esto resultará en un error. Se aplicarán las siguientes reglas para decidir qué comando usar:</p>
+<ul>
+<li>Si <code>platformCommand</code> está presente, se usará.</li>
+<li>Si tanto <code>os</code> como <code>arch</code> coinciden con la plataforma actual, la búsqueda se detiene y se usará el comando.</li>
+<li>Si <code>os</code> coincide y <code>arch</code> está vacío, se usará el comando.</li>
+<li>Si ambos, <code>os</code> y <code>arch</code>, están vacíos, se usará el comando.</li>
+<li>Si no hay coincidencia, Helm saldrá con un error.</li>
+<li>Si <code>platformCommand</code> no está presente y el obsoleto <code>command</code> está presente, se usará.</li>
+<li>Si el comando está vacío, Helm saldrá con un error.</li>
+</ul>
+<h3 id="el-campo-platformhooks">El campo <code>platformHooks</code></h3>
+<p><code>platformHooks</code> configura los comandos que el plugin ejecutará para eventos de ciclo de vida. No puedes establecer ambos, <code>platformHooks</code> y <code>hooks</code>, ya que esto resultará en un error. Se aplicarán las siguientes reglas para decidir qué comando de hook usar:</p>
+<ul>
+<li>Si <code>platformHooks</code> está presente, se usará y se procesarán los comandos para el evento de ciclo de vida.</li>
+<li>Si tanto <code>os</code> como <code>arch</code> coinciden con la plataforma actual, la búsqueda se detiene y se usará el comando.</li>
+<li>Si <code>os</code> coincide y <code>arch</code> está vacío, se usará el comando.</li>
+<li>Si ambos, <code>os</code> y <code>arch</code>, están vacíos, se usará el comando.</li>
+<li>Si no hay coincidencia, Helm omitirá el evento.</li>
+<li>Si <code>platformHooks</code> no está presente y el obsoleto <code>hooks</code> está presente, se usará el comando para el evento de ciclo de vida.</li>
+<li>Si el comando está vacío, Helm omitirá el evento.</li>
+</ul>
+<h2 id="construyendo-un-plugin">Construyendo un plugin</h2>
+<p>Aquí está el YAML de un plugin simple que ayuda a obtener el nombre del último release:</p>
+<pre><code class="language-yaml">name: last
+version: 0.1.0
+usage: obtener el nombre del último release
+description: obtener el nombre del último release
+ignoreFlags: false
+platformCommand:
+  - command: ${HELM_BIN}
+    args:
+      - list
+      - --short
+      - --max=1
+      - --date
+      - -r
+</code></pre>
+<p>Los plugins pueden requerir scripts y ejecutables adicionales. Los scripts pueden incluirse en el directorio del plugin y los ejecutables pueden descargarse mediante un hook. El siguiente es un ejemplo de plugin:</p>
+<pre><code class="language-console">$HELM_PLUGINS/
+  |- myplugin/
+    |- scripts/
+      |- install.ps1
+      |- install.sh
+    |- plugin.yaml
+</code></pre>
+<pre><code class="language-yaml">name: myplugin
+version: 0.1.0
+usage: plugin de ejemplo
+description: plugin de ejemplo
+ignoreFlags: false
+platformCommand:
+  - command: ${HELM_PLUGIN_DIR}/bin/myplugin
+  - os: windows
+    command: ${HELM_PLUGIN_DIR}\bin\myplugin.exe
+platformHooks:
+  install:
+    - command: ${HELM_PLUGIN_DIR}/scripts/install.sh
+    - os: windows
+      command: pwsh
+      args:
+        - -c
+        - ${HELM_PLUGIN_DIR}\scripts\install.ps1
+  update:
+    - command: ${HELM_PLUGIN_DIR}/scripts/install.sh
+      args:
+        - -u
+    - os: windows
+      command: pwsh
+      args:
+        - -c
+        - ${HELM_PLUGIN_DIR}\scripts\install.ps1
+        - -Update
+</code></pre>
+<p>Las variables de entorno se interpolan antes de que se ejecute el plugin. El patrón anterior ilustra la forma preferida de indicar dónde vive el programa del plugin.</p>
+<h3 id="comandos-del-plugin">Comandos del plugin</h3>
+<p>Hay algunas estrategias para trabajar con los comandos de los plugins:</p>
+<ul>
+<li>Si un plugin incluye un ejecutable, el ejecutable para un <code>platformCommand:</code> debe estar empaquetado en el directorio del plugin o instalarse mediante un hook.</li>
+<li>La línea <code>platformCommand:</code> o <code>command:</code> expandirá cualquier variable de entorno antes de la ejecución. <code>$HELM_PLUGIN_DIR</code> apuntará al directorio del plugin.</li>
+<li>El comando en sí no se ejecuta en un shell. Así que no puedes poner un script de shell en una sola línea.</li>
+<li>Helm inyecta mucha configuración en variables de entorno. Echa un vistazo al entorno para ver qué información está disponible.</li>
+<li>Helm no hace suposiciones sobre el lenguaje del plugin. Puedes escribirlo en el que prefieras.</li>
+<li>Los comandos son responsables de implementar texto de ayuda específico para <code>-h</code> y <code>--help</code>. Helm usará <code>usage</code> y <code>description</code> para <code>helm help</code> y <code>helm help myplugin</code>, pero no manejará <code>helm myplugin --help</code>.</li>
+</ul>
+<h3 id="probando-un-plugin-local">Probando un plugin local</h3>
+<p>Primero necesitas encontrar tu ruta de <code>HELM_PLUGINS</code>. Para hacerlo, ejecuta el siguiente comando:</p>
+<pre><code class="language-bash">helm env
+</code></pre>
+<p>Cambia tu directorio actual al directorio que <code>HELM_PLUGINS</code> indica.</p>
+<p>Ahora puedes agregar un enlace simbólico a la salida de tu build del plugin. En este ejemplo lo hicimos para <code>mapkubeapis</code>.</p>
+<pre><code class="language-bash">ln -s ~/GitHub/helm-mapkubeapis ./helm-mapkubeapis
+</code></pre>
+<h2 id="plugins-de-descargador-downloader">Plugins de descargador (Downloader)</h2>
+<p>Por defecto, Helm puede descargar Charts usando HTTP/S. Desde Helm 2.4.0, los plugins pueden tener una capacidad especial para descargar Charts desde fuentes arbitrarias.</p>
+<p>Los plugins deben declarar esta capacidad especial en el archivo <code>plugin.yaml</code> (nivel superior):</p>
+<pre><code class="language-yaml">downloaders:
+- command: &quot;bin/mydownloader&quot;
+  protocols:
+  - &quot;myprotocol&quot;
+  - &quot;myprotocols&quot;
+</code></pre>
+<p>Si tal plugin está instalado, Helm puede interactuar con el repositorio usando el esquema de protocolo especificado invocando el <code>command</code>. El repositorio especial debe agregarse de manera similar a los regulares: <code>helm repo add favorito myprotocol://ejemplo.com/</code> Las reglas para los repositorios especiales son las mismas que para los regulares: Helm debe poder descargar el archivo <code>index.yaml</code> para descubrir y almacenar en caché la lista de Charts disponibles.</p>
+<p>El comando definido se invocará con el siguiente esquema: <code>command certFile keyFile caFile full-URL</code>. Las credenciales SSL provienen de la definición del repo, almacenadas en <code>$HELM_REPOSITORY_CONFIG</code> (es decir, <code>$HELM_CONFIG_HOME/repositories.yaml</code>). Un plugin Downloader debe volcar el contenido bruto a stdout y reportar errores en stderr.</p>
+<p>El comando downloader también soporta subcomandos o argumentos, permitiendo especificar por ejemplo <code>bin/mydownloader subcommand -d</code> en el <code>plugin.yaml</code>. Esto es útil si deseas usar el mismo ejecutable para el comando principal del plugin y el comando downloader, pero con un subcomando diferente para cada uno.</p>
+<h2 id="variables-de-entorno">Variables de entorno</h2>
+<p>Cuando Helm ejecuta un plugin, pasa el entorno externo al plugin y también inyecta algunas variables de entorno adicionales.</p>
+<p>Variables como <code>KUBECONFIG</code> se establecen para el plugin si están configuradas en el entorno externo.</p>
+<p>Las siguientes variables están garantizadas:</p>
+<ul>
+<li><code>HELM_PLUGINS</code>: La ruta al directorio de plugins.</li>
+<li><code>HELM_PLUGIN_NAME</code>: El nombre del plugin, como lo invoca <code>helm</code>. Así, <code>helm myplug</code> tendrá el nombre corto <code>myplug</code>.</li>
+<li><code>HELM_PLUGIN_DIR</code>: El directorio que contiene el plugin.</li>
+<li><code>HELM_BIN</code>: La ruta al comando <code>helm</code> (como lo ejecuta el usuario).</li>
+<li><code>HELM_DEBUG</code>: Indica si la flag de depuración fue establecida por helm.</li>
+<li><code>HELM_REGISTRY_CONFIG</code>: La ubicación para la configuración del registro (si se usa). Nota que el uso de Helm con registros es una característica experimental.</li>
+<li><code>HELM_REPOSITORY_CACHE</code>: La ruta a los archivos de caché del repositorio.</li>
+<li><code>HELM_REPOSITORY_CONFIG</code>: La ruta al archivo de configuración del repositorio.</li>
+<li><code>HELM_NAMESPACE</code>: El namespace dado al comando <code>helm</code> (generalmente usando la flag <code>-n</code>).</li>
+<li><code>HELM_KUBECONTEXT</code>: El nombre del contexto de configuración de Kubernetes dado al comando <code>helm</code>.</li>
+</ul>
+<p>Adicionalmente, si se especificó explícitamente un archivo de configuración de Kubernetes, se establecerá como la variable <code>KUBECONFIG</code>.</p>
+<h2 id="nota-sobre-el-analisis-de-flags">Nota sobre el análisis de flags</h2>
+<p>Al ejecutar un plugin, Helm analizará las flags globales para su propio uso. Ninguna de estas flags se pasa al plugin.
+- <code>--burst-limit</code>: Se convierte en <code>$HELM_BURST_LIMIT</code>
+- <code>--debug</code>: Si se especifica, <code>$HELM_DEBUG</code> se establece en <code>1</code>
+- <code>--kube-apiserver</code>: Se convierte en <code>$HELM_KUBEAPISERVER</code>
+- <code>--kube-as-group</code>: Se convierten en <code>$HELM_KUBEASGROUPS</code>
+- <code>--kube-as-user</code>: Se convierte en <code>$HELM_KUBEASUSER</code>
+- <code>--kube-ca-file</code>: Se convierte en <code>$HELM_KUBECAFILE</code>
+- <code>--kube-context</code>: Se convierte en <code>$HELM_KUBECONTEXT</code>
+- <code>--kube-insecure-skip-tls-verify</code>: Se convierte en <code>$HELM_KUBEINSECURE_SKIP_TLS_VERIFY</code>
+- <code>--kube-tls-server-name</code>: Se convierte en <code>$HELM_KUBETLS_SERVER_NAME</code>
+- <code>--kube-token</code>: Se convierte en <code>$HELM_KUBETOKEN</code>
+- <code>--kubeconfig</code>: Se convierte en <code>$KUBECONFIG</code>
+- <code>--namespace</code> y <code>-n</code>: Se convierte en <code>$HELM_NAMESPACE</code>
+- <code>--qps</code>: Se convierte en <code>$HELM_QPS</code>
+- <code>--registry-config</code>: Se convierte en <code>$HELM_REGISTRY_CONFIG</code>
+- <code>--repository-cache</code>: Se convierte en <code>$HELM_REPOSITORY_CACHE</code>
+- <code>--repository-config</code>: Se convierte en <code>$HELM_REPOSITORY_CONFIG</code></p>
+<p>Los plugins <em>deberían</em> mostrar el texto de ayuda y luego salir para <code>-h</code> y <code>--help</code>. En todos los demás casos, los plugins pueden usar flags según corresponda.</p>
+<h2 id="proporcionando-autocompletado-de-shell">Proporcionando autocompletado de shell</h2>
+<p>Desde Helm 3.2, un plugin puede opcionalmente proporcionar soporte para autocompletado de shell como parte del mecanismo de autocompletado existente de Helm.</p>
+<h3 id="autocompletado-estatico">Autocompletado estático</h3>
+<p>Si un plugin proporciona sus propias flags y/o subcomandos, puede informar a Helm de ellos teniendo un archivo <code>completion.yaml</code> ubicado en el directorio raíz del plugin. El archivo <code>completion.yaml</code> tiene la forma:</p>
+<pre><code class="language-yaml">name: &lt;pluginName&gt;
+flags:
+- &lt;flag 1&gt;
+- &lt;flag 2&gt;
+validArgs:
+- &lt;arg value 1&gt;
+- &lt;arg value 2&gt;
+commands:
+  name: &lt;commandName&gt;
+  flags:
+  - &lt;flag 1&gt;
+  - &lt;flag 2&gt;
+  validArgs:
+  - &lt;arg value 1&gt;
+  - &lt;arg value 2&gt;
+  commands:
+     &lt;y así sucesivamente, recursivamente&gt;
+</code></pre>
+<p>Notas:</p>
+<ol>
+<li>Todas las secciones son opcionales pero deben proporcionarse si corresponde.</li>
+<li>Las flags no deben incluir el prefijo <code>-</code> o <code>--</code>.</li>
+<li>Se pueden y deben especificar tanto flags cortas como largas. Una flag corta no necesita estar asociada con su forma larga correspondiente, pero ambas formas deben estar listadas.</li>
+<li>Las flags no necesitan estar ordenadas de ninguna manera, pero deben listarse en el punto correcto de la jerarquía de subcomandos del archivo.</li>
+<li>Las flags globales existentes de Helm ya son manejadas por el mecanismo de autocompletado de Helm, por lo tanto los plugins no necesitan especificar las siguientes flags <code>--debug</code>, <code>--namespace</code> o <code>-n</code>, <code>--kube-context</code>, y <code>--kubeconfig</code>, o cualquier otra flag global.</li>
+<li>La lista <code>validArgs</code> proporciona una lista estática de posibles completados para el primer parámetro después de un subcomando. No siempre es posible proporcionar tal lista de antemano (ver la sección <a href="#dynamic-completion">Autocompletado dinámico</a>), en cuyo caso se puede omitir la sección <code>validArgs</code>.</li>
+</ol>
+<p>El archivo <code>completion.yaml</code> es completamente opcional. Si no se proporciona, Helm simplemente no proporcionará autocompletado de shell para el plugin (a menos que el plugin soporte <a href="#dynamic-completion">Autocompletado dinámico</a>). Además, agregar un archivo <code>completion.yaml</code> es retrocompatible y no afectará el comportamiento del plugin al usar versiones antiguas de helm.</p>
+<p>Como ejemplo, para el <a href="https://github.com/marckhouzam/helm-fullstatus"><code>plugin fullstatus</code></a> que no tiene subcomandos pero acepta las mismas flags que el comando <code>helm status</code>, el archivo <code>completion.yaml</code> es:</p>
+<pre><code class="language-yaml">name: fullstatus
+flags:
+- o
+- output
+- revision
+</code></pre>
+<p>Un ejemplo más intrincado para el <a href="https://github.com/helm/helm-2to3"><code>plugin 2to3</code></a>, tiene un archivo <code>completion.yaml</code> de:</p>
+<pre><code class="language-yaml">name: 2to3
+commands:
+- name: cleanup
+  flags:
+  - config-cleanup
+  - dry-run
+  - l
+  - label
+  - release-cleanup
+  - s
+  - release-storage
+  - tiller-cleanup
+  - t
+  - tiller-ns
+  - tiller-out-cluster
+- name: convert
+  flags:
+  - delete-v2-releases
+  - dry-run
+  - l
+  - label
+  - s
+  - release-storage
+  - release-versions-max
+  - t
+  - tiller-ns
+  - tiller-out-cluster
+- name: move
+  commands:
+  - name: config
+    flags:
+    - dry-run
+</code></pre>
+<h3 id="autocompletado-dinamico">Autocompletado dinámico</h3>
+<p>También desde Helm 3.2, los plugins pueden proporcionar su propio autocompletado de shell dinámico. El autocompletado dinámico es el completado de valores de parámetros o flags que no se pueden definir de antemano. Por ejemplo, el completado de los nombres de releases de helm disponibles actualmente en el clúster.</p>
+<p>Para que el plugin soporte autocompletado dinámico, debe proporcionar un archivo <strong>ejecutable</strong> llamado <code>plugin.complete</code> en su directorio raíz. Cuando el script de autocompletado de Helm requiera completados dinámicos para el plugin, ejecutará el archivo <code>plugin.complete</code>, pasándole la línea de comandos que necesita completarse. El ejecutable <code>plugin.complete</code> deberá tener la lógica para determinar cuáles son las opciones de completado adecuadas y mostrarlas por salida estándar para que el script de autocompletado de Helm las consuma.</p>
+<p>El archivo <code>plugin.complete</code> es completamente opcional. Si no se proporciona, Helm simplemente no proporcionará autocompletado dinámico para el plugin. Además, agregar un archivo <code>plugin.complete</code> es retrocompatible y no afectará el comportamiento del plugin al usar versiones antiguas de helm.</p>
+<p>La salida del script <code>plugin.complete</code> debe ser una lista separada por saltos de línea como:</p>
+<pre><code class="language-console">rel1
+rel2
+rel3
+</code></pre>
+<p>Cuando se llama a <code>plugin.complete</code>, el entorno del plugin se configura igual que cuando se llama al script principal del plugin. Por lo tanto, las variables <code>$HELM_NAMESPACE</code>, <code>$HELM_KUBECONTEXT</code> y todas las demás variables del plugin ya estarán configuradas, y sus flags globales correspondientes serán eliminadas.</p>
+<p>El archivo <code>plugin.complete</code> puede ser de cualquier forma ejecutable; puede ser un script de shell, un programa Go, o cualquier otro tipo de programa que Helm pueda ejecutar. El archivo <code>plugin.complete</code> <strong><em>debe</em></strong> tener permisos de ejecución para el usuario. El archivo <code>plugin.complete</code> <strong><em>debe</em></strong> salir con un código de éxito (valor 0).</p>
+<p>En algunos casos, el autocompletado dinámico requerirá obtener información del clúster de Kubernetes. Por ejemplo, el plugin <code>helm fullstatus</code> requiere un nombre de release como entrada. En el plugin <code>fullstatus</code>, para que su script <code>plugin.complete</code> proporcione completado para los nombres de release actuales, simplemente puede ejecutar <code>helm list -q</code> y mostrar el resultado.</p>
+<p>Si se desea usar el mismo ejecutable para la ejecución del plugin y para el completado, el script <code>plugin.complete</code> puede llamar al ejecutable principal del plugin con algún parámetro o flag especial; cuando el ejecutable principal del plugin detecte el parámetro o flag especial, sabrá que debe ejecutar el completado. En nuestro ejemplo, <code>plugin.complete</code> podría implementarse así:</p>
+<pre><code class="language-sh">#!/usr/bin/env sh
 
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
+# &quot;$@&quot; es toda la línea de comandos que requiere completado.
+# Es importante poner comillas dobles a la variable &quot;$@&quot; para preservar un posible último parámetro vacío.
+$HELM_PLUGIN_DIR/status.sh --complete &quot;$@&quot;
 </code></pre>
-<p>Enlaces Útiles:</p>
-<ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
+<p>El script real del plugin <code>fullstatus</code> (<code>status.sh</code>) debe entonces buscar la flag <code>--complete</code> y, si la encuentra, mostrar los completados adecuados.</p>
+<h3 id="consejos-y-trucos">Consejos y trucos</h3>
+<ol>
+<li>El shell filtrará automáticamente las opciones de completado que no coincidan con la entrada del usuario. Por lo tanto, un plugin puede devolver todos los completados relevantes sin eliminar los que no coincidan con la entrada del usuario. Por ejemplo, si la línea de comandos es <code>helm fullstatus ngin&lt;TAB&gt;</code>, el script <code>plugin.complete</code> puede mostrar <em>todos</em> los nombres de release (del namespace <code>default</code>), no solo los que comienzan con <code>ngin</code>; el shell solo retendrá los que comiencen con <code>ngin</code>.</li>
+<li>Para simplificar el soporte de autocompletado dinámico, especialmente si tienes un plugin complejo, puedes hacer que tu script <code>plugin.complete</code> llame a tu script principal del plugin y solicite las opciones de completado. Consulta la sección <a href="#dynamic-completion">Autocompletado dinámico</a> anterior para un ejemplo.</li>
+<li>Para depurar el autocompletado dinámico y el archivo <code>plugin.complete</code>, se puede ejecutar lo siguiente para ver los resultados del completado:<ul>
+<li><code>helm __complete &lt;pluginName&gt; &lt;argumentos a completar&gt;</code>. Por ejemplo:</li>
+<li><code>helm __complete fullstatus --output js&lt;ENTER&gt;</code>,</li>
+<li><code>helm __complete fullstatus -o json ""&lt;ENTER&gt;</code></li>
 </ul>
+</li>
+</ol>
+<p></rewritten_file> </p>
 
 
 

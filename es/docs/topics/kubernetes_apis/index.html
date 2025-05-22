@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Explica las APIs de Kubernetes en desuso en Helm">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/topics/kubernetes_apis/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../charts_hooks/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../kubernetes_distros/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>APIs de Kubernetes en desuso - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#mantenedores-de-charts" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              APIs de Kubernetes en desuso
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1639,18 +1554,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -1666,7 +1583,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Topics
@@ -1680,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1703,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/advanced/" class="md-nav__link">
+      <a href="../advanced/" class="md-nav__link">
         
   
   
@@ -1726,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1749,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_repository/" class="md-nav__link">
+      <a href="../chart_repository/" class="md-nav__link">
         
   
   
@@ -1772,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_tests/" class="md-nav__link">
+      <a href="../chart_tests/" class="md-nav__link">
         
   
   
@@ -1795,7 +1712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts/" class="md-nav__link">
+      <a href="../charts/" class="md-nav__link">
         
   
   
@@ -1818,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts_hooks/" class="md-nav__link">
+      <a href="../charts_hooks/" class="md-nav__link">
         
   
   
@@ -1838,10 +1755,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    APIs de Kubernetes en desuso
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1852,6 +1789,51 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mantenedores-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mantenedores de charts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usuarios-de-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usuarios de Helm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actualizar-versiones-de-api-de-un-manifiesto-de-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Actualizar versiones de API de un manifiesto de release
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1864,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+      <a href="../kubernetes_distros/" class="md-nav__link">
         
   
   
@@ -1887,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/library_charts/" class="md-nav__link">
+      <a href="../library_charts/" class="md-nav__link">
         
   
   
@@ -1910,7 +1892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+      <a href="../permissions_sql_storage_backend/" class="md-nav__link">
         
   
   
@@ -1933,7 +1915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/plugins/" class="md-nav__link">
+      <a href="../plugins/" class="md-nav__link">
         
   
   
@@ -1956,7 +1938,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/provenance/" class="md-nav__link">
+      <a href="../provenance/" class="md-nav__link">
         
   
   
@@ -1979,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/rbac/" class="md-nav__link">
+      <a href="../rbac/" class="md-nav__link">
         
   
   
@@ -2002,7 +1984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/registries/" class="md-nav__link">
+      <a href="../registries/" class="md-nav__link">
         
   
   
@@ -2025,7 +2007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/release_policy/" class="md-nav__link">
+      <a href="../release_policy/" class="md-nav__link">
         
   
   
@@ -2048,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+      <a href="../v2_v3_migration/" class="md-nav__link">
         
   
   
@@ -2071,7 +2053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/version_skew/" class="md-nav__link">
+      <a href="../version_skew/" class="md-nav__link">
         
   
   
@@ -4673,45 +4655,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#mantenedores-de-charts" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Mantenedores de charts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#usuarios-de-helm" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Usuarios de Helm
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+  <a href="#actualizar-versiones-de-api-de-un-manifiesto-de-release" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Actualizar versiones de API de un manifiesto de release
     </span>
   </a>
   
@@ -4739,7 +4703,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/kubernetes_apis.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +4712,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/kubernetes_apis.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,83 +4720,71 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>APIs de Kubernetes en desuso</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
-<ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
+<p>Kubernetes es un sistema impulsado por API y la API evoluciona con el tiempo para reflejar la comprensión cambiante del espacio de problemas. Esto es una práctica común en los sistemas y sus APIs. Una parte importante de la evolución de las APIs es una buena política y proceso de desaprobación para informar a los usuarios cómo se implementan los cambios en las APIs. En otras palabras, los consumidores de tu API necesitan saber con anticipación y en qué versión una API será eliminada o modificada. Esto elimina el elemento sorpresa y los cambios incompatibles para los consumidores.</p>
+<p>La <a href="https://kubernetes.io/docs/reference/using-api/deprecation-policy/">política de desaprobación de Kubernetes</a> documenta cómo Kubernetes maneja los cambios en sus versiones de API. La política de desaprobación establece el periodo de tiempo durante el cual se soportarán las versiones de API tras un anuncio de desaprobación. Por lo tanto, es importante estar al tanto de los anuncios de desaprobación y saber cuándo se eliminarán las versiones de API, para minimizar el impacto.</p>
+<p>Este es un ejemplo de un anuncio <a href="https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/">para la eliminación de versiones de API en desuso en Kubernetes 1.16</a> y se anunció unos meses antes del lanzamiento. Estas versiones de API ya habrían sido anunciadas como en desuso antes de esto. Esto muestra que existe una buena política que informa a los consumidores sobre el soporte de versiones de API.</p>
+<p>Las plantillas de Helm especifican un <a href="https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-groups">grupo de API de Kubernetes</a> al definir un objeto de Kubernetes, similar a un archivo manifiesto de Kubernetes. Se especifica en el campo <code>apiVersion</code> de la plantilla e identifica la versión de la API del objeto de Kubernetes. Esto significa que los usuarios de Helm y los mantenedores de charts deben estar atentos cuando las versiones de API de Kubernetes han quedado en desuso y en qué versión de Kubernetes serán eliminadas.</p>
+<h2 id="mantenedores-de-charts">Mantenedores de charts</h2>
+<p>Debe auditar sus charts buscando versiones de API de Kubernetes que estén en desuso o hayan sido eliminadas en una versión de Kubernetes. Las versiones de API que estén próximas a quedar fuera de soporte o que ya no estén soportadas deben actualizarse a la versión soportada y publicar una nueva versión del chart. La versión de la API se define por los campos <code>kind</code> y <code>apiVersion</code>. Por ejemplo, aquí hay una versión eliminada del objeto <code>Deployment</code> en Kubernetes 1.16:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1beta1
+kind: Deployment
+</code></pre>
+<h2 id="usuarios-de-helm">Usuarios de Helm</h2>
+<p>Debe auditar los charts que utiliza (similar a los <a href="#chart-maintainers">mantenedores de charts</a>) e identificar cualquier chart donde las versiones de API estén en desuso o eliminadas en una versión de Kubernetes. Para los charts identificados, debe buscar la última versión del chart (que tenga versiones de API soportadas) o actualizar el chart usted mismo.</p>
+<p>Además, también debe auditar cualquier chart desplegado (es decir, releases de Helm) verificando nuevamente si hay versiones de API en desuso o eliminadas. Esto se puede hacer obteniendo los detalles de un release usando el comando <code>helm get manifest</code>.</p>
+<p>La forma de actualizar un release de Helm a APIs soportadas depende de sus hallazgos:</p>
+<ol>
+<li>Si solo encuentra versiones de API en desuso:</li>
+<li>Realice un <code>helm upgrade</code> con una versión del chart que tenga versiones de API de Kubernetes soportadas</li>
+<li>Añada una descripción en la actualización, indicando que no se debe hacer rollback a una versión de Helm anterior a la actual</li>
+<li>Si encuentra alguna(s) versión(es) de API que han sido eliminadas en una versión de Kubernetes:</li>
+<li>Si está ejecutando una versión de Kubernetes donde las versiones de API aún están disponibles (por ejemplo, está en Kubernetes 1.15 y encontró APIs que serán eliminadas en Kubernetes 1.16):<ul>
+<li>Siga el procedimiento del punto 1</li>
 </ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
-$ mv alpine-0.1.0.tgz fantastic-charts/
+</li>
+<li>De lo contrario (por ejemplo, ya está ejecutando una versión de Kubernetes donde algunas versiones de API reportadas por <code>helm get manifest</code> ya no están disponibles):<ul>
+<li>Debe editar el manifiesto del release almacenado en el clúster para actualizar las versiones de API a APIs soportadas. Consulte <a href="#actualizar-versiones-de-api-de-un-manifiesto-de-release">Actualizar versiones de API de un manifiesto de release</a> para más detalles</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Nota: En todos los casos de actualización de un release de Helm con APIs soportadas, nunca debe hacer rollback del release a una versión anterior a la versión con las APIs soportadas.</p>
+<p>Recomendación: La mejor práctica es actualizar los releases que usan versiones de API en desuso a versiones de API soportadas antes de actualizar a un clúster de Kubernetes que elimine esas versiones de API.</p>
+</blockquote>
+<p>Si no actualiza un release como se sugiere anteriormente, tendrá un error similar al siguiente al intentar actualizar un release en una versión de Kubernetes donde su(s) versión(es) de API han sido eliminadas:</p>
+<pre><code>Error: UPGRADE FAILED: current release manifest contains removed kubernetes api(s)
+for this kubernetes version and it is therefore unable to build the kubernetes
+objects for performing the diff. error from kubernetes: unable to recognize &quot;&quot;:
+no matches for kind &quot;Deployment&quot; in version &quot;apps/v1beta1&quot;
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
-</code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
-</code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
-
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
-</code></pre>
-<p>Enlaces Útiles:</p>
+<p>Helm falla en este escenario porque intenta crear un diff entre el release desplegado actualmente (que contiene las APIs de Kubernetes que han sido eliminadas en esta versión de Kubernetes) y el chart que está pasando con las versiones de API actualizadas/soportadas. La razón subyacente del fallo es que cuando Kubernetes elimina una versión de API, la librería cliente de Go de Kubernetes ya no puede analizar los objetos en desuso y Helm falla al llamar a la librería. Desafortunadamente, Helm no puede recuperarse de esta situación y ya no puede gestionar ese release. Consulte <a href="#actualizar-versiones-de-api-de-un-manifiesto-de-release">Actualizar versiones de API de un manifiesto de release</a> para más detalles sobre cómo recuperarse de este escenario.</p>
+<h2 id="actualizar-versiones-de-api-de-un-manifiesto-de-release">Actualizar versiones de API de un manifiesto de release</h2>
+<p>El manifiesto es una propiedad del objeto release de Helm que se almacena en el campo data de un Secret (por defecto) o ConfigMap en el clúster. El campo data contiene un objeto comprimido con gzip y codificado en base 64 (hay una codificación base 64 adicional para un Secret). Hay un Secret/ConfigMap por versión/revisión de release en el espacio de nombres del release.</p>
+<p>Puede usar el plugin de Helm <a href="https://github.com/helm/helm-mapkubeapis">mapkubeapis</a> para realizar la actualización de un release a APIs soportadas. Consulte el readme para más detalles.</p>
+<p>Alternativamente, puede seguir estos pasos manuales para actualizar las versiones de API de un manifiesto de release. Dependiendo de su configuración, siga los pasos para el backend Secret o ConfigMap.</p>
 <ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
+<li>Obtenga el nombre del Secret o ConfigMap asociado con el release desplegado más reciente:</li>
+<li>Backend Secrets: <code>kubectl get secret -l owner=helm,status=deployed,name=&lt;release_name&gt; --namespace &lt;release_namespace&gt; | awk '{print $1}' | grep -v NAME</code></li>
+<li>Backend ConfigMap: <code>kubectl get configmap -l owner=helm,status=deployed,name=&lt;release_name&gt; --namespace &lt;release_namespace&gt; | awk '{print $1}' | grep -v NAME</code></li>
+<li>Obtenga los detalles del release desplegado más reciente:</li>
+<li>Backend Secrets: <code>kubectl get secret &lt;release_secret_name&gt; -n &lt;release_namespace&gt; -o yaml &gt; release.yaml</code></li>
+<li>Backend ConfigMap: <code>kubectl get configmap &lt;release_configmap_name&gt; -n &lt;release_namespace&gt; -o yaml &gt; release.yaml</code></li>
+<li>Haga una copia de seguridad del release por si necesita restaurar si algo sale mal:</li>
+<li><code>cp release.yaml release.bak</code></li>
+<li>En caso de emergencia, restaure: <code>kubectl apply -f release.bak -n &lt;release_namespace&gt;</code></li>
+<li>Decodifique el objeto release:</li>
+<li>Backend Secrets: <code>cat release.yaml | grep -oP '(?&lt;=release: ).*' | base64 -d | base64 -d | gzip -d &gt; release.data.decoded</code></li>
+<li>Backend ConfigMap: <code>cat release.yaml | grep -oP '(?&lt;=release: ).*' | base64 -d | gzip -d &gt; release.data.decoded</code></li>
+<li>Cambie las versiones de API de los manifiestos. Puede usar cualquier herramienta (por ejemplo, un editor) para hacer los cambios. Esto está en el campo <code>manifest</code> de su objeto release decodificado (<code>release.data.decoded</code>)</li>
+<li>Codifique el objeto release:</li>
+<li>Backend Secrets: <code>cat release.data.decoded | gzip | base64 | base64</code></li>
+<li>Backend ConfigMap: <code>cat release.data.decoded | gzip | base64</code></li>
+<li>Reemplace el valor de la propiedad <code>data.release</code> en el archivo del release desplegado (<code>release.yaml</code>) con el nuevo objeto release codificado</li>
+<li>Aplique el archivo al espacio de nombres: <code>kubectl apply -f release.yaml -n &lt;release_namespace&gt;</code></li>
+<li>Realice un <code>helm upgrade</code> con una versión del chart con versiones de API de Kubernetes soportadas</li>
+<li>Añada una descripción en la actualización, indicando que no se debe hacer rollback a una versión de Helm anterior a la actual </li>
 </ul>
 
 

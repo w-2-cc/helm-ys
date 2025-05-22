@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Cómo crear y trabajar con repositorios de charts de Helm.">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/topics/chart_repository/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../chart_tests/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>Guía de Repositorios de Charts - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#prerrequisitos" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              Guía de Repositorios de Charts
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1639,18 +1554,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -1666,7 +1583,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Topics
@@ -1680,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1703,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/advanced/" class="md-nav__link">
+      <a href="../advanced/" class="md-nav__link">
         
   
   
@@ -1726,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1746,10 +1663,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../topics/chart_repository/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Guía de Repositorios de Charts
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1760,6 +1697,186 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerrequisitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerrequisitos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-repositorio-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear un repositorio de charts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear un repositorio de charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-estructura-del-repositorio-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      La estructura del repositorio de charts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-archivo-de-indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      El archivo de índice
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alojar-repositorios-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alojar Repositorios de Charts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alojar Repositorios de Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Cloud Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloudsmith" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloudsmith
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jfrog-artifactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      JFrog Artifactory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo de GitHub Pages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-web-ordinarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores web ordinarios
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidor-de-repositorio-chartmuseum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidor de Repositorio ChartMuseum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registro-de-paquetes-de-gitlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registro de Paquetes de GitLab
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestionar-repositorios-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestionar Repositorios de Charts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestionar Repositorios de Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#almacenar-charts-en-tu-repositorio-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Almacenar charts en tu repositorio de charts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agregar-nuevos-charts-a-un-repositorio-existente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agregar nuevos charts a un repositorio existente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compartir-tus-charts-con-otros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compartir tus charts con otros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1772,7 +1889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_tests/" class="md-nav__link">
+      <a href="../chart_tests/" class="md-nav__link">
         
   
   
@@ -1795,7 +1912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts/" class="md-nav__link">
+      <a href="../charts/" class="md-nav__link">
         
   
   
@@ -1818,7 +1935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts_hooks/" class="md-nav__link">
+      <a href="../charts_hooks/" class="md-nav__link">
         
   
   
@@ -1841,7 +1958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+      <a href="../kubernetes_apis/" class="md-nav__link">
         
   
   
@@ -1864,7 +1981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+      <a href="../kubernetes_distros/" class="md-nav__link">
         
   
   
@@ -1887,7 +2004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/library_charts/" class="md-nav__link">
+      <a href="../library_charts/" class="md-nav__link">
         
   
   
@@ -1910,7 +2027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+      <a href="../permissions_sql_storage_backend/" class="md-nav__link">
         
   
   
@@ -1933,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/plugins/" class="md-nav__link">
+      <a href="../plugins/" class="md-nav__link">
         
   
   
@@ -1956,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/provenance/" class="md-nav__link">
+      <a href="../provenance/" class="md-nav__link">
         
   
   
@@ -1979,7 +2096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/rbac/" class="md-nav__link">
+      <a href="../rbac/" class="md-nav__link">
         
   
   
@@ -2002,7 +2119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/registries/" class="md-nav__link">
+      <a href="../registries/" class="md-nav__link">
         
   
   
@@ -2025,7 +2142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/release_policy/" class="md-nav__link">
+      <a href="../release_policy/" class="md-nav__link">
         
   
   
@@ -2048,7 +2165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+      <a href="../v2_v3_migration/" class="md-nav__link">
         
   
   
@@ -2071,7 +2188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/version_skew/" class="md-nav__link">
+      <a href="../version_skew/" class="md-nav__link">
         
   
   
@@ -4673,47 +4790,164 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#prerrequisitos" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Prerrequisitos
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#crear-un-repositorio-de-charts" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Crear un repositorio de charts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear un repositorio de charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-estructura-del-repositorio-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      La estructura del repositorio de charts
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#el-archivo-de-indice" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
+      El archivo de índice
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
+  <a href="#alojar-repositorios-de-charts" class="md-nav__link">
     <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Alojar Repositorios de Charts
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Alojar Repositorios de Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Cloud Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloudsmith" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloudsmith
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jfrog-artifactory" class="md-nav__link">
+    <span class="md-ellipsis">
+      JFrog Artifactory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-de-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplo de GitHub Pages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-web-ordinarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidores web ordinarios
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidor-de-repositorio-chartmuseum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Servidor de Repositorio ChartMuseum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registro-de-paquetes-de-gitlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Registro de Paquetes de GitLab
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestionar-repositorios-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestionar Repositorios de Charts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestionar Repositorios de Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#almacenar-charts-en-tu-repositorio-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Almacenar charts en tu repositorio de charts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agregar-nuevos-charts-a-un-repositorio-existente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agregar nuevos charts a un repositorio existente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compartir-tus-charts-con-otros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compartir tus charts con otros
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4739,7 +4973,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/chart_repository.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +4982,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/chart_repository.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,84 +4990,252 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>Guía de Repositorios de Charts</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
+<p>Esta sección explica cómo crear y trabajar con repositorios de charts de Helm. A
+alto nivel, un repositorio de charts es una ubicación donde se pueden almacenar
+y compartir charts empaquetados.</p>
+<p>El repositorio de charts de la comunidad distribuida de Helm se encuentra en
+<a href="https://artifacthub.io/packages/search?kind=0">Artifact Hub</a> y da la bienvenida
+a la participación. Pero Helm también hace posible crear y ejecutar tu propio
+repositorio de charts. Esta guía explica cómo hacerlo. Si estás considerando
+crear un repositorio de charts, es posible que quieras considerar usar un
+<a href="{{&lt; ref &quot;/docs/topics/registries.md&quot; &gt;}}">registro OCI</a> en su lugar.</p>
+<h2 id="prerrequisitos">Prerrequisitos</h2>
 <ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
+<li>Revisar la <a href="{{&lt; ref &quot;quickstart.md&quot; &gt;}}">Guía de Inicio Rápido</a></li>
+<li>Leer el documento de <a href="{{&lt; ref &quot;/docs/topics/charts.md&quot; &gt;}}">Charts</a></li>
 </ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
+<h2 id="crear-un-repositorio-de-charts">Crear un repositorio de charts</h2>
+<p>Un <em>repositorio de charts</em> es un servidor HTTP que aloja un archivo <code>index.yaml</code> y
+opcionalmente algunos charts empaquetados. Cuando estés listo para compartir tus
+charts, la forma preferida de hacerlo es subiéndolos a un repositorio de charts.</p>
+<p>A partir de Helm 2.2.0, se admite la autenticación SSL del lado del cliente a un
+repositorio. Otros protocolos de autenticación pueden estar disponibles como
+plugins.</p>
+<p>Debido a que un repositorio de charts puede ser cualquier servidor HTTP que pueda
+servir archivos YAML y tar y pueda responder a solicitudes GET, tienes una
+gran cantidad de opciones cuando se trata de alojar tu propio repositorio de
+charts. Por ejemplo, puedes usar un bucket de Google Cloud Storage (GCS), un
+bucket de Amazon S3, GitHub Pages, o incluso crear tu propio servidor web.</p>
+<h3 id="la-estructura-del-repositorio-de-charts">La estructura del repositorio de charts</h3>
+<p>Un repositorio de charts consiste en charts empaquetados y un archivo especial
+llamado <code>index.yaml</code> que contiene un índice de todos los charts en el
+repositorio. Frecuentemente, los charts que <code>index.yaml</code> describe también están
+alojados en el mismo servidor, al igual que los <a href="{{&lt; ref &quot;provenance.md&quot; &gt;}}">archivos de
+procedencia</a>.</p>
+<p>Por ejemplo, la estructura del repositorio <code>https://example.com/charts</code> podría
+verse así:</p>
+<pre><code>charts/
+  |
+  |- index.yaml
+  |
+  |- alpine-0.1.2.tgz
+  |
+  |- alpine-0.1.2.tgz.prov
+</code></pre>
+<p>En este caso, el archivo de índice contendría información sobre un chart, el
+chart Alpine, y proporcionaría la URL de descarga
+<code>https://example.com/charts/alpine-0.1.2.tgz</code> para ese chart.</p>
+<p>No es necesario que un paquete de chart esté ubicado en el mismo servidor que el
+archivo <code>index.yaml</code>. Sin embargo, hacerlo suele ser lo más fácil.</p>
+<h3 id="el-archivo-de-indice">El archivo de índice</h3>
+<p>El archivo de índice es un archivo yaml llamado <code>index.yaml</code>. Contiene algunos
+metadatos sobre el paquete, incluyendo el contenido del archivo <code>Chart.yaml</code> de
+un chart. Un repositorio de charts válido debe tener un archivo de índice. El
+archivo de índice contiene información sobre cada chart en el repositorio de
+charts. El comando <code>helm repo index</code> generará un archivo de índice basado en un
+directorio local dado que contiene charts empaquetados.</p>
+<p>Este es un ejemplo de un archivo de índice:</p>
+<pre><code class="language-yaml">apiVersion: v1
+entries:
+  alpine:
+    - created: 2016-10-06T16:23:20.499814565-06:00
+      description: Despliega un pod básico de Alpine Linux
+      digest: 99c76e403d752c84ead610644d4b1c2f2b453a74b921f422b9dcb8a7c8b559cd
+      home: https://helm.sh/helm
+      name: alpine
+      sources:
+      - https://github.com/helm/helm
+      urls:
+      - https://technosophos.github.io/tscharts/alpine-0.2.0.tgz
+      version: 0.2.0
+    - created: 2016-10-06T16:23:20.499543808-06:00
+      description: Despliega un pod básico de Alpine Linux
+      digest: 515c58e5f79d8b2913a10cb400ebb6fa9c77fe813287afbacf1a0b897cd78727
+      home: https://helm.sh/helm
+      name: alpine
+      sources:
+      - https://github.com/helm/helm
+      urls:
+      - https://technosophos.github.io/tscharts/alpine-0.1.0.tgz
+      version: 0.1.0
+  nginx:
+    - created: 2016-10-06T16:23:20.499543808-06:00
+      description: Crea un servidor HTTP nginx básico
+      digest: aaff4545f79d8b2913a10cb400ebb6fa9c77fe813287afbacf1a0b897cdffffff
+      home: https://helm.sh/helm
+      name: nginx
+      sources:
+      - https://github.com/helm/charts
+      urls:
+      - https://technosophos.github.io/tscharts/nginx-1.1.0.tgz
+      version: 1.1.0
+generated: 2016-10-06T16:23:20.499029981-06:00
+</code></pre>
+<h2 id="alojar-repositorios-de-charts">Alojar Repositorios de Charts</h2>
+<p>Esta parte muestra varias formas de servir un repositorio de charts.</p>
+<h3 id="google-cloud-storage">Google Cloud Storage</h3>
+<p>El primer paso es <strong>crear tu bucket de GCS</strong>. Llamaremos al nuestro
+<code>fantastic-charts</code>.</p>
+<p><img alt="Crear un Bucket de GCS" src="https://helm.sh/img/create-a-bucket.png" /></p>
+<p>A continuación, haz público tu bucket <strong>editando los permisos del bucket</strong>.</p>
+<p><img alt="Editar Permisos" src="https://helm.sh/img/edit-permissions.png" /></p>
+<p>Inserta esta línea para <strong>hacer público tu bucket</strong>:</p>
+<p><img alt="Hacer Público el Bucket" src="https://helm.sh/img/make-bucket-public.png" /></p>
+<p>¡Felicitaciones, ahora tienes un bucket de GCS vacío listo para servir charts!</p>
+<p>Puedes subir tu repositorio de charts usando la herramienta de línea de comandos
+de Google Cloud Storage, o usando la interfaz web de GCS. Un bucket público de
+GCS puede ser accedido vía HTTPS simple en esta dirección:
+<code>https://bucket-name.storage.googleapis.com/</code>.</p>
+<h3 id="cloudsmith">Cloudsmith</h3>
+<p>También puedes configurar repositorios de charts usando Cloudsmith. Lee más sobre
+repositorios de charts con Cloudsmith
+<a href="https://help.cloudsmith.io/docs/helm-chart-repository">aquí</a></p>
+<h3 id="jfrog-artifactory">JFrog Artifactory</h3>
+<p>De manera similar, también puedes configurar repositorios de charts usando JFrog
+Artifactory. Lee más sobre repositorios de charts con JFrog Artifactory
+<a href="https://www.jfrog.com/confluence/display/RTF/Helm+Chart+Repositories">aquí</a></p>
+<h3 id="ejemplo-de-github-pages">Ejemplo de GitHub Pages</h3>
+<p>De manera similar puedes crear un repositorio de charts usando GitHub Pages.</p>
+<p>GitHub te permite servir páginas web estáticas de dos maneras diferentes:</p>
+<ul>
+<li>Configurando un proyecto para servir el contenido de su directorio <code>docs/</code></li>
+<li>Configurando un proyecto para servir una rama particular</li>
+</ul>
+<p>Tomaremos el segundo enfoque, aunque el primero es igual de fácil.</p>
+<p>El primer paso será <strong>crear tu rama gh-pages</strong>. Puedes hacerlo localmente como:</p>
+<pre><code class="language-console">$ git checkout -b gh-pages
+</code></pre>
+<p>O vía navegador web usando el botón <strong>Branch</strong> en tu repositorio de GitHub:</p>
+<p><img alt="Crear rama de GitHub Pages" src="https://helm.sh/img/create-a-gh-page-button.png" /></p>
+<p>A continuación, querrás asegurarte de que tu <strong>rama gh-pages</strong> esté configurada
+como GitHub Pages, haz clic en <strong>Settings</strong> de tu repositorio y desplázate hacia
+abajo hasta la sección <strong>GitHub pages</strong> y configura como se muestra a
+continuación:</p>
+<p><img alt="Crear rama de GitHub Pages" src="https://helm.sh/img/set-a-gh-page.png" /></p>
+<p>Por defecto, <strong>Source</strong> generalmente se establece en <strong>rama gh-pages</strong>. Si esto
+no está establecido por defecto, entonces selecciónalo.</p>
+<p>Puedes usar un <strong>dominio personalizado</strong> allí si lo deseas.</p>
+<p>Y verifica que <strong>Enforce HTTPS</strong> esté marcado, para que se use <strong>HTTPS</strong> cuando
+se sirvan los charts.</p>
+<p>En tal configuración puedes usar tu rama predeterminada para almacenar tu código
+de charts, y la <strong>rama gh-pages</strong> como repositorio de charts, por ejemplo:
+<code>https://USERNAME.github.io/REPONAME</code>. El repositorio de demostración <a href="https://github.com/technosophos/tscharts">TS
+Charts</a> es accesible en
+<code>https://technosophos.github.io/tscharts/</code>.</p>
+<p>Si has decidido usar GitHub pages para alojar el repositorio de charts, revisa
+<a href="{{&lt; ref &quot;/docs/howto/chart_releaser_action.md&quot; &gt;}}">Chart Releaser Action</a>.
+Chart Releaser Action es un flujo de trabajo de GitHub Action para convertir un
+proyecto de GitHub en un repositorio de charts de Helm autoalojado, usando la
+herramienta CLI <a href="https://github.com/helm/chart-releaser">helm/chart-releaser</a>.</p>
+<h3 id="servidores-web-ordinarios">Servidores web ordinarios</h3>
+<p>Para configurar un servidor web ordinario para servir charts de Helm, solo
+necesitas hacer lo siguiente:</p>
+<ul>
+<li>Coloca tu índice y charts en un directorio que el servidor pueda servir</li>
+<li>Asegúrate de que el archivo <code>index.yaml</code> pueda ser accedido sin requisitos de
+  autenticación</li>
+<li>Asegúrate de que los archivos <code>yaml</code> se sirvan con el tipo de contenido
+  correcto (<code>text/yaml</code> o <code>text/x-yaml</code>)</li>
+</ul>
+<p>Por ejemplo, si quieres servir tus charts desde <code>$WEBROOT/charts</code>, asegúrate de
+que haya un directorio <code>charts/</code> en tu raíz web, y coloca el archivo de índice y
+los charts dentro de esa carpeta.</p>
+<h3 id="servidor-de-repositorio-chartmuseum">Servidor de Repositorio ChartMuseum</h3>
+<p>ChartMuseum es un servidor de Repositorio de Charts de Helm de código abierto
+escrito en Go (Golang), con soporte para backends de almacenamiento en la nube,
+incluyendo <a href="https://cloud.google.com/storage/">Google Cloud Storage</a>, <a href="https://aws.amazon.com/s3/">Amazon
+S3</a>, <a href="https://azure.microsoft.com/en-us/services/storage/blobs/">Microsoft Azure Blob
+Storage</a>, <a href="https://www.alibabacloud.com/product/oss">Alibaba
+Cloud OSS Storage</a>, <a href="https://developer.openstack.org/api-ref/object-store/">Openstack Object
+Storage</a>, <a href="https://cloud.oracle.com/storage">Oracle Cloud
+Infrastructure Object Storage</a>, <a href="https://cloud.baidu.com/product/bos.html">Baidu Cloud
+BOS Storage</a>, <a href="https://intl.cloud.tencent.com/product/cos">Tencent Cloud Object
+Storage</a>, <a href="https://www.digitalocean.com/products/spaces/">DigitalOcean
+Spaces</a>,
+<a href="https://min.io/">Minio</a>, y <a href="https://etcd.io/">etcd</a>.</p>
+<p>También puedes usar el servidor
+<a href="https://chartmuseum.com/docs/#using-with-local-filesystem-storage">ChartMuseum</a>
+para alojar un repositorio de charts desde un sistema de archivos local.</p>
+<h3 id="registro-de-paquetes-de-gitlab">Registro de Paquetes de GitLab</h3>
+<p>Con GitLab puedes publicar charts de Helm en el Registro de Paquetes de tu
+proyecto. Lee más sobre cómo configurar un repositorio de paquetes de helm con
+GitLab <a href="https://docs.gitlab.com/ee/user/packages/helm_repository/">aquí</a>.</p>
+<h2 id="gestionar-repositorios-de-charts">Gestionar Repositorios de Charts</h2>
+<p>Ahora que tienes un repositorio de charts, la última parte de esta guía explica
+cómo mantener los charts en ese repositorio.</p>
+<h3 id="almacenar-charts-en-tu-repositorio-de-charts">Almacenar charts en tu repositorio de charts</h3>
+<p>Ahora que tienes un repositorio de charts, vamos a subir un chart y un archivo de
+índice al repositorio. Los charts en un repositorio de charts deben estar
+empaquetados (<code>helm package chart-name/</code>) y versionados correctamente (siguiendo
+las directrices de <a href="https://semver.org/">SemVer 2</a>). </p>
+<p>Estos próximos pasos componen un flujo de trabajo de ejemplo, pero eres libre de
+usar cualquier flujo de trabajo que prefieras para almacenar y actualizar charts
+en tu repositorio de charts.</p>
+<p>Una vez que tengas un chart empaquetado listo, crea un nuevo directorio y mueve
+tu chart empaquetado a ese directorio.</p>
+<pre><code class="language-console">$ helm package docs/examples/alpine/
+$ mkdir fantastic-charts
 $ mv alpine-0.1.0.tgz fantastic-charts/
+$ helm repo index fantastic-charts --url https://fantastic-charts.storage.googleapis.com
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+<p>El último comando toma la ruta del directorio local que acabas de crear y la URL
+de tu repositorio de charts remoto y compone un archivo <code>index.yaml</code> dentro de
+la ruta del directorio dada.</p>
+<p>Ahora puedes subir el chart y el archivo de índice a tu repositorio de charts
+usando una herramienta de sincronización o manualmente. Si estás usando Google
+Cloud Storage, revisa este <a href="{{&lt; ref &quot;/docs/howto/chart_repository_sync_example.md&quot; &gt;}}">ejemplo de flujo de
+trabajo</a> usando el
+cliente gsutil. Para GitHub, simplemente puedes colocar los charts en la rama de
+destino apropiada.</p>
+<h3 id="agregar-nuevos-charts-a-un-repositorio-existente">Agregar nuevos charts a un repositorio existente</h3>
+<p>Cada vez que quieras agregar un nuevo chart a tu repositorio, debes regenerar el
+índice. El comando <code>helm repo index</code> reconstruirá completamente el archivo
+<code>index.yaml</code> desde cero, incluyendo solo los charts que encuentra localmente.</p>
+<p>Sin embargo, puedes usar la bandera <code>--merge</code> para agregar incrementalmente
+nuevos charts a un archivo <code>index.yaml</code> existente (una gran opción cuando
+trabajas con un repositorio remoto como GCS). Ejecuta <code>helm repo index --help</code>
+para aprender más.</p>
+<p>Asegúrate de subir tanto el archivo <code>index.yaml</code> revisado como el chart. Y si
+generaste un archivo de procedencia, súbelo también.</p>
+<h3 id="compartir-tus-charts-con-otros">Compartir tus charts con otros</h3>
+<p>Cuando estés listo para compartir tus charts, simplemente hazle saber a alguien
+cuál es la URL de tu repositorio.</p>
+<p>A partir de ahí, agregarán el repositorio a su cliente helm mediante el comando
+<code>helm repo add [NOMBRE] [URL]</code> con cualquier nombre que deseen usar para
+referenciar el repositorio.</p>
+<pre><code class="language-console">$ helm repo add fantastic-charts https://fantastic-charts.storage.googleapis.com
+$ helm repo list
+fantastic-charts    https://fantastic-charts.storage.googleapis.com
 </code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
+<p>Si los charts están respaldados por autenticación HTTP básica, también puedes
+proporcionar el nombre de usuario y la contraseña aquí:</p>
+<pre><code class="language-console">$ helm repo add fantastic-charts https://fantastic-charts.storage.googleapis.com --username my-username --password my-password
+$ helm repo list
+fantastic-charts    https://fantastic-charts.storage.googleapis.com
 </code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
-
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
-</code></pre>
-<p>Enlaces Útiles:</p>
-<ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
-</ul>
+<p><strong>Nota:</strong> Un repositorio no se agregará si no contiene un <code>index.yaml</code> válido.</p>
+<p><strong>Nota:</strong> Si tu repositorio de helm está usando, por ejemplo, un certificado
+autofirmado, puedes usar <code>helm repo add --insecure-skip-tls-verify ...</code> para
+omitir la verificación de CA.</p>
+<p>Después de eso, tus usuarios podrán buscar entre tus charts. Después de que
+hayas actualizado el repositorio, pueden usar el comando <code>helm repo update</code>
+para obtener la información más reciente de los charts.</p>
+<p><em>Internamente, los comandos <code>helm repo add</code> y <code>helm repo update</code> están
+obteniendo el archivo index.yaml y almacenándolos en el directorio
+<code>$XDG_CACHE_HOME/helm/repository/cache/</code>. Aquí es donde la función <code>helm
+search</code> encuentra información sobre los charts.</em> </p>
 
 
 

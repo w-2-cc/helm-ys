@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Describe cómo sincronizar tus repositorios de charts locales y remotos.">
+        <meta name="description" content="Describe cómo usar OCI para la distribución de Charts.">
       
       
       
-        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/howto/chart_repository_sync_example/">
+        <link rel="canonical" href="https://ingydotnet.github.io/helm-docs/es/topics/registries/">
       
       
-        <link rel="prev" href="../chart_releaser_action/">
+        <link rel="prev" href="../rbac/">
       
       
-        <link rel="next" href="../charts_tips_and_tricks/">
+        <link rel="next" href="../release_policy/">
       
       
       <link rel="icon" href="../../../static/images/helm-logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Sincronizar tu Repositorio de Charts - Helm Docs</title>
+        <title>Usar registros basados en OCI - Helm Docs</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#requisitos-previos" class="md-skip">
+        <a href="#soporte-oci-antes-de-v380" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Sincronizar tu Repositorio de Charts
+              Usar registros basados en OCI
             
           </span>
         </div>
@@ -1255,20 +1255,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1284,7 +1282,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Howto
@@ -1298,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_index/" class="md-nav__link">
+      <a href="../../howto/_index/" class="md-nav__link">
         
   
   
@@ -1321,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../chart_releaser_action/" class="md-nav__link">
+      <a href="../../howto/chart_releaser_action/" class="md-nav__link">
         
   
   
@@ -1341,30 +1339,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Sincronizar tu Repositorio de Charts
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../howto/chart_repository_sync_example/" class="md-nav__link">
         
   
   
@@ -1375,69 +1353,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requisitos Previos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
-    <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charts_tips_and_tricks/" class="md-nav__link">
+      <a href="../../howto/charts_tips_and_tricks/" class="md-nav__link">
         
   
   
@@ -1639,18 +1554,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -1666,7 +1583,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Topics
@@ -1680,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/_index/" class="md-nav__link">
+      <a href="../_index/" class="md-nav__link">
         
   
   
@@ -1703,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/advanced/" class="md-nav__link">
+      <a href="../advanced/" class="md-nav__link">
         
   
   
@@ -1726,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1749,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_repository/" class="md-nav__link">
+      <a href="../chart_repository/" class="md-nav__link">
         
   
   
@@ -1772,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/chart_tests/" class="md-nav__link">
+      <a href="../chart_tests/" class="md-nav__link">
         
   
   
@@ -1795,7 +1712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts/" class="md-nav__link">
+      <a href="../charts/" class="md-nav__link">
         
   
   
@@ -1818,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/charts_hooks/" class="md-nav__link">
+      <a href="../charts_hooks/" class="md-nav__link">
         
   
   
@@ -1841,7 +1758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_apis/" class="md-nav__link">
+      <a href="../kubernetes_apis/" class="md-nav__link">
         
   
   
@@ -1864,7 +1781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/kubernetes_distros/" class="md-nav__link">
+      <a href="../kubernetes_distros/" class="md-nav__link">
         
   
   
@@ -1887,7 +1804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/library_charts/" class="md-nav__link">
+      <a href="../library_charts/" class="md-nav__link">
         
   
   
@@ -1910,7 +1827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/permissions_sql_storage_backend/" class="md-nav__link">
+      <a href="../permissions_sql_storage_backend/" class="md-nav__link">
         
   
   
@@ -1933,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/plugins/" class="md-nav__link">
+      <a href="../plugins/" class="md-nav__link">
         
   
   
@@ -1956,7 +1873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/provenance/" class="md-nav__link">
+      <a href="../provenance/" class="md-nav__link">
         
   
   
@@ -1979,7 +1896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/rbac/" class="md-nav__link">
+      <a href="../rbac/" class="md-nav__link">
         
   
   
@@ -1999,10 +1916,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../topics/registries/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Usar registros basados en OCI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2013,6 +1950,201 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#soporte-oci-antes-de-v380" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soporte OCI antes de v3.8.0
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soporte OCI antes de v3.8.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-soporte-oci-antes-de-v380" class="md-nav__link">
+    <span class="md-ellipsis">
+      Habilitar soporte OCI antes de v3.8.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v380" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecación de características OCI y cambios de comportamiento con v3.8.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v370" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecación de características OCI y cambios de comportamiento con v3.7.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usar-un-registro-basado-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar un registro basado en OCI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usar un registro basado en OCI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repositorios-helm-en-registros-basados-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repositorios Helm en registros basados en OCI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-registros-alojados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar registros alojados
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-sigstore-para-firmar-charts-basados-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar sigstore para firmar charts basados en OCI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-para-trabajar-con-registros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos para trabajar con registros
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos para trabajar con registros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-subcomando-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      El subcomando registry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El subcomando registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-subcomando-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      El subcomando push
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-subcomandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Otros subcomandos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#especificar-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Especificar dependencias
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manifiesto-del-chart-de-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manifiesto del chart de Helm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrar-desde-repositorios-de-charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migrar desde repositorios de charts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2025,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/release_policy/" class="md-nav__link">
+      <a href="../release_policy/" class="md-nav__link">
         
   
   
@@ -2048,7 +2180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/v2_v3_migration/" class="md-nav__link">
+      <a href="../v2_v3_migration/" class="md-nav__link">
         
   
   
@@ -2071,7 +2203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../topics/version_skew/" class="md-nav__link">
+      <a href="../version_skew/" class="md-nav__link">
         
   
   
@@ -4673,45 +4805,177 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#requisitos-previos" class="md-nav__link">
+  <a href="#soporte-oci-antes-de-v380" class="md-nav__link">
     <span class="md-ellipsis">
-      Requisitos Previos
+      Soporte OCI antes de v3.8.0
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Soporte OCI antes de v3.8.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-soporte-oci-antes-de-v380" class="md-nav__link">
+    <span class="md-ellipsis">
+      Habilitar soporte OCI antes de v3.8.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v380" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecación de características OCI y cambios de comportamiento con v3.8.0
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v370" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deprecación de características OCI y cambios de comportamiento con v3.7.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usar-un-registro-basado-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar un registro basado en OCI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usar un registro basado en OCI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repositorios-helm-en-registros-basados-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repositorios Helm en registros basados en OCI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-registros-alojados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar registros alojados
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usar-sigstore-para-firmar-charts-basados-en-oci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usar sigstore para firmar charts basados en OCI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comandos-para-trabajar-con-registros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos para trabajar con registros
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comandos para trabajar con registros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-subcomando-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      El subcomando registry
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="El subcomando registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      logout
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-subcomando-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      El subcomando push
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-subcomandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Otros subcomandos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#especificar-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Especificar dependencias
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configurar-un-directorio-de-repositorio-de-charts-local" class="md-nav__link">
+  <a href="#manifiesto-del-chart-de-helm" class="md-nav__link">
     <span class="md-ellipsis">
-      Configurar un directorio de repositorio de charts local
+      Manifiesto del chart de Helm
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#genere-un-indexyaml-actualizado" class="md-nav__link">
+  <a href="#migrar-desde-repositorios-de-charts" class="md-nav__link">
     <span class="md-ellipsis">
-      Genere un index.yaml actualizado
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sincronice-sus-repositorios-de-charts-locales-y-remotos" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sincronice sus repositorios de charts locales y remotos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#actualizar-su-repositorio-de-chart" class="md-nav__link">
-    <span class="md-ellipsis">
-      Actualizar su repositorio de chart
+      Migrar desde repositorios de charts
     </span>
   </a>
   
@@ -4739,7 +5003,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
   
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/registries.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -4748,7 +5012,7 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
     
       
     
-    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/howto/chart_repository_sync_example.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/helm/helm-www/tree/main/content/en/docs/es/topics/registries.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
@@ -4756,84 +5020,176 @@ XXX no buttons for index.md pages yet. They need to point to _index.md
 
 
 
-  <h1>Sincronizar tu Repositorio de Charts</h1>
+  <h1>Usar registros basados en OCI</h1>
 
-<p><em>Nota: Este ejemplo es específico para un bucket de Google Cloud Storage (GCS)
-que sirve como repositorio de charts.</em></p>
-<h2 id="requisitos-previos">Requisitos Previos</h2>
+<p>A partir de Helm 3, puede usar registros de contenedores con soporte <a href="https://www.opencontainers.org/">OCI</a> para almacenar y compartir paquetes de charts. A partir de Helm v3.8.0, el soporte OCI está habilitado por defecto.</p>
+<h2 id="soporte-oci-antes-de-v380">Soporte OCI antes de v3.8.0</h2>
+<p>El soporte OCI pasó de experimental a disponibilidad general con Helm v3.8.0. En versiones anteriores de Helm, el soporte OCI se comportaba de manera diferente. Si estaba usando soporte OCI antes de Helm v3.8.0, es importante entender qué ha cambiado con las diferentes versiones de Helm.</p>
+<h3 id="habilitar-soporte-oci-antes-de-v380">Habilitar soporte OCI antes de v3.8.0</h3>
+<p>Antes de Helm v3.8.0, el soporte OCI es <em>experimental</em> y debe ser habilitado.</p>
+<p>Para habilitar el soporte experimental OCI para versiones de Helm anteriores a v3.8.0, establezca <code>HELM_EXPERIMENTAL_OCI</code> en su entorno. Por ejemplo:</p>
+<pre><code class="language-console">export HELM_EXPERIMENTAL_OCI=1
+</code></pre>
+<h3 id="deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v380">Deprecación de características OCI y cambios de comportamiento con v3.8.0</h3>
+<p>Con el lanzamiento de <a href="https://github.com/helm/helm/releases/tag/v3.8.0">Helm v3.8.0</a>, las siguientes características y comportamientos son diferentes de las versiones anteriores de Helm:</p>
 <ul>
-<li>Instalar la herramienta <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a>.
-  <em>Dependemos en gran medida de la funcionalidad de gsutil rsync</em></li>
-<li>Asegúrese de tener acceso al binario de Helm</li>
-<li><em>Opcional: Le recomendamos que establezca <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#top_of_page">control de versiones del
-  objeto</a>
-  en su bucket de GCS en caso de que elimine algo accidentalmente.</em></li>
+<li>Al establecer un chart en las dependencias como OCI, la versión puede establecerse como un rango como otras dependencias.</li>
+<li>Se pueden subir y usar etiquetas SemVer que incluyen información de compilación. Los registros OCI no soportan <code>+</code> como carácter de etiqueta. Helm traduce el <code>+</code> a <code>_</code> cuando se almacena como etiqueta.</li>
+<li>El comando <code>helm registry login</code> ahora sigue la misma estructura que la CLI de Docker para almacenar credenciales. La misma ubicación para la configuración del registro puede pasarse tanto a Helm como a la CLI de Docker.</li>
 </ul>
-<h2 id="configurar-un-directorio-de-repositorio-de-charts-local">Configurar un directorio de repositorio de charts local</h2>
-<p>Cree un directorio local como lo hicimos en <a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">la guía del repositorio de charts</a>
-, y coloque sus charts empaquetados en ese directorio.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ mkdir fantastic-charts
-$ mv alpine-0.1.0.tgz fantastic-charts/
+<h3 id="deprecacion-de-caracteristicas-oci-y-cambios-de-comportamiento-con-v370">Deprecación de características OCI y cambios de comportamiento con v3.7.0</h3>
+<p>El lanzamiento de <a href="https://github.com/helm/helm/releases/tag/v3.7.0">Helm v3.7.0</a> incluyó la implementación de <a href="https://github.com/helm/community/blob/main/hips/hip-0006.md">HIP 6</a> para soporte OCI. Como resultado, las siguientes características y comportamientos son diferentes de las versiones anteriores de Helm:</p>
+<ul>
+<li>El subcomando <code>helm chart</code> ha sido eliminado.</li>
+<li>La caché de charts ha sido eliminada (no hay <code>helm chart list</code> etc.).</li>
+<li>Las referencias a registros OCI ahora siempre están prefijadas con <code>oci://</code>.</li>
+<li>El nombre base de la referencia al registro debe <em>siempre</em> coincidir con el nombre del chart.</li>
+<li>La etiqueta de la referencia al registro debe <em>siempre</em> coincidir con la versión semántica del chart (es decir, no hay etiquetas <code>latest</code>).</li>
+<li>El tipo de medio de la capa del chart cambió de <code>application/tar+gzip</code> a <code>application/vnd.cncf.helm.chart.content.v1.tar+gzip</code>.</li>
+</ul>
+<h2 id="usar-un-registro-basado-en-oci">Usar un registro basado en OCI</h2>
+<h3 id="repositorios-helm-en-registros-basados-en-oci">Repositorios Helm en registros basados en OCI</h3>
+<p>Un <a href="{{&lt; ref &quot;chart_repository.md&quot; &gt;}}">repositorio Helm</a> es una forma de alojar y distribuir charts de Helm empaquetados. Un registro basado en OCI puede contener cero o más repositorios Helm y cada uno de esos repositorios puede contener cero o más charts de Helm empaquetados.</p>
+<h3 id="usar-registros-alojados">Usar registros alojados</h3>
+<p>Hay varios registros de contenedores alojados con soporte OCI que puede usar para sus charts de Helm. Por ejemplo:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/push-oci-artifact.html">Amazon ECR</a></li>
+<li><a href="https://docs.microsoft.com/azure/container-registry/container-registry-helm-repos#push-chart-to-registry-as-oci-artifact">Azure Container Registry</a></li>
+<li><a href="https://docs.docker.com/docker-hub/oci-artifacts/">Docker Hub</a></li>
+<li><a href="https://cloud.google.com/artifact-registry/docs/helm/manage-charts">Google Artifact Registry</a></li>
+<li><a href="https://goharbor.io/docs/main/administration/user-defined-oci-artifact/">Harbor</a></li>
+<li><a href="https://cloud.ibm.com/docs/Registry?topic=Registry-registry_helm_charts">IBM Cloud Container Registry</a></li>
+<li><a href="https://jfrog.com/help/r/jfrog-artifactory-documentation/helm-oci-repositories">JFrog Artifactory</a></li>
+</ul>
+<p>Siga la documentación del proveedor del registro de contenedores alojado para crear y configurar un registro con soporte OCI.</p>
+<p><strong>Nota:</strong> Puede ejecutar <a href="https://docs.docker.com/registry/deploying/">Docker Registry</a> o <a href="https://github.com/project-zot/zot"><code>zot</code></a>, que son registros basados en OCI, en su computadora de desarrollo. Ejecutar un registro basado en OCI en su computadora de desarrollo solo debe usarse para fines de prueba.</p>
+<h3 id="usar-sigstore-para-firmar-charts-basados-en-oci">Usar sigstore para firmar charts basados en OCI</h3>
+<p>El plugin <a href="https://github.com/sigstore/helm-sigstore"><code>helm-sigstore</code></a> permite usar <a href="https://sigstore.dev/">Sigstore</a> para firmar charts de Helm con las mismas herramientas utilizadas para firmar imágenes de contenedores. Esto proporciona una alternativa a la <a href="{{&lt; ref &quot;provenance.md&quot; &gt;}}">procedencia basada en GPG</a> soportada por los <a href="{{&lt; ref &quot;chart_repository.md&quot; &gt;}}">repositorios de charts</a> clásicos.</p>
+<p>Para más detalles sobre el uso del plugin <code>helm sigstore</code>, consulte <a href="https://github.com/sigstore/helm-sigstore/blob/main/USAGE.md">la documentación de ese proyecto</a>.</p>
+<h2 id="comandos-para-trabajar-con-registros">Comandos para trabajar con registros</h2>
+<h3 id="el-subcomando-registry">El subcomando <code>registry</code></h3>
+<h4 id="login"><code>login</code></h4>
+<p>iniciar sesión en un registro (con entrada manual de contraseña)</p>
+<pre><code class="language-console">$ helm registry login -u myuser localhost:5000
+Password:
+Login succeeded
 </code></pre>
-<h2 id="genere-un-indexyaml-actualizado">Genere un index.yaml actualizado</h2>
-<p>Utilice Helm para generar un archivo index.yaml actualizado pasando la ruta del
-directorio y la URL del repositorio remoto al comando <code>helm repo index</code> de esta
-manera:</p>
-<pre><code class="language-console">$ helm repo index fantastic-charts/ --url https://fantastic-charts.storage.googleapis.com
+<h4 id="logout"><code>logout</code></h4>
+<p>cerrar sesión de un registro</p>
+<pre><code class="language-console">$ helm registry logout localhost:5000
+Logout succeeded
 </code></pre>
-<p>Esto generará un archivo index.yaml actualizado y lo colocará en el directorio
-<code>fantastic-charts /</code>.</p>
-<h2 id="sincronice-sus-repositorios-de-charts-locales-y-remotos">Sincronice sus repositorios de charts locales y remotos</h2>
-<p>Sube el contenido del directorio a tu bucket de GCS ejecutando <code>scripts/sync-repo.sh</code>
-y pase el nombre del directorio local y el nombre del bucket de GCS.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ pwd
-/Users/me/code/go/src/helm.sh/helm
-$ scripts/sync-repo.sh fantastic-charts/ fantastic-charts
-Getting ready to sync your local directory (fantastic-charts/) to a remote repository at gs://fantastic-charts
-Verifying Prerequisites....
-Thumbs up! Looks like you have gsutil. Let's continue.
-Building synchronization state...
-Starting synchronization
-Would copy file://fantastic-charts/alpine-0.1.0.tgz to gs://fantastic-charts/alpine-0.1.0.tgz
-Would copy file://fantastic-charts/index.yaml to gs://fantastic-charts/index.yaml
-Are you sure you would like to continue with these changes?? [y/N]} y
-Building synchronization state...
-Starting synchronization
-Copying file://fantastic-charts/alpine-0.1.0.tgz [Content-Type=application/x-tar]...
-Uploading   gs://fantastic-charts/alpine-0.1.0.tgz:              740 B/740 B
-Copying file://fantastic-charts/index.yaml [Content-Type=application/octet-stream]...
-Uploading   gs://fantastic-charts/index.yaml:                    347 B/347 B
-Congratulations your remote chart repository now matches the contents of fantastic-charts/
+<h3 id="el-subcomando-push">El subcomando <code>push</code></h3>
+<p>Subir un chart a un registro basado en OCI:</p>
+<pre><code class="language-console">$ helm push mychart-0.1.0.tgz oci://localhost:5000/helm-charts
+Pushed: localhost:5000/helm-charts/mychart:0.1.0
+Digest: sha256:ec5f08ee7be8b557cd1fc5ae1a0ac985e8538da7c93f51a51eff4b277509a723
 </code></pre>
-<h2 id="actualizar-su-repositorio-de-chart">Actualizar su repositorio de chart</h2>
-<p>Querrá mantener una copia local del contenido de su repositorio de chart o usar
-<code>gsutil rsync</code> para copiar el contenido de su repositorio de chart remoto a un
-directorio local.</p>
-<p>Por ejemplo:</p>
-<pre><code class="language-console">$ gsutil rsync -d -n gs://bucket-name local-dir/    # la bandera -n hace un ensayo
-Building synchronization state...
-Starting synchronization
-Would copy gs://bucket-name/alpine-0.1.0.tgz to file://local-dir/alpine-0.1.0.tgz
-Would copy gs://bucket-name/index.yaml to file://local-dir/index.yaml
+<p>El subcomando <code>push</code> solo puede usarse contra archivos <code>.tgz</code> creados previamente usando <code>helm package</code>.</p>
+<p>Cuando se usa <code>helm push</code> para subir un chart a un registro OCI, la referencia debe estar prefijada con <code>oci://</code> y no debe contener el nombre base o la etiqueta.</p>
+<p>El nombre base de la referencia al registro se infiere del nombre del chart, y la etiqueta se infiere de la versión semántica del chart. Este es actualmente un requisito estricto.</p>
+<p>Ciertos registros requieren que el repositorio y/o el espacio de nombres (si se especifica) se creen de antemano. De lo contrario, se producirá un error durante la operación <code>helm push</code>.</p>
+<p>Si ha creado un <a href="{{&lt; ref &quot;provenance.md&quot; &gt;}}">archivo de procedencia</a> (<code>.prov</code>), y está presente junto al archivo <code>.tgz</code> del chart, se subirá automáticamente al registro al hacer <code>push</code>. Esto resulta en una capa extra en <a href="#helm-chart-manifest">el manifiesto del chart de Helm</a>.</p>
+<p>Los usuarios del <a href="https://github.com/chartmuseum/helm-push">plugin helm-push</a> (para subir charts a <a href="{{&lt; ref &quot;chart_repository.md&quot; &gt;}}#chartmuseum-repository-server">ChartMuseum</a>) pueden experimentar problemas, ya que el plugin entra en conflicto con el nuevo <code>push</code> incorporado. A partir de la versión v0.10.0, el plugin ha sido renombrado a <code>cm-push</code>.</p>
+<h3 id="otros-subcomandos">Otros subcomandos</h3>
+<p>El soporte para el protocolo <code>oci://</code> también está disponible en varios otros subcomandos. Aquí está la lista completa:</p>
+<ul>
+<li><code>helm pull</code></li>
+<li><code>helm show</code></li>
+<li><code>helm template</code></li>
+<li><code>helm install</code></li>
+<li><code>helm upgrade</code></li>
+</ul>
+<p>El nombre base (nombre del chart) de la referencia al registro <em>sí</em> se incluye para cualquier tipo de acción que implique la descarga del chart (vs. <code>helm push</code> donde se omite).</p>
+<p>Aquí hay algunos ejemplos de uso de los subcomandos listados anteriormente contra charts basados en OCI:</p>
+<pre><code>$ helm pull oci://localhost:5000/helm-charts/mychart --version 0.1.0
+Pulled: localhost:5000/helm-charts/mychart:0.1.0
+Digest: sha256:0be7ec9fb7b962b46d81e4bb74fdcdb7089d965d3baca9f85d64948b05b402ff
 
-$ gsutil rsync -d gs://bucket-name local-dir/       # realiza las acciones de copia
-Building synchronization state...
-Starting synchronization
-Copying gs://bucket-name/alpine-0.1.0.tgz...
-Downloading file://local-dir/alpine-0.1.0.tgz:                        740 B/740 B
-Copying gs://bucket-name/index.yaml...
-Downloading file://local-dir/index.yaml:                              346 B/346 B
+$ helm show all oci://localhost:5000/helm-charts/mychart --version 0.1.0
+apiVersion: v2
+appVersion: 1.16.0
+description: A Helm chart for Kubernetes
+name: mychart
+...
+
+$ helm template myrelease oci://localhost:5000/helm-charts/mychart --version 0.1.0
+---
+# Source: mychart/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+...
+
+$ helm install myrelease oci://localhost:5000/helm-charts/mychart --version 0.1.0
+NAME: myrelease
+LAST DEPLOYED: Wed Oct 27 15:11:40 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+...
+
+$ helm upgrade myrelease oci://localhost:5000/helm-charts/mychart --version 0.2.0
+Release &quot;myrelease&quot; has been upgraded. Happy Helming!
+NAME: myrelease
+LAST DEPLOYED: Wed Oct 27 15:12:05 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 2
+NOTES:
+...
 </code></pre>
-<p>Enlaces Útiles:</p>
-<ul>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/commands/rsync#description">gsutil rsync</a></li>
-<li><a href="{{&lt; relref path=&quot;/docs/topics/chart_repository.md&quot; lang=&quot;en&quot; &gt;}}">La Guía del Repositorio de Charts</a></li>
-<li>Documentación sobre <a href="https://cloud.google.com/storage/docs/gsutil/addlhelp/ObjectVersioningandConcurrencyControl#overview">Control de versiones de objetos y control de 
-  simultaneidad</a>
-  en Google Cloud Storage</li>
-</ul>
+<h2 id="especificar-dependencias">Especificar dependencias</h2>
+<p>Las dependencias de un chart pueden ser descargadas de un registro usando el subcomando <code>dependency update</code>.</p>
+<p>El <code>repository</code> para una entrada dada en <code>Chart.yaml</code> se especifica como la referencia al registro sin el nombre base:</p>
+<pre><code>dependencies:
+  - name: mychart
+    version: &quot;2.7.0&quot;
+    repository: &quot;oci://localhost:5000/myrepo&quot;
+</code></pre>
+<p>Esto descargará <code>oci://localhost:5000/myrepo/mychart:2.7.0</code> cuando se ejecute <code>dependency update</code>.</p>
+<h2 id="manifiesto-del-chart-de-helm">Manifiesto del chart de Helm</h2>
+<p>Ejemplo de manifiesto de chart de Helm como se representa en un registro
+(note los campos <code>mediaType</code>):</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;config&quot;: {
+    &quot;mediaType&quot;: &quot;application/vnd.cncf.helm.config.v1+json&quot;,
+    &quot;digest&quot;: &quot;sha256:8ec7c0f2f6860037c19b54c3cfbab48d9b4b21b485a93d87b64690fdb68c2111&quot;,
+    &quot;size&quot;: 117
+  },
+  &quot;layers&quot;: [
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.cncf.helm.chart.content.v1.tar+gzip&quot;,
+      &quot;digest&quot;: &quot;sha256:1b251d38cfe948dfc0a5745b7af5ca574ecb61e52aed10b19039db39af6e1617&quot;,
+      &quot;size&quot;: 2487
+    }
+  ]
+}
+</code></pre>
+<p>El siguiente ejemplo contiene un <a href="{{&lt; ref &quot;provenance.md&quot; &gt;}}">archivo de procedencia</a> (note la capa extra):</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;config&quot;: {
+    &quot;mediaType&quot;: &quot;application/vnd.cncf.helm.config.v1+json&quot;,
+    &quot;digest&quot;: &quot;sha256:8ec7c0f2f6860037c19b54c3cfbab48d9b4b21b485a93d87b64690fdb68c2111&quot;,
+    &quot;size&quot;: 117
+  },
+  &quot;layers&quot;: [
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.cncf.helm.chart.content.v1.tar+gzip&quot;,
+      &quot;digest&quot;: &quot;sha256:1b251d38cfe948dfc0a5745b7af5ca574ecb61e52aed10b19039db39af6e1617&quot;,
+      &quot;size&quot;: 2487
+    },
+    {
+      &quot;mediaType&quot;: &quot;application/vnd.cncf.helm.chart.provenance.v1.prov&quot;,
+      &quot;digest&quot;: &quot;sha256:3e207b409db364b595ba862cdc12be96dcdad8e36c59a03b7b3b61c946a5741a&quot;,
+      &quot;size&quot;: 643
+    }
+  ]
+}
+</code></pre>
+<h2 id="migrar-desde-repositorios-de-charts">Migrar desde repositorios de charts</h2>
 
 
 
