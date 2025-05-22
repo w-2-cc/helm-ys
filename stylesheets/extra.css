@@ -1,0 +1,76 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* Custom font styles for MkDocs */
+
+/* Paragraph text */
+p {
+  font-family: "Public Sans", Helvetica, Arial, sans-serif;
+}
+
+/* Headings */
+.md-header__topic, .md-typeset h1, .md-typeset h2,  .md-typeset h3, .md-typeset h4, .md-typeset h5, .md-typeset h6 {
+  font-family: "Space Mono", "Courier New", monaco, monospace;
+  color: var(--md-primary-fg-color);
+  font-weight: 700;
+}
+
+:root  > * {
+    --md-primary-fg-color:#091C84;
+    --md-primary-bg-color:#091C84;
+    --md-primary-fg-color--light:#1B53C2;
+}
+
+/* Page border */
+body {
+  border: 8px solid var(--md-primary-fg-color);
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-image: url("../static/images/topography.png");
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make content extend to the bottom of the page */
+.md-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.md-main__inner {
+  flex: 1;
+  display: flex;
+}
+
+.md-content {
+  background-color: white;
+  flex: 1;
+  min-height: 100%;
+}
+
+.md-header {
+    background-image: url("../static/images/topography.png");
+}
+
+/* Logo size */
+.md-header__button.md-logo img, 
+.md-header__button.md-logo svg {
+  width: 3rem;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+/* Logo hover effect */
+/* .md-header__button.md-logo:hover {
+  background-color: rgba(249,158,172,0.5);
+} */
+
+.md-header__button.md-logo:hover img,
+.md-header__button.md-logo:hover svg {
+  transform: rotate(180deg);
+}
+
+/* .md-header {
+    height: 100px;
+} */
